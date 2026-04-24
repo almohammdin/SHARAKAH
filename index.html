@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مهندس الشراكة — نايف المحمدي</title>
+<title>حاسبة الشراكات، نايف المحمدي</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,8 +40,6 @@ header{background:linear-gradient(180deg,#0A1520 0%,var(--surface) 100%);border-
 .hdr-text-title{font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.3px}
 .hdr-text-sub{font-size:11px;color:var(--muted);margin-top:1px}
 .hdr-spacer{flex:1}
-.hdr-tag{background:var(--gold-dim);border:1px solid var(--gold-bd);color:var(--gold);font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;display:none}
-@media(min-width:480px){.hdr-tag{display:block}}
 
 /* ─── STEP NAV ─── */
 .step-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 0}
@@ -199,6 +197,9 @@ input[type=number]::-webkit-inner-spin-button{opacity:.5}
 .agr-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;font-size:13px;line-height:2.1;color:var(--text-mid);white-space:pre-wrap;max-height:520px;overflow-y:auto;font-family:var(--font)}
 .agr-acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .agr-acts .btn{flex:1;min-width:120px}
+.copy-status{display:none;margin-top:10px;padding:10px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;line-height:1.6;background:#EAF8EF;color:#246B3C;border:1px solid #9BD3AC}
+.copy-status.show{display:block}
+.copy-status.err{display:block;background:#FFF7E6;color:#7A4B00;border-color:#F0C36A}
 
 
 /* ─── BRAND IDENTITY ─── */
@@ -226,6 +227,13 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 .step-dot{background:#FFFDF8;color:#7B6B5D;border-color:#DCCDAA}.step-name{color:#7B6B5D}.step-line{background:#DCCDAA}
 .agr-box{color:#3A2A20}.notice-info{background:#EEF5FF;color:#28547A;border-color:#B7D4EA}.notice-gold{background:#FFF6DD;color:#6B4C12;border-color:#E5C97A}.notice-warn{background:#FFF7E6;color:#7A4B00;border-color:#F0C36A}.notice-ok{background:#EAF8EF;color:#246B3C;border-color:#9BD3AC}
 .brand-footer{background:#1E080D;border-top:1px solid var(--gold-bd);padding:30px 20px;color:#fff;text-align:center;position:relative;overflow:hidden}.brand-footer-inner{display:flex;flex-direction:column;align-items:center;gap:7px}.footer-logo{width:42px;height:42px;border-radius:10px;background:var(--gold);color:#1E080D;display:flex;align-items:center;justify-content:center;font-weight:800}.footer-name-main{font-weight:700;color:#fff}.footer-role-main{font-size:12px;color:var(--gold-lt)}.footer-social-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:6px}.footer-social-row a{color:#BDAA96;text-decoration:none;font-size:12px}.footer-social-row a:hover{color:var(--gold)}
+
+
+.contract-guidance{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.contract-guidance .notice{margin-bottom:0}
+.copy-status{margin-top:10px;font-size:12px;color:#246B3C;background:#EAF8EF;border:1px solid #9BD3AC;border-radius:10px;padding:9px 12px;display:none}
+.copy-status.show{display:block}.copy-status.err{display:block;color:#7A1D1D;background:#FDECEC;border-color:#E5A9A2}
+
 
 /* ─── HIDDEN ─── */
 .hide{display:none!important}
@@ -258,6 +266,25 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 /* ─── FOOTER TAG ─── */
 .footer-tag{text-align:center;padding:20px;font-size:11px;color:var(--muted)}
 .footer-tag a{color:var(--gold);text-decoration:none}
+
+
+/* ─── MOBILE POLISH ─── */
+@media(max-width:375px){
+  .wrap{padding:0 10px}
+  main{padding:18px 0 60px}
+  .ph-title{font-size:18px;line-height:1.35}
+  .ph-sub{font-size:12px;margin-bottom:18px}
+  .card,.party-body,.chart-box,.res-party,.kpi,.agr-box{padding:13px}
+  .type-grid,.profile-grid,.kpi-grid,.chart-row,.res-contrib,.grid2,.grid3,.exist-kpi-row{grid-template-columns:1fr!important}
+  .type-btn{padding:13px 10px}
+  .type-icon{font-size:24px}
+  .nav-row{gap:8px;margin-top:16px;padding-top:14px}
+  .nav-row .btn{width:100%;max-width:none;padding:10px 12px;font-size:12px}
+  .step-bar{padding:10px 0}.step-dot{width:26px;height:26px;font-size:11px}.step-name{font-size:10px}.step-line{width:16px}
+  .kpi-val{font-size:18px}.res-pct{font-size:22px}.agr-box{font-size:12px;line-height:1.9;max-height:460px}
+  .exist-live{padding:12px}.author-top{padding:22px 14px 16px}.social-row,.footer-social-row{gap:10px}
+}
+
 </style>
 </head>
 <body>
@@ -291,20 +318,20 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <header>
   <div class="wrap hdr-inner">
     <div>
-      <div class="hdr-text-title">مهندس الشراكة</div>
-      <div class="hdr-text-sub">أداة تقدير الحصص ومسودة بنود التعاقد</div>
+      <div class="hdr-text-title">حاسبة الشراكات</div>
+      <div class="hdr-text-sub">أداة ذكية لتوزيع الحصص وبناء اتفاق الشراكة</div>
     </div>
     <div class="hdr-spacer"></div>
-    <div class="hdr-tag">نايف المحمدي</div>
+    
   </div>
 </header>
 <!-- INTRO -->
 <section class="intro-section">
   <div class="wrap">
     <div class="intro-box">
-      <p class="intro-quote">قال الله تعالى: ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنْتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ﴾</p>
-      <p class="intro-quote">وقال النبي ﷺ: “أنا ثالث الشريكين ما لم يخن أحدهما صاحبه”</p>
-      <p>هذه الأداة تساعد في ترتيب الفهم بين الأطراف وإظهار أبرز البنود بصورة أولية، وينصح بالاستعانة بمحامٍ موثوق لصياغة عقد نهائي بناءً على هذه البنود.</p>
+      <p class="intro-quote">قال تعالى: ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنْتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ﴾ سورة البقرة: 282.</p>
+      <p class="intro-quote">وقال الله تعالى في الحديث القدسي: أنا ثالثُ الشريكين ما لم يخن أحدهما صاحبه. أخرجه أبو داود (3383).</p>
+      <p>هذه الأداة هي جسر العبور من التفاهمات الودية إلى الأطر المؤسسية؛ تمنحكم نظرة أفضل وأشمل للحصص وصياغةً رصينة لأبرز بنود التعاقد، لتكون الركيزة المهنية التي ينطلق منها محاميكم المختص لصياغة عقدكم النهائي.</p>
     </div>
   </div>
 </section>
@@ -320,13 +347,13 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 </div>
 
 <!-- MAIN -->
-<main>
+<main id="tool-container">
 <div class="wrap">
 
 <!-- ═══════════════ PHASE 1 ═══════════════ -->
 <div class="phase active" id="ph1">
   <div class="ph-title">ما نوع الحالة / الصفقة؟</div>
-  <div class="ph-sub">اختر الحالة الأقرب — هذه تصنيفات عملية للحالات وليست أشكالاً قانونية نهائية</div>
+  <div class="ph-sub">اختر الحالة الأقرب، هذه تصنيفات عملية للحالات وليست أشكالاً قانونية نهائية</div>
   <div class="type-grid" id="typeGrid"></div>
   <div id="typeHint" class="notice notice-gold hide"></div>
   <div class="notice notice-info">هذه التصنيفات تمثل حالات شراكة وليست أشكالاً قانونية نهائية. الشكل القانوني المناسب يُحدد لاحقاً وفق نظام الشركات مثل: شركة ذات مسؤولية محدودة أو شركة مساهمة مبسطة.</div>
@@ -339,7 +366,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <!-- ═══════════════ PHASE 2 ═══════════════ -->
 <div class="phase" id="ph2">
   <div class="ph-title">الأطراف والمساهمات</div>
-  <div class="ph-sub">أدخل بيانات كل طرف وما يقدمه — الحصص تُحسب تلقائياً</div>
+  <div class="ph-sub">أدخل بيانات كل طرف وما يقدمه، الحصص تُحسب تلقائياً</div>
 
   <div class="card">
     <div class="card-head">معلومات المشروع</div>
@@ -351,12 +378,12 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
       <div class="fg">
         <label>الهيكل القانوني المقترح</label>
         <select id="legalStruct">
-          <option value="">— يُحدد لاحقاً —</option>
+          <option value="">، يُحدد لاحقاً ،</option>
           <option value="llc">شركة ذات مسؤولية محدودة</option>
           <option value="simplified">شركة مساهمة مبسطة</option>
           <option value="solidarity">شركة تضامن</option>
           <option value="commandite">شركة توصية بسيطة</option>
-          <option value="mudaraba">عقد مضاربة شرعي</option>
+          <option value="mudaraba">عقد مضاربة</option>
           <option value="jv">اتفاق مشاركة JV غير مسجّل</option>
           <option value="deal">صفقة تجارية محددة</option>
         </select>
@@ -366,7 +393,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   </div>
 
   <div id="mudarabaHint" class="notice notice-gold hide">
-    🤝 في المضاربة الشرعية: رب المال يقدّم المال فقط، والمضارب يقدّم العمل فقط. الخسارة المالية على رب المال وحده، والربح يُوزَّع بنسبة مئوية متفق عليها — لا بمبلغ مقطوع.
+    🤝 في المضاربة: رب المال يقدّم المال فقط، والمضارب يقدّم العمل فقط. الخسارة المالية على رب المال وحده، والربح يُوزَّع بنسبة مئوية متفق عليها، لا بمبلغ مقطوع.
   </div>
 
   <div id="partyList"></div>
@@ -398,6 +425,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   <!-- Startup panel -->
   <div class="card hide" id="startupCard">
     <div class="card-head">🚀 جولة الاستثمار</div>
+    <div class="notice notice-info" style="margin-bottom:14px">هذه الفقرة تساعدك في فهم العلاقة بين مبلغ الاستثمار ونسبة المستثمر وقيمة المشروع. أدخل أي قيمتين واضحة وسيتم احتساب القيم الأخرى تلقائياً قدر الإمكان.</div>
     <div class="grid2">
       <div class="fg">
         <label>قيمة الاستثمار الجديد</label>
@@ -447,7 +475,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
     <!-- LIVE PANEL -->
     <div id="existLivePanel" class="exist-live hide" style="margin-top:16px">
-      <div class="exist-live-title">📊 ملخص الصفقة — يتحدث مع الأرقام</div>
+      <div class="exist-live-title">📊 ملخص الصفقة، يتحدث مع الأرقام</div>
       <div class="exist-kpi-row">
         <div class="exist-kpi">
           <div class="exist-kpi-lbl">قيمة الشركة قبل الدخول</div>
@@ -495,7 +523,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   <!-- Mudaraba panel -->
   <div class="card hide" id="mudCard">
     <div class="card-head">🤝 نسب الربح في المضاربة</div>
-    <div class="notice notice-gold" style="margin-bottom:14px">في المضاربة: الربح بالنسبة المتفق عليها — ليس بالنقاط. حدد النسبة مباشرة.</div>
+    <div class="notice notice-gold" style="margin-bottom:14px">في المضاربة: الربح بالنسبة المتفق عليها، ليس بالنقاط. حدد النسبة مباشرة.</div>
     <div class="grid2">
       <div class="fg">
         <label>حصة رب المال من الربح (%)</label>
@@ -508,27 +536,46 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
     </div>
   </div>
 
-  <!-- Vesting -->
-  <div class="card" id="vestCard">
-    <div class="card-head">⏳ الاستحقاق التدريجي (Vesting)</div>
+  <!-- Dispute Resolution -->
+  <div class="card" id="disputeCard">
+    <div class="card-head">⚖️ حل الخلافات</div>
+    <div class="notice notice-info" style="margin-bottom:14px">ابدأ بتحديد هل يرغب الأطراف في محاولة ودية أولاً، ثم اختر المسار الذي يعتمدونه عند تعذر الحل.</div>
     <div class="grid2">
       <div class="fg">
-        <label>تفعيل الاستحقاق التدريجي؟</label>
-        <select id="vestOn"><option value="yes">نعم — مُفعَّل</option><option value="no">لا</option></select>
+        <label>تفعيل الحل الودي أولاً؟</label>
+        <select id="amicableOn" onchange="G.updDisputeFields()">
+          <option value="yes">نعم</option>
+          <option value="no">لا</option>
+        </select>
+        <div class="help">الحل الودي خطوة مستقلة قبل التحكيم أو القضاء أو أي آلية أخرى.</div>
       </div>
-      <div class="fg">
-        <label>مدة الاستحقاق الكاملة (سنوات)</label>
-        <input type="number" id="vestYrs" min="1" max="10" value="4">
+      <div class="fg" id="amicableDaysWrap">
+        <label>مدة المحاولة الودية بالأيام</label>
+        <input type="number" lang="en" id="amicableDays" min="0" placeholder="مثال: 30">
+        <div class="help">اتركها فارغة إذا لم يتفق الأطراف على مدة محددة.</div>
       </div>
     </div>
     <div class="grid2" style="margin-top:10px">
       <div class="fg">
-        <label>فترة الكليف (أشهر)</label>
-        <input type="number" id="cliffMo" min="0" max="24" value="12">
+        <label>المسار عند تعذر الحل</label>
+        <select id="disputeMethod" onchange="G.updDisputeFields()">
+          <option value="">يُحدد لاحقاً</option>
+          <option value="arbitration">التحكيم</option>
+          <option value="court">القضاء المختص</option>
+          <option value="custom">آلية أخرى يتفق عليها الأطراف</option>
+        </select>
+        <div class="help">اختر الجهة أو الطريقة التي ينتقل إليها الأطراف إذا لم تنجح المحاولة الودية.</div>
       </div>
       <div class="fg">
         <label>ملاحظة إضافية</label>
-        <input type="text" id="vestNote" placeholder="اختياري — مثال: إذا تخارج قبل سنة...">
+        <input type="text" id="disputeNote" placeholder="اختياري">
+      </div>
+    </div>
+    <div id="disputeExtra" class="grid2 dispute-extra hide" style="margin-top:10px">
+      <div class="fg full">
+        <label>تفاصيل التحكيم أو الجهة</label>
+        <input type="text" id="disputeDetails" placeholder="مثال: عبدالله بن محمد / مدير شركة كذا / المحكمة التجارية المختصة">
+        <div class="help">اكتب اسم الشخص أو الأشخاص، أو صفتهم، أو أي تفصيل يرغب الأطراف في اعتماده. مثلا: تحديد اسم محدد: عبدالله بن محمد، أو تحديد صفة مثل مدير شركة كذا.</div>
       </div>
     </div>
   </div>
@@ -579,15 +626,17 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   <div class="notice notice-warn">⚠️ هذه مسودة أولية للتفاوض وليست عقد أو اتفاق نهائي وينصح بعد إعدادها استشارة محامي مختص.</div>
 
   <div class="agr-box" id="agrBox"></div>
+  <div id="contractGuidance" class="contract-guidance"></div>
 
   <div class="agr-acts">
     <button class="btn btn-gold" onclick="G.copyAgr()">📋 نسخ النص</button>
     <button class="btn btn-outline" onclick="G.printAgr()">🖨️ طباعة</button>
     <button class="btn btn-ghost" onclick="G.go(4)">← العودة</button>
   </div>
+  <div id="copyStatus" class="copy-status" aria-live="polite"></div>
 
   <div class="nav-row" style="border-top:none;padding-top:0;margin-top:14px">
-    <button class="btn btn-ghost" style="font-size:12px" onclick="G.go(1)">↺ مشروع جديد</button>
+    <button class="btn btn-ghost" style="font-size:12px" onclick="G.newProject()">↺ مشروع جديد</button>
   </div>
 </div>
 
@@ -598,7 +647,6 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
     <img class="footer-naif-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAACHCAYAAAA/UEQiAAAs2UlEQVR42u19e3xM19r/MzOZSSIJctGIKEmRlibiWtUqSqWUuvUoVT2U0mqDvhwqWqXa+h3lKD3UKXWvHsVpKWm1pcqp0J/WJfSVkhKXXOQmcpvb3vt5/9jzrFl7MolxmSRifT+f+QgyM3uvvZ7973fsIWAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg==" alt="نايف المحمدي" onerror="this.style.display='none'">
     <div class="footer-name-main">نايف المحمدي</div>
     <div class="footer-role-main">مستشار الحوكمة وتطوير الأعمال</div>
-    <div class="footer-sub-main">عضو مؤسس وعضو مجلس الإدارة · جمعية ملاك المطاعم والمقاهي</div>
     <div class="footer-social-row">
       <a href="https://x.com/almohammdin" target="_blank">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>
@@ -613,11 +661,11 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
         @almohammdin
       </a>
       <a href="https://www.snapchat.com/@almohammdin" target="_blank">
-        <span class="snap-mark">SC</span>
+        <i class="fa-brands fa-snapchat" style="font-size:15px"></i>
         @almohammdin
       </a>
     </div>
-    <div class="footer-legal">هذه الأداة تعليمية ومساعدة — لا تُغني عن استشارة محامٍ مختص لصياغة العقد النهائي. © نايف المحمدي</div>
+    <div class="footer-legal">هذه الأداة تعليمية ومساعدة، لا تُغني عن استشارة محامٍ مختص لصياغة العقد النهائي. © نايف المحمدي</div>
   </div>
 </footer>
 
@@ -637,7 +685,7 @@ const G = {
     { id:'fnb',     icon:'⚙️', name:'مشروع تشغيلي', desc:'إدارة وتشغيل يومي: متجر، مطعم، فندق، مقاولات' },
     { id:'deal',    icon:'🏗️', name:'صفقة تجارية محددة', desc:'فرصة مؤقتة تنتهي بانتهاء الصفقة' },
     { id:'existing',icon:'🏢', name:'دخول شريك في شركة قائمة', desc:'تقييم شركة قائمة وإدخال شريك جديد' },
-    { id:'mudaraba',icon:'🤝', name:'عقد مضاربة شرعي', desc:'رب مال يقدم المال ومضارب يقدم العمل' },
+    { id:'mudaraba',icon:'🤝', name:'عقد مضاربة', desc:'رب مال يقدم المال ومضارب يقدم العمل' },
   ],
 
   STEPS: ['نوع الحالة','الأطراف','الإعدادات','النتائج','بنود التعاقد'],
@@ -666,11 +714,12 @@ const G = {
     this.renderTypes();
     this.renderProfiles();
     this.initWeights();
-    // default parties
-    this.addParty({ name:'الطرف الأول', cap:'شريك ممول', cash:100000, assets:0, ip:0, net:0, work:'no', fmv:0, dur:12, role:'silent', note:'ممّول رئيسي' });
-    this.addParty({ name:'الطرف الثاني', cap:'شريك مدير', cash:0, assets:20000, ip:0, net:0, work:'full', fmv:12000, dur:12, role:'manager', note:'يتولى الإدارة والتشغيل' });
+    // default parties: لا نفترض مساهمات أو ملاحظات مسبقة
+    this.addParty({ name:'الطرف الأول' });
+    this.addParty({ name:'الطرف الثاني' });
     document.getElementById('btnAddParty').addEventListener('click', () => this.addParty());
     this.normalizeNumberInputs();
+    this.updDisputeFields();
   },
 
   /* ─── NAVIGATION ─── */
@@ -682,7 +731,8 @@ const G = {
     this.phase = n;
     this.updSteps();
     document.getElementById('progBar').style.width = (n * 20) + '%';
-    window.scrollTo({ top: 0, behavior:'smooth' });
+    const activePhase = document.getElementById('ph' + n);
+    (activePhase || document.getElementById('tool-container'))?.scrollIntoView({ behavior:'smooth', block:'start' });
   },
 
   updSteps() {
@@ -752,7 +802,6 @@ const G = {
     show('startupCard',  t === 'startup');
     show('existCard',    t === 'existing');
     show('mudCard',      t === 'mudaraba');
-    show('vestCard',     t === 'startup');
     this.renderParties();
     this.normalizeNumberInputs();
   },
@@ -770,9 +819,12 @@ const G = {
       net:  d.net  || 0,
       work: d.work || 'no',
       fmv:  d.fmv  || 0,
-      dur:  d.dur  || 12,
+      dur:  d.dur  || 0,
       role: d.role || 'silent',
-      vesting: d.vesting || 'yes',
+      vesting: d.vesting || 'no',
+      vestYrs: d.vestYrs || '',
+      cliffMo: d.cliffMo || '',
+      vestNote: d.vestNote || '',
       paid: d.paid || 0,
       note: d.note || ''
     });
@@ -783,6 +835,30 @@ const G = {
     this.parties = this.parties.filter(p => p.id !== id);
     this.renderParties();
   },
+  inputVal(v) {
+    return (v === undefined || v === null || Number(v) === 0 || v === '') ? '' : v;
+  },
+
+  partyOrdinal(i) {
+    const ord = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر'];
+    return 'الطرف ' + (ord[i] || String(i + 1));
+  },
+
+  partyRef(p, i) {
+    const name = (p?.name || '').trim();
+    return `${this.partyOrdinal(i)}${name ? ' (' + name + ')' : ''}`;
+  },
+
+  updDisputeFields() {
+    const amicableOn = document.getElementById('amicableOn')?.value || 'yes';
+    const daysWrap = document.getElementById('amicableDaysWrap');
+    if (daysWrap) daysWrap.classList.toggle('hide', amicableOn !== 'yes');
+    const m = document.getElementById('disputeMethod')?.value || '';
+    const ex = document.getElementById('disputeExtra');
+    // حقل التفاصيل يظهر فقط مع التحكيم أو آلية أخرى — القضاء لا يحتاج تفاصيل
+    if (ex) ex.classList.toggle('hide', !['arbitration','custom'].includes(m));
+  },
+
 
   renderParties() {
     const isMud = this.type === 'mudaraba';
@@ -824,7 +900,7 @@ const G = {
             </div>
             <div class="fg">
               <label>الصفة</label>
-              <select onchange="G.sp(${p.id},'cap',this.value)">${capHtml}</select>
+              <select onchange="G.sp(${p.id},'cap',this.value); G.renderParties(); G.normalizeNumberInputs();">${capHtml}</select>
             </div>
           </div>
 
@@ -833,52 +909,52 @@ const G = {
             ${isMudRab ? `
             <div class="fg">
               <label>رأس المال (ريال)</label>
-              <input type="number" min="0" value="${p.cash}" placeholder="0" onchange="G.sp(${p.id},'cash',+this.value)">
+              <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',+this.value)">
             </div>` : `
             <div class="fg">
               <label>الراتب السوقي العادل</label>
-              <input type="number" lang="en" min="0" value="${p.fmv}" placeholder="12000" onchange="G.sp(${p.id},'fmv',+this.value)">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="12000" onchange="G.sp(${p.id},'fmv',+this.value)">
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg">
               <label>المبلغ الشهري المستلم فعلياً</label>
-              <input type="number" lang="en" min="0" value="${p.paid||0}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
               <div class="help">إذا كان الراتب السوقي العادل 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يدخل كقيمة جهد غير مدفوعة.</div>
             </div>
             <div class="fg full">
               <label>مدة العمل (أشهر)</label>
-              <input type="number" lang="en" min="1" value="${p.dur}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
             </div>`}
           </div>
           ` : `
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
               <label>التمويل النقدي (ريال)</label>
-              <input type="number" min="0" value="${p.cash}" placeholder="0" onchange="G.sp(${p.id},'cash',+this.value)">
+              <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',+this.value)">
             </div>
             <div class="fg">
               <label>قيمة الأصول العينية (ريال)</label>
-              <input type="number" min="0" value="${p.assets}" placeholder="0" onchange="G.sp(${p.id},'assets',+this.value)">
+              <input type="number" min="0" value="${this.inputVal(p.assets)}" placeholder="0" onchange="G.sp(${p.id},'assets',+this.value)">
             </div>
           </div>
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
               <label>ملكية فكرية / علامة تجارية (ريال)</label>
-              <input type="number" min="0" value="${p.ip}" placeholder="0" onchange="G.sp(${p.id},'ip',+this.value)">
+              <input type="number" min="0" value="${this.inputVal(p.ip)}" placeholder="0" onchange="G.sp(${p.id},'ip',+this.value)">
             </div>
             <div class="fg">
               <label>شبكة علاقات / دعم خارجي (ريال)</label>
-              <input type="number" min="0" value="${p.net}" placeholder="0" onchange="G.sp(${p.id},'net',+this.value)">
+              <input type="number" min="0" value="${this.inputVal(p.net)}" placeholder="0" onchange="G.sp(${p.id},'net',+this.value)">
             </div>
           </div>
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
               <label>هل سيعمل في المشروع؟</label>
-              <select id="wkSel_${p.id}" onchange="G.sp(${p.id},'work',this.value); G.toggleFmv(${p.id},this.value)">
+              <select id="wkSel_${p.id}" onchange="G.sp(${p.id},'work',this.value); G.toggleFmv(${p.id},this.value); G.renderParties();">
                 <option value="no"    ${p.work==='no'    ?'selected':''}>لا</option>
-                <option value="full"  ${p.work==='full'  ?'selected':''}>نعم — دوام كامل</option>
-                <option value="part"  ${p.work==='part'  ?'selected':''}>نعم — دوام جزئي</option>
-                <option value="period"${p.work==='period'?'selected':''}>نعم — لمدة محددة</option>
+                <option value="full"  ${p.work==='full'  ?'selected':''}>نعم، دوام كامل</option>
+                <option value="part"  ${p.work==='part'  ?'selected':''}>نعم، دوام جزئي</option>
+                <option value="period"${p.work==='period'?'selected':''}>نعم، لمدة محددة</option>
               </select>
             </div>
             <div class="fg">
@@ -889,19 +965,45 @@ const G = {
           <div id="fmvBlock_${p.id}" style="${showFmv?'':'display:none'}" class="grid2" style="margin-top:10px">
             <div class="fg" style="margin-top:10px">
               <label>الراتب السوقي العادل</label>
-              <input type="number" lang="en" min="0" value="${p.fmv}" placeholder="12000" onchange="G.sp(${p.id},'fmv',+this.value)">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="12000" onchange="G.sp(${p.id},'fmv',+this.value)">
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg" style="margin-top:10px">
               <label>المبلغ الشهري المستلم فعلياً</label>
-              <input type="number" lang="en" min="0" value="${p.paid||0}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
               <div class="help">إذا كان الراتب السوقي العادل 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يُحتسب كمساهمة عمل.</div>
             </div>
             <div class="fg full" style="margin-top:10px">
               <label>مدة الاحتساب (أشهر)</label>
-              <input type="number" lang="en" min="1" value="${p.dur}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
             </div>
           </div>
+          ${this.type === 'startup' && p.work !== 'no' ? `
+          <div class="card-sm" id="vestingBlock_${p.id}" style="margin-top:12px">
+            <div class="card-head" style="font-size:12px;margin-bottom:10px;padding-bottom:8px">الاستحقاق التدريجي لهذا الطرف</div>
+            <div class="notice notice-info" style="margin-bottom:10px">يستخدم إذا كانت حصة هذا الطرف مرتبطة باستمراره في العمل، ولا تُكتسب كاملة من اليوم الأول.</div>
+            <div class="grid2">
+              <div class="fg">
+                <label>تفعيل الاستحقاق التدريجي؟</label>
+                <select onchange="G.sp(${p.id},'vesting',this.value); G.togglePartyVesting(${p.id},this.value)">
+                  <option value="no" ${p.vesting !== 'yes' ? 'selected' : ''}>لا</option>
+                  <option value="yes" ${p.vesting === 'yes' ? 'selected' : ''}>نعم</option>
+                </select>
+              </div>
+              <div class="fg party-vesting-${p.id}" style="${p.vesting === 'yes' ? '' : 'display:none'}">
+                <label>مدة الاستحقاق الكاملة بالسنوات</label>
+                <input type="number" lang="en" min="1" max="10" value="${this.inputVal(p.vestYrs)}" placeholder="مثال: 4" onchange="G.sp(${p.id},'vestYrs',+this.value)">
+              </div>
+              <div class="fg party-vesting-${p.id}" style="${p.vesting === 'yes' ? '' : 'display:none'}">
+                <label>فترة الكليف بالأشهر</label>
+                <input type="number" lang="en" min="0" max="24" value="${this.inputVal(p.cliffMo)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'cliffMo',+this.value)">
+              </div>
+              <div class="fg party-vesting-${p.id}" style="${p.vesting === 'yes' ? '' : 'display:none'}">
+                <label>ملاحظة إضافية</label>
+                <input type="text" value="${p.vestNote || ''}" placeholder="اختياري" onchange="G.sp(${p.id},'vestNote',this.value)">
+              </div>
+            </div>
+          </div>` : ''}
           `}
 
           <div class="fg" style="margin-top:10px">
@@ -922,6 +1024,35 @@ const G = {
   toggleFmv(id, val) {
     const el = document.getElementById('fmvBlock_' + id);
     if (el) el.style.display = val !== 'no' ? '' : 'none';
+  },
+
+  togglePartyVesting(id, val) {
+    document.querySelectorAll('.party-vesting-' + id).forEach(el => {
+      el.style.display = val === 'yes' ? '' : 'none';
+    });
+  },
+
+  newProject() {
+    this.type = null;
+    this.phase = 1;
+    this.cnt = 0;
+    this.parties = [];
+    this.results = [];
+    this.activeProfile = 'balanced';
+    this.W = { Cash:4, Asset:3, Effort:3, IP:3, Net:2 };
+    this.existingTouched = { valuation:false, investment:false, percent:false };
+    document.querySelectorAll('input').forEach(el => { if (el.type !== 'range') el.value = ''; });
+    document.querySelectorAll('textarea').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => { el.selectedIndex = 0; });
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('sel'));
+    document.getElementById('btnPh1Next').disabled = true;
+    document.getElementById('typeHint')?.classList.add('hide');
+    this.addParty({ name:'الطرف الأول' });
+    this.addParty({ name:'الطرف الثاني' });
+    this.renderProfiles();
+    this.initWeights();
+    this.updPanels();
+    this.go(1);
   },
 
   /* ─── WEIGHTS ─── */
@@ -957,7 +1088,7 @@ const G = {
   initWeights() {
     const items = [
       { k:'Cash',   icon:'💵', name:'التمويل النقدي',            desc:'النقد المُدفوع × الوزن = نقاط التمويل' },
-      { k:'Asset',  icon:'🏗️', name:'الأصول والعينيات',          desc:'تجهيزات، موقع، عقارات — بالقيمة السوقية' },
+      { k:'Asset',  icon:'🏗️', name:'الأصول والعينيات',          desc:'تجهيزات، موقع، عقارات، بالقيمة السوقية' },
       { k:'Effort', icon:'⚙️', name:'الجهد والعمل',              desc:'الراتب السوقي العادل × الأشهر × الوزن، أو تقدير معياري' },
       { k:'IP',     icon:'💡', name:'ملكية فكرية / علامة تجارية', desc:'تقنية مُطوَّرة، براءة اختراع، فرنشايز مرخَّص' },
       { k:'Net',    icon:'🤝', name:'شبكة العلاقات والدعم',       desc:'عملاء جاهزون، تراخيص، علاقات حكومية أو تجارية' },
@@ -994,58 +1125,69 @@ const G = {
   },
 
   updExistingDeal(source) {
-    const vEl = document.getElementById('coVal');
-    const iEl = document.getElementById('entryAmt');
-    const pEl = document.getElementById('entryPct');
+    if (!this.existingTouched) this.existingTouched = { valuation:false, investment:false, percent:false };
+    if (['valuation','investment','percent'].includes(source)) this.existingTouched[source] = true;
+
     const box = document.getElementById('existingCalcBox');
     const panel = document.getElementById('existLivePanel');
-
     let val = this.numVal('coVal');
     let inv = this.numVal('entryAmt');
     let pct = this.numVal('entryPct');
+    const allFilled = val > 0 && inv > 0 && pct > 0;
+    const touchedAll = this.existingTouched.valuation && this.existingTouched.investment && this.existingTouched.percent;
+    let conflict = false;
+    let msg = '';
 
-    // منطق انسيابي: الحساب يتبع يد المستخدم لا العكس
-    if (source === 'valuation' || source === 'investment') {
-      // عند تغيير القيمة أو الاستثمار → احسب النسبة تلقائياً
-      if (val + inv > 0) {
-        pct = (inv / (val + inv)) * 100;
-        this.setNumVal('entryPct', pct);
-      }
-    } else if (source === 'percent') {
-      // عند تغيير النسبة → احسب قيمة الشركة (Pre-money) بناءً على مبلغ الاستثمار
-      if (pct > 0 && pct < 100 && inv > 0) {
-        val = (inv * (100 - pct)) / pct;
-        this.setNumVal('coVal', val);
+    if (allFilled && touchedAll && source !== 'calc') {
+      const expectedPct = inv / (val + inv) * 100;
+      if (Math.abs(expectedPct - pct) > 0.3) {
+        conflict = true;
+        msg = `⚠️ البيانات غير متطابقة: مبلغ الدخول ${this.fmt(inv)} ريال على تقييم قبل الدخول ${this.fmt(val)} ريال يعطي نسبة ${expectedPct.toFixed(1)}%، وليس ${pct.toFixed(1)}%. صحح أحد الحقول الثلاثة.`;
       }
     }
 
-    // إعادة قراءة القيم بعد أي تعديل
+    if (!conflict) {
+      if (source === 'valuation') {
+        if (val > 0 && pct > 0 && inv <= 0 && pct < 100) { inv = val * pct / (100 - pct); this.setNumVal('entryAmt', inv); this.existingTouched.investment = false; }
+        else if (val > 0 && inv > 0 && pct <= 0) { pct = inv / (val + inv) * 100; this.setNumVal('entryPct', pct); this.existingTouched.percent = false; }
+      } else if (source === 'investment') {
+        if (inv > 0 && pct > 0 && val <= 0 && pct < 100) { val = inv * (100 - pct) / pct; this.setNumVal('coVal', val); this.existingTouched.valuation = false; }
+        else if (inv > 0 && val > 0 && pct <= 0) { pct = inv / (val + inv) * 100; this.setNumVal('entryPct', pct); this.existingTouched.percent = false; }
+      } else if (source === 'percent') {
+        if (pct > 0 && pct < 100 && inv > 0 && val <= 0) { val = inv * (100 - pct) / pct; this.setNumVal('coVal', val); this.existingTouched.valuation = false; }
+        else if (pct > 0 && pct < 100 && val > 0 && inv <= 0) { inv = val * pct / (100 - pct); this.setNumVal('entryAmt', inv); this.existingTouched.investment = false; }
+      } else if (source === 'calc') {
+        if (val > 0 && inv > 0) { pct = inv / (val + inv) * 100; this.setNumVal('entryPct', pct); }
+      }
+    }
+
     val = this.numVal('coVal');
     inv = this.numVal('entryAmt');
     pct = this.numVal('entryPct');
     const post = val + inv;
 
-    // تحديث اللوحة الحية
     if (panel && post > 0) {
       panel.classList.remove('hide');
-      const oldPct = Math.max(0, 100 - pct);
+      const oldPct = Math.max(0, 100 - (pct || 0));
       document.getElementById('lp_pre').textContent = this.fmt(val) + ' ر.س';
       document.getElementById('lp_inv').textContent = this.fmt(inv) + ' ر.س';
       document.getElementById('lp_post').textContent = this.fmt(post) + ' ر.س';
       document.getElementById('lp_oldPct').textContent = oldPct.toFixed(1) + '%';
-      document.getElementById('lp_newPct').textContent = pct.toFixed(1) + '%';
+      document.getElementById('lp_newPct').textContent = (pct || 0).toFixed(1) + '%';
       const oldBar = document.getElementById('lp_oldBar');
       const newBar = document.getElementById('lp_newBar');
       if (oldBar) oldBar.style.width = oldPct + '%';
-      if (newBar) newBar.style.width = pct + '%';
+      if (newBar) newBar.style.width = (pct || 0) + '%';
     } else if (panel) {
       panel.classList.add('hide');
     }
 
-    // نافذة النتيجة النصية
     if (box) {
-      if (post > 0 && pct > 0) {
-        box.textContent = 'قيمة الشركة بعد الدخول: ' + this.fmt(post) + ' ريال — نسبة الشريك الجديد: ' + pct.toFixed(1) + '%';
+      if (conflict) {
+        box.textContent = msg;
+        box.className = 'notice notice-warn';
+      } else if (post > 0 && pct > 0) {
+        box.textContent = 'قيمة الشركة بعد الدخول: ' + this.fmt(post) + ' ريال، نسبة الشريك الجديد: ' + pct.toFixed(1) + '%';
         box.className = 'notice notice-ok';
       } else {
         box.className = 'notice notice-ok hide';
@@ -1085,7 +1227,7 @@ const G = {
     }
 
     if (pre > 0 && inv > 0 && post > 0) {
-      box.innerHTML = `القيمة قبل الاستثمار: <span class="num">${this.fmt(pre)}</span> ريال — بعد الاستثمار: <span class="num">${this.fmt(post)}</span> ريال — حصة المستثمر: <span class="num">${(+pct).toFixed(1)}%</span>`;
+      box.innerHTML = `القيمة قبل الاستثمار: <span class="num">${this.fmt(pre)}</span> ريال، بعد الاستثمار: <span class="num">${this.fmt(post)}</span> ريال، حصة المستثمر: <span class="num">${(+pct).toFixed(1)}%</span>`;
       box.classList.remove('hide');
     } else {
       box.classList.add('hide');
@@ -1267,7 +1409,7 @@ const G = {
     }).join('');
 
     svg.innerHTML = `
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#1A3352" stroke-width="${sw}"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2C0F16" stroke-width="${sw}"/>
       ${arcs}
       <circle cx="${cx}" cy="${cy}" r="${r-sw/2-8}" fill="var(--surface)"/>
       <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="11" fill="#5E7A96" font-family="IBM Plex Sans Arabic">إجمالي</text>
@@ -1310,7 +1452,7 @@ const G = {
             <div style="width:12px;height:12px;border-radius:50%;background:${r.color};flex-shrink:0"></div>
             <div>
               <div class="res-name">${r.name}</div>
-              <div class="res-cap">${r.cap || ''}${r.role && r.role!=='silent' ? ' · ' + (roleNames[r.role]||'') : ''}${r.note ? ' — ' + r.note : ''}</div>
+              <div class="res-cap">${r.cap || ''}${r.role && r.role!=='silent' ? ' · ' + (roleNames[r.role]||'') : ''}${r.note ? '، ' + r.note : ''}</div>
             </div>
           </div>
           <div class="res-pct">${r.pct}%</div>
@@ -1329,22 +1471,26 @@ const G = {
     const max = Math.max(...this.results.map(r => r.pct));
     const dom = this.results.find(r => r.pct === max);
     if (dom && max > 65)
-      alerts.push({ t:'warn', m:`⚠️ ${dom.name} يملك أكثر من ${max}% من الحصص — تأكد أن هذا مقصود ومكتوب بوضوح في الاتفاقية.` });
+      alerts.push({ t:'warn', m:`⚠️ ${dom.name} يملك أكثر من ${max}% من الحصص، تأكد أن هذا مقصود ومكتوب بوضوح في الاتفاقية.` });
     if (this.parties.filter(p => p.work === 'no').length === this.parties.length)
-      alerts.push({ t:'warn', m:'⚠️ لا أحد من الأطراف سيعمل في المشروع — كيف سيُدار؟ تأكد من تحديد المدير التنفيذي في الاتفاقية.' });
-    if (this.type === 'startup' && document.getElementById('vestOn')?.value !== 'yes')
-      alerts.push({ t:'warn', m:'⏳ لم يُفعَّل الاستحقاق التدريجي — في الشركات الناشئة يُنصح بشدة بتطبيق Vesting لحماية المشروع من انسحاب مبكر.' });
+      alerts.push({ t:'warn', m:'⚠️ لا أحد من الأطراف سيعمل في المشروع، كيف سيُدار؟ تأكد من تحديد المدير التنفيذي في الاتفاقية.' });
+    const workingWithoutVesting = this.parties.filter(p => p.work !== 'no' && p.vesting !== 'yes');
+    if (this.type === 'startup' && workingWithoutVesting.length)
+      alerts.push({ t:'warn', m:'⏳ يوجد شريك عامل لم يُفعّل له الاستحقاق التدريجي، راجع بيانات الأطراف العاملين قبل اعتماد البنود.' });
 
     // تنبيه فخ الـ 50%
     const has50 = this.results.some(r => Math.abs(r.pct - 50) < 0.5);
     const existPct = this.type === 'existing' ? (this.numVal('entryPct') || 0) : 0;
     if (has50 || Math.abs(existPct - 50) < 0.5)
-      alerts.push({ t:'warn', m:'⚠️ تنبيه مهندس الصفقات: نسبة 50% غالباً هروب من الحرج الاجتماعي، لكنها قانونياً قد تُعطّل القرار عند أي خلاف. افصل بين "ملكية الحصص" و"حق الإدارة" — لمن الكلمة المرجِّحة؟' });
+      alerts.push({ t:'warn', m:'⚠️ تنبيه مهندس الصفقات: نسبة 50% غالباً هروب من الحرج الاجتماعي، لكنها قانونياً قد تُعطّل القرار عند أي خلاف. افصل بين "ملكية الحصص" و"حق الإدارة"، لمن الكلمة المرجِّحة؟' });
+    const existingBox = document.getElementById('existingCalcBox');
+    if (this.type === 'existing' && existingBox && !existingBox.classList.contains('hide') && existingBox.classList.contains('notice-warn'))
+      alerts.push({ t:'warn', m: existingBox.textContent });
 
     if (this.type === 'mudaraba') {
       if (this.mudarabaCheck?.valid) {
         alerts.push({ t:'ok', m:'🤝 هذا النموذج متوافق مع منطق المضاربة: رب المال يقدّم المال فقط، والمضارب يقدّم العمل فقط.' });
-        alerts.push({ t:'ok', m:'🤝 تأكد أن نسب الربح مُتفَق عليها صراحةً وموثقة كتابةً — ولا تكون بمبلغ مقطوع.' });
+        alerts.push({ t:'ok', m:'🤝 تأكد أن نسب الربح مُتفَق عليها صراحةً وموثقة كتابةً، ولا تكون بمبلغ مقطوع.' });
       } else {
         alerts.push({ t:'warn', m:'⚠️ ملاحظتنا: أحد الأطراف يجمع بين التمويل والعمل، أو أن بيانات المال والعمل غير مكتملة. هذا لا يتوافق مع عقد المضاربة، لذلك تم التعامل مع الحالة كمشاركة عادية لضمان دقة التوزيع.' });
         if (this.mudarabaCheck?.problems?.length) alerts.push({ t:'warn', m:'تفاصيل الملاحظة: ' + this.mudarabaCheck.problems.join(' | ') });
@@ -1352,6 +1498,11 @@ const G = {
     } else if (this.detectModel() === 'partnership') {
       alerts.push({ t:'ok', m:'🧠 تحليل النموذج: يوجد طرف يجمع بين المال والعمل، لذلك الحالة أقرب إلى مشاركة عادية وليست مضاربة.' });
     }
+    const disputeMethod = document.getElementById('disputeMethod')?.value || '';
+    const disputeDetails = (document.getElementById('disputeDetails')?.value || '').trim();
+    if (disputeMethod === 'arbitration' && !disputeDetails)
+      alerts.push({ t:'warn', m:'⚖️ تم اختيار التحكيم دون تحديد اسم المحكّم أو صفته. لن يُدرج بند التحكيم في المسودة إلا بعد تحديده.' });
+
     document.getElementById('smartAlerts').innerHTML = alerts.map(a =>
       `<div class="notice notice-${a.t === 'warn' ? 'warn' : 'ok'}" style="margin-bottom:8px">${a.m}</div>`
     ).join('');
@@ -1368,37 +1519,65 @@ const G = {
     return 'شريك';
   },
 
+
+  buildSmartPreamble(nm, typeLabel, t) {
+    const lines = [];
+    lines.push(`حيث إن الأطراف يرغبون في ترتيب تفاهم أولي بشأن مشروع "${nm}" من نوع ${typeLabel}؛`);
+    this.parties.forEach((p, idx) => {
+      const ref = this.partyRef(p, idx);
+      const facts = [];
+      const cash = Number(p.cash) || 0;
+      const assets = Number(p.assets) || 0;
+      const ip = Number(p.ip) || 0;
+      const net = Number(p.net) || 0;
+      const hasEffort = this.hasEffort(p);
+      if (cash) facts.push(`يقدم تمويلاً نقدياً قدره ${this.fmt(cash)} ريال`);
+      if (assets) facts.push(`يقدم أصولاً أو تجهيزات عينية بقيمة تقديرية ${this.fmt(assets)} ريال`);
+      if (ip) facts.push(`يقدم مساهمة في الملكية الفكرية أو العلامة التجارية بقيمة تقديرية ${this.fmt(ip)} ريال`);
+      if (net) facts.push(`يقدم شبكة علاقات أو دعماً تجارياً بقيمة تقديرية ${this.fmt(net)} ريال`);
+      if (hasEffort) {
+        const paid = Number(p.paid) || 0;
+        const fmv = Number(p.fmv) || 0;
+        const dur = Number(p.dur) || 0;
+        const unpaid = Math.max(0, fmv - paid) * (dur || 0);
+        let effortText = `يقدم عملاً أو إدارة أو خبرة تشغيلية للمشروع`;
+        if (fmv || paid || dur) effortText += `، وفق راتب سوقي عادل قدره ${this.fmt(fmv)} ريال شهرياً، ومستلم فعلي قدره ${this.fmt(paid)} ريال شهرياً، لمدة ${dur || 0} شهر`;
+        if (unpaid) effortText += `، وبقيمة جهد غير مدفوع قدرها ${this.fmt(unpaid)} ريال`;
+        facts.push(effortText);
+      }
+      if (!facts.length) facts.push('لم تُدخل له مساهمة محددة بعد');
+      if (p.note) facts.push(`ودوّن بشأنه: ${p.note}`);
+      lines.push(`وحيث إن ${ref} ${facts.join('، ')}؛`);
+    });
+    if (t === 'mudaraba') lines.push('وحيث إن الأطراف يرغبون في أن يكون الربح بنسبة متفق عليها، مع الفصل بين من يقدّم المال ومن يقدّم العمل؛');
+    if (t === 'partnership') lines.push('وحيث إن المدخلات تُظهر وجود مساهمات مختلطة بين المال والعمل، فإن التفاهم يُعامل كمشاركة عامة لا كمضاربة؛');
+    lines.push('فإن البنود التالية تمثل أبرز نقاط التفاهم الأولية التي يُبنى عليها التفاوض وصياغة العقد النهائي بواسطة محامٍ مختص.');
+    return lines.join('\n');
+  },
+
   /* ─── AGREEMENT ─── */
   buildAgr() {
     const originalType = this.type || 'startup';
     const t = this.mudarabaCheck?.fallback ? 'partnership' : originalType;
     const nm = document.getElementById('projName')?.value || 'المشروع';
-    const lg = document.getElementById('legalStruct')?.value || '';
     const today = this.formatDate(new Date());
-    const legalMap = {
-      llc:'شركة ذات مسؤولية محدودة',
-      simplified:'شركة مساهمة مبسطة',
-      solidarity:'شركة تضامن',
-      commandite:'شركة توصية بسيطة',
-      mudaraba:'عقد مضاربة شرعي',
-      jv:'اتفاق مشاركة مشترك (JV)',
-      deal:'صفقة تجارية محددة',
-      '':'يُحدد لاحقاً بعد التشاور القانوني'
-    };
-    const typeNames = { startup:'شركة ناشئة / مشروع قابل للاستثمار', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'عقد مضاربة شرعي', partnership:'مشاركة عامة' };
+    const typeNames = { startup:'شركة ناشئة / مشروع قابل للاستثمار', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'عقد مضاربة', partnership:'مشاركة عامة' };
+    const legalMap = { llc:'شركة ذات مسؤولية محدودة', simplified:'شركة مساهمة مبسطة', solidarity:'شركة تضامن', commandite:'شركة توصية بسيطة', mudaraba:'عقد مضاربة', jv:'اتفاق مشاركة مشترك غير مسجل', deal:'صفقة تجارية محددة', '':'يُحدد لاحقاً بعد التشاور القانوني' };
+    const legalVal = document.getElementById('legalStruct')?.value || '';
+    const legalLabel = legalMap[legalVal] || 'يُحدد لاحقاً بعد التشاور القانوني';
     const roleNames = { manager:'إدارة عامة', ops:'تشغيل', tech:'تقنية', sales:'مبيعات', silent:'دون دور تنفيذي' };
-    const partyLines = this.results.map((r,i)=>`${i+1}. ${r.name} — الصفة: ${this.displayCap(r, t === 'partnership')} — النسبة المقترحة: ${r.pct}%.${r.note ? ' ملاحظة: '+r.note : ''}`).join('\n');
+    const partyLines = this.results.map((r,i)=>`${this.partyOrdinal(i)}: ${r.name}، الصفة: ${this.displayCap(r, t === 'partnership')}، النسبة المقترحة: ${r.pct}%.${r.note ? ' ملاحظة: '+r.note : ''}`).join('\n');
     const contribs = this.parties.map((p,i) => {
       const lines = [];
       if (p.cash) lines.push(`تمويل نقدي: ${this.fmt(p.cash)} ريال`);
       if (p.assets) lines.push(`أصول عينية: ${this.fmt(p.assets)} ريال`);
-      if (p.ip) lines.push(`ملكية فكرية / علامة: ${this.fmt(p.ip)} ريال`);
+      if (p.ip) lines.push(`ملكية فكرية / علامة تجارية: ${this.fmt(p.ip)} ريال`);
       if (p.net) lines.push(`شبكة علاقات / دعم: ${this.fmt(p.net)} ريال`);
       if (p.work !== 'no') {
-        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0))*(p.dur||12);
-        lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'} — قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال — الدور: ${roleNames[p.role]||''}`);
+        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0))*(p.dur||0);
+        lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
       }
-      return `${i+1}. ${p.name}: ${lines.length ? lines.join('، ') : 'لم تُدخل مساهمة محددة بعد.'}`;
+      return `${this.partyRef(p,i)}: ${lines.length ? lines.join('، ') : 'لم تُدخل مساهمة محددة بعد.'}`;
     }).join('\n');
     const pre = this.numVal('preMoney') || 0;
     const inv = this.numVal('newInv') || 0;
@@ -1406,12 +1585,14 @@ const G = {
     const pct = this.numVal('targetPct') || (post > 0 ? inv / post * 100 : 0);
     const rab = this.parties.find(p => p.cap === 'رب المال (ممول)');
     const mud = this.parties.find(p => p.cap === 'مضارب (عامل)');
+    const smartPreamble = this.buildSmartPreamble(nm, typeNames[t] || 'شراكة', t);
     const intro = `مسودة لأبرز بنود التعاقد بشأن مشروع: ${nm}
 التاريخ: ${today}
 نوع الحالة / الصفقة: ${typeNames[t] || 'شراكة'}
+الإطار القانوني المقترح: ${legalLabel}
 
 تمهيد:
-حيث إن الأطراف يرغبون في تنظيم أبرز ما اتفقوا عليه مبدئياً بشأن المشروع، وحيث إن مساهمة كل طرف قد تكون مالاً أو عملاً أو أصلاً أو خبرة أو علاقة تجارية، فإن البنود التالية تمثل أبرز نقاط الاتفاق الأولية التي يُبنى عليها التفاوض وصياغة العقد النهائي. هذه المسودة ليست عقداً نهائياً ولا تغني عن مراجعة محامٍ مختص.
+${smartPreamble}
 `;
 
     let clauses = [];
@@ -1419,6 +1600,10 @@ const G = {
 ${partyLines}`);
     clauses.push(`البند الثاني: المساهمات
 ${contribs}`);
+    if (legalVal) {
+      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: الإطار القانوني المقترح
+اتفق الأطراف مبدئياً على أن يكون الإطار القانوني المقترح للعلاقة هو: ${legalLabel}. ويُراجع الشكل النهائي مع محامٍ مختص قبل الإبرام.`);
+    }
 
     if (t === 'startup') {
       clauses.push(`البند الثالث: التقييم والاستثمار
@@ -1426,8 +1611,14 @@ ${contribs}`);
 2. التقييم قبل الاستثمار: ${this.fmt(pre)} ريال.
 3. التقييم بعد الاستثمار: ${this.fmt(post)} ريال.
 4. النسبة التقريبية للمستثمر الجديد: ${pct ? pct.toFixed(1) : '0'}%.`);
-      clauses.push(`البند الرابع: الاستحقاق التدريجي للشركاء العاملين
-يُتفق على تطبيق الاستحقاق التدريجي عند وجود شركاء عاملين، وتُحدد مدته وفترة الكليف وآثار الانسحاب المبكر في العقد النهائي.`);
+      const vestedParties = this.parties.filter(p => p.work !== 'no' && p.vesting === 'yes');
+      if (vestedParties.length) {
+        const vestLines = vestedParties.map((p,i) => `${i+1}. ${this.partyRef(p, this.parties.indexOf(p))}: مدة الاستحقاق ${p.vestYrs || '[تحدد]'} سنوات، وفترة الكليف ${p.cliffMo || '[تحدد]'} شهر.${p.vestNote ? ' ملاحظة: ' + p.vestNote + '.' : ''}`).join('\n');
+        clauses.push(`البند الرابع: الاستحقاق التدريجي للشركاء العاملين
+يُطبق الاستحقاق التدريجي على الأطراف العاملين التالية أسماؤهم فقط:
+${vestLines}
+ولا تُكتسب الحصة غير المستحقة عند الانسحاب المبكر إلا وفق ما يرد في العقد النهائي.`);
+      }
     } else if (t === 'fnb') {
       clauses.push(`البند الثالث: الإدارة والتشغيل
 تُحدد الإدارة اليومية، الصلاحيات التشغيلية، التوقيع، التوريد، المخزون، الجودة، والرقابة المالية كتابةً في العقد النهائي.`);
@@ -1445,8 +1636,8 @@ ${contribs}`);
 يجب تحديد ما إذا كان الشريك الجديد يتحمل أي التزامات سابقة، وما حقوقه في الاطلاع والإدارة والتصويت بعد دخوله.`);
     } else if (t === 'mudaraba') {
       clauses.push(`البند الثالث: رأس المال والعمل
-1. رب المال: ${rab?.name || '[اسم رب المال]'} — يقدم رأس المال بمبلغ ${this.fmt(rab?.cash || 0)} ريال.
-2. المضارب: ${mud?.name || '[اسم المضارب]'} — يقدم العمل والإدارة ولا يقدم رأس مال في هذه المضاربة.`);
+1. رب المال: ${rab?.name || '[اسم رب المال]'}، يقدم رأس المال بمبلغ ${this.fmt(rab?.cash || 0)} ريال.
+2. المضارب: ${mud?.name || '[اسم المضارب]'}، يقدم العمل والإدارة ولا يقدم رأس مال في هذه المضاربة.`);
       clauses.push(`البند الرابع: توزيع الربح والخسارة
 1. حصة رب المال من الربح: ${document.getElementById('mudRab')?.value || 40}%.
 2. حصة المضارب من الربح: ${document.getElementById('mudMud')?.value || 60}%.
@@ -1458,29 +1649,111 @@ ${contribs}`);
 تُوزع الأرباح والخسائر وفق ما يتفق عليه الأطراف كتابةً، وبما ينسجم مع طبيعة مساهمة كل طرف والأنظمة ذات العلاقة.`);
     }
 
-    clauses.push(`البند الخامس: الهيكل القانوني المقترح
-الهيكل المقترح حالياً: ${legalMap[lg]}. ويُراجع الشكل القانوني النهائي مع محامٍ أو مستشار مختص قبل التوقيع.`);
-    clauses.push(`البند السادس: التخارج وحق الأولوية
-يُحدد حق الأولوية، آلية تقييم الحصة، مدة الإشعار، وطريقة التعامل مع الانسحاب أو الوفاة أو العجز أو الإخلال.`);
-    clauses.push(`البند السابع: حل الخلافات
-تبدأ المعالجة بالتشاور الودي، ثم الوساطة، ثم الجهة القضائية أو التحكيم بحسب ما يتفق عليه الأطراف في العقد النهائي.`);
-    clauses.push(`البند الثامن: ملاحظات لازمة للعقد النهائي
-تحتاج هذه البنود إلى صياغة قانونية نهائية تشمل المسؤوليات، الصلاحيات، السجلات، التوقيع، السرية، عدم المنافسة، الضرائب والزكاة، وأي تراخيص لازمة.`);
-    const text = `${intro}
-${clauses.map((c,i)=>`${i+1}) ${c}`).join('\n\n')}`;
+    const dispute = this.buildDisputeClause();
+    if (dispute) clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: حل الخلافات\n${dispute}`);
+
+    const text = `${intro}\n${clauses.map((c,i)=>`${i+1}) ${c}`).join('\n\n')}`;
     document.getElementById('agrBox').textContent = text;
-    document.getElementById('agrTitle').textContent = `مسودة أبرز بنود العقد — ${nm}`;
+    document.getElementById('agrTitle').textContent = `مسودة أبرز بنود العقد، ${nm}`;
     document.getElementById('agrMeta').textContent = `${typeNames[t] || ''} · ${this.parties.length} أطراف · ${today}`;
     document.getElementById('agrBadge').textContent = typeNames[t] || 'شراكة';
+    this.renderContractGuidance();
+  },
+
+  ordinalClause(n){
+    const names = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر'];
+    return names[n-1] || String(n);
+  },
+
+  buildDisputeClause(){
+    const amicableOn = document.getElementById('amicableOn')?.value || 'yes';
+    const rawDays = (document.getElementById('amicableDays')?.value || '').trim();
+    const method = document.getElementById('disputeMethod')?.value || '';
+    const details = (document.getElementById('disputeDetails')?.value || '').trim();
+    const note = (document.getElementById('disputeNote')?.value || '').trim();
+    const parts = [];
+
+    // 1. الحل الودي
+    if (amicableOn === 'yes') {
+      parts.push(rawDays
+        ? `يلتزم الأطراف بمحاولة الحل الودي لمدة (${rawDays}) يوماً قبل اللجوء إلى أي مسار آخر.`
+        : `يلتزم الأطراف بمحاولة الحل الودي قبل اللجوء إلى أي مسار آخر.`);
+    }
+
+    const prefix = (amicableOn === 'yes') ? 'وعند تعذر الحل الودي، ' : '';
+
+    // 2. مسار النزاع
+    if (method === 'arbitration') {
+      // لا يُدرج بند التحكيم إذا لم يُحدد المحكّم — التنبيه يظهر في لوحة النتائج
+      if (details) {
+        parts.push(`${prefix}يُحال النزاع إلى التحكيم لدى ${details}، وتكون النتيجة التي ينتهي إليها التحكيم نهائية وملزمة للأطراف.`);
+      }
+    } else if (method === 'court') {
+      // جملة ثابتة ومغلقة — لا تحتاج تفاصيل
+      parts.push(`${prefix}ينعقد الاختصاص للجهات القضائية المختصة.`);
+    } else if (method === 'custom') {
+      if (details) parts.push(`${prefix}يتم تسوية النزاع عبر: ${details}.`);
+    }
+
+    // 3. الملاحظة الإضافية
+    if (note) parts.push(`كما يُتفق على ما يلي: ${note}.`);
+
+    return parts.join(' ');
+  },
+  renderContractGuidance(){
+    const el = document.getElementById('contractGuidance');
+    if (!el) return;
+    el.innerHTML = `
+      <div class="notice notice-info">هذه المسودة لا تتضمن كل تفاصيل العقد النهائي. يراجع المحامي الهيكل القانوني المناسب، التخارج وحق الأولوية، الصلاحيات، السجلات، التوقيع، السرية، عدم المنافسة.</div>
+      <div class="notice notice-warn">تنبيه: البنود أعلاه للتفاهم والتفاوض وليست عقداً نهائياً قابلاً للتوقيع بصيغته الحالية.</div>
+    `;
   },
 
   async copyAgr() {
-    const t = document.getElementById('agrBox')?.textContent;
-    if (!t) return;
+    const t = document.getElementById('agrBox')?.textContent || '';
+    if (!t.trim()) return;
     try {
-      await navigator.clipboard.writeText(t);
-      alert('✅ تم نسخ النص إلى الحافظة');
-    } catch { alert('تعذّر النسخ التلقائي — يمكنك التحديد اليدوي.'); }
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        await navigator.clipboard.writeText(t);
+      } else {
+        this.fallbackCopy(t);
+      }
+      this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
+    } catch (e) {
+      try {
+        this.fallbackCopy(t);
+        this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
+      } catch (err) {
+        this.showCopyStatus('تعذّر النسخ التلقائي، يمكنك تحديد النص ونسخه يدوياً.', true);
+      }
+    }
+  },
+
+  fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (!ok) throw new Error('copy failed');
+  },
+
+  showCopyStatus(msg, isErr = false) {
+    const el = document.getElementById('copyStatus');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = isErr ? 'copy-status err' : 'copy-status show';
+    clearTimeout(this._copyTimer);
+    this._copyTimer = setTimeout(() => {
+      el.className = 'copy-status';
+      el.textContent = '';
+    }, 2600);
   },
 
   printAgr() { window.print(); },
