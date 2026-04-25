@@ -921,10 +921,7 @@ const G = {
               <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
               <div class="help">إذا كان الراتب السوقي العادل 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يدخل كقيمة جهد غير مدفوعة.</div>
             </div>
-            <div class="fg full">
-              <label>مدة العمل (أشهر)</label>
-              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
-            </div>`}
+            `}
           </div>
           ` : `
           <div class="grid2" style="margin-top:10px">
@@ -972,10 +969,6 @@ const G = {
               <label>المبلغ الشهري المستلم فعلياً</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
               <div class="help">إذا كان الراتب السوقي العادل 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يُحتسب كمساهمة عمل.</div>
-            </div>
-            <div class="fg full" style="margin-top:10px">
-              <label>مدة الاحتساب (أشهر)</label>
-              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
             </div>
           </div>
           ${this.type === 'startup' && p.work !== 'no' ? `
@@ -1235,7 +1228,7 @@ const G = {
   },
 
   hasEffort(p) {
-    return p.work !== 'no' || ((p.fmv || 0) > 0 && (p.dur || 0) > 0);
+    return p.work !== 'no' || (p.fmv || 0) > 0;
   },
 
   validateMudaraba() {
@@ -1288,7 +1281,7 @@ const G = {
         const total = rabPct + mudPct || 100;
         this.results = this.parties.map((p, i) => {
           const isRab = p.cap === 'رب المال (ممول)';
-          const effortVal = Math.max(0, (p.fmv || 0) - (p.paid || 0)) * (p.dur || 12);
+          const effortVal = Math.max(0, (p.fmv || 0) - (p.paid || 0)) * 12;
           return { ...p,
             pct: +(isRab ? rabPct / total * 100 : mudPct / total * 100).toFixed(1),
             cashSc: isRab ? (p.cash || 0) : 0,
@@ -1305,17 +1298,20 @@ const G = {
       // If the inputs do not qualify as mudaraba, continue through the regular weighted partnership calculation.
     }
 
-    const roleBonus = { manager:28000, ops:18000, tech:22000, sales:16000, silent:0 };
-
+    // roleBonus محذوف — المسمى الوظيفي وصف في العقد لا وزن في الحصص
+    // قيمة الجهد = (الراتب العادل - المستلم) × المدة × الوزن فقط
     this.results = this.parties.map((p, i) => {
       const cashSc   = (p.cash   || 0) * W.Cash;
       const assetSc  = (p.assets || 0) * W.Asset;
       const ipSc     = (p.ip     || 0) * W.IP;
       const netSc    = (p.net    || 0) * W.Net;
       const mult     = p.work === 'part' ? 0.5 : 1;
-      const effortSc = p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * (p.dur||12) * W.Effort * mult : 0;
-      const roleSc   = roleBonus[p.role] || 0;
-      const total    = cashSc + assetSc + ipSc + netSc + effortSc + roleSc;
+      const durMo    = this.type === 'startup' && p.vesting === 'yes' && p.vestYrs
+                       ? p.vestYrs * 12
+                       : 12;
+      const effortSc = p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * durMo * W.Effort * mult : 0;
+      const roleSc   = 0;
+      const total    = cashSc + assetSc + ipSc + netSc + effortSc;
       return { ...p, cashSc, assetSc, ipSc, netSc, effortSc, roleSc, total, color: this.COLORS[i % this.COLORS.length] };
     });
 
@@ -1442,7 +1438,6 @@ const G = {
         r.ip      ? `ملكية فكرية: ${this.fmt(r.ip)} ر.س` : null,
         r.net     ? `شبكة: ${this.fmt(r.net)} ر.س` : null,
         r.effortSc? `جهد/عمل: ${this.fmt(r.effortSc)} ن.` : null,
-        r.roleSc  ? `مكافأة دور: ${this.fmt(r.roleSc)} ن.` : null,
       ].filter(Boolean);
 
       return `
@@ -1538,7 +1533,7 @@ const G = {
       if (hasEffort) {
         const paid = Number(p.paid) || 0;
         const fmv = Number(p.fmv) || 0;
-        const dur = Number(p.dur) || 0;
+        const dur = p.vesting === 'yes' && p.vestYrs ? p.vestYrs * 12 : 12;
         const unpaid = Math.max(0, fmv - paid) * (dur || 0);
         let effortText = `يقدم عملاً أو إدارة أو خبرة تشغيلية للمشروع`;
         if (fmv || paid || dur) effortText += `، وفق راتب سوقي عادل قدره ${this.fmt(fmv)} ريال شهرياً، ومستلم فعلي قدره ${this.fmt(paid)} ريال شهرياً، لمدة ${dur || 0} شهر`;
@@ -1574,7 +1569,7 @@ const G = {
       if (p.ip) lines.push(`ملكية فكرية / علامة تجارية: ${this.fmt(p.ip)} ريال`);
       if (p.net) lines.push(`شبكة علاقات / دعم: ${this.fmt(p.net)} ريال`);
       if (p.work !== 'no') {
-        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0))*(p.dur||0);
+        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0))*(p.vesting==='yes'&&p.vestYrs ? p.vestYrs*12 : 12);
         lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
       }
       return `${this.partyRef(p,i)}: ${lines.length ? lines.join('، ') : 'لم تُدخل مساهمة محددة بعد.'}`;
