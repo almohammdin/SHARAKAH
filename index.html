@@ -1664,7 +1664,8 @@ const G = {
     const originalType = this.type || 'startup';
     const t = this.mudarabaCheck?.fallback ? 'partnership' : originalType;
     const nm = document.getElementById('projName')?.value || 'المشروع';
-    const today = this.formatDate(new Date());
+    const dateObj = this.formatDate(new Date());
+    const today = dateObj?.hijri ? `${dateObj.hijri} هـ / ${dateObj.greg} م` : dateObj;
     const typeNames = { startup:'شركة ناشئة / مشروع قابل للاستثمار', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'عقد مضاربة', partnership:'مشاركة عامة' };
     const legalMap = { llc:'شركة ذات مسؤولية محدودة', simplified:'شركة مساهمة مبسطة', solidarity:'شركة تضامن', commandite:'شركة توصية بسيطة', mudaraba:'عقد مضاربة', jv:'اتفاق مشاركة مشترك غير مسجل', deal:'صفقة تجارية محددة', '':'يُحدد لاحقاً بعد التشاور القانوني' };
     const legalVal = document.getElementById('legalStruct')?.value || '';
@@ -1887,7 +1888,7 @@ ${vestLines}
   const linkedInIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
 
   const projName = (document.getElementById('projName')?.value || '').trim();
-  const today    = this.formatDate(new Date());
+  const dates    = this.formatDate(new Date());
   const res      = this.results;
   const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
   const px = v => `${v}px`;
@@ -1957,15 +1958,23 @@ ${vestLines}
       <div style="font-size:15px;color:${muted};font-family:${font}">${k.sub}</div>
     </div>`).join('');
 
-  /* 5. بطاقات الأطراف الأفقية */
+  /* 5. بطاقات الأطراف الأفقية (قائمة عمودية توضح كافة مساهمات الشريك) */
   const partyCards = res.map(r => {
-    const contribs = [
-      r.cash     ? `نقدي: ${this.fmt(r.cash)} ر.س`        : null,
-      r.assets   ? `أصول: ${this.fmt(r.assets)} ر.س`      : null,
-      r.ip       ? `م.فكرية: ${this.fmt(r.ip)} ر.س`       : null,
-      r.net      ? `شبكة: ${this.fmt(r.net)} ر.س`         : null,
-      r.effortSc ? `جهد غير مدفوع (${r.dur || 0} أشهر): ${this.fmt(r.effortSc)} ر.س` : null,
-    ].filter(Boolean).slice(0, 2).join(' | ');
+    const contribRows = [
+      r.cash     ? { lbl:'نقدي', val:`${this.fmt(r.cash)} ر.س` } : null,
+      r.assets   ? { lbl:'أصول', val:`${this.fmt(r.assets)} ر.س` } : null,
+      r.ip       ? { lbl:'ملكية فكرية', val:`${this.fmt(r.ip)} ر.س` } : null,
+      r.net      ? { lbl:'شبكة علاقات', val:`${this.fmt(r.net)} ر.س` } : null,
+      r.effortSc ? { lbl:`جهد (${r.dur || 0} أشهر)`, val:`${this.fmt(r.effortSc)} ر.س` } : null,
+    ].filter(Boolean);
+
+    const contribsHtml = contribRows.length > 0
+      ? contribRows.map((c, i) => `
+        <div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:${i === contribRows.length - 1 ? 'none' : '1px solid ' + border}">
+          <span style="color:${muted};font-size:16px;font-family:${font}">${c.lbl}</span>
+          <span style="color:${txt};font-size:16px;font-weight:700;font-family:${font};direction:ltr;unicode-bidi:plaintext">${c.val}</span>
+        </div>`).join('')
+      : `<div style="padding:6px 0;color:${muted};font-size:16px;font-family:${font}">لا توجد مساهمات مسجلة</div>`;
 
     const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' - '+(roleNames[r.role]||'') : ''}`;
 
@@ -1979,10 +1988,12 @@ ${vestLines}
                 </div>
                 <div style="font-size:32px;font-weight:700;color:${r.color};font-family:${font}">${r.pct}%</div>
             </div>
-            <div style="font-size:15px;color:${mid};font-family:${font};margin-bottom:12px">${capLine}</div>
-            <div style="font-size:15px;color:${muted};font-family:${font};font-weight:600">${contribs || 'لا توجد مساهمات مسجلة'}</div>
+            <div style="font-size:15px;color:${mid};font-family:${font};margin-bottom:16px">${capLine}</div>
+            <div style="font-size:16px;font-family:${font};max-height:150px;overflow:hidden">
+              ${contribsHtml}
+            </div>
         </div>
-        <div style="margin-top:20px;height:10px;background:${card};border-radius:5px;overflow:hidden">
+        <div style="margin-top:24px;height:10px;background:${card};border-radius:5px;overflow:hidden">
           <div style="height:100%;width:${r.pct}%;background:${r.color};border-radius:5px"></div>
         </div>
       </div>`;
@@ -2000,7 +2011,10 @@ ${vestLines}
           </div>
           ${projName ? `<div style="font-size:20px;color:${mid};font-family:${font}">المشروع: ${projName}</div>` : ''}
         </div>
-        <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font}">${today}</div>
+        <div style="font-size:16px;color:${muted};text-align:left;direction:rtl;font-family:${font};line-height:1.4">
+          <div>${dates.hijri} هـ</div>
+          <div style="font-size:14px;opacity:0.8;direction:ltr">${dates.greg} م</div>
+        </div>
       </div>
 
       <div style="display:flex;gap:48px;flex:1;align-items:center;padding:48px 0">
@@ -2105,7 +2119,27 @@ captureResultsImage() {
     });
   },
 
-  formatDate(d) { return new Intl.DateTimeFormat('ar-SA-u-nu-latn', { day:'numeric', month:'long', year:'numeric' }).format(d); },
+  formatDate(d) {
+    // دالة مساعدة لاستخراج اليوم والشهر والسنة بأرقام إنجليزية (0-9) وبترتيب مضمون 100%
+    const formatNum = (cal) => {
+      const parts = new Intl.DateTimeFormat('en-US-u-ca-' + cal, { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric' 
+      }).formatToParts(d);
+      
+      const D = parts.find(p => p.type === 'day').value;
+      const M = parts.find(p => p.type === 'month').value;
+      const Y = parts.find(p => p.type === 'year').value;
+      
+      return `${D}/${M}/${Y}`; // التنسيق النهائي: يوم/شهر/سنة
+    };
+    
+    return {
+      hijri: formatNum('islamic-umalqura'),
+      greg: formatNum('gregory')
+    };
+  },
 
   fmt(v) { return new Intl.NumberFormat('en-US').format(Math.round(Number(v)||0)); }
 };
