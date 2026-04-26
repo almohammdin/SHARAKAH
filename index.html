@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -292,6 +293,42 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   .exist-live{padding:12px}.author-top{padding:22px 14px 16px}.social-row,.footer-social-row{gap:10px}
 }
 
+/* ─── CAPTURE AREA (export-only styling) ─── */
+.capture-area{
+  padding:28px;
+  background:#1E080D;
+  border-radius:18px;
+}
+.capture-header{
+  display:none; /* مخفي أثناء التصفح، يظهر فقط عند التصدير */
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:24px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(201,168,76,.45);
+}
+.capture-header-left{display:flex;align-items:center;gap:12px}
+.capture-logo-badge{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--gold);display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:12px;color:#070D14;letter-spacing:.5px;flex-shrink:0;
+}
+.capture-title{color:#C9A84C;font-size:18px;font-weight:700;line-height:1.3}
+.capture-subtitle{color:#8A7570;font-size:11px;margin-top:2px}
+.capture-meta{color:#C8B8A8;font-size:11px;text-align:left;direction:ltr;line-height:1.6}
+.capture-footer{
+  display:none; /* مخفي أثناء التصفح، يظهر فقط عند التصدير */
+  margin-top:24px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.10);
+  text-align:center;
+  color:#C8B8A8;
+  font-size:12px;
+}
+.capture-footer-brand{font-weight:600;color:#C9A84C;font-size:13px}
+.capture-disclaimer{margin-top:6px;color:#8A7570;font-size:10px;line-height:1.6}
+
 </style>
 </head>
 <body>
@@ -414,8 +451,8 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
 <!-- ═══════════════ PHASE 3 ═══════════════ -->
 <div class="phase" id="ph3">
-  <div class="ph-title">طريقة تقدير الحصص</div>
-  <div class="ph-sub">اختر نمط الشراكة، والأداة تضبط الأوزان خلف الكواليس. التفاصيل المتقدمة اختيارية.</div>
+  <div class="ph-title" id="ph3Title">طريقة تقدير الحصص</div>
+  <div class="ph-sub" id="ph3Sub">اختر نمط الشراكة، والأداة تضبط الأوزان خلف الكواليس. التفاصيل المتقدمة اختيارية.</div>
 
   <!-- Smart profiles + advanced weights -->
   <div class="card" id="wCard">
@@ -597,22 +634,45 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <div class="phase" id="ph4">
   <div class="ph-title">لوحة البيانات والنتائج</div>
   <div class="ph-sub">توزيع الحصص المقترح بناءً على مساهمات الأطراف والأوزان المحددة</div>
-  <div class="kpi-grid" id="kpiGrid"></div>
-  <div class="chart-row">
-    <div class="chart-box">
-      <div class="chart-title">توزيع الحصص</div>
-      <svg id="donutSvg" width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0 auto 10px"></svg>
-      <div class="legend" id="donutLegend"></div>
+  <div id="resultsCaptureArea" class="capture-area">
+
+    <!-- ترويسة الصورة المصدّرة — مخفية أثناء التصفح -->
+    <div class="capture-header" id="captureHeader">
+      <div class="capture-header-left">
+        <div class="capture-logo-badge">SH</div>
+        <div>
+          <div class="capture-title">حاسبة الشراكات | SHARAKAH</div>
+          <div class="capture-subtitle" id="captureProjectName"></div>
+        </div>
+      </div>
+      <div class="capture-meta" id="captureDate"></div>
     </div>
-    <div class="chart-box">
-      <div class="chart-title">نسب المساهمة</div>
-      <div id="barChart"></div>
+
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-title">توزيع الحصص</div>
+        <svg id="donutSvg" width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0 auto 10px"></svg>
+        <div class="legend" id="donutLegend"></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">نسب المساهمة</div>
+        <div id="barChart"></div>
+      </div>
     </div>
+    <div id="partyResults"></div>
+
+    <!-- تذييل الصورة المصدّرة — مخفي أثناء التصفح -->
+    <div class="capture-footer" id="captureFooter">
+      <div class="capture-footer-brand">تطوير وإشراف: نايف المحمدي &nbsp;·&nbsp; @almohammdin</div>
+      <div class="capture-disclaimer">هذه النتائج تقديرية بناءً على المدخلات، ولا تُعد وثيقة قانونية نهائية.</div>
+    </div>
+
   </div>
-  <div id="partyResults"></div>
   <div id="smartAlerts"></div>
-  <div class="nav-row">
+  <div class="nav-row" style="flex-wrap:wrap;gap:10px">
     <button class="btn btn-ghost" onclick="G.go(3)">← السابق</button>
+    <button class="btn btn-outline" onclick="G.captureResultsImage()">📸 التقاط صورة للنتائج</button>
     <button class="btn btn-gold" onclick="G.go(5)">توليد أبرز بنود التعاقد ←</button>
   </div>
 </div>
@@ -637,7 +697,6 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
   <div class="agr-acts">
     <button class="btn btn-gold" onclick="G.copyAgr()">📋 نسخ النص</button>
-    <button class="btn btn-outline" onclick="G.printAgr()">🖨️ طباعة</button>
     <button class="btn btn-ghost" onclick="G.go(4)">← العودة</button>
   </div>
   <div id="copyStatus" class="copy-status" aria-live="polite"></div>
@@ -649,6 +708,9 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
 </div><!-- /wrap -->
 </main>
+
+<!-- حاوية التصدير المخفية — تُبنى برمجياً عند التقاط الصورة فقط -->
+<div id="exportResultsLayout" style="position:fixed;left:-9999px;top:0;visibility:hidden;pointer-events:none"></div>
 <footer class="brand-footer">
   <div class="brand-footer-inner">
     <img class="footer-naif-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAACHCAYAAAA/UEQiAAAs2UlEQVR42u19e3xM19r/MzOZSSIJctGIKEmRlibiWtUqSqWUuvUoVT2U0mqDvhwqWqXa+h3lKD3UKXWvHsVpKWm1pcqp0J/WJfSVkhKXXOQmcpvb3vt5/9jzrFl7MolxmSRifT+f+QgyM3uvvZ7973fsIWAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAIiAICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg==" alt="نايف المحمدي" onerror="this.style.display='none'">
@@ -744,7 +806,9 @@ const G = {
 
   updSteps() {
     const list = document.getElementById('stepList');
-    list.innerHTML = this.STEPS.map((s, i) => {
+    const step3Name = this.type === 'startup' ? 'تقدير الحصص' : 'الاتفاق';
+    const steps = ['نوع الحالة', 'الأطراف', step3Name, 'النتائج', 'بنود التعاقد'];
+    list.innerHTML = steps.map((s, i) => {
       const n = i + 1;
       const state = n < this.phase ? 'done' : n === this.phase ? 'active' : '';
       const dot = state === 'done' ? '✓' : n;
@@ -805,10 +869,27 @@ const G = {
 
     const show = (id, s) => document.getElementById(id)?.classList.toggle('hide', !s);
     show('mudarabaHint', t === 'mudaraba');
-    show('wCard',        t !== 'mudaraba');
+    show('wCard',        t === 'startup');
     show('startupCard',  t === 'startup');
     show('existCard',    t === 'existing');
     show('mudCard',      t === 'mudaraba');
+
+    // عناوين المرحلة الثالثة الديناميكية
+    const ph3Title = document.getElementById('ph3Title');
+    const ph3Sub   = document.getElementById('ph3Sub');
+    if (ph3Title && ph3Sub) {
+      if (t === 'startup') {
+        ph3Title.textContent = 'طريقة تقدير الحصص';
+        ph3Sub.textContent   = 'اختر نمط الشراكة لضبط الأوزان تلقائياً، أو عدلها يدوياً من الإعدادات المتقدمة.';
+      } else {
+        ph3Title.textContent = 'تفاصيل الاتفاق';
+        ph3Sub.textContent   = 'أكمل بنود الاتفاق مثل آلية اتخاذ القرار، فض النزاعات، والجوانب القانونية.';
+      }
+    }
+
+    // اسم الخطوة الثالثة في الشريط
+    this.updSteps();
+
     this.renderParties();
     this.normalizeNumberInputs();
   },
@@ -826,7 +907,7 @@ const G = {
       net:  d.net  || 0,
       work: d.work || 'no',
       fmv:  d.fmv  || 0,
-      dur:  d.dur  || 0,
+      dur:  d.dur  || 12,
       role: d.role || 'silent',
       vesting: d.vesting || 'no',
       vestYrs: d.vestYrs || '',
@@ -919,14 +1000,19 @@ const G = {
               <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',+this.value)">
             </div>` : `
             <div class="fg">
-              <label>الراتب السوقي العادل</label>
+              <label>الراتب العادل في السوق</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="12000" onchange="G.sp(${p.id},'fmv',+this.value)">
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg">
               <label>المبلغ الشهري المستلم فعلياً</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
-              <div class="help">إذا كان الراتب السوقي العادل 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يدخل كقيمة جهد غير مدفوعة.</div>
+              <div class="help">إذا كان الراتب العادل في السوق 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يدخل كقيمة جهد غير مدفوعة.</div>
+            </div>
+            <div class="fg">
+              <label>مدة المساهمة بالجهد (بالأشهر)</label>
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
+              <div class="help">المدة التقديرية لاحتساب قيمة الجهد فقط، وليست مدة استحقاق ملكية.</div>
             </div>
             `}
           </div>
@@ -968,14 +1054,19 @@ const G = {
           </div>
           <div id="fmvBlock_${p.id}" style="${showFmv?'':'display:none'}" class="grid2" style="margin-top:10px">
             <div class="fg" style="margin-top:10px">
-              <label>الراتب السوقي العادل</label>
+              <label>الراتب العادل في السوق</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="12000" onchange="G.sp(${p.id},'fmv',+this.value)">
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg" style="margin-top:10px">
               <label>المبلغ الشهري المستلم فعلياً</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',+this.value)">
-              <div class="help">إذا كان الراتب السوقي العادل 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يُحتسب كمساهمة عمل.</div>
+              <div class="help">إذا كان الراتب العادل في السوق 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يُحتسب كمساهمة عمل.</div>
+            </div>
+            <div class="fg" style="margin-top:10px">
+              <label>مدة المساهمة بالجهد (بالأشهر)</label>
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
+              <div class="help">المدة التقديرية لاحتساب قيمة الجهد فقط، وليست مدة استحقاق ملكية أو Vesting.</div>
             </div>
           </div>
           ${this.type === 'startup' && p.work !== 'no' ? `
@@ -1089,7 +1180,7 @@ const G = {
     const items = [
       { k:'Cash',   icon:'💵', name:'التمويل النقدي',            desc:'النقد المُدفوع × الوزن = نقاط التمويل' },
       { k:'Asset',  icon:'🏗️', name:'الأصول والعينيات',          desc:'تجهيزات، موقع، عقارات، بالقيمة السوقية' },
-      { k:'Effort', icon:'⚙️', name:'الجهد والعمل',              desc:'الراتب السوقي العادل × الأشهر × الوزن، أو تقدير معياري' },
+      { k:'Effort', icon:'⚙️', name:'الجهد والعمل',              desc:'الراتب العادل في السوق × الأشهر × الوزن، أو تقدير معياري' },
       { k:'IP',     icon:'💡', name:'ملكية فكرية / علامة تجارية', desc:'تقنية مُطوَّرة، براءة اختراع، فرنشايز مرخَّص' },
       { k:'Net',    icon:'🤝', name:'شبكة العلاقات والدعم',       desc:'عملاء جاهزون، تراخيص، علاقات حكومية أو تجارية' },
     ];
@@ -1288,7 +1379,8 @@ const G = {
         const total = rabPct + mudPct || 100;
         this.results = this.parties.map((p, i) => {
           const isRab = p.cap === 'رب المال (ممول)';
-          const effortVal = Math.max(0, (p.fmv || 0) - (p.paid || 0)) * 12;
+          const dur = p.dur || 12;
+          const effortVal = Math.max(0, (p.fmv || 0) - (p.paid || 0)) * dur;
           return { ...p,
             pct: +(isRab ? rabPct / total * 100 : mudPct / total * 100).toFixed(1),
             cashSc: isRab ? (p.cash || 0) : 0,
@@ -1306,17 +1398,16 @@ const G = {
     }
 
     // roleBonus محذوف — المسمى الوظيفي وصف في العقد لا وزن في الحصص
-    // قيمة الجهد = (الراتب العادل - المستلم) × المدة × الوزن فقط
+    // قيمة الجهد = (الراتب العادل - المستلم) × المدة × الوزن (Startup فقط)
+    const isStartup = this.type === 'startup';
     this.results = this.parties.map((p, i) => {
-      const cashSc   = (p.cash   || 0) * W.Cash;
-      const assetSc  = (p.assets || 0) * W.Asset;
-      const ipSc     = (p.ip     || 0) * W.IP;
-      const netSc    = (p.net    || 0) * W.Net;
+      const cashSc   = (p.cash   || 0) * (isStartup ? W.Cash  : 1);
+      const assetSc  = (p.assets || 0) * (isStartup ? W.Asset : 1);
+      const ipSc     = (p.ip     || 0) * (isStartup ? W.IP    : 1);
+      const netSc    = (p.net    || 0) * (isStartup ? W.Net   : 1);
       const mult     = p.work === 'part' ? 0.5 : 1;
-      const durMo    = this.type === 'startup' && p.vesting === 'yes' && p.vestYrs
-                       ? p.vestYrs * 12
-                       : 12;
-      const effortSc = p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * durMo * W.Effort * mult : 0;
+      const dur      = p.dur || 12;
+      const effortSc = p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * dur * (isStartup ? W.Effort : 1) * mult : 0;
       const roleSc   = 0;
       const total    = cashSc + assetSc + ipSc + netSc + effortSc;
       return { ...p, cashSc, assetSc, ipSc, netSc, effortSc, roleSc, total, color: this.COLORS[i % this.COLORS.length] };
@@ -1464,6 +1555,12 @@ const G = {
           const [lbl,...rest] = c.split(':');
           return `<div class="rc-row"><span class="rc-lbl">${lbl}</span><span class="rc-val">${rest.join(':')}</span></div>`;
         }).join('')}</div>
+        ${this.type !== 'mudaraba' ? `
+        <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:4px">
+          <div class="rc-row"><span class="rc-lbl">حصة الملكية</span><span class="rc-val" style="color:var(--gold);font-weight:700">${r.pct}%</span></div>
+          <div class="rc-row"><span class="rc-lbl">نصيب الأرباح</span><span class="rc-val">${r.pct}% (افتراضاً)</span></div>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:5px;line-height:1.6">الملكية تُعطي حق التصويت والأصول والأرباح. يمكن الاتفاق على نصيب أرباح مختلف في العقد دون تغيير الملكية.</div>` : ''}
       </div>`;
     }).join('');
   },
@@ -1479,6 +1576,12 @@ const G = {
     const workingWithoutVesting = this.parties.filter(p => p.work !== 'no' && p.vesting !== 'yes');
     if (this.type === 'startup' && workingWithoutVesting.length)
       alerts.push({ t:'warn', m:'⏳ يوجد شريك عامل لم يُفعّل له الاستحقاق التدريجي، راجع بيانات الأطراف العاملين قبل اعتماد البنود.' });
+
+    // تنبيه مدة الجهد الطويلة
+    this.parties.forEach(p => {
+      if ((p.dur || 12) > 36)
+        alerts.push({ t:'warn', m:`💡 تنبيه: كلما زادت المدة، ارتفعت قيمة الجهد في الحساب. يرجى موازنة مجهودك مع رأس مال الشريك لضمان التوزيع العادل للحصص بين الأطراف. (${p.name}: ${p.dur} شهر)` });
+    });
 
     // تنبيه فخ الـ 50%
     const has50 = this.results.some(r => Math.abs(r.pct - 50) < 0.5);
@@ -1539,12 +1642,11 @@ const G = {
       if (net) facts.push(`يقدم شبكة علاقات أو دعماً تجارياً بقيمة تقديرية ${this.fmt(net)} ريال`);
       if (hasEffort) {
         const paid = Number(p.paid) || 0;
-        const fmv = Number(p.fmv) || 0;
-        const dur = p.vesting === 'yes' && p.vestYrs ? p.vestYrs * 12 : 12;
-        const unpaid = Math.max(0, fmv - paid) * (dur || 0);
-        let effortText = `يقدم عملاً أو إدارة أو خبرة تشغيلية للمشروع`;
-        if (fmv || paid || dur) effortText += `، وفق راتب سوقي عادل قدره ${this.fmt(fmv)} ريال شهرياً، ومستلم فعلي قدره ${this.fmt(paid)} ريال شهرياً، لمدة ${dur || 0} شهر`;
-        if (unpaid) effortText += `، وبقيمة جهد غير مدفوع قدرها ${this.fmt(unpaid)} ريال`;
+        const fmv  = Number(p.fmv)  || 0;
+        const dur  = p.dur || 12;
+        const unpaid = Math.max(0, fmv - paid) * dur;
+        let effortText = `يقدم عملاً للمشروع وفق الراتب العادل في السوق قدره ${this.fmt(fmv)} ريال شهرياً، وبمبلغ مستلم فعلياً قدره ${this.fmt(paid)} ريال شهرياً، لمدة ${dur} شهراً`;
+        if (unpaid) effortText += `؛ وتُعامل قيمة الفرق غير المدفوع (${this.fmt(unpaid)} ريال) كمساهمة تقديرية بالجهد لأغراض احتساب الحصص، ما لم يتفق الأطراف على خلاف ذلك`;
         facts.push(effortText);
       }
       if (!facts.length) facts.push('لم تُدخل له مساهمة محددة بعد');
@@ -1576,8 +1678,9 @@ const G = {
       if (p.ip) lines.push(`ملكية فكرية / علامة تجارية: ${this.fmt(p.ip)} ريال`);
       if (p.net) lines.push(`شبكة علاقات / دعم: ${this.fmt(p.net)} ريال`);
       if (p.work !== 'no') {
-        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0))*(p.vesting==='yes'&&p.vestYrs ? p.vestYrs*12 : 12);
-        lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
+        const dur = p.dur || 12;
+        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0)) * dur;
+        lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، الراتب العادل في السوق: ${this.fmt(p.fmv||0)} ريال شهرياً، المستلم فعلياً: ${this.fmt(p.paid||0)} ريال شهرياً، المدة: ${dur} شهر، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
       }
       return `${this.partyRef(p,i)}: ${lines.length ? lines.join('، ') : 'لم تُدخل مساهمة محددة بعد.'}`;
     }).join('\n');
@@ -1621,21 +1724,25 @@ ${contribs}`);
 ${vestLines}
 ولا تُكتسب الحصة غير المستحقة عند الانسحاب المبكر إلا وفق ما يرد في العقد النهائي.`);
       }
+      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح وحصة الملكية
+حصة الملكية المبيّنة في البند الأول تُعطي صاحبها حق التصويت، وحصة في أصول الشركة، ونصيباً عند أي حدث تصارفي (بيع أو إدراج). وتُوزع الأرباح القابلة للتوزيع بنفس نسب الملكية ما لم يتفق الأطراف كتابةً على نصيب أرباح مختلف دون المساس بالملكية.`);
     } else if (t === 'fnb') {
       clauses.push(`البند الثالث: الإدارة والتشغيل
 تُحدد الإدارة اليومية، الصلاحيات التشغيلية، التوقيع، التوريد، المخزون، الجودة، والرقابة المالية كتابةً في العقد النهائي.`);
-      clauses.push(`البند الرابع: الأرباح والتكاليف
-تُوزع الأرباح الصافية بعد خصم التكاليف التشغيلية والاحتياطيات المتفق عليها، ولا تُبنى التوزيعات على الإيرادات.`);
+      clauses.push(`البند الرابع: توزيع الأرباح وحصة الملكية
+تُوزع الأرباح الصافية وفق نسب الملكية المبيّنة في البند الأول، بعد خصم التكاليف التشغيلية والاحتياطيات المتفق عليها.`);
     } else if (t === 'deal') {
       clauses.push(`البند الثالث: نطاق الصفقة ومدتها
 الغرض هو تنفيذ صفقة تجارية محددة فقط، وتنتهي العلاقة بانتهاء الصفقة وتصفية التكاليف وتوزيع العوائد.`);
-      clauses.push(`البند الرابع: القرار والتصرف في الصفقة
-تُحدد صلاحية قبول العروض، البيع، الشراء، التمديد، وتحمّل المصاريف قبل التنفيذ.`);
+      clauses.push(`البند الرابع: توزيع العوائد
+تُوزع صافي عوائد الصفقة وفق نسب المساهمة المبيّنة في البند الأول. لا توجد ملكية مستمرة في هذا الهيكل؛ كل طرف يستحق نصيبه من العائد فور إنجاز الصفقة وتسوية التكاليف.`);
     } else if (t === 'existing') {
       clauses.push(`البند الثالث: دخول الشريك الجديد
 تُحدد قيمة الشركة قبل الدخول، ومبلغ دخول الشريك الجديد، ونسبة ملكيته الناتجة. وتُحسب هذه القيم على أساس أن نسبة الشريك = مبلغ الدخول ÷ القيمة بعد الدخول.`);
       clauses.push(`البند الرابع: الالتزامات السابقة واللاحقة
 يجب تحديد ما إذا كان الشريك الجديد يتحمل أي التزامات سابقة، وما حقوقه في الاطلاع والإدارة والتصويت بعد دخوله.`);
+      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح وحصة الملكية
+حصة الملكية تُعطي صاحبها حق التصويت والأصول ونصيباً عند البيع. تُوزع الأرباح وفق نسب الملكية ما لم يُتفق كتابةً على خلاف ذلك، ويُعدّ أي نصيب أرباح مختلف توزيعاً مستقلاً لا تعديلاً في هيكل الملكية.`);
     } else if (t === 'mudaraba') {
       clauses.push(`البند الثالث: رأس المال والعمل
 1. رب المال: ${rab?.name || '[اسم رب المال]'}، يقدم رأس المال بمبلغ ${this.fmt(rab?.cash || 0)} ريال.
@@ -1643,7 +1750,8 @@ ${vestLines}
       clauses.push(`البند الرابع: توزيع الربح والخسارة
 1. حصة رب المال من الربح: ${document.getElementById('mudRab')?.value || 40}%.
 2. حصة المضارب من الربح: ${document.getElementById('mudMud')?.value || 60}%.
-3. الخسارة المالية تكون على رأس المال، ويخسر المضارب جهده، ما لم يوجد تعدٍّ أو تفريط أو مخالفة.`);
+3. الخسارة المالية تكون على رأس المال، ويخسر المضارب جهده، ما لم يوجد تعدٍّ أو تفريط أو مخالفة.
+ملاحظة: في المضاربة لا توجد ملكية للمضارب في رأس المال أو أصول المشروع؛ حقه محصور في نصيبه من الربح المتفق عليه.`);
     } else {
       clauses.push(`البند الثالث: طبيعة المشاركة
 اختار المستخدم عقد مضاربة، لكن المدخلات لا تحقق الفصل الكامل بين المال والعمل؛ لذلك تُعامل الحالة كمشاركة عامة لا كمضاربة.`);
@@ -1758,7 +1866,243 @@ ${vestLines}
     }, 2600);
   },
 
-  printAgr() { window.print(); },
+  /* ─── EXPORT LAYOUT BUILDER ─── */
+  buildExportLayout() {
+    const W = 1080, PAD = 44;
+    const gold   = '#C9A84C';
+    const goldDm = 'rgba(201,168,76,0.35)';
+    const bg     = '#1E080D';
+    const surf   = '#2C0F16';
+    const card   = '#240D12';
+    const txt    = '#EDE0D0';
+    const mid    = '#C8B8A8';
+    const muted  = '#8A7570';
+    const border = 'rgba(255,255,255,0.08)';
+    const font   = "'IBM Plex Sans Arabic', Arial, sans-serif";
+
+    const projName = (document.getElementById('projName')?.value || '').trim();
+    const today    = this.formatDate(new Date());
+    const res      = this.results;
+    const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
+
+    /* ── helpers ── */
+    const px = v => `${v}px`;
+    const div = (style, inner) => `<div style="${style}">${inner}</div>`;
+
+    /* ── donut SVG (ثابت الأبعاد، overflow:visible) ── */
+    const cx = 140, cy = 140, r = 100, sw = 36;
+    let startAngle = -90;
+    const arcs = res.map(d => {
+      if (!d.pct) return '';
+      const angle = d.pct / 100 * 360;
+      if (angle >= 359.9) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"/>`;
+      const a1 = (startAngle) * Math.PI / 180;
+      const a2 = (startAngle + angle) * Math.PI / 180;
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+      const lg = angle > 180 ? 1 : 0;
+      startAngle += angle;
+      return `<path d="M${x1},${y1} A${r},${r} 0 ${lg} 1 ${x2},${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    }).join('');
+
+    const donutSVG = `
+      <svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block;flex-shrink:0">
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${surf}" stroke-width="${sw}"/>
+        ${arcs}
+        <circle cx="${cx}" cy="${cy}" r="${r - sw/2 - 10}" fill="${surf}"/>
+        <text x="${cx}" y="${cy - 10}" text-anchor="middle" font-size="13" fill="${muted}" font-family="${font}">إجمالي</text>
+        <text x="${cx}" y="${cy + 16}" text-anchor="middle" font-size="18" fill="${gold}" font-weight="700" font-family="${font}">${res.length} أطراف</text>
+      </svg>`;
+
+    /* ── donut legend ── */
+    const legend = res.map(d => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid ${border}">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:11px;height:11px;border-radius:50%;background:${d.color};flex-shrink:0"></div>
+          <span style="color:${mid};font-size:13px;font-family:${font}">${d.name}</span>
+        </div>
+        <span style="color:${gold};font-weight:700;font-size:14px;font-family:${font}">${d.pct}%</span>
+      </div>`).join('');
+
+    /* ── bar chart ── */
+    const bars = res.map(d => `
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="color:${mid};font-size:12px;font-family:${font}">${d.name}</span>
+          <span style="color:${gold};font-weight:700;font-size:12px;font-family:${font}">${d.pct}%</span>
+        </div>
+        <div style="height:8px;background:${surf};border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${d.pct}%;background:${d.color};border-radius:4px"></div>
+        </div>
+      </div>`).join('');
+
+    /* ── KPI boxes ── */
+    const cash  = this.parties.reduce((s,p) => s+(p.cash||0), 0);
+    const asset = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
+    const working = this.parties.filter(p => p.work !== 'no').length;
+    const pre = +document.getElementById('preMoney')?.value || 0;
+    const inv = +document.getElementById('newInv')?.value  || 0;
+    const kpis = [
+      { lbl:'إجمالي التمويل النقدي',        val: this.fmt(cash)  + ' ر.س', sub: this.parties.length + ' أطراف' },
+      { lbl:'الأصول والحقوق غير النقدية',   val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + شبكة' },
+      { lbl:'أطراف عاملون في المشروع',      val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
+    ];
+    if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money' });
+
+    const colW = Math.floor((W - PAD*2 - 24*(kpis.length-1)) / kpis.length);
+    const kpiBoxes = kpis.map(k => `
+      <div style="width:${px(colW)};background:${surf};border:1px solid ${goldDm};border-radius:12px;padding:18px 20px;box-sizing:border-box">
+        <div style="font-size:11px;color:${muted};font-family:${font};margin-bottom:8px">${k.lbl}</div>
+        <div style="font-size:20px;font-weight:700;color:${gold};font-family:${font};margin-bottom:4px">${k.val}</div>
+        <div style="font-size:11px;color:${muted};font-family:${font}">${k.sub}</div>
+      </div>`).join('');
+
+    /* ── party cards (2 columns) ── */
+    const cardW = Math.floor((W - PAD*2 - 20) / 2);
+    const partyCards = res.map(r => {
+      const contribs = [
+        r.cash     ? `نقدي: ${this.fmt(r.cash)} ر.س`           : null,
+        r.assets   ? `أصول: ${this.fmt(r.assets)} ر.س`         : null,
+        r.ip       ? `ملكية فكرية: ${this.fmt(r.ip)} ر.س`       : null,
+        r.net      ? `شبكة: ${this.fmt(r.net)} ر.س`             : null,
+        r.effortSc ? `جهد/عمل: ${this.fmt(r.effortSc)} ن.`     : null,
+      ].filter(Boolean);
+      const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' · '+(roleNames[r.role]||'') : ''}${r.note ? '، '+r.note : ''}`;
+      const rows = contribs.map(c => {
+        const [lbl,...rest] = c.split(':');
+        return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid ${border}">
+          <span style="color:${muted};font-size:11px;font-family:${font}">${lbl}</span>
+          <span style="color:${mid};font-size:11px;font-weight:600;font-family:${font}">${rest.join(':')}</span>
+        </div>`;
+      }).join('');
+      return `
+        <div style="width:${px(cardW)};background:${card};border:1px solid ${border};border-radius:12px;padding:18px;box-sizing:border-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:12px;height:12px;border-radius:50%;background:${r.color};flex-shrink:0"></div>
+              <div>
+                <div style="font-size:15px;font-weight:700;color:${txt};font-family:${font}">${r.name}</div>
+                <div style="font-size:11px;color:${muted};margin-top:2px;font-family:${font}">${capLine}</div>
+              </div>
+            </div>
+            <div style="font-size:28px;font-weight:700;color:${r.color};font-family:${font}">${r.pct}%</div>
+          </div>
+          <div style="height:6px;background:${surf};border-radius:3px;margin-bottom:14px;overflow:hidden">
+            <div style="height:100%;width:${r.pct}%;background:${r.color};border-radius:3px"></div>
+          </div>
+          ${rows}
+          <div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid ${border}">
+            <div style="font-size:11px;color:${muted};font-family:${font}">حصة الملكية</div>
+            <div style="font-size:13px;font-weight:700;color:${gold};font-family:${font}">${r.pct}%</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    /* ── assemble full layout ── */
+    const html = `
+      <div style="width:${px(W)};padding:${px(PAD)};background:${bg};box-sizing:border-box;font-family:${font};direction:rtl">
+
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid ${goldDm}">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:44px;height:44px;border-radius:10px;background:${gold};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#070D14;letter-spacing:.5px;font-family:${font};flex-shrink:0">SH</div>
+            <div>
+              <div style="font-size:20px;font-weight:700;color:${gold};font-family:${font}">حاسبة الشراكات | SHARAKAH</div>
+              ${projName ? `<div style="font-size:12px;color:${muted};margin-top:3px;font-family:${font}">مشروع: ${projName}</div>` : ''}
+            </div>
+          </div>
+          <div style="font-size:12px;color:${muted};text-align:left;direction:ltr;font-family:${font}">${today}</div>
+        </div>
+
+        <!-- KPIs -->
+        <div style="display:flex;gap:24px;margin-bottom:24px">
+          ${kpiBoxes}
+        </div>
+
+        <!-- Charts row -->
+        <div style="display:flex;gap:24px;margin-bottom:24px;align-items:flex-start">
+          <!-- Donut -->
+          <div style="background:${surf};border:1px solid ${border};border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+            <div style="font-size:12px;color:${muted};font-family:${font};margin-bottom:12px;font-weight:600">توزيع الحصص</div>
+            ${donutSVG}
+            <div style="margin-top:14px;width:280px">${legend}</div>
+          </div>
+          <!-- Bars -->
+          <div style="flex:1;background:${surf};border:1px solid ${border};border-radius:12px;padding:20px">
+            <div style="font-size:12px;color:${muted};font-family:${font};margin-bottom:16px;font-weight:600">نسب المساهمة</div>
+            ${bars}
+          </div>
+        </div>
+
+        <!-- Party Cards -->
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:24px">
+          ${partyCards}
+        </div>
+
+        <!-- Footer -->
+        <div style="padding-top:16px;border-top:1px solid ${border};text-align:center">
+          <div style="font-size:13px;font-weight:700;color:${gold};font-family:${font}">تطوير وإشراف: نايف المحمدي &nbsp;·&nbsp; @almohammdin</div>
+          <div style="margin-top:6px;font-size:10px;color:${muted};font-family:${font};line-height:1.6">هذه النتائج تقديرية بناءً على المدخلات، ولا تُعد وثيقة قانونية نهائية.</div>
+        </div>
+
+      </div>`;
+
+    const container = document.getElementById('exportResultsLayout');
+    container.innerHTML = html;
+    container.style.visibility = 'visible';
+    container.style.width = px(W);
+    return container;
+  },
+
+  captureResultsImage() {
+    if (!this.results || !this.results.length) {
+      alert('لا توجد نتائج للتصدير، يرجى إكمال الحسبة أولاً.');
+      return;
+    }
+    if (typeof html2canvas === 'undefined') {
+      alert('مكتبة التقاط الصورة لم تُحمَّل بعد، يرجى الانتظار لحظة ثم المحاولة مجدداً.');
+      return;
+    }
+
+    const btn = document.querySelector('[onclick="G.captureResultsImage()"]');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ جارٍ التصدير...'; }
+
+    const container = this.buildExportLayout();
+    const projName  = (document.getElementById('projName')?.value || '').trim();
+
+    // نمنح المتصفح وقتاً لرسم العناصر ثم نلتقط
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        document.fonts.ready.then(() => {
+          html2canvas(container.firstElementChild, {
+            backgroundColor: '#1E080D',
+            scale: 3,
+            useCORS: true,
+            logging: false,
+            width:  1080,
+            windowWidth: 1080
+          }).then(canvas => {
+            container.style.visibility = 'hidden';
+            container.innerHTML = '';
+
+            const link = document.createElement('a');
+            link.download = `sharakah-results${projName ? '-' + projName.replace(/\s+/g, '-') : ''}.png`;
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
+          }).catch(err => {
+            container.style.visibility = 'hidden';
+            container.innerHTML = '';
+            if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
+            alert('تعذّر التقاط الصورة: ' + (err?.message || 'خطأ غير معروف'));
+          });
+        });
+      }, 120);
+    });
+  },
 
 
   normalizeNumberInputs() {
