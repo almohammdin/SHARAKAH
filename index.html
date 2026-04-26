@@ -907,7 +907,7 @@ const G = {
       net:  d.net  || 0,
       work: d.work || 'no',
       fmv:  d.fmv  || 0,
-      dur:  d.dur  || 12,
+      dur: d.dur !== undefined ? d.dur : '',
       role: d.role || 'silent',
       vesting: d.vesting || 'no',
       vestYrs: d.vestYrs || '',
@@ -1011,7 +1011,7 @@ const G = {
             </div>
             <div class="fg">
               <label>مدة المساهمة بالجهد (بالأشهر)</label>
-              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'dur',+this.value)">
               <div class="help">المدة التقديرية لاحتساب قيمة الجهد فقط، وليست مدة استحقاق ملكية.</div>
             </div>
             `}
@@ -1065,7 +1065,7 @@ const G = {
             </div>
             <div class="fg" style="margin-top:10px">
               <label>مدة المساهمة بالجهد (بالأشهر)</label>
-              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="12" onchange="G.sp(${p.id},'dur',+this.value)">
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'dur',+this.value)">
               <div class="help">المدة التقديرية لاحتساب قيمة الجهد فقط، وليست مدة استحقاق ملكية أو Vesting.</div>
             </div>
           </div>
@@ -1379,7 +1379,7 @@ const G = {
         const total = rabPct + mudPct || 100;
         this.results = this.parties.map((p, i) => {
           const isRab = p.cap === 'رب المال (ممول)';
-          const dur = p.dur || 12;
+          const dur = p.dur || 0;
           const effortVal = Math.max(0, (p.fmv || 0) - (p.paid || 0)) * dur;
           return { ...p,
             pct: +(isRab ? rabPct / total * 100 : mudPct / total * 100).toFixed(1),
@@ -1406,7 +1406,7 @@ const G = {
       const ipSc     = (p.ip     || 0) * (isStartup ? W.IP    : 1);
       const netSc    = (p.net    || 0) * (isStartup ? W.Net   : 1);
       const mult     = p.work === 'part' ? 0.5 : 1;
-      const dur      = p.dur || 12;
+      const dur      = p.dur || 0;
       const effortSc = p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * dur * (isStartup ? W.Effort : 1) * mult : 0;
       const roleSc   = 0;
       const total    = cashSc + assetSc + ipSc + netSc + effortSc;
@@ -1535,7 +1535,7 @@ const G = {
         r.assets  ? `أصول: ${this.fmt(r.assets)} ر.س` : null,
         r.ip      ? `ملكية فكرية: ${this.fmt(r.ip)} ر.س` : null,
         r.net     ? `شبكة: ${this.fmt(r.net)} ر.س` : null,
-        r.effortSc? `جهد/عمل: ${this.fmt(r.effortSc)} ن.` : null,
+        r.effortSc? `جهد غير مدفوع (${r.dur || 0} أشهر): ${this.fmt(r.effortSc)} ر.س` : null,
       ].filter(Boolean);
 
       return `
@@ -1579,7 +1579,7 @@ const G = {
 
     // تنبيه مدة الجهد الطويلة
     this.parties.forEach(p => {
-      if ((p.dur || 12) > 36)
+      if ((p.dur || 0) > 36)
         alerts.push({ t:'warn', m:`💡 تنبيه: كلما زادت المدة، ارتفعت قيمة الجهد في الحساب. يرجى موازنة مجهودك مع رأس مال الشريك لضمان التوزيع العادل للحصص بين الأطراف. (${p.name}: ${p.dur} شهر)` });
     });
 
@@ -1643,7 +1643,7 @@ const G = {
       if (hasEffort) {
         const paid = Number(p.paid) || 0;
         const fmv  = Number(p.fmv)  || 0;
-        const dur  = p.dur || 12;
+        const dur  = p.dur || 0;
         const unpaid = Math.max(0, fmv - paid) * dur;
         let effortText = `يقدم عملاً للمشروع وفق الراتب العادل في السوق قدره ${this.fmt(fmv)} ريال شهرياً، وبمبلغ مستلم فعلياً قدره ${this.fmt(paid)} ريال شهرياً، لمدة ${dur} شهراً`;
         if (unpaid) effortText += `؛ وتُعامل قيمة الفرق غير المدفوع (${this.fmt(unpaid)} ريال) كمساهمة تقديرية بالجهد لأغراض احتساب الحصص، ما لم يتفق الأطراف على خلاف ذلك`;
@@ -1678,7 +1678,7 @@ const G = {
       if (p.ip) lines.push(`ملكية فكرية / علامة تجارية: ${this.fmt(p.ip)} ريال`);
       if (p.net) lines.push(`شبكة علاقات / دعم: ${this.fmt(p.net)} ريال`);
       if (p.work !== 'no') {
-        const dur = p.dur || 12;
+        const dur = p.dur || 0;
         const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0)) * dur;
         lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، الراتب العادل في السوق: ${this.fmt(p.fmv||0)} ريال شهرياً، المستلم فعلياً: ${this.fmt(p.paid||0)} ريال شهرياً، المدة: ${dur} شهر، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
       }
@@ -1869,232 +1869,228 @@ ${vestLines}
 
   /* ─── EXPORT LAYOUT BUILDER ─── */
   buildExportLayout() {
-    /* ── أبعاد ثابتة ── */
-    const W = 1080, H = 1350, PAD = 56;
-    const CW = W - PAD * 2;
+  const W = 1080, H = 1350, PAD = 56;
+  
+  // 1. الهوية الفاتحة للأداة
+  const bg     = '#F7F4EC';
+  const surf   = '#FFFDF8';
+  const card   = '#F8F1E4';
+  const txt    = '#2B211A';
+  const mid    = '#7B6B5D';
+  const muted  = '#8A7570';
+  const border = '#E5D8BA';
+  const gold   = '#C9A84C';
+  const font   = "'IBM Plex Sans Arabic', sans-serif";
 
-    /* ── هوية بصرية فاتحة ── */
-    const bg     = '#F7F4EC';
-    const surf   = '#FFFDF8';
-    const card   = '#F8F1E4';
-    const txt    = '#2B211A';
-    const mid    = '#7B6B5D';
-    const muted  = '#8A7570';
-    const border = '#E5D8BA';
-    const gold   = '#C9A84C';
-    const goldDk = '#A6882E';
-    const font   = "'IBM Plex Sans Arabic', Arial, sans-serif";
+  // أيقونات التواصل الاجتماعي للتذييل
+  const xIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>`;
+  const linkedInIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
 
-    const projName  = (document.getElementById('projName')?.value || '').trim();
-    const today     = this.formatDate(new Date());
-    const res       = this.results;
-    const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
+  const projName = (document.getElementById('projName')?.value || '').trim();
+  const today    = this.formatDate(new Date());
+  const res      = this.results;
+  const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
+  const px = v => `${v}px`;
 
-    /* ── شعار نايف من DOM ── */
-    const logoSrc = document.querySelector('.naif-logo-top')?.src || '';
-    const logoImg = logoSrc
-      ? `<img src="${logoSrc}" style="height:36px;width:auto;object-fit:contain;filter:brightness(0);flex-shrink:0" alt="">`
-      : '';
+  // 2. أيقونة الأداة (المخطط الدائري لتقسيم الحصص)
+  const partnershipIconSVG = `
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="${gold}" stroke-width="2"/>
+      <path d="M12 2V12L19 19" stroke="${gold}" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 12L21.5 8.5" stroke="${gold}" stroke-width="2" stroke-linecap="round"/>
+    </svg>`;
 
-    /* ── الرسم الدائري SVG 380×380 ── */
-    const cx = 190, cy = 190, r = 138, sw = 46;
-    let ang = -90;
-    const arcs = res.map(d => {
-      if (!d.pct) return '';
-      const deg = d.pct / 100 * 360;
-      if (deg >= 359.9) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"/>`;
-      const a1 = ang * Math.PI / 180, a2 = (ang + deg) * Math.PI / 180;
-      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
-      const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
-      ang += deg;
-      return `<path d="M${x1},${y1} A${r},${r} 0 ${deg > 180 ? 1 : 0} 1 ${x2},${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="butt"/>`;
-    }).join('');
+  /* 3. الرسم الدائري (مقاس ثابت 460x460 لمنع القص) */
+  const cx = 230, cy = 230, r = 160, sw = 55;
+  let startAngle = -90;
+  const arcs = res.map(d => {
+    if (!d.pct) return '';
+    const angle = d.pct / 100 * 360;
+    if (angle >= 359.9) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"/>`;
+    const a1 = (startAngle) * Math.PI / 180;
+    const a2 = (startAngle + angle) * Math.PI / 180;
+    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+    const lg = angle > 180 ? 1 : 0;
+    startAngle += angle;
+    return `<path d="M${x1},${y1} A${r},${r} 0 ${lg} 1 ${x2},${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="round"/>`;
+  }).join('');
 
-    const donutSVG = `
-      <svg width="380" height="380" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg"
-           style="display:block;overflow:visible;flex-shrink:0">
-        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${border}" stroke-width="${sw}"/>
+  const donutSVG = `
+    <div style="width:460px;height:460px;display:flex;align-items:center;justify-content:center;position:relative">
+      <svg width="460" height="460" viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${card}" stroke-width="${sw}"/>
         ${arcs}
-        <circle cx="${cx}" cy="${cy}" r="${r - sw/2 - 10}" fill="${surf}"/>
-        <text x="${cx}" y="${cy - 12}" text-anchor="middle" font-size="14" fill="${muted}" font-family="${font}">إجمالي</text>
-        <text x="${cx}" y="${cy + 18}" text-anchor="middle" font-size="22" fill="${gold}" font-weight="700" font-family="${font}">${res.length} أطراف</text>
-      </svg>`;
+        <circle cx="${cx}" cy="${cy}" r="${r - sw/2 - 16}" fill="${surf}"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+         <div style="font-size:20px;color:${muted};font-family:${font}">إجمالي</div>
+         <div style="font-size:36px;color:${gold};font-weight:700;font-family:${font};margin-top:6px">${res.length} أطراف</div>
+      </div>
+    </div>`;
 
-    /* ── أسطورة ── */
-    const legend = res.map(d => `
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid ${border}">
-        <div style="display:flex;align-items:center;gap:9px">
-          <div style="width:10px;height:10px;border-radius:50%;background:${d.color};flex-shrink:0"></div>
-          <span style="color:${mid};font-size:13px;font-family:${font}">${d.name}</span>
-        </div>
-        <span style="color:${txt};font-weight:700;font-size:14px;font-family:${font}">${d.pct}%</span>
-      </div>`).join('');
+  const legend = res.map(d => `
+    <div style="display:flex;align-items:center;gap:10px;background:${surf};border:1px solid ${border};border-radius:10px;padding:10px 16px">
+      <div style="width:16px;height:16px;border-radius:50%;background:${d.color};flex-shrink:0"></div>
+      <span style="color:${txt};font-size:18px;font-weight:700;font-family:${font}">${d.pct}%</span>
+      <span style="color:${mid};font-size:15px;font-family:${font}">${d.name}</span>
+    </div>`).join('');
 
-    /* ── KPI ── */
-    const cash    = this.parties.reduce((s,p) => s+(p.cash||0), 0);
-    const asset   = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
-    const working = this.parties.filter(p => p.work !== 'no').length;
-    const pre     = +document.getElementById('preMoney')?.value || 0;
-    const inv     = +document.getElementById('newInv')?.value  || 0;
-    const kpis    = [
-      { lbl:'إجمالي التمويل النقدي',  val: this.fmt(cash)  + ' ر.س', sub: this.parties.length + ' أطراف' },
-      { lbl:'الأصول وغير النقدية',    val: this.fmt(asset) + ' ر.س', sub:'أصول + فكرية + شبكة' },
-      { lbl:'أطراف عاملون',           val: `${working} / ${this.parties.length}`, sub:'من مجموع الأطراف' },
-    ];
-    if (pre > 0 && inv > 0)
-      kpis.push({ lbl:'تقييم ما بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money' });
+  /* 4. مؤشرات الأداء */
+  const cash  = this.parties.reduce((s,p) => s+(p.cash||0), 0);
+  const asset = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
+  const working = this.parties.filter(p => p.work !== 'no').length;
+  const pre = +document.getElementById('preMoney')?.value || 0;
+  const inv = +document.getElementById('newInv')?.value  || 0;
+  
+  const kpis = [
+    { lbl:'إجمالي التمويل النقدي', val: this.fmt(cash)  + ' ر.س', sub: this.parties.length + ' أطراف' },
+    { lbl:'الأصول والحقوق المضافة', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + شبكة' },
+    { lbl:'أطراف عاملون في المشروع', val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
+  ];
+  if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money Valuation' });
 
-    const kpiCards = kpis.map(k => `
-      <div style="background:${card};border:1px solid ${border};border-radius:12px;padding:18px 20px;margin-bottom:14px">
-        <div style="font-size:11px;color:${muted};font-family:${font};margin-bottom:8px">${k.lbl}</div>
-        <div style="font-size:21px;font-weight:700;color:${gold};font-family:${font};margin-bottom:3px">${k.val}</div>
-        <div style="font-size:11px;color:${muted};font-family:${font}">${k.sub}</div>
-      </div>`).join('');
+  const kpiBoxes = kpis.map(k => `
+    <div style="background:${surf};border:1px solid ${border};border-radius:14px;padding:24px 28px;display:flex;flex-direction:column;justify-content:center">
+      <div style="font-size:16px;color:${muted};font-family:${font};margin-bottom:8px">${k.lbl}</div>
+      <div style="font-size:32px;font-weight:700;color:${gold};font-family:${font};margin-bottom:6px">${k.val}</div>
+      <div style="font-size:15px;color:${muted};font-family:${font}">${k.sub}</div>
+    </div>`).join('');
 
-    /* ── أبعاد الأعمدة ── */
-    const DONUT_W = 460, GAP = 24, KPI_W = CW - DONUT_W - GAP;
+  /* 5. بطاقات الأطراف الأفقية */
+  const partyCards = res.map(r => {
+    const contribs = [
+      r.cash     ? `نقدي: ${this.fmt(r.cash)} ر.س`        : null,
+      r.assets   ? `أصول: ${this.fmt(r.assets)} ر.س`      : null,
+      r.ip       ? `م.فكرية: ${this.fmt(r.ip)} ر.س`       : null,
+      r.net      ? `شبكة: ${this.fmt(r.net)} ر.س`         : null,
+      r.effortSc ? `جهد غير مدفوع (${r.dur || 0} أشهر): ${this.fmt(r.effortSc)} ر.س` : null,
+    ].filter(Boolean).slice(0, 2).join(' | ');
 
-    /* ── بطاقات الأطراف (عمودان) ── */
-    const CARD_W = Math.floor((CW - 20) / 2);
-    const partyCards = res.map(r => {
-      const contribs = [
-        r.cash     ? `نقدي: ${this.fmt(r.cash)} ر.س`        : null,
-        r.assets   ? `أصول: ${this.fmt(r.assets)} ر.س`      : null,
-        r.ip       ? `م.فكرية: ${this.fmt(r.ip)} ر.س`       : null,
-        r.net      ? `شبكة: ${this.fmt(r.net)} ر.س`         : null,
-        r.effortSc ? `جهد: ${this.fmt(r.effortSc)} ن.`      : null,
-      ].filter(Boolean);
-      const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' · '+(roleNames[r.role]||'') : ''}`;
-      const rows = contribs.map(c => {
-        const ci = c.indexOf(':');
-        return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid ${border}">
-          <span style="color:${muted};font-size:11px;font-family:${font}">${c.slice(0,ci)}</span>
-          <span style="color:${mid};font-size:11px;font-weight:600;font-family:${font}">${c.slice(ci+1)}</span>
-        </div>`;
-      }).join('');
-      return `
-        <div style="width:${CARD_W}px;background:${surf};border:1px solid ${border};border-radius:12px;padding:18px;box-sizing:border-box">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div style="display:flex;align-items:center;gap:10px">
-              <div style="width:12px;height:12px;border-radius:50%;background:${r.color};flex-shrink:0"></div>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:${txt};font-family:${font}">${r.name}</div>
-                ${capLine ? `<div style="font-size:10px;color:${muted};font-family:${font};margin-top:2px">${capLine}</div>` : ''}
-              </div>
+    const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' - '+(roleNames[r.role]||'') : ''}`;
+
+    return `
+      <div style="flex:1;min-width:300px;background:${surf};border:1px solid ${border};border-radius:14px;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:18px;height:18px;border-radius:50%;background:${r.color};flex-shrink:0"></div>
+                  <div style="font-size:22px;font-weight:700;color:${txt};font-family:${font}">${r.name}</div>
+                </div>
+                <div style="font-size:32px;font-weight:700;color:${r.color};font-family:${font}">${r.pct}%</div>
             </div>
-            <div style="font-size:26px;font-weight:700;color:${r.color};font-family:${font}">${r.pct}%</div>
-          </div>
-          <div style="height:5px;background:${border};border-radius:3px;margin-bottom:12px;overflow:hidden">
-            <div style="height:100%;width:${r.pct}%;background:${r.color};border-radius:3px"></div>
-          </div>
-          ${rows}
-        </div>`;
-    }).join('');
-
-    /* ── تجميع اللاوت ── */
-    const html = `
-      <div style="position:relative;width:${W}px;height:${H}px;padding:${PAD}px;
-                  background:${bg};box-sizing:border-box;font-family:${font};direction:rtl;overflow:hidden">
-
-        <!-- ترويسة -->
-        <div style="display:flex;justify-content:space-between;align-items:center;
-                    padding-bottom:18px;margin-bottom:24px;border-bottom:2px solid ${gold}">
-          <div style="display:flex;align-items:center;gap:12px">
-            ${logoImg}
-            <div>
-              <div style="font-size:18px;font-weight:700;color:${txt};font-family:${font}">حاسبة الشراكات | SHARAKAH</div>
-              <div style="font-size:12px;color:${muted};margin-top:3px;font-family:${font}">${projName ? 'مشروع: ' + projName : 'تقدير حصص الشراكة'}</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:${muted};text-align:left;direction:ltr;font-family:${font}">${today}</div>
+            <div style="font-size:15px;color:${mid};font-family:${font};margin-bottom:12px">${capLine}</div>
+            <div style="font-size:15px;color:${muted};font-family:${font};font-weight:600">${contribs || 'لا توجد مساهمات مسجلة'}</div>
         </div>
-
-        <!-- منتصف: دونات (يمين) + KPI (يسار) -->
-        <div style="display:flex;gap:${GAP}px;margin-bottom:24px;align-items:flex-start">
-          <div style="width:${DONUT_W}px;flex-shrink:0;background:${surf};border:1px solid ${border};
-                      border-radius:16px;padding:20px;box-sizing:border-box">
-            <div style="font-size:12px;color:${muted};font-family:${font};margin-bottom:12px;font-weight:600;text-align:center">توزيع الحصص</div>
-            <div style="width:${DONUT_W-40}px;height:${DONUT_W-40}px;display:flex;align-items:center;justify-content:center;overflow:visible">
-              ${donutSVG}
-            </div>
-            <div style="margin-top:16px">${legend}</div>
-          </div>
-          <div style="width:${KPI_W}px;flex-shrink:0;box-sizing:border-box">
-            <div style="font-size:12px;color:${muted};font-family:${font};margin-bottom:14px;font-weight:600">ملخص الحسبة</div>
-            ${kpiCards}
-          </div>
+        <div style="margin-top:20px;height:10px;background:${card};border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:${r.pct}%;background:${r.color};border-radius:5px"></div>
         </div>
-
-        <!-- بطاقات الأطراف -->
-        <div style="margin-bottom:80px">
-          <div style="font-size:12px;color:${muted};font-family:${font};margin-bottom:14px;font-weight:600">مساهمات الأطراف وحصصهم</div>
-          <div style="display:flex;flex-wrap:wrap;gap:20px">${partyCards}</div>
-        </div>
-
-        <!-- تذييل -->
-        <div style="position:absolute;bottom:${PAD}px;left:${PAD}px;right:${PAD}px;
-                    padding-top:14px;border-top:1px solid ${border};text-align:center">
-          <div style="font-size:14px;font-weight:700;color:${goldDk};font-family:${font}">نايف المحمدي &nbsp;·&nbsp; @almohammdin</div>
-          <div style="margin-top:5px;font-size:10px;color:${muted};font-family:${font};line-height:1.6">هذه النتائج تقديرية بناءً على المدخلات، ولا تُعد وثيقة قانونية نهائية.</div>
-        </div>
-
       </div>`;
+  }).join('');
 
-    const container = document.getElementById('exportResultsLayout');
-    container.innerHTML = html;
-    container.style.cssText = `position:fixed;left:-9999px;top:0;width:${W}px;visibility:visible;pointer-events:none`;
-    return container;
-  },
+  /* 6. تجميع الهيكل النهائي */
+  const html = `
+    <div style="width:${px(W)};height:${px(H)};padding:${px(PAD)};background:${bg};box-sizing:border-box;font-family:${font};direction:rtl;display:flex;flex-direction:column;justify-content:space-between">
+      
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:32px;border-bottom:1px solid ${border};flex-shrink:0">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:18px">
+            ${partnershipIconSVG}
+            <div style="font-size:32px;font-weight:700;color:${txt};font-family:${font}">حاسبة الشراكات | SHARAKAH</div>
+          </div>
+          ${projName ? `<div style="font-size:20px;color:${mid};font-family:${font}">المشروع: ${projName}</div>` : ''}
+        </div>
+        <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font}">${today}</div>
+      </div>
 
-  captureResultsImage() {
-    if (!this.results || !this.results.length) {
-      alert('لا توجد نتائج للتصدير، يرجى إكمال الحسبة أولاً.');
-      return;
-    }
-    if (typeof html2canvas === 'undefined') {
-      alert('مكتبة التقاط الصورة لم تُحمَّل بعد، يرجى الانتظار لحظة ثم المحاولة مجدداً.');
-      return;
-    }
+      <div style="display:flex;gap:48px;flex:1;align-items:center;padding:48px 0">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          ${donutSVG}
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:40px;width:100%">
+            ${legend}
+          </div>
+        </div>
+        <div style="width:460px;display:flex;flex-direction:column;gap:24px;flex-shrink:0">
+          ${kpiBoxes}
+        </div>
+      </div>
 
-    const btn = document.querySelector('[onclick="G.captureResultsImage()"]');
-    if (btn) { btn.disabled = true; btn.textContent = '⏳ جارٍ التصدير...'; }
+      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:48px;flex-shrink:0">
+        ${partyCards}
+      </div>
 
-    const projName  = (document.getElementById('projName')?.value || '').trim();
-    const container = this.buildExportLayout();
-    const target    = container.firstElementChild;
+      <div style="padding-top:20px;border-top:2px solid ${border};display:flex;align-items:center;justify-content:center;gap:14px;font-family:${font};white-space:nowrap;flex-shrink:0">
+        <div style="font-size:22px;font-weight:700;color:${txt};font-family:${font}">نايف المحمدي</div>
+        <div style="color:${border};font-size:22px">|</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:20px;color:${gold};font-weight:600;direction:ltr;font-family:${font}">
+          ${xIcon}
+          ${linkedInIcon}
+          <span>@almohammdin</span>
+        </div>
+        <div style="color:${border};font-size:22px">|</div>
+        <div style="font-size:18px;color:${muted};font-family:${font}">النتائج تقديرية ولا تُعد وثيقة قانونية نهائية.</div>
+      </div>
+    </div>`;
 
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        document.fonts.ready.then(() => {
-          html2canvas(target, {
-            backgroundColor: '#F7F4EC',
-            scale: 3,
-            useCORS: true,
-            logging: false,
-            width:        1080,
-            height:       1350,
-            windowWidth:  1080,
-            windowHeight: 1350
-          }).then(canvas => {
-            container.style.visibility = 'hidden';
-            container.innerHTML = '';
-            const link = document.createElement('a');
-            link.download = `sharakah-results${projName ? '-' + projName.replace(/\s+/g, '-') : ''}.png`;
-            link.href = canvas.toDataURL('image/png');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
-          }).catch(err => {
-            container.style.visibility = 'hidden';
-            container.innerHTML = '';
-            if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
-            alert('تعذّر التقاط الصورة: ' + (err?.message || 'خطأ غير معروف'));
-          });
+  const container = document.getElementById('exportResultsLayout');
+  container.innerHTML = html;
+  container.style.visibility = 'visible';
+  container.style.width = px(W);
+  container.style.height = px(H);
+  return container;
+},
+
+/* ─── IMAGE CAPTURE FUNCTION (Configured for 1080x1350) ─── */
+captureResultsImage() {
+  if (!this.results || !this.results.length) {
+    alert('لا توجد نتائج للتصدير، يرجى إكمال الحسبة أولاً.');
+    return;
+  }
+  if (typeof html2canvas === 'undefined') {
+    alert('مكتبة التقاط الصورة لم تُحمَّل بعد، يرجى الانتظار لحظة ثم المحاولة مجدداً.');
+    return;
+  }
+
+  const btn = document.querySelector('[onclick="G.captureResultsImage()"]');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ جارٍ التصدير...'; }
+
+  const container = this.buildExportLayout();
+  const projName  = (document.getElementById('projName')?.value || '').trim();
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.fonts.ready.then(() => {
+        html2canvas(container.firstElementChild, {
+          backgroundColor: '#F7F4EC',
+          scale: 3,
+          useCORS: true,
+          logging: false,
+          width: 1080,
+          height: 1350,
+          windowWidth: 1080,
+          windowHeight: 1350
+        }).then(canvas => {
+          container.style.visibility = 'hidden';
+          container.innerHTML = '';
+
+          const link = document.createElement('a');
+          link.download = `sharakah-results${projName ? '-' + projName.replace(/\s+/g, '-') : ''}.png`;
+          link.href = canvas.toDataURL('image/png');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
+        }).catch(err => {
+          container.style.visibility = 'hidden';
+          container.innerHTML = '';
+          if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
+          alert('تعذّر التقاط الصورة: ' + (err?.message || 'خطأ غير معروف'));
         });
-      }, 150);
-    });
-  },
+      });
+    }, 150);
+  });
+},
 
 
 
