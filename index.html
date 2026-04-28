@@ -131,6 +131,7 @@ input[type=number]::-webkit-inner-spin-button{opacity:.5}
 .party-body{padding:16px}
 .btn-rm{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#F87171;border-radius:var(--radius-xs);padding:5px 11px;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .2s;font-weight:600}
 .btn-rm:hover{background:rgba(239,68,68,.18)}
+.btn-rm:disabled{opacity:.45;cursor:not-allowed;background:rgba(239,68,68,.05);color:#B98080}
 
 /* ─── BUTTONS ─── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 22px;border-radius:var(--radius-sm);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none;white-space:nowrap}
@@ -543,6 +544,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   </div>
 
   <div id="partyList"></div>
+  <div id="step2Warn" class="notice notice-warn hide">يرجى إدخال مساهمة (نقدية أو جهد أو أصول) لطرف واحد على الأقل للمتابعة. إذا كنت تستخدم بيانات محفوظة قديماً وتواجه مشكلة، يرجى الضغط على زر (مشروع جديد).</div>
   <button class="btn-add" id="btnAddParty">＋ إضافة طرف</button>
 
   <div class="nav-row">
@@ -555,7 +557,9 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <div class="phase" id="ph3">
   <div class="ph-title" id="ph3Title">كيف تُوزَّع الأوزان؟</div>
   <div class="ph-sub" id="ph3Sub">اختر نمط الشراكة المناسب، والأداة تضبط الأوزان تلقائياً. يمكنك ضبطها يدوياً إذا أردت.</div>
+  <div id="nonStartupWeightNotice" class="notice notice-info hide">حساب الحصص لهذا النوع يعتمد على القيم المُدخلة مباشرة، ولا يتأثر بتعديل الأوزان.</div>
 
+  <div class="section-head" id="calcSectionHead">الحساب والأوزان</div>
   <!-- Smart profiles + advanced weights -->
   <div class="card" id="wCard">
     <div class="card-head">نمط الشراكة</div>
@@ -682,6 +686,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
     </div>
   </div>
 
+  <div class="section-head">الاتفاقيات والشروط</div>
   <!-- Dispute Resolution -->
   <div class="card" id="disputeCard">
     <div class="card-head">⚖️ حل الخلافات</div>
@@ -753,7 +758,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
     <div class="kpi-grid" id="kpiGrid"></div>
     <div class="chart-row">
       <div class="chart-box">
-        <div class="chart-title">توزيع الحصص</div>
+        <div class="chart-title">توزيع الملكية</div>
         <svg id="donutSvg" width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0 auto 10px"></svg>
         <div class="legend" id="donutLegend"></div>
       </div>
@@ -851,16 +856,15 @@ const G = {
   activeProfile: 'balanced',
   results: [],
   mudarabaCheck: null,
+  MAX_PARTIES: 8,
 
   TYPES: [
-    { id:'startup', icon:'🚀', name:'شركة ناشئة / مشروع قابل للاستثمار', desc:'مشروع جديد يستهدف النمو وجذب التمويل' },
     { id:'fnb',     icon:'⚙️', name:'مشروع تشغيلي', desc:'إدارة وتشغيل يومي: متجر، مطعم، فندق، مقاولات' },
     { id:'deal',    icon:'🏗️', name:'صفقة تجارية محددة', desc:'فرصة مؤقتة تنتهي بانتهاء الصفقة' },
     { id:'existing',icon:'🏢', name:'دخول شريك في شركة قائمة', desc:'تقييم شركة قائمة وإدخال شريك جديد' },
     { id:'mudaraba',icon:'🤝', name:'عقد مضاربة', desc:'رب مال يقدم المال ومضارب يقدم العمل' },
   ],
 
-  STEPS: ['اختر نوع الشراكة','أضف الشركاء','اضبط طريقة الحساب','راجع الحصص','جهّز بنود الاتفاق'],
 
   COLORS: ['#C9A84C','#22C55E','#3B82F6','#A855F7','#EF4444','#F59E0B','#06B6D4','#EC4899'],
 
@@ -953,8 +957,8 @@ const G = {
   closeModal(id) {
     document.getElementById(id).classList.remove('open');
   },
-  doReset() {
-    this.closeModal('resetModal');
+  doReset(fromModal = true) {
+    if (fromModal) this.closeModal('resetModal');
     this.type = null;
     this.phase = 1;
     this.parties = [];
@@ -977,37 +981,22 @@ const G = {
 
   /* ─── TOOLBAR: SAVE / LOAD ─── */
   saveProgress() {
-    // جمع البيانات الحالية
-    const parties = [];
-    document.querySelectorAll('.party-card').forEach((card, i) => {
-      const id = card.dataset.pid;
-      parties.push({
-        name: document.getElementById('pname_' + id)?.value || '',
-        cash: document.getElementById('cash_' + id)?.value || '',
-        asset: document.getElementById('asset_' + id)?.value || '',
-        effort: document.getElementById('effort_' + id)?.value || '',
-        ip: document.getElementById('ip_' + id)?.value || '',
-        net: document.getElementById('net_' + id)?.value || '',
-      });
-    });
+    const parties = this.parties.map(p => ({ ...p }));
+    const val = id => document.getElementById(id)?.value || '';
     const data = {
-      type: this.type,
-      phase: this.phase,
-      activeProfile: this.activeProfile,
-      W: this.W,
-      projName: document.getElementById('projName')?.value || '',
-      legalStruct: document.getElementById('legalStruct')?.value || '',
-      parties,
-      ts: Date.now()
+      type: this.type, phase: this.phase, activeProfile: this.activeProfile, W: this.W,
+      projName: val('projName'), legalStruct: val('legalStruct'),
+      preMoney: val('preMoney'), newInv: val('newInv'), targetPct: val('targetPct'), postMoney: val('postMoney'),
+      coVal: val('coVal'), entryAmt: val('entryAmt'), entryPct: val('entryPct'),
+      amicableOn: val('amicableOn'), amicableDays: val('amicableDays'), disputeMethod: val('disputeMethod'), disputeDetails: val('disputeDetails'), disputeNote: val('disputeNote'),
+      parties, ts: Date.now()
     };
     try {
       localStorage.setItem('sharakah_save', JSON.stringify(data));
       const badge = document.getElementById('savedBadge');
-      badge.classList.add('show');
-      setTimeout(() => badge.classList.remove('show'), 3000);
-    } catch(e) {
-      alert('تعذّر الحفظ في المتصفح. يرجى التحقق من أذونات التخزين.');
-    }
+      badge?.classList.add('show');
+      setTimeout(() => badge?.classList.remove('show'), 3000);
+    } catch(e) { alert('تعذّر الحفظ في المتصفح. يرجى التحقق من أذونات التخزين.'); }
   },
 
   loadProgress() {
@@ -1016,11 +1005,20 @@ const G = {
       if (!raw) return;
       const data = JSON.parse(raw);
       if (!data || !data.type) return;
+      const allowedTypes = ['fnb','deal','existing','mudaraba'];
+      if (!allowedTypes.includes(data.type)) {
+        localStorage.removeItem('sharakah_save');
+        return;
+      }
       // Restore type
       this.selType(data.type);
       // Restore project fields
       if (data.projName) { const el = document.getElementById('projName'); if(el) el.value = data.projName; }
       if (data.legalStruct) { const el = document.getElementById('legalStruct'); if(el) el.value = data.legalStruct; }
+      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','amicableOn','amicableDays','disputeMethod','disputeDetails','disputeNote'].forEach(id => {
+        if (data[id] !== undefined) { const el = document.getElementById(id); if (el) el.value = data[id]; }
+      });
+      this.updDisputeFields();
       // Restore weights & profile
       if (data.W) this.W = data.W;
       if (data.activeProfile) {
@@ -1043,21 +1041,33 @@ const G = {
 
   /* ─── NAVIGATION ─── */
   go(n) {
+    if (n === 3 && !this.validateStep2()) return;
     if (n === 4) this.calc();
-    if (n === 5) { this.calc(); this.buildAgr(); }
+    if (n === 5) { this.buildAgr(); }
     document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
     document.getElementById('ph' + n).classList.add('active');
     this.phase = n;
     this.updSteps();
-    document.getElementById('progBar').style.width = (n * 20) + '%';
+    document.getElementById('progBar').style.width = (n < 5 ? (10 + (n - 1) * 20) : 90) + '%';
     const activePhase = document.getElementById('ph' + n);
     (activePhase || document.getElementById('tool-container'))?.scrollIntoView({ behavior:'smooth', block:'start' });
+  },
+
+  validateStep2() {
+    const hasData = this.parties.some(p =>
+      (Number(p.cash)||0) > 0 || (Number(p.assets)||0) > 0 || (Number(p.ip)||0) > 0 ||
+      (Number(p.net)||0) > 0 || p.work !== 'no' || (Number(p.fmv)||0) > 0
+    );
+    const warn = document.getElementById('step2Warn');
+    if (warn) warn.classList.toggle('hide', hasData);
+    if (!hasData) warn?.scrollIntoView({ behavior:'smooth', block:'center' });
+    return hasData;
   },
 
   updSteps() {
     const list = document.getElementById('stepList');
     const counter = document.getElementById('stepCounter');
-    const step3Name = this.type === 'startup' ? 'اضبط طريقة الحساب' : 'اضبط طريقة الحساب';
+    const step3Name = this.type === 'startup' ? 'اضبط طريقة الحساب' : 'تفاصيل الاتفاق';
     const steps = ['اختر نوع الشراكة', 'أضف الشركاء', step3Name, 'راجع الحصص', 'جهّز بنود الاتفاق'];
     if (counter) counter.textContent = `الخطوة ${this.phase} من ${steps.length}`;
     list.innerHTML = steps.map((s, i) => {
@@ -1122,9 +1132,11 @@ const G = {
     const show = (id, s) => document.getElementById(id)?.classList.toggle('hide', !s);
     show('mudarabaHint', t === 'mudaraba');
     show('wCard',        t === 'startup');
+    show('calcSectionHead', t === 'startup');
+    show('nonStartupWeightNotice', !!t && t !== 'startup');
     show('startupCard',  t === 'startup');
     show('existCard',    t === 'existing');
-    show('mudCard',      t === 'mudaraba');
+    show('mudCard',      false); // تم إخفاؤها لمنع تكرار إدخال نسب الربح؛ النسب تُقرأ من كروت الأطراف في الخطوة 2
 
     // عناوين المرحلة الثالثة الديناميكية
     const ph3Title = document.getElementById('ph3Title');
@@ -1148,6 +1160,10 @@ const G = {
 
   /* ─── PARTIES ─── */
   addParty(d = {}) {
+    if (this.parties.length >= this.MAX_PARTIES) {
+      alert('الحد الأعلى للأطراف هو ' + this.MAX_PARTIES + ' أطراف حتى تبقى النتائج والألوان واضحة.');
+      return;
+    }
     this.cnt++;
     this.parties.push({
       id: this.cnt,
@@ -1166,6 +1182,7 @@ const G = {
       cliffMo: d.cliffMo || '',
       vestNote: d.vestNote || '',
       paid: d.paid || 0,
+      profit: d.profit !== undefined ? d.profit : '',
       note: d.note || ''
     });
     this.renderParties();
@@ -1229,7 +1246,7 @@ const G = {
             <div class="party-pip" style="background:${color}"></div>
             <div class="party-lbl" id="lbl_${p.id}">${p.name}</div>
           </div>
-          ${canRm ? `<button class="btn-rm" onclick="G.removeParty(${p.id})">حذف</button>` : ''}
+          ${canRm ? `<button class="btn-rm" onclick="G.removeParty(${p.id})">حذف</button>` : `<button class="btn-rm" disabled title="الحد الأدنى طرفان">حذف</button>`}
         </div>
         <div class="party-body">
           <div class="grid2">
@@ -1338,7 +1355,7 @@ const G = {
                 <input type="number" lang="en" min="1" max="10" value="${this.inputVal(p.vestYrs)}" placeholder="مثال: 4" onchange="G.sp(${p.id},'vestYrs',+this.value)">
               </div>
               <div class="fg party-vesting-${p.id}" style="${p.vesting === 'yes' ? '' : 'display:none'}">
-                <label>فترة الكليف بالأشهر</label>
+                <label>مدة الاختبار قبل استحقاق أي حصة بالأشهر</label>
                 <input type="number" lang="en" min="0" max="24" value="${this.inputVal(p.cliffMo)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'cliffMo',+this.value)">
               </div>
               <div class="fg party-vesting-${p.id}" style="${p.vesting === 'yes' ? '' : 'display:none'}">
@@ -1349,6 +1366,16 @@ const G = {
           </div>` : ''}
           `}
 
+          ${this.profitShareEnabled() ? `
+          <div class="card-sm" style="margin-top:12px">
+            <div class="card-head" style="font-size:12px;margin-bottom:10px;padding-bottom:8px">توزيع الأرباح</div>
+            <div class="fg">
+              <label>نصيب الأرباح لهذا الطرف (%)</label>
+              <input id="profit_${p.id}" type="number" lang="en" min="0" max="100" value="${this.inputVal(p.profit)}" onchange="G.sp(${p.id},'profit',this.value === '' ? '' : +this.value)">
+              ${this.type === 'mudaraba' ? '<div class="help">إذا تُرك هذا الحقل فارغاً، سيُفترض 40% لرب المال و60% للمضارب، موزعة داخل كل فئة.</div>' : ''}
+            </div>
+          </div>` : ''}
+
           <div class="fg" style="margin-top:10px">
             <label>ملاحظة مختصرة (اختياري)</label>
             <input type="text" value="${p.note}" placeholder="مثال: يوفّر الموقع، يدير العمليات..." onchange="G.sp(${p.id},'note',this.value)">
@@ -1356,6 +1383,13 @@ const G = {
         </div>
       </div>`;
     }).join('');
+    const addBtn = document.getElementById('btnAddParty');
+    if (addBtn) {
+      const atMax = this.parties.length >= this.MAX_PARTIES;
+      addBtn.style.display = atMax ? 'none' : '';
+      if (!document.getElementById('maxPartyNote')) addBtn.insertAdjacentHTML('afterend', '<div id=\"maxPartyNote\" class=\"notice notice-info hide\" style=\"margin-top:8px\">تم الوصول للحد الأعلى للأطراف حتى تبقى قراءة النتائج واضحة.</div>');
+      document.getElementById('maxPartyNote')?.classList.toggle('hide', !atMax);
+    }
     this.normalizeNumberInputs();
   },
 
@@ -1376,27 +1410,9 @@ const G = {
   },
 
   newProject() {
-    this.type = null;
-    this.phase = 1;
-    this.cnt = 0;
-    this.parties = [];
-    this.results = [];
-    this.activeProfile = 'balanced';
-    this.W = { Cash:4, Asset:3, Effort:3, IP:3, Net:2 };
-    this.existingTouched = { valuation:false, investment:false, percent:false };
-    document.querySelectorAll('input').forEach(el => { if (el.type !== 'range') el.value = ''; });
-    document.querySelectorAll('textarea').forEach(el => el.value = '');
-    document.querySelectorAll('select').forEach(el => { el.selectedIndex = 0; });
-    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('sel'));
-    document.getElementById('btnPh1Next').disabled = true;
-    document.getElementById('typeHint')?.classList.add('hide');
-    this.addParty({ name:'الطرف الأول' });
-    this.addParty({ name:'الطرف الثاني' });
-    this.renderProfiles();
-    this.initWeights();
-    this.updPanels();
-    this.go(1);
+    this.doReset(false);
   },
+
 
   /* ─── WEIGHTS ─── */
   renderProfiles() {
@@ -1616,6 +1632,41 @@ const G = {
     return 'general';
   },
 
+  profitShareEnabled() {
+    return ['mudaraba', 'fnb'].includes(this.type);
+  },
+
+  normalizePercentField(value) {
+    if (value === undefined || value === null || value === '') return null;
+    const n = Number(value);
+    return Number.isFinite(n) ? Math.max(0, n) : null;
+  },
+
+  applyProfitShares() {
+    const manual = this.results.map(r => this.normalizePercentField(r.profit));
+    const hasManual = manual.some(v => v !== null);
+
+    if (this.profitShareEnabled() && hasManual) {
+      const total = manual.reduce((sum, v) => sum + (v || 0), 0) || 100;
+      this.results.forEach((r, i) => { r.profit = +(((manual[i] || 0) / total) * 100).toFixed(1); });
+    } else {
+      this.results.forEach(r => {
+        const base = (r.profit !== undefined && r.profit !== null) ? Number(r.profit) : Number(r.pct || 0);
+        r.profit = +(Number.isFinite(base) ? base : 0).toFixed(1);
+      });
+    }
+
+    const sum = this.results.reduce((total, r) => total + (Number(r.profit) || 0), 0);
+    const diff = +(100 - sum).toFixed(1);
+    if (this.results.length && Math.abs(diff) >= 0.1) {
+      this.results[this.results.length - 1].profit = +((Number(this.results[this.results.length - 1].profit) || 0) + diff).toFixed(1);
+    }
+  },
+
+  profitDiffers() {
+    return this.results.some(r => Math.abs((Number(r.profit) || 0) - (Number(r.pct) || 0)) >= 0.1);
+  },
+
   /* ─── CALCULATE ─── */
   calc() {
     const W = this.W;
@@ -1626,15 +1677,29 @@ const G = {
       const check = this.validateMudaraba();
       this.mudarabaCheck = check;
       if (check.valid) {
-        const rabPct = +document.getElementById('mudRab')?.value || 40;
-        const mudPct = +document.getElementById('mudMud')?.value || 60;
-        const total = rabPct + mudPct || 100;
+        const rabParties = this.parties.filter(p => p.cap === 'رب المال (ممول)');
+        const mudParties = this.parties.filter(p => p.cap === 'مضارب (عامل)');
+        const manualProfit = this.parties.map(p => this.normalizePercentField(p.profit));
+        const hasManualProfit = manualProfit.some(v => v !== null);
+        const manualTotal = manualProfit.reduce((sum, v) => sum + (v || 0), 0) || 100;
+        const totalCash = rabParties.reduce((sum, p) => sum + (Number(p.cash) || 0), 0);
+        const effortValue = p => Math.max(0, (Number(p.fmv) || 0) - (Number(p.paid) || 0)) * (Number(p.dur) || 0);
+        const totalEffort = mudParties.reduce((sum, p) => sum + effortValue(p), 0);
         this.results = this.parties.map((p, i) => {
           const isRab = p.cap === 'رب المال (ممول)';
-          const dur = p.dur || 0;
-          const effortVal = Math.max(0, (p.fmv || 0) - (p.paid || 0)) * dur;
+          const effortVal = effortValue(p);
+          const equityPct = isRab
+            ? (totalCash > 0 ? (Number(p.cash) || 0) / totalCash * 100 : 100 / Math.max(1, rabParties.length))
+            : 0;
+          // في المضاربة تُقرأ نسب الربح مباشرة من كروت الأطراف في الخطوة 2.
+          // إذا تُركت فارغة، نستخدم افتراضاً إرشادياً: 40% لرب المال و60% للمضارب، موزعة داخل كل فئة.
+          const fallbackProfitPct = isRab
+            ? (totalCash > 0 ? ((Number(p.cash) || 0) / totalCash) * 40 : 40 / Math.max(1, rabParties.length))
+            : (totalEffort > 0 ? (effortVal / totalEffort) * 60 : 60 / Math.max(1, mudParties.length));
+          const profitPct = hasManualProfit ? ((manualProfit[i] || 0) / manualTotal * 100) : fallbackProfitPct;
           return { ...p,
-            pct: +(isRab ? rabPct / total * 100 : mudPct / total * 100).toFixed(1),
+            pct: +equityPct.toFixed(1),
+            profit: +profitPct.toFixed(1),
             cashSc: isRab ? (p.cash || 0) : 0,
             assetSc:0, ipSc:0, netSc:0,
             effortSc: isRab ? 0 : effortVal,
@@ -1646,6 +1711,7 @@ const G = {
         this.renderResults();
         return;
       }
+      this.mudarabaCheck.fallback = true;
       // If the inputs do not qualify as mudaraba, continue through the regular weighted partnership calculation.
     }
 
@@ -1702,6 +1768,7 @@ const G = {
     const diff = +(100 - sum).toFixed(1);
     if (this.results.length) this.results[this.results.length - 1].pct = +(this.results[this.results.length - 1].pct + diff).toFixed(1);
     this.results.forEach((r, i) => { if (!r.color) r.color = this.COLORS[i % this.COLORS.length]; });
+    this.applyProfitShares();
 
     this.renderResults();
   },
@@ -1738,14 +1805,13 @@ const G = {
 
   polar(cx,cy,r,deg){ const a=(deg-90)*Math.PI/180; return{x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)}; },
 
-  renderDonut() {
-    const svg = document.getElementById('donutSvg');
-    const leg = document.getElementById('donutLegend');
+  makeDonutSvg(data, valueKey = 'pct', label = 'إجمالي') {
     const cx=100, cy=100, r=72, sw=28;
     let start = -90;
-    const arcs = this.results.map(d => {
-      if (!d.pct) return '';
-      const angle = d.pct / 100 * 360;
+    const arcs = data.map(d => {
+      const val = Number(d[valueKey]) || 0;
+      if (!val) return '';
+      const angle = val / 100 * 360;
       if (angle >= 360) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"/>`;
       const p1 = this.polar(cx,cy,r,start), p2 = this.polar(cx,cy,r,start+angle);
       const lg = angle > 180 ? 1 : 0;
@@ -1753,13 +1819,18 @@ const G = {
       start += angle;
       return `<path d="${path}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="round"/>`;
     }).join('');
-
-    svg.innerHTML = `
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2C0F16" stroke-width="${sw}"/>
+    return `
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#EFE4CC" stroke-width="${sw}"/>
       ${arcs}
       <circle cx="${cx}" cy="${cy}" r="${r-sw/2-8}" fill="var(--surface)"/>
-      <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="11" fill="#5E7A96" font-family="IBM Plex Sans Arabic">إجمالي</text>
-      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="14" fill="#C9A84C" font-weight="700" font-family="IBM Plex Sans Arabic">${this.results.length} أطراف</text>`;
+      <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="11" fill="#5E7A96" font-family="IBM Plex Sans Arabic">${label}</text>
+      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="14" fill="#C9A84C" font-weight="700" font-family="IBM Plex Sans Arabic">${data.length} أطراف</text>`;
+  },
+
+  renderDonut() {
+    const svg = document.getElementById('donutSvg');
+    const leg = document.getElementById('donutLegend');
+    svg.innerHTML = this.makeDonutSvg(this.results, 'pct', 'ملكية');
 
     leg.innerHTML = this.results.map(d => `
       <div class="leg-row">
@@ -1769,7 +1840,23 @@ const G = {
   },
 
   renderBars() {
-    document.getElementById('barChart').innerHTML = this.results.map(r => `
+    const box = document.getElementById('barChart');
+    const title = box?.closest('.chart-box')?.querySelector('.chart-title');
+    if (this.profitDiffers()) {
+      if (title) title.textContent = 'توزيع الأرباح';
+      box.innerHTML = `
+        <svg width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0 auto 10px">${this.makeDonutSvg(this.results, 'profit', 'أرباح')}</svg>
+        <div class="legend">
+          ${this.results.map(r => `
+            <div class="leg-row">
+              <div class="leg-name"><div class="leg-pip" style="background:${r.color}"></div>${r.name}</div>
+              <div class="leg-pct">${r.profit}%</div>
+            </div>`).join('')}
+        </div>`;
+      return;
+    }
+    if (title) title.textContent = 'نسب المساهمة';
+    box.innerHTML = this.results.map(r => `
       <div class="bar-item">
         <div class="bar-meta">
           <span class="bar-name">${r.name}</span>
@@ -1807,12 +1894,10 @@ const G = {
           const [lbl,...rest] = c.split(':');
           return `<div class="rc-row"><span class="rc-lbl">${lbl}</span><span class="rc-val">${rest.join(':')}</span></div>`;
         }).join('')}</div>
-        ${this.type !== 'mudaraba' ? `
-        <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:grid;grid-template-columns:${this.profitDiffers() ? '1fr 1fr' : '1fr'};gap:4px">
           <div class="rc-row"><span class="rc-lbl">حصة الملكية</span><span class="rc-val" style="color:var(--gold);font-weight:700">${r.pct}%</span></div>
-          <div class="rc-row"><span class="rc-lbl">نصيب الأرباح</span><span class="rc-val">${r.pct}% (افتراضاً)</span></div>
+          ${this.profitDiffers() ? `<div class="rc-row"><span class="rc-lbl">نصيب الأرباح</span><span class="rc-val" style="color:${r.color};font-weight:700">${r.profit}%</span></div>` : ''}
         </div>
-        <div style="font-size:10px;color:var(--muted);margin-top:5px;line-height:1.6">الملكية تُعطي حق التصويت والأصول والأرباح. يمكن الاتفاق على نصيب أرباح مختلف في العقد دون تغيير الملكية.</div>` : ''}
       </div>`;
     }).join('');
   },
@@ -1822,7 +1907,7 @@ const G = {
     const max = Math.max(...this.results.map(r => r.pct));
     const dom = this.results.find(r => r.pct === max);
     if (dom && max > 65)
-      alerts.push({ t:'warn', m:`⚠️ ${dom.name} يملك أكثر من ${max}% من الحصص، تأكد أن هذا مقصود ومكتوب بوضوح في الاتفاقية.` });
+      alerts.push({ t:'warn', m:`⚠️ ${dom.name} يملك ${max}% من الحصص، تأكد أن هذا مقصود ومكتوب بوضوح في الاتفاقية.` });
     if (this.parties.filter(p => p.work === 'no').length === this.parties.length)
       alerts.push({ t:'warn', m:'⚠️ لا أحد من الأطراف سيعمل في المشروع، كيف سيُدار؟ تأكد من تحديد المدير التنفيذي في الاتفاقية.' });
     const workingWithoutVesting = this.parties.filter(p => p.work !== 'no' && p.vesting !== 'yes');
@@ -1852,8 +1937,8 @@ const G = {
         alerts.push({ t:'warn', m:'⚠️ ملاحظتنا: أحد الأطراف يجمع بين التمويل والعمل، أو أن بيانات المال والعمل غير مكتملة. هذا لا يتوافق مع عقد المضاربة، لذلك تم التعامل مع الحالة كمشاركة عادية لضمان دقة التوزيع.' });
         if (this.mudarabaCheck?.problems?.length) alerts.push({ t:'warn', m:'تفاصيل الملاحظة: ' + this.mudarabaCheck.problems.join(' | ') });
       }
-    } else if (this.detectModel() === 'partnership') {
-      alerts.push({ t:'ok', m:'🧠 تحليل النموذج: يوجد طرف يجمع بين المال والعمل، لذلك الحالة أقرب إلى مشاركة عادية وليست مضاربة.' });
+    } else if (this.parties.some(p => (p.cash || 0) > 0 && this.hasEffort(p))) {
+      alerts.push({ t:'ok', m:'🧠 تحليل النموذج: يوجد طرف يجمع بين المال والعمل؛ تأكد من توضيح العلاقة كمشاركة عامة لا كمضاربة.' });
     }
     const disputeMethod = document.getElementById('disputeMethod')?.value || '';
     const disputeDetails = (document.getElementById('disputeDetails')?.value || '').trim();
@@ -1901,7 +1986,7 @@ const G = {
         if (unpaid) effortText += `؛ وتُعامل قيمة الفرق غير المدفوع (${this.fmt(unpaid)} ريال) كمساهمة تقديرية بالجهد لأغراض احتساب الحصص، ما لم يتفق الأطراف على خلاف ذلك`;
         facts.push(effortText);
       }
-      if (!facts.length) facts.push('لم تُدخل له مساهمة محددة بعد');
+      if (!facts.length) facts.push('تُحدد مساهمته كتابةً في العقد النهائي')
       if (p.note) facts.push(`ودوّن بشأنه: ${p.note}`);
       lines.push(`وحيث إن ${ref} ${facts.join('، ')}؛`);
     });
@@ -1913,6 +1998,7 @@ const G = {
 
   /* ─── AGREEMENT ─── */
   buildAgr() {
+    this.calc();
     const originalType = this.type || 'startup';
     const t = this.mudarabaCheck?.fallback ? 'partnership' : originalType;
     const nm = document.getElementById('projName')?.value || 'المشروع';
@@ -1923,7 +2009,7 @@ const G = {
     const legalVal = document.getElementById('legalStruct')?.value || '';
     const legalLabel = legalMap[legalVal] || 'يُحدد لاحقاً بعد التشاور القانوني';
     const roleNames = { manager:'إدارة عامة', ops:'تشغيل', tech:'تقنية', sales:'مبيعات', silent:'دون دور تنفيذي' };
-    const partyLines = this.results.map((r,i)=>`${this.partyOrdinal(i)}: ${r.name}، الصفة: ${this.displayCap(r, t === 'partnership')}، النسبة المقترحة: ${r.pct}%.${r.note ? ' ملاحظة: '+r.note : ''}`).join('\n');
+    const partyLines = this.results.map((r,i)=>`${this.partyOrdinal(i)}: ${r.name}، الصفة: ${this.displayCap(r, t === 'partnership')}، حصة الملكية: ${r.pct}%${this.profitDiffers() ? `، نصيب الأرباح: ${r.profit}%` : ''}.${r.note ? ' ملاحظة: '+r.note : ''}`).join('\n');
     const contribs = this.parties.map((p,i) => {
       const lines = [];
       if (p.cash) lines.push(`تمويل نقدي: ${this.fmt(p.cash)} ريال`);
@@ -1935,7 +2021,7 @@ const G = {
         const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0)) * dur;
         lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، الراتب العادل في السوق: ${this.fmt(p.fmv||0)} ريال شهرياً، المستلم فعلياً: ${this.fmt(p.paid||0)} ريال شهرياً، المدة: ${dur} شهر، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
       }
-      return `${this.partyRef(p,i)}: ${lines.length ? lines.join('، ') : 'لم تُدخل مساهمة محددة بعد.'}`;
+      return `${this.partyRef(p,i)}: ${lines.length ? lines.join('، ') : 'تُحدد مساهمته كتابةً في العقد النهائي.'}`;
     }).join('\n');
     const pre = this.numVal('preMoney') || 0;
     const inv = this.numVal('newInv') || 0;
@@ -1971,19 +2057,19 @@ ${contribs}`);
 4. النسبة التقريبية للمستثمر الجديد: ${pct ? pct.toFixed(1) : '0'}%.`);
       const vestedParties = this.parties.filter(p => p.work !== 'no' && p.vesting === 'yes');
       if (vestedParties.length) {
-        const vestLines = vestedParties.map((p,i) => `${i+1}. ${this.partyRef(p, this.parties.indexOf(p))}: مدة الاستحقاق ${p.vestYrs || '[تحدد]'} سنوات، وفترة الكليف ${p.cliffMo || '[تحدد]'} شهر.${p.vestNote ? ' ملاحظة: ' + p.vestNote + '.' : ''}`).join('\n');
+        const vestLines = vestedParties.map((p,i) => `${i+1}. ${this.partyRef(p, this.parties.indexOf(p))}: مدة الاستحقاق ${p.vestYrs || '[تحدد]'} سنوات، ومدة الاختبار قبل استحقاق أي حصة ${p.cliffMo || '[تحدد]'} شهر.${p.vestNote ? ' ملاحظة: ' + p.vestNote + '.' : ''}`).join('\n');
         clauses.push(`البند الرابع: الاستحقاق التدريجي للشركاء العاملين
 يُطبق الاستحقاق التدريجي على الأطراف العاملين التالية أسماؤهم فقط:
 ${vestLines}
 ولا تُكتسب الحصة غير المستحقة عند الانسحاب المبكر إلا وفق ما يرد في العقد النهائي.`);
       }
-      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح وحصة الملكية
-حصة الملكية المبيّنة في البند الأول تُعطي صاحبها حق التصويت، وحصة في أصول الشركة، ونصيباً عند أي حدث تصارفي (بيع أو إدراج). وتُوزع الأرباح القابلة للتوزيع بنفس نسب الملكية ما لم يتفق الأطراف كتابةً على نصيب أرباح مختلف دون المساس بالملكية.`);
+      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح
+تُوزع الأرباح وفق نسب نصيب الأرباح المبيّنة في البند الأول.`);
     } else if (t === 'fnb') {
       clauses.push(`البند الثالث: الإدارة والتشغيل
 تُحدد الإدارة اليومية، الصلاحيات التشغيلية، التوقيع، التوريد، المخزون، الجودة، والرقابة المالية كتابةً في العقد النهائي.`);
-      clauses.push(`البند الرابع: توزيع الأرباح وحصة الملكية
-تُوزع الأرباح الصافية وفق نسب الملكية المبيّنة في البند الأول، بعد خصم التكاليف التشغيلية والاحتياطيات المتفق عليها.`);
+      clauses.push(`البند الرابع: توزيع الأرباح
+تُوزع الأرباح الصافية وفق نسب نصيب الأرباح المبيّنة في البند الأول.`);
     } else if (t === 'deal') {
       clauses.push(`البند الثالث: نطاق الصفقة ومدتها
 الغرض هو تنفيذ صفقة تجارية محددة فقط، وتنتهي العلاقة بانتهاء الصفقة وتصفية التكاليف وتوزيع العوائد.`);
@@ -1994,17 +2080,18 @@ ${vestLines}
 تُحدد قيمة الشركة قبل الدخول، ومبلغ دخول الشريك الجديد، ونسبة ملكيته الناتجة. وتُحسب هذه القيم على أساس أن نسبة الشريك = مبلغ الدخول ÷ القيمة بعد الدخول.`);
       clauses.push(`البند الرابع: الالتزامات السابقة واللاحقة
 يجب تحديد ما إذا كان الشريك الجديد يتحمل أي التزامات سابقة، وما حقوقه في الاطلاع والإدارة والتصويت بعد دخوله.`);
-      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح وحصة الملكية
-حصة الملكية تُعطي صاحبها حق التصويت والأصول ونصيباً عند البيع. تُوزع الأرباح وفق نسب الملكية ما لم يُتفق كتابةً على خلاف ذلك، ويُعدّ أي نصيب أرباح مختلف توزيعاً مستقلاً لا تعديلاً في هيكل الملكية.`);
+      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح
+تُوزع الأرباح وفق نسب نصيب الأرباح المبيّنة في البند الأول.`);
     } else if (t === 'mudaraba') {
       clauses.push(`البند الثالث: رأس المال والعمل
 1. رب المال: ${rab?.name || '[اسم رب المال]'}، يقدم رأس المال بمبلغ ${this.fmt(rab?.cash || 0)} ريال.
 2. المضارب: ${mud?.name || '[اسم المضارب]'}، يقدم العمل والإدارة ولا يقدم رأس مال في هذه المضاربة.`);
+      const rabProfit = this.results.filter(r => r.cap === 'رب المال (ممول)').reduce((sum, r) => sum + (Number(r.profit) || 0), 0).toFixed(1).replace(/\.0$/, '');
+      const mudProfit = this.results.filter(r => r.cap === 'مضارب (عامل)').reduce((sum, r) => sum + (Number(r.profit) || 0), 0).toFixed(1).replace(/\.0$/, '');
       clauses.push(`البند الرابع: توزيع الربح والخسارة
-1. حصة رب المال من الربح: ${document.getElementById('mudRab')?.value || 40}%.
-2. حصة المضارب من الربح: ${document.getElementById('mudMud')?.value || 60}%.
-3. الخسارة المالية تكون على رأس المال، ويخسر المضارب جهده، ما لم يوجد تعدٍّ أو تفريط أو مخالفة.
-ملاحظة: في المضاربة لا توجد ملكية للمضارب في رأس المال أو أصول المشروع؛ حقه محصور في نصيبه من الربح المتفق عليه.`);
+1. حصة رب المال من الربح: ${rabProfit}%.
+2. حصة المضارب من الربح: ${mudProfit}%.
+3. الخسارة المالية تكون على رأس المال، ويخسر المضارب جهده، ما لم يوجد تعدٍّ أو تفريط أو مخالفة.`);
     } else {
       clauses.push(`البند الثالث: طبيعة المشاركة
 اختار المستخدم عقد مضاربة، لكن المدخلات لا تحقق الفصل الكامل بين المال والعمل؛ لذلك تُعامل الحالة كمشاركة عامة لا كمضاربة.`);
@@ -2015,7 +2102,8 @@ ${vestLines}
     const dispute = this.buildDisputeClause();
     if (dispute) clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: حل الخلافات\n${dispute}`);
 
-    const text = `${intro}\n${clauses.map((c,i)=>`${i+1}) ${c}`).join('\n\n')}`;
+    const numberedClauses = clauses.map((c, i) => c.replace(/^البند\s+[^:]+:/, 'البند ' + this.ordinalClause(i + 1) + ':'));
+    const text = `${intro}\n${numberedClauses.join('\n\n')}`;
     document.getElementById('agrBox').textContent = text;
     document.getElementById('agrTitle').textContent = `مسودة أبرز بنود العقد، ${nm}`;
     document.getElementById('agrMeta').textContent = `${typeNames[t] || ''} · ${this.parties.length} أطراف · ${today}`;
@@ -2081,10 +2169,12 @@ ${vestLines}
       } else {
         this.fallbackCopy(t);
       }
+      document.getElementById('progBar').style.width = '100%';
       this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
     } catch (e) {
       try {
         this.fallbackCopy(t);
+        document.getElementById('progBar').style.width = '100%';
         this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
       } catch (err) {
         this.showCopyStatus('تعذّر النسخ التلقائي، يمكنك تحديد النص ونسخه يدوياً.', true);
@@ -2123,8 +2213,6 @@ ${vestLines}
   /* ─── EXPORT LAYOUT BUILDER ─── */
   buildExportLayout() {
   const W = 1080, H = 1350, PAD = 24;
-  
-  // 1. الهوية الفاتحة للأداة
   const bg     = '#F7F4EC';
   const surf   = '#FFFDF8';
   const card   = '#F8F1E4';
@@ -2135,67 +2223,65 @@ ${vestLines}
   const gold   = '#C9A84C';
   const font   = "'IBM Plex Sans Arabic', sans-serif";
 
-  // أيقونات التواصل الاجتماعي للتذييل
   const xIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>`;
   const linkedInIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
 
   const projName = (document.getElementById('projName')?.value || '').trim();
   const dates    = this.formatDate(new Date());
   const res      = this.results;
+  const hasProfitSplit = this.profitDiffers();
   const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
   const px = v => `${v}px`;
 
-  // 2. أيقونة المخطط الدائري الذهبية (البديل المعتمد للشعار في ترويسة التصدير)
-  const partnershipIconSVG = `
-    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block">
-      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="${gold}" stroke-width="2"/>
-      <path d="M12 2V12L19 19" stroke="${gold}" stroke-width="2" stroke-linecap="round"/>
-      <path d="M12 12L21.5 8.5" stroke="${gold}" stroke-width="2" stroke-linecap="round"/>
-    </svg>`;
+  const makeDonutSVG = (metric, title, size) => {
+    const cx = size / 2, cy = size / 2, r = size * 0.35, sw = size * 0.12;
+    let startAngle = -90;
+    const arcs = res.map(d => {
+      const value = +(d[metric] ?? d.pct) || 0;
+      if (!value) return '';
+      const angle = value / 100 * 360;
+      if (angle >= 359.9) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"/>`;
+      const a1 = startAngle * Math.PI / 180;
+      const a2 = (startAngle + angle) * Math.PI / 180;
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+      const lg = angle > 180 ? 1 : 0;
+      startAngle += angle;
+      return `<path d="M${x1},${y1} A${r},${r} 0 ${lg} 1 ${x2},${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    }).join('');
 
-  /* 3. الرسم الدائري (مقاس ثابت 460x460 لمنع القص) */
-  const cx = 230, cy = 230, r = 160, sw = 55;
-  let startAngle = -90;
-  const arcs = res.map(d => {
-    if (!d.pct) return '';
-    const angle = d.pct / 100 * 360;
-    if (angle >= 359.9) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${sw}"/>`;
-    const a1 = (startAngle) * Math.PI / 180;
-    const a2 = (startAngle + angle) * Math.PI / 180;
-    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
-    const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
-    const lg = angle > 180 ? 1 : 0;
-    startAngle += angle;
-    return `<path d="M${x1},${y1} A${r},${r} 0 ${lg} 1 ${x2},${y2}" fill="none" stroke="${d.color}" stroke-width="${sw}" stroke-linecap="round"/>`;
-  }).join('');
+    return `
+      <div style="width:${size}px;height:${size}px;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0">
+        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${card}" stroke-width="${sw}"/>
+          ${arcs}
+          <circle cx="${cx}" cy="${cy}" r="${r - sw/2 - size*0.035}" fill="${surf}"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+          <div style="font-size:${hasProfitSplit ? 18 : 20}px;color:${muted};font-family:${font}">${title}</div>
+          <div style="font-size:${hasProfitSplit ? 30 : 36}px;color:${gold};font-weight:700;font-family:${font};margin-top:6px">${res.length} أطراف</div>
+        </div>
+      </div>`;
+  };
 
-  const donutSVG = `
-    <div style="width:460px;height:460px;display:flex;align-items:center;justify-content:center;position:relative">
-      <svg width="460" height="460" viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;display:block">
-        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${card}" stroke-width="${sw}"/>
-        ${arcs}
-        <circle cx="${cx}" cy="${cy}" r="${r - sw/2 - 16}" fill="${surf}"/>
-      </svg>
-      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
-         <div style="font-size:20px;color:${muted};font-family:${font}">إجمالي</div>
-         <div style="font-size:36px;color:${gold};font-weight:700;font-family:${font};margin-top:6px">${res.length} أطراف</div>
-      </div>
-    </div>`;
+  const chartBlock = hasProfitSplit
+    ? `<div style="display:flex;align-items:center;justify-content:center;gap:28px;width:100%">
+         ${makeDonutSVG('pct', 'توزيع الملكية', 350)}
+         ${makeDonutSVG('profit', 'توزيع الأرباح', 350)}
+       </div>`
+    : makeDonutSVG('pct', 'توزيع الملكية', 460);
 
   const legend = res.map(d => `
     <div style="display:flex;align-items:center;gap:10px;background:${surf};border:1px solid ${border};border-radius:10px;padding:10px 16px">
       <div style="width:16px;height:16px;border-radius:50%;background:${d.color};flex-shrink:0"></div>
-      <span style="color:${txt};font-size:18px;font-weight:700;font-family:${font}">${d.pct}%</span>
       <span style="color:${mid};font-size:15px;font-family:${font}">${d.name}</span>
     </div>`).join('');
 
-  /* 4. مؤشرات الأداء */
   const cash  = this.parties.reduce((s,p) => s+(p.cash||0), 0);
   const asset = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
   const working = this.parties.filter(p => p.work !== 'no').length;
   const pre = +document.getElementById('preMoney')?.value || 0;
   const inv = +document.getElementById('newInv')?.value  || 0;
-  
   const kpis = [
     { lbl:'إجمالي التمويل النقدي', val: this.fmt(cash)  + ' ر.س', sub: this.parties.length + ' أطراف' },
     { lbl:'الأصول والحقوق المضافة', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + شبكة' },
@@ -2204,13 +2290,12 @@ ${vestLines}
   if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money Valuation' });
 
   const kpiBoxes = kpis.map(k => `
-    <div style="background:${surf};border:1px solid ${border};border-radius:14px;padding:24px 28px;display:flex;flex-direction:column;justify-content:center">
-      <div style="font-size:16px;color:${muted};font-family:${font};margin-bottom:8px">${k.lbl}</div>
-      <div style="font-size:32px;font-weight:700;color:${gold};font-family:${font};margin-bottom:6px">${k.val}</div>
-      <div style="font-size:15px;color:${muted};font-family:${font}">${k.sub}</div>
+    <div style="background:${surf};border:1px solid ${border};border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;justify-content:center">
+      <div style="font-size:15px;color:${muted};font-family:${font};margin-bottom:7px">${k.lbl}</div>
+      <div style="font-size:28px;font-weight:700;color:${gold};font-family:${font};margin-bottom:5px;direction:ltr;unicode-bidi:plaintext">${k.val}</div>
+      <div style="font-size:14px;color:${muted};font-family:${font}">${k.sub}</div>
     </div>`).join('');
 
-  /* 5. بطاقات الأطراف الأفقية (قائمة عمودية توضح كافة مساهمات الشريك) */
   const partyCards = res.map(r => {
     const contribRows = [
       r.cash     ? { lbl:'نقدي', val:`${this.fmt(r.cash)} ر.س` } : null,
@@ -2223,44 +2308,54 @@ ${vestLines}
     const contribsHtml = contribRows.length > 0
       ? contribRows.map((c, i) => `
         <div style="display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:${i === contribRows.length - 1 ? 'none' : '1px solid ' + border}">
-          <span style="color:${muted};font-size:16px;font-family:${font}">${c.lbl}</span>
-          <span style="color:${txt};font-size:16px;font-weight:700;font-family:${font};direction:ltr;unicode-bidi:plaintext">${c.val}</span>
+          <span style="color:${muted};font-size:15px;font-family:${font}">${c.lbl}</span>
+          <span style="color:${txt};font-size:15px;font-weight:700;font-family:${font};direction:ltr;unicode-bidi:plaintext">${c.val}</span>
         </div>`).join('')
-      : `<div style="padding:6px 0;color:${muted};font-size:16px;font-family:${font}">لا توجد مساهمات مسجلة</div>`;
+      : `<div style="padding:6px 0;color:${muted};font-size:15px;font-family:${font}">لا توجد مساهمات مسجلة</div>`;
 
     const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' - '+(roleNames[r.role]||'') : ''}`;
+    const headlineShare = hasProfitSplit
+      ? `<div style="display:flex;gap:14px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px">
+           <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid ${border}">
+             <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">الملكية</span>
+             <span style="font-size:28px;font-weight:700;color:${txt};font-family:${font};direction:ltr;unicode-bidi:plaintext;line-height:1">${r.pct}%</span>
+           </div>
+           <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+             <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">الأرباح</span>
+             <span style="font-size:28px;font-weight:700;color:${r.color};font-family:${font};direction:ltr;unicode-bidi:plaintext;line-height:1">${r.profit}%</span>
+           </div>
+         </div>`
+      : `<div style="display:flex;align-items:baseline;justify-content:flex-start;gap:12px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px;direction:rtl">
+           <span style="font-size:16px;color:${muted};font-family:${font};white-space:nowrap">الملكية:</span>
+           <span style="font-size:32px;font-weight:700;color:${r.color};font-family:${font};direction:ltr;unicode-bidi:plaintext;line-height:1">${r.pct}%</span>
+         </div>`;
 
     return `
-      <div style="flex:1;min-width:300px;background:${surf};border:1px solid ${border};border-radius:14px;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+      <div style="flex:1;min-width:300px;background:${surf};border:1px solid ${border};border-radius:14px;padding:22px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
         <div>
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-                <div style="display:flex;align-items:center;gap:12px">
-                  <div style="width:18px;height:18px;border-radius:50%;background:${r.color};flex-shrink:0"></div>
-                  <div style="font-size:22px;font-weight:700;color:${txt};font-family:${font}">${r.name}</div>
-                </div>
-                <div style="font-size:32px;font-weight:700;color:${r.color};font-family:${font}">${r.pct}%</div>
+          <div style="display:flex;align-items:flex-start;justify-content:flex-start;margin-bottom:12px;gap:16px">
+            <div style="display:flex;align-items:center;gap:12px;min-width:0">
+              <div style="width:18px;height:18px;border-radius:50%;background:${r.color};flex-shrink:0"></div>
+              <div style="font-size:22px;font-weight:700;color:${txt};font-family:${font};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</div>
             </div>
-            <div style="font-size:15px;color:${mid};font-family:${font};margin-bottom:16px">${capLine}</div>
-            <div style="font-size:16px;font-family:${font};max-height:150px;overflow:hidden">
-              ${contribsHtml}
-            </div>
+          </div>
+          ${headlineShare}
+          <div style="font-size:15px;color:${mid};font-family:${font};margin-bottom:14px">${capLine}</div>
+          <div style="font-size:15px;font-family:${font};max-height:140px;overflow:hidden">
+            ${contribsHtml}
+          </div>
         </div>
-        <div style="margin-top:24px;height:10px;background:${card};border-radius:5px;overflow:hidden">
-          <div style="height:100%;width:${r.pct}%;background:${r.color};border-radius:5px"></div>
+        <div style="margin-top:20px;height:10px;background:${card};border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:${hasProfitSplit ? r.profit : r.pct}%;background:${r.color};border-radius:5px"></div>
         </div>
       </div>`;
   }).join('');
 
-  /* 6. تجميع الهيكل النهائي */
   const html = `
     <div style="width:${px(W)};height:${px(H)};padding:${px(PAD)};background:${bg};box-sizing:border-box;font-family:${font};direction:rtl;display:flex;flex-direction:column;justify-content:space-between">
-      
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:32px;border-bottom:1px solid ${border};flex-shrink:0">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div style="display:flex;align-items:center;gap:18px">
-            ${partnershipIconSVG}
-            <div style="font-size:32px;font-weight:700;color:${txt};font-family:${font}">حاسبة الشراكات | SHARAKAH</div>
-          </div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:28px;border-bottom:1px solid ${border};flex-shrink:0">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:32px;font-weight:700;color:${txt};font-family:${font}">حاسبة الشراكات | SHARAKAH</div>
           ${projName ? `<div style="font-size:20px;color:${mid};font-family:${font}">المشروع: ${projName}</div>` : ''}
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
@@ -2269,23 +2364,25 @@ ${vestLines}
         </div>
       </div>
 
-      <div style="display:flex;gap:48px;flex:1;align-items:center;padding:48px 0">
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          ${donutSVG}
-          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:40px;width:100%">
-            ${legend}
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:${hasProfitSplit ? '28px 0 20px' : '38px 0'}">
+        <div style="display:flex;gap:${hasProfitSplit ? '22px' : '48px'};align-items:center;justify-content:center">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0">
+            ${chartBlock}
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:${hasProfitSplit ? '22px' : '36px'};width:100%">
+              ${legend}
+            </div>
           </div>
-        </div>
-        <div style="width:460px;display:flex;flex-direction:column;gap:24px;flex-shrink:0">
-          ${kpiBoxes}
+          <div style="width:${hasProfitSplit ? '330px' : '460px'};display:flex;flex-direction:column;gap:14px;flex-shrink:0">
+            ${kpiBoxes}
+          </div>
         </div>
       </div>
 
-      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:48px;flex-shrink:0">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:30px;flex-shrink:0">
         ${partyCards}
       </div>
 
-      <div style="padding-top:20px;border-top:2px solid ${border};display:flex;align-items:center;justify-content:center;gap:14px;font-family:${font};white-space:nowrap;flex-shrink:0">
+      <div style="padding-top:18px;border-top:2px solid ${border};display:flex;align-items:center;justify-content:center;gap:14px;font-family:${font};white-space:nowrap;flex-shrink:0">
         <div style="font-size:22px;font-weight:700;color:${txt};font-family:${font}">نايف المحمدي</div>
         <div style="color:${border};font-size:22px">|</div>
         <div style="display:flex;align-items:center;gap:8px;font-size:20px;color:${gold};font-weight:600;direction:ltr;font-family:${font}">
