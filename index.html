@@ -2168,25 +2168,24 @@ ${vestLines}
     `;
   },
 
-  async copyAgr() {
+  copyAgr() {
     const t = document.getElementById('agrBox')?.textContent || '';
     if (!t.trim()) return;
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
-        await navigator.clipboard.writeText(t);
-      } else {
-        this.fallbackCopy(t);
-      }
+
+    const done = () => {
       document.getElementById('progBar').style.width = '100%';
       this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
-    } catch (e) {
-      try {
-        this.fallbackCopy(t);
-        document.getElementById('progBar').style.width = '100%';
-        this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
-      } catch (err) {
-        this.showCopyStatus('تعذّر النسخ التلقائي، يمكنك تحديد النص ونسخه يدوياً.', true);
-      }
+    };
+    const fail = () => {
+      this.showCopyStatus('تعذّر النسخ التلقائي، حدّد النص واضغط نسخ يدوياً.', true);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(t).then(done).catch(() => {
+        try { this.fallbackCopy(t); done(); } catch { fail(); }
+      });
+    } else {
+      try { this.fallbackCopy(t); done(); } catch { fail(); }
     }
   },
 
@@ -2194,12 +2193,23 @@ ${vestLines}
     const ta = document.createElement('textarea');
     ta.value = text;
     ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.top = '-1000px';
-    ta.style.opacity = '0';
+    // إضافة font-size: 16px لمنع الزووم التلقائي أثناء عملية النسخ المخفية
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
     document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
+
+    const isIOS = /ipad|iphone|ipod/i.test(navigator.userAgent);
+    if (isIOS) {
+      const range = document.createRange();
+      range.selectNodeContents(ta);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      ta.setSelectionRange(0, 999999);
+    } else {
+      ta.focus();
+      ta.select();
+    }
+
     const ok = document.execCommand('copy');
     document.body.removeChild(ta);
     if (!ok) throw new Error('copy failed');
