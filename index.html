@@ -511,6 +511,37 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   <div class="ph-sub">اختر النموذج الأقرب لواقعك، هذا الاختيار يُحدد طريقة الحساب والبنود المُقترحة في الخطوات التالية.</div>
   <div class="type-grid" id="typeGrid"></div>
   <div id="typeHint" class="notice notice-gold hide"></div>
+
+  <!-- QUICK EXAMPLES CARD — distinct compact style -->
+  <div id="quickExamplesCard" style="margin-top:16px;background:#FDFBF5;border:1.5px dashed #DCCDAA;border-radius:12px;padding:14px 16px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <span style="font-size:13px">⚡</span>
+      <span style="font-size:12px;font-weight:700;color:#7B6B5D;letter-spacing:.3px">أمثلة سريعة — اضغط لتعبئة البيانات تلقائياً</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px">
+      <button onclick="G.loadExample('fnb')" style="background:#FFFDF8;border:1px solid #E5D8BA;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#C9A84C'" onmouseout="this.style.borderColor='#E5D8BA'">
+        <div style="font-size:16px;margin-bottom:5px">⚙️</div>
+        <div style="font-size:12px;font-weight:700;color:#2B211A;margin-bottom:3px">مقهى الفجر</div>
+        <div style="font-size:11px;color:#9B8B7D;line-height:1.5">ممول + مدير تشغيل</div>
+      </button>
+      <button onclick="G.loadExample('deal')" style="background:#FFFDF8;border:1px solid #E5D8BA;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#C9A84C'" onmouseout="this.style.borderColor='#E5D8BA'">
+        <div style="font-size:16px;margin-bottom:5px">🏗️</div>
+        <div style="font-size:12px;font-weight:700;color:#2B211A;margin-bottom:3px">صفقة النخيل</div>
+        <div style="font-size:11px;color:#9B8B7D;line-height:1.5">ممول + شبكة علاقات</div>
+      </button>
+      <button onclick="G.loadExample('existing')" style="background:#FFFDF8;border:1px solid #E5D8BA;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#C9A84C'" onmouseout="this.style.borderColor='#E5D8BA'">
+        <div style="font-size:16px;margin-bottom:5px">🏢</div>
+        <div style="font-size:12px;font-weight:700;color:#2B211A;margin-bottom:3px">مطاعم الأصالة</div>
+        <div style="font-size:11px;color:#9B8B7D;line-height:1.5">دخول شريك جديد</div>
+      </button>
+      <button onclick="G.loadExample('mudaraba')" style="background:#FFFDF8;border:1px solid #E5D8BA;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#C9A84C'" onmouseout="this.style.borderColor='#E5D8BA'">
+        <div style="font-size:16px;margin-bottom:5px">🤝</div>
+        <div style="font-size:12px;font-weight:700;color:#2B211A;margin-bottom:3px">مضاربة فندقية</div>
+        <div style="font-size:11px;color:#9B8B7D;line-height:1.5">صندوق + شركة إدارة</div>
+      </button>
+    </div>
+  </div>
+
   <div class="notice notice-info">هذه التصنيفات تمثل حالات شراكة وليست أشكالاً قانونية نهائية. الشكل القانوني المناسب يُحدد لاحقاً وفق نظام الشركات مثل: شركة ذات مسؤولية محدودة أو شركة مساهمة مبسطة.</div>
   <div class="nav-row">
     <span></span>
@@ -1658,8 +1689,10 @@ const G = {
       const total = manual.reduce((sum, v) => sum + (v || 0), 0) || 100;
       this.results.forEach((r, i) => { r.profit = +(((manual[i] || 0) / total) * 100).toFixed(1); });
     } else {
+      // FIX: use normalizePercentField so empty string '' is treated as null (not 0)
       this.results.forEach(r => {
-        const base = (r.profit !== undefined && r.profit !== null) ? Number(r.profit) : Number(r.pct || 0);
+        const rawProfit = this.normalizePercentField(r.profit);
+        const base = (rawProfit !== null) ? rawProfit : Number(r.pct || 0);
         r.profit = +(Number.isFinite(base) ? base : 0).toFixed(1);
       });
     }
@@ -1902,12 +1935,37 @@ const G = {
           const [lbl,...rest] = c.split(':');
           return `<div class="rc-row"><span class="rc-lbl">${lbl}</span><span class="rc-val">${rest.join(':')}</span></div>`;
         }).join('')}</div>
-        <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:grid;grid-template-columns:${this.profitDiffers() ? '1fr 1fr' : '1fr'};gap:4px">
-          <div class="rc-row"><span class="rc-lbl">حصة الملكية</span><span class="rc-val" style="color:var(--gold);font-weight:700">${r.pct}%</span></div>
-          ${this.profitDiffers() ? `<div class="rc-row"><span class="rc-lbl">نصيب الأرباح</span><span class="rc-val" style="color:${r.color};font-weight:700">${r.profit}%</span></div>` : ''}
+        <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:11px;color:var(--muted);font-weight:600">حصة الملكية</span>
+            <span style="font-size:13px;font-weight:700;color:var(--gold)">${r.pct}%</span>
+          </div>
+          ${this.profitDiffers() ? `
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:11px;color:var(--muted);font-weight:600">نصيب الأرباح</span>
+            <span style="font-size:13px;font-weight:700;color:${r.color}">${r.profit}%</span>
+          </div>` : ''}
         </div>
       </div>`;
     }).join('');
+  },
+
+  /* Check for silent zero-profit anomaly */
+  zeroProfit_checkResults() {
+    const alerts = [];
+    this.results.forEach(r => {
+      const equity = Number(r.pct) || 0;
+      const profit = Number(r.profit) || 0;
+      const cashContrib = Number(r.cash || 0) + Number(r.assets || 0) + Number(r.ip || 0) + Number(r.net || 0);
+      if (equity > 1 && profit < 0.1 && cashContrib > 0) {
+        alerts.push({
+          name: r.name,
+          equity: equity.toFixed(1),
+          contrib: cashContrib
+        });
+      }
+    });
+    return alerts;
   },
 
   renderAlerts() {
@@ -1956,6 +2014,21 @@ const G = {
     document.getElementById('smartAlerts').innerHTML = alerts.map(a =>
       `<div class="notice notice-${a.t === 'warn' ? 'warn' : 'ok'}" style="margin-bottom:8px">${a.m}</div>`
     ).join('');
+
+    // Zero-profit anomaly warning
+    const zpAlerts = this.zeroProfit_checkResults();
+    if (zpAlerts.length) {
+      const zpHtml = zpAlerts.map(a => `
+        <div class="notice" style="background:#FEF2F2;border:1px solid #FCA5A5;color:#7A1D1D;padding:14px 16px;border-radius:10px;margin-top:10px;line-height:1.75;font-size:13px">
+          <strong>⛔ تنبيه حسابي مهم:</strong> ${a.name} يساهم بـ ${this.fmt(a.contrib)} ريال ويمتلك ${a.equity}% من الشركة — لكن نصيبه من الأرباح <strong>0%</strong>.
+          <br>هذا لا يحدث تلقائياً. تحقق من:<br>
+          &nbsp;&nbsp;① هل يعني هذا أن ربحه يأتي من راتب ثابت فقط؟<br>
+          &nbsp;&nbsp;② أم أن توزيع الأرباح يسير بشكل مختلف عن الملكية؟<br>
+          &nbsp;&nbsp;③ إذا كان هذا خطأ — اذهب للخطوة 2 وأدخل نسبة أرباح يدوية لكل طرف.
+        </div>`).join('');
+      const smartEl = document.getElementById('smartAlerts');
+      if (smartEl) smartEl.innerHTML += zpHtml;
+    }
   },
 
 
@@ -2475,6 +2548,48 @@ captureResultsImage() {
 
 
 
+
+
+  loadExample(type) {
+    const EXAMPLES = {
+      fnb: { projName: '\u0645\u0642\u0647\u0649 \u0627\u0644\u0641\u062c\u0631', legalStruct: 'llc', parties: [
+        { name: '\u0623\u062d\u0645\u062f \u0627\u0644\u063a\u0627\u0645\u062f\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u0645\u0648\u0644', cash: 300000, assets: 150000, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u0642\u062f\u0645 \u0627\u0644\u062a\u0645\u0648\u064a\u0644 \u0627\u0644\u0646\u0642\u062f\u064a \u0648\u062a\u062c\u0647\u064a\u0632\u0627\u062a \u0627\u0644\u0645\u0642\u0647\u0649' },
+        { name: '\u0645\u062d\u0645\u062f \u0627\u0644\u0632\u0647\u0631\u0627\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u062f\u064a\u0631', cash: 50000, assets: 0, ip: 0, net: 0, work: 'full', fmv: 12000, paid: 4000, dur: 12, role: 'ops', note: '\u0645\u062f\u064a\u0631 \u0627\u0644\u062a\u0634\u063a\u064a\u0644 \u0627\u0644\u064a\u0648\u0645\u064a' }
+      ]},
+      deal: { projName: '\u0635\u0641\u0642\u0629 \u0623\u0631\u0627\u0636\u064a \u0627\u0644\u0646\u062e\u064a\u0644', legalStruct: 'deal', parties: [
+        { name: '\u062e\u0627\u0644\u062f \u0627\u0644\u0639\u0645\u0631\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u0645\u0648\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u0627\u0644\u0645\u0645\u0648\u0644 \u0627\u0644\u0631\u0626\u064a\u0633\u064a \u0644\u0644\u0635\u0641\u0642\u0629' },
+        { name: '\u0633\u0639\u062f \u0627\u0644\u0642\u0631\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0639\u0627\u0645\u0644', cash: 200000, assets: 0, ip: 0, net: 150000, work: 'part', fmv: 15000, paid: 0, dur: 6, role: 'manager', note: '\u064a\u0645\u062a\u0644\u0643 \u0627\u0644\u0634\u0628\u0643\u0629 \u0648\u0627\u0644\u0639\u0644\u0627\u0642\u0627\u062a \u0627\u0644\u0639\u0642\u0627\u0631\u064a\u0629' }
+      ]},
+      existing: { projName: '\u0645\u0637\u0627\u0639\u0645 \u0627\u0644\u0623\u0635\u0627\u0644\u0629 \u2014 \u062f\u062e\u0648\u0644 \u0634\u0631\u064a\u0643 \u062c\u062f\u064a\u062f', legalStruct: 'llc', coVal: '2000000', entryAmt: '500000', parties: [
+        { name: '\u0627\u0644\u0634\u0631\u0643\u0627\u0621 \u0627\u0644\u062d\u0627\u0644\u064a\u0648\u0646', cap: '\u0634\u0631\u0643\u0627\u0621 \u0623\u0635\u0644\u064a\u0648\u0646', cash: 0, assets: 0, ip: 200000, net: 100000, work: 'full', fmv: 18000, paid: 15000, dur: 24, role: 'manager', note: '\u064a\u0645\u062b\u0644\u0648\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0628\u0643\u0627\u0645\u0644 \u0623\u0635\u0648\u0644\u0647\u0627' },
+        { name: '\u0641\u064a\u0635\u0644 \u0627\u0644\u062d\u0631\u0628\u064a', cap: '\u0634\u0631\u064a\u0643 \u062f\u0627\u062e\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u062f\u062e\u0644 \u0645\u0642\u0627\u0628\u0644 \u062d\u0635\u0629 \u0645\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0642\u0627\u0626\u0645\u0629' }
+      ]},
+      mudaraba: { projName: '\u0645\u0636\u0627\u0631\u0628\u0629 \u062a\u0637\u0648\u064a\u0631 \u0641\u0646\u062f\u0642\u064a', legalStruct: 'mudaraba', parties: [
+        { name: '\u0635\u0646\u062f\u0648\u0642 \u0627\u0644\u0631\u064a\u0627\u0636 \u0644\u0644\u062a\u0637\u0648\u064a\u0631', cap: '\u0631\u0628 \u0627\u0644\u0645\u0627\u0644 (\u0645\u0645\u0648\u0644)', cash: 1000000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', profit: 40, note: '\u064a\u0642\u062f\u0645 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 \u0643\u0627\u0645\u0644\u0627\u064b \u062f\u0648\u0646 \u062a\u062f\u062e\u0644 \u0641\u064a \u0627\u0644\u0625\u062f\u0627\u0631\u0629' },
+        { name: '\u0634\u0631\u0643\u0629 \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0641\u0646\u0627\u062f\u0642', cap: '\u0645\u0636\u0627\u0631\u0628 (\u0639\u0627\u0645\u0644)', cash: 0, assets: 0, ip: 0, net: 0, work: 'full', fmv: 20000, paid: 0, dur: 18, role: 'manager', profit: 60, note: '\u064a\u0642\u062f\u0645 \u0627\u0644\u062e\u0628\u0631\u0629 \u0627\u0644\u062a\u0634\u063a\u064a\u0644\u064a\u0629 \u0648\u0627\u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0643\u0627\u0645\u0644\u0629' }
+      ]}
+    };
+    const ex = EXAMPLES[type];
+    if (!ex) return;
+    this.type = null; this.parties = []; this.results = [];
+    this.activeProfile = 'balanced'; this.W = { Cash:4, Asset:3, Effort:3, IP:3, Net:2 };
+    localStorage.removeItem('sharakah_save');
+    this.renderTypes(); this.renderProfiles(); this.initWeights();
+    document.getElementById('partyList').innerHTML = ''; this.cnt = 0;
+    this.selType(type);
+    setTimeout(() => {
+      const sv = (id, v) => { const el = document.getElementById(id); if (el && v !== undefined && v !== null) el.value = v; };
+      sv('projName', ex.projName); sv('legalStruct', ex.legalStruct);
+      if (ex.coVal)    { sv('coVal', ex.coVal); }
+      if (ex.entryAmt) { sv('entryAmt', ex.entryAmt); }
+      if (ex.coVal && ex.entryAmt) this.updExistingDeal('valuation');
+      document.getElementById('partyList').innerHTML = ''; this.parties = []; this.cnt = 0;
+      ex.parties.forEach(p => this.addParty(p));
+      this.normalizeNumberInputs(); this.go(2);
+      const badge = document.getElementById('savedBadge');
+      if (badge) { const orig = badge.textContent; badge.textContent = '\u2713 \u062a\u0645 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0645\u062b\u0627\u0644'; badge.classList.add('show'); setTimeout(() => { badge.textContent = orig; badge.classList.remove('show'); }, 2500); }
+    }, 100);
+  },
 
   normalizeNumberInputs() {
     document.querySelectorAll('input[type="number"], input.num').forEach(el => {
