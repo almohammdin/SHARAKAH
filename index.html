@@ -1526,6 +1526,21 @@ const G = {
     if (!this.existingTouched) this.existingTouched = { valuation:false, investment:false, percent:false };
     if (['valuation','investment','percent'].includes(source)) this.existingTouched[source] = true;
 
+    // FIX 1: إذا أصبح الحقل المُعدَّل فارغاً (صفر)، أعِد ضبط حالته واستنتج قيمته تلقائياً من الحقلين الآخرين
+    if (source === 'valuation' && this.numVal('coVal') <= 0) {
+      this.existingTouched.valuation = false;
+      const _i = this.numVal('entryAmt'), _p = this.numVal('entryPct');
+      if (_i > 0 && _p > 0 && _p < 100) { this.setNumVal('coVal', _i * (100 - _p) / _p); }
+    } else if (source === 'investment' && this.numVal('entryAmt') <= 0) {
+      this.existingTouched.investment = false;
+      const _v = this.numVal('coVal'), _p = this.numVal('entryPct');
+      if (_v > 0 && _p > 0 && _p < 100) { this.setNumVal('entryAmt', _v * _p / (100 - _p)); }
+    } else if (source === 'percent' && this.numVal('entryPct') <= 0) {
+      this.existingTouched.percent = false;
+      const _v = this.numVal('coVal'), _i = this.numVal('entryAmt');
+      if (_v > 0 && _i > 0) { this.setNumVal('entryPct', _i / (_v + _i) * 100); }
+    }
+
     const box = document.getElementById('existingCalcBox');
     const panel = document.getElementById('existLivePanel');
     let val = this.numVal('coVal');
@@ -1583,6 +1598,10 @@ const G = {
     if (box) {
       if (conflict) {
         box.textContent = msg;
+        box.className = 'notice notice-error';
+      } else if (pct >= 100) {
+        // FIX 2: نسبة ≥ 100% منطقياً خاطئة — اعرض خطأ واضحاً بدل رسالة النجاح
+        box.textContent = 'تنبيه: نسبة الشريك الجديد (' + pct.toFixed(1) + '%) غير منطقية. يجب أن تكون أقل من 100%. تأكد من صحة المدخلات.';
         box.className = 'notice notice-error';
       } else if (post > 0 && pct > 0) {
         box.textContent = 'قيمة الشركة بعد الدخول: ' + this.fmt(post) + ' ريال، نسبة الشريك الجديد: ' + pct.toFixed(1) + '%';
