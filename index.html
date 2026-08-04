@@ -11,7 +11,11 @@
 <meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
-<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.jpg">
+<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.1">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230B1F33%22/><path d=%22M18 22h12v8H18zm16 12h12v8H34zM26 26h12v12H26z%22 fill=%22%23C8A95B%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +23,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+@font-face{font-family:'IBM Plex Sans Arabic Local';src:url('assets/fonts/ibm-plex-sans-arabic-400.woff2') format('woff2');font-weight:300 600;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Sans Arabic Local';src:url('assets/fonts/ibm-plex-sans-arabic-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:clip}
 :root{
@@ -31,7 +37,7 @@ html{scroll-behavior:smooth;overflow-x:clip}
   --red:#D95050;
   --border:rgba(255,255,255,.06);
   --radius:12px;--radius-sm:10px;--radius-xs:7px;
-  --font:'IBM Plex Sans Arabic',sans-serif;
+  --font:'IBM Plex Sans Arabic Local','IBM Plex Sans Arabic',sans-serif;
   --shadow:0 4px 24px rgba(0,0,0,.55);
 }
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
@@ -302,7 +308,11 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 .splash-desc{font-size:13px;color:#5C4E44;line-height:1.85;margin-bottom:20px;text-align:right;background:#FFFDF8;border:1px solid #E5D8BA;border-radius:12px;padding:12px 16px}
 .splash-cta{background:var(--gold);color:#070D14;border:none;border-radius:14px;padding:14px 36px;font-size:17px;font-weight:700;font-family:var(--font);cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(201,168,76,.35)}
 .splash-cta:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,.4)}
-.splash-cta-note{font-size:12px;color:#9B8B7D;margin-top:10px}
+.splash-brand{margin-top:18px;background:#0B1F33;border:1px solid rgba(181,141,53,.34);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 12px 36px rgba(11,31,51,.12)}
+.splash-brand-logo{display:block;width:auto;height:42px;object-fit:contain;filter:sepia(1) saturate(2.2) hue-rotate(355deg) brightness(1.13)}
+.splash-brand-role{font-size:11px;color:#D8C384;font-weight:600}
+.splash-brand .footer-social-row{margin:3px 0 0}
+.splash-brand .footer-handle{margin-top:0}
 
 
 /* ─── EXISTING DEAL LIVE PANEL ─── */
@@ -402,7 +412,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   }
 }
 
-/* ─── VERSION 1.0.0: NAVY / GOLD DESIGN SYSTEM ─── */
+/* VERSION 1.0.1: NAVY / GOLD DESIGN SYSTEM */
 :root{
   --bg:#F5F3ED;--surface:#FFFFFF;--card:#FAF8F2;--card2:#EAE5D8;
   --gold:#B58D35;--gold-lt:#D0AD5A;--gold-dim:rgba(181,141,53,.10);--gold-bd:rgba(181,141,53,.34);
@@ -431,9 +441,22 @@ header{position:relative;padding:12px 0}
 .splash-tahmeed-hadith{font-size:17px}.splash-ref{font-family:var(--font);font-size:11px;color:#6E7C88}
 .law-card{background:#F7F4EA;border:1px solid #D7C48E;border-radius:12px;padding:13px 15px;margin-top:12px;text-align:right}
 .law-title{font-weight:700;color:var(--navy);margin-bottom:6px}.law-text{font-size:12px;line-height:1.85;color:#405466}.law-explain{font-size:12px;color:#725817;margin-top:7px;font-weight:600}
+.law-source-link{display:block;color:#6E7C88;text-decoration:none}.law-source-link:hover,.law-source-link:focus{color:#8B671E;text-decoration:underline}
 .example-panel{margin-top:14px}.example-toggle{padding:8px 14px;font-size:12px;border:1px solid #C8D1D7;background:#fff;color:var(--navy);border-radius:9px;cursor:pointer;font-family:var(--font);font-weight:600}.example-content{margin-top:10px;background:#F0F3F4;border:1px dashed #BBC7CE;border-radius:12px;padding:14px}.example-reset{margin-top:10px;width:100%}
 .decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.decision-grid .full{grid-column:1/-1}
 .field-prefix{position:relative}.field-prefix input{padding-left:42px}.field-prefix span{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#6E7C88;pointer-events:none}
+.help-source-hidden{display:none!important}
+label:has(.help-q){display:flex;align-items:center;gap:6px;overflow:visible;position:relative}
+.help-q{appearance:none;width:19px;height:19px;border-radius:50%;border:1px solid #B58D35;background:#FFF8E7;color:#8B671E;font-family:var(--font);font-size:11px;font-weight:700;line-height:17px;text-align:center;cursor:pointer;padding:0;flex:0 0 19px;position:relative;text-transform:none}
+.help-q::after{content:attr(data-tip);position:absolute;z-index:350;right:-6px;top:26px;width:min(270px,76vw);padding:10px 12px;border-radius:10px;background:#0B1F33;color:#F4F7F8;font-size:12px;font-weight:400;line-height:1.7;letter-spacing:0;text-align:right;white-space:normal;box-shadow:0 12px 32px rgba(11,31,51,.24);opacity:0;visibility:hidden;transform:translateY(-4px);transition:.18s;pointer-events:none}
+.help-q:hover::after,.help-q:focus::after,.help-q.open::after{opacity:1;visibility:visible;transform:translateY(0)}
+.money-field-wrap,.percent-field-wrap{position:relative;display:block}
+.money-field-wrap input,.percent-field-wrap input{padding-left:38px!important;text-align:left}
+.field-unit{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#0B1F33;font-size:14px;font-weight:700;line-height:1;pointer-events:none;z-index:2}
+.riyal-symbol{display:inline-block;width:.78em;height:.9em;background:currentColor;mask:url('riyal-symbol.svg') center/contain no-repeat;-webkit-mask:url('riyal-symbol.svg') center/contain no-repeat;vertical-align:-.08em;flex:0 0 auto}
+.value-with-unit{display:inline-flex;direction:ltr;align-items:center;gap:.26em;color:inherit;font-size:inherit;font-weight:inherit;white-space:nowrap}
+.value-with-unit .unit{font-size:1em;color:inherit;font-weight:inherit}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 .version-chip{color:#C4D0D8;font-size:11px;margin-top:5px}
 .footer-naif-logo{height:47px;filter:sepia(1) saturate(2.2) hue-rotate(355deg) brightness(1.13)}
 .footer-social-row{gap:11px;margin:9px 0 4px}.footer-social-row a{width:34px;height:34px;justify-content:center;border:1px solid rgba(201,168,76,.26);border-radius:9px;color:#D6BC75}.footer-social-row a svg{width:15px;height:15px}
@@ -469,19 +492,30 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="splash-tahmeed-text">﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنْتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ﴾ <span class="splash-ref">سورة البقرة: 282</span></div>
       <div class="splash-tahmeed-hadith">قال رسول الله ﷺ فيما يرويه عن ربه: «أَنَا ثَالِثُ الشَّرِيكَيْنِ مَا لَمْ يَخُنْ أَحَدُهُمَا صَاحِبَهُ، فَإِذَا خَانَهُ خَرَجْتُ مِنْ بَيْنِهِمَا». <span class="splash-ref">أخرجه أبو داود (3383)</span></div>
       <div class="law-card">
-        <div class="law-title">الكتابة ركن مهم — المادة (528)</div>
+        <div class="law-title">الكتابة ركن مهم | المادة (528)</div>
+        <a class="splash-ref law-source-link" style="margin-bottom:6px" href="https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/655fdb42-8c96-422b-b8c4-b04f0095c94c/1" target="_blank" rel="noopener">نظام المعاملات المدنية | القسم الثاني: العقود المسماة | الباب الرابع: عقود المشاركة</a>
         <div class="law-text">1. يجب أن تكون عقود المشاركة الواردة في هذا الباب مكتوبة، وإلا كانت باطلة، ولا يجوز أن يحتج المتعاقد بالبطلان تجاه الغير، ولا يكون للبطلان أثر فيما بين المتعاقدين أنفسهم إلا إذا طلب أحدهم الحكم به، فيسري ذلك من تاريخ قيد الدعوى.<br>2. يسري حكم الفقرة (1) من هذه المادة على أي تعديل يطرأ على عقود المشاركة الواردة في هذا الباب.</div>
         <div class="law-explain">المعنى ببساطة: اتفاق الشركاء وتعديلاته يكتبان من البداية.</div>
       </div>
     </div>
 
-    <div class="splash-desc">تساعدك الأداة على تقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء بصورة واضحة. الناتج ورقة تفاهم أولية للمناقشة، وليس عقدًا نهائيًا.</div>
+    <div class="splash-desc">تساعدك الأداة على تقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء. وفي النهاية تحصل على ورقة تفاهم أولية تمهد لصياغة الاتفاق مع المختص.</div>
 
     <button class="splash-cta" onclick="G.startTool()">
       <span>ابدأ الآن</span>
       <span style="font-size:18px">←</span>
     </button>
-    <div class="splash-cta-note">تستغرق العملية 3 إلى 7 دقائق</div>
+    <div class="splash-brand" aria-label="هوية نايف المحمدي وحساباته">
+      <img class="splash-brand-logo" src="naif-logo.png" alt="شعار نايف المحمدي">
+      <div class="splash-brand-role">مستشار الحوكمة وتطوير الأعمال</div>
+      <div class="footer-social-row">
+        <a href="https://x.com/almohammdin" target="_blank" rel="noopener" aria-label="حساب X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg></a>
+        <a href="https://www.linkedin.com/in/almohammdin/" target="_blank" rel="noopener" aria-label="حساب LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="https://www.snapchat.com/@almohammdin" target="_blank" rel="noopener" aria-label="حساب Snapchat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c-3.1 0-5 2.3-5 5.4v2.2c-.2.8-.9 1.4-2 1.7-.6.2-.7.9-.2 1.3.7.7 1.6 1.2 2.6 1.5-.2.8-.6 1.5-1.1 2.1 1.4.4 2.6.2 3.6 1.4.6.7 1.3 1.1 2.1 1.1s1.5-.4 2.1-1.1c1-1.2 2.2-1 3.6-1.4-.5-.6-.9-1.3-1.1-2.1 1-.3 1.9-.8 2.6-1.5.5-.4.4-1.1-.2-1.3-1.1-.3-1.8-.9-2-1.7V8.4C17 5.3 15.1 3 12 3z"/></svg></a>
+        <a href="https://linktr.ee/almohammdin" target="_blank" rel="noopener" aria-label="حساب Linktree"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.4 9.15 16.8 5.7l1.95 1.98-3.42 3.38h4.86v2.8h-4.88l3.45 3.43-1.97 1.95-3.39-3.42V21h-2.8v-5.16l-3.4 3.42-1.97-1.97 3.45-3.43H3.8v-2.8h4.87L5.25 7.68 7.2 5.7l3.4 3.45V3h2.8v6.15z"/></svg></a>
+      </div>
+      <div class="footer-handle">@almohammdin</div>
+    </div>
   </div>
 </div>
 
@@ -493,9 +527,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <div class="wrap">
     <div class="tool-toolbar-inner">
       <button class="tb-btn tb-btn-ghost" onclick="G.goHome()" title="العودة للرئيسية"><span class="tb-label">الرئيسية</span></button>
-      <div class="tb-sep"></div>
-      <button class="tb-btn tb-btn-save" onclick="G.saveProgress()" title="حفظ على هذا الجهاز"><span class="tb-label">حفظ على هذا الجهاز</span></button>
-      <span class="tb-saved-badge" id="savedBadge">تم الحفظ — تبقى المسودة في هذا المتصفح</span>
       <div class="tb-spacer"></div>
       <button class="tb-btn tb-btn-warn" onclick="G.confirmReset()" title="بدء مشروع جديد"><span class="tb-label">مشروع جديد</span></button>
     </div>
@@ -509,7 +540,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <div class="modal-box" onclick="event.stopPropagation()">
     <span class="modal-icon">⚠️</span>
     <div class="modal-title">إعادة تعيين البيانات</div>
-    <div class="modal-body">سيتم حذف جميع البيانات المُدخلة وبدء مشروع جديد من الصفر. هذا الإجراء لا يمكن التراجع عنه.</div>
+    <div class="modal-body">سيبدأ مشروع جديد ببيانات فارغة، وستفقد المدخلات الحالية.</div>
     <div class="modal-acts">
       <button class="btn btn-ghost" onclick="G.closeModal('resetModal')">إلغاء</button>
       <button class="btn btn-gold" style="background:#D95050;color:#fff" onclick="G.doReset()">نعم، احذف البيانات</button>
@@ -533,18 +564,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <!-- MAIN -->
 <main id="tool-container">
 <div class="wrap">
-<div id="restoreBanner" class="restore-banner hide">
-  <span>توجد مسودة محفوظة في هذا المتصفح.</span>
-  <div class="restore-actions">
-    <button class="btn btn-outline" type="button" onclick="G.restoreSaved()">متابعة</button>
-    <button class="btn btn-ghost" type="button" onclick="G.dismissSaved()">بدء مشروع جديد</button>
-  </div>
-</div>
-
 <!-- ═══════════════ PHASE 1 ═══════════════ -->
 <div class="phase active" id="ph1">
   <h1 class="ph-title">ما طبيعة شراكتك؟</h1>
-  <div class="ph-sub">اختر الحالة الأقرب لواقعك؛ ستتغير الحقول والنقاط المقترحة بناءً عليها.</div>
+  <div class="ph-sub">اختر الحالة الأقرب لواقعك، فتظهر الحقول والنقاط المناسبة لها.</div>
   <div class="type-grid" id="typeGrid"></div>
   <div id="typeHint" class="notice notice-gold hide"></div>
 
@@ -554,7 +577,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div id="quickExamplesContent" class="example-content hide">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
       <span style="font-size:13px">⚡</span>
-      <span style="font-size:12px;font-weight:700;color:#9B8B7D;letter-spacing:.3px">أمثلة سريعة، اضغط لتعبئة البيانات تلقائياً</span>
+      <span style="font-size:12px;font-weight:700;color:#9B8B7D;letter-spacing:.3px">أمثلة لتبسيط استخدام الأداة</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px">
       <button onclick="G.loadExample('fnb')" style="background:#F8F7F5;border:1px solid #D4CBC0;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#9B8B7D'" onmouseout="this.style.borderColor='#D4CBC0'">
@@ -582,7 +605,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     </div>
   </div>
 
-  <div class="notice notice-info">هذه التصنيفات تمثل حالات شراكة وليست أشكالاً قانونية نهائية. الشكل القانوني المناسب يُحدد لاحقاً وفق نظام الشركات مثل: شركة ذات مسؤولية محدودة أو شركة مساهمة مبسطة.</div>
+  <div class="notice notice-info">تعرض هذه التصنيفات حالات الشراكة، ثم يختار الشركاء الشكل القانوني المناسب وفق نظام الشركات مثل شركة ذات مسؤولية محدودة أو شركة مساهمة مبسطة.</div>
   <div class="nav-row">
     <span></span>
     <button class="btn btn-gold" id="btnPh1Next" onclick="G.go(2)" disabled>التالي ←</button>
@@ -592,7 +615,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <!-- ═══════════════ PHASE 2 ═══════════════ -->
 <div class="phase" id="ph2">
   <h1 class="ph-title">الأطراف والمساهمات</h1>
-  <div class="ph-sub">أضف كل شريك وحدّد ما يقدمه: رأس مال، أصول، عمل، أو ملكية فكرية. الحصص تُحسب تلقائياً.</div>
+  <div class="ph-sub">أضف كل شريك وحدد ما يقدمه من رأس مال أو أصول أو عمل أو ملكية فكرية. تحسب الأداة الحصص تلقائيا.</div>
 
   <div class="card">
     <div class="card-head">معلومات المشروع</div>
@@ -604,24 +627,24 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="fg">
         <label for="legalStruct">الشكل القانوني المقترح</label>
         <select id="legalStruct">
-          <option value="">، يُحدد لاحقاً ،</option>
+          <option value="">يحدد لاحقا</option>
           <option value="llc">شركة ذات مسؤولية محدودة</option>
           <option value="simplified">شركة مساهمة مبسطة</option>
           <option value="jsc">شركة مساهمة</option>
           <option value="solidarity">شركة تضامن</option>
           <option value="commandite">شركة توصية بسيطة</option>
         </select>
-        <div class="help">هذا اختيار مبدئي، وليس اعتماداً نهائياً للشكل القانوني.</div>
+        <div class="help">اختيار مبدئي يمهد لمراجعته مع المختص.</div>
       </div>
     </div>
   </div>
 
   <div id="mudarabaHint" class="notice notice-gold hide">
-    🤝 في المضاربة: رب المال يقدّم المال فقط، والمضارب يقدّم العمل فقط. الخسارة المالية على رب المال وحده، والربح يُوزَّع بنسبة مئوية متفق عليها، لا بمبلغ مقطوع.
+    في المضاربة يقدم رب المال رأس المال، ويقدم المضارب العمل والإدارة. ويتفق الطرفان على نسبة الربح ويكتبانها.
   </div>
 
   <div id="partyList"></div>
-  <div id="step2Warn" class="notice notice-warn hide">يرجى إدخال مساهمة (نقدية أو جهد أو أصول) لطرف واحد على الأقل للمتابعة. إذا كنت تستخدم بيانات محفوظة قديماً وتواجه مشكلة، يرجى الضغط على زر (مشروع جديد).</div>
+  <div id="step2Warn" class="notice notice-warn hide">أدخل مساهمة نقدية أو جهدا أو أصلا لطرف واحد على الأقل للمتابعة.</div>
   <button class="btn-add" id="btnAddParty">＋ إضافة طرف</button>
 
   <div class="nav-row">
@@ -633,14 +656,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <!-- ═══════════════ PHASE 3 ═══════════════ -->
 <div class="phase" id="ph3">
   <h1 class="ph-title" id="ph3Title">القرارات الأساسية</h1>
-  <div class="ph-sub" id="ph3Sub">اختر نمط الشراكة المناسب، والأداة تضبط الأوزان تلقائياً. يمكنك ضبطها يدوياً إذا أردت.</div>
-  <div id="nonStartupWeightNotice" class="notice notice-info hide">حساب الحصص لهذا النوع يعتمد على القيم المُدخلة مباشرة، ولا يتأثر بتعديل الأوزان.</div>
+  <div class="ph-sub" id="ph3Sub">اختر نمط الشراكة المناسب، فتضبط الأداة الأوزان تلقائيا. ويمكنك تعديلها من الإعدادات المتقدمة.</div>
+  <div id="nonStartupWeightNotice" class="notice notice-info hide">حساب الحصص لهذا النوع يعتمد على القيم المدخلة مباشرة. الأوزان مخصصة لمسار الشركات الناشئة المخفي حاليا.</div>
 
   <div class="section-head" id="calcSectionHead">الحساب والأوزان</div>
   <!-- Smart profiles + advanced weights -->
   <div class="card" id="wCard">
     <div class="card-head">نمط الشراكة</div>
-    <div class="notice notice-info" style="margin-bottom:16px">اختر النمط الأقرب للواقع. الأداة ستضبط أوزان المال والجهد والأصول والملكية الفكرية تلقائياً، ويمكن تعديلها يدوياً من الإعدادات المتقدمة.</div>
+    <div class="notice notice-info" style="margin-bottom:16px">اختر النمط الأقرب للواقع. تضبط الأداة أوزان المال والجهد والأصول والملكية الفكرية تلقائيا، ويمكن تعديلها من الإعدادات المتقدمة.</div>
     <div class="profile-grid" id="profileGrid"></div>
     <button class="btn btn-ghost" type="button" style="margin-top:12px;width:100%;max-width:none" onclick="G.toggleAdvancedWeights()">⚙️ إعدادات متقدمة للأوزان</button>
     <div id="advancedWeights" class="hide" style="margin-top:16px">
@@ -652,7 +675,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <!-- Startup panel -->
   <div class="card hide" id="startupCard">
     <div class="card-head">🚀 جولة الاستثمار</div>
-    <div class="notice notice-info" style="margin-bottom:14px">هذه الفقرة تساعدك في فهم العلاقة بين مبلغ الاستثمار ونسبة المستثمر وقيمة المشروع. أدخل أي قيمتين واضحة وسيتم احتساب القيم الأخرى تلقائياً قدر الإمكان.</div>
+    <div class="notice notice-info" style="margin-bottom:14px">توضح هذه الفقرة العلاقة بين مبلغ الاستثمار ونسبة المستثمر وقيمة المشروع. أدخل قيمتين، فتحتسب الأداة القيم الأخرى تلقائيا.</div>
     <div class="grid2">
       <div class="fg">
         <label>قيمة الاستثمار الجديد</label>
@@ -660,18 +683,18 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
         <div class="help">المبلغ الذي سيدخل الشركة مقابل حصة ملكية.</div>
       </div>
       <div class="fg">
-        <label>النسبة المعروضة للمستثمر (%)</label>
+        <label>النسبة المعروضة للمستثمر</label>
         <input type="number" lang="en" id="targetPct" min="0" max="100" placeholder="مثال: 20" oninput="G.updPostMoney('pct')">
-        <div class="help">إذا قلت: 100,000 ريال مقابل 20%، فالأداة تحسب قيمة الشركة قبل وبعد الاستثمار تلقائياً.</div>
+        <div class="help">مثال: استثمار 100,000 مقابل % 20، فتحسب الأداة قيمة الشركة قبل الاستثمار وبعده.</div>
       </div>
       <div class="fg">
         <label>التقييم قبل الاستثمار (Pre-Money)</label>
-        <input type="number" lang="en" id="preMoney" min="0" placeholder="يُحسب تلقائياً أو أدخله يدوياً" oninput="G.updPostMoney('pre')">
+        <input type="number" lang="en" id="preMoney" min="0" placeholder="يحسب تلقائيا أو أدخله يدويا" oninput="G.updPostMoney('pre')">
         <div class="help">قيمة المشروع قبل دخول مبلغ الاستثمار الجديد.</div>
       </div>
       <div class="fg">
         <label>التقييم بعد الاستثمار (Post-Money)</label>
-        <input type="number" lang="en" id="postMoney" min="0" placeholder="يُحسب تلقائياً" oninput="G.updPostMoney('post')">
+        <input type="number" lang="en" id="postMoney" min="0" placeholder="يحسب تلقائيا" oninput="G.updPostMoney('post')">
         <div class="help">قيمة المشروع بعد إضافة الاستثمار الجديد.</div>
       </div>
     </div>
@@ -707,7 +730,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
         <div class="help">المبلغ الذي سيدفعه الشريك الجديد ويدخل في الشركة.</div>
       </div>
       <div class="fg">
-        <label>نسبة الشريك الجديد (%)</label>
+        <label>نسبة الشريك الجديد</label>
         <input type="text" inputmode="decimal" class="num" id="entryPct" min="0" max="100" placeholder="مثال: 20" oninput="G.updExistingDeal('percent')">
         <div class="help">نسبة ملكية الشريك الجديد بعد دخوله.</div>
       </div>
@@ -719,17 +742,17 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="exist-kpi-row">
         <div class="exist-kpi">
           <div class="exist-kpi-lbl">قيمة الشركة قبل الدخول</div>
-          <div class="exist-kpi-val" id="lp_pre">—</div>
+          <div class="exist-kpi-val" id="lp_pre">قيد الحساب</div>
           <div class="exist-kpi-sub">Pre-Money Valuation</div>
         </div>
         <div class="exist-kpi exist-kpi-gold">
           <div class="exist-kpi-lbl">مبلغ الدخول</div>
-          <div class="exist-kpi-val" id="lp_inv">—</div>
+          <div class="exist-kpi-val" id="lp_inv">قيد الحساب</div>
           <div class="exist-kpi-sub">Investment Amount</div>
         </div>
         <div class="exist-kpi">
           <div class="exist-kpi-lbl">قيمة الشركة بعد الدخول</div>
-          <div class="exist-kpi-val" id="lp_post">—</div>
+          <div class="exist-kpi-val" id="lp_post">قيد الحساب</div>
           <div class="exist-kpi-sub">Post-Money Valuation</div>
         </div>
       </div>
@@ -747,11 +770,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
         <div style="display:flex;justify-content:space-between;margin-top:6px">
           <div style="display:flex;align-items:center;gap:5px;font-size:12px">
             <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0"></div>
-            <span style="color:var(--text-mid)">الحاليون: <strong id="lp_oldPct" style="color:var(--gold)">—</strong></span>
+            <span style="color:var(--text-mid)">الحاليون: <strong id="lp_oldPct" style="color:var(--gold)">قيد الحساب</strong></span>
           </div>
           <div style="display:flex;align-items:center;gap:5px;font-size:12px">
             <div style="width:9px;height:9px;border-radius:50%;background:#3DAA6A;flex-shrink:0"></div>
-            <span style="color:var(--text-mid)">الجديد: <strong id="lp_newPct" style="color:#3DAA6A">—</strong></span>
+            <span style="color:var(--text-mid)">الجديد: <strong id="lp_newPct" style="color:#3DAA6A">قيد الحساب</strong></span>
           </div>
         </div>
       </div>
@@ -763,16 +786,16 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <!-- Mudaraba panel -->
   <div class="card hide" id="mudCard">
     <div class="card-head">ضوابط المضاربة</div>
-    <div class="notice notice-gold" style="margin-bottom:14px">نسب الربح تدخل في بطاقات الأطراف. المثال 40/60 توضيحي فقط، ولا يطبق إذا تركت الحقول فارغة.</div>
+    <div class="notice notice-gold" style="margin-bottom:14px">نسب الربح تدخل في بطاقات الأطراف. المثال 40/60 للتوضيح، وتستخدم الأداة النسب التي تدخلها.</div>
     <div class="grid2">
       <div class="fg">
         <label for="mudScope">نطاق تصرف المضارب</label>
-        <select id="mudScope"><option value="restricted">مقيد بنشاط أو صلاحيات محددة</option><option value="unrestricted">غير مقيد، ضمن المعتاد في النشاط</option><option value="later">يحدد لاحقًا</option></select>
+        <select id="mudScope"><option value="restricted">مقيد بنشاط أو صلاحيات محددة</option><option value="unrestricted">مفتوح ضمن المعتاد في النشاط</option><option value="later">يحدد لاحقا</option></select>
       </div>
       <div class="fg">
-        <label for="mudFee">أجر مستقل لعمل محدد — إن وجد</label>
-        <input type="text" id="mudFee" placeholder="مثال: 20,000 ريال لدراسة وتجهيز محدد">
-        <div class="help">اختياري، ويكون مقابل عمل معلوم منفصل، وليس مبلغ ربح مضمونًا.</div>
+        <label for="mudFee">أجر مستقل لعمل محدد عند الاتفاق عليه</label>
+        <input type="text" id="mudFee" placeholder="مثال: أجر دراسة وتجهيز محدد">
+        <div class="help">يثبت كأجر لعمل معلوم، منفصل عن نسبة الربح.</div>
       </div>
     </div>
   </div>
@@ -782,51 +805,42 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="card-head">أهم ما ينبغي الاتفاق عليه</div>
     <div class="decision-grid">
       <div class="fg">
-        <label for="managerName">من يدير العمل اليومي؟</label>
+        <label for="managerName" data-help="اكتب اسم الطرف المسؤول عن الإدارة اليومية أو صفته.">من يدير العمل اليومي؟</label>
         <input id="managerName" type="text" placeholder="اسم الطرف أو صفته">
       </div>
       <div class="fg">
-        <label for="decisionRule">كيف تعتمد القرارات المهمة؟</label>
+        <label for="decisionRule" data-help="حدد طريقة اعتماد القرارات الكبيرة مثل التمويل الجديد أو بيع أصل رئيسي.">كيف تعتمد القرارات المهمة؟</label>
         <select id="decisionRule">
           <option value="unanimous">بموافقة جميع الأطراف</option>
           <option value="majority">بالأغلبية</option>
           <option value="weighted">بحسب نسب الحصص</option>
-          <option value="later">تحدد لاحقًا</option>
+          <option value="later">تحدد لاحقا</option>
         </select>
       </div>
       <div class="fg">
-        <label for="fundingRule">إذا احتاج المشروع تمويلًا إضافيًا</label>
+        <label for="fundingRule" data-help="اختر من يتحمل التمويل الجديد وكيف تعتمد الحاجة إليه.">إذا احتاج المشروع تمويلا إضافيا</label>
         <select id="fundingRule">
           <option value="proportional">يموّل الأطراف بنسبة حصصهم</option>
-          <option value="approval">لا يتم إلا بموافقة الأطراف</option>
+          <option value="approval">يتطلب موافقة الأطراف</option>
           <option value="loan">يبحث تمويل أو قرض مستقل</option>
-          <option value="later">يحدد لاحقًا</option>
+          <option value="later">يحدد لاحقا</option>
         </select>
       </div>
       <div class="fg">
-        <label for="reportingRule">متى تعرض السجلات والتقارير؟</label>
-        <select id="reportingRule">
-          <option value="monthly">شهريًا</option>
-          <option value="quarterly">كل ثلاثة أشهر</option>
-          <option value="onrequest">عند طلب أي شريك</option>
-          <option value="later">يحدد لاحقًا</option>
-        </select>
-      </div>
-      <div class="fg">
-        <label for="agreementTerm">مدة التفاهم أو المشروع</label>
+        <label for="agreementTerm" data-help="مثال: سنة قابلة للتجديد، أو حتى انتهاء الصفقة وتسوية حساباتها.">مدة التفاهم أو المشروع</label>
         <input id="agreementTerm" type="text" placeholder="مثال: سنة قابلة للتجديد / حتى انتهاء الصفقة">
       </div>
       <div class="fg">
-        <label for="exitRule">عند رغبة شريك في الخروج</label>
+        <label for="exitRule" data-help="اختر قاعدة أولية لتنظيم عرض الحصة وتقييمها عند الخروج.">عند رغبة شريك في الخروج</label>
         <select id="exitRule">
-          <option value="firstrefusal">يعرض حصته على الشركاء أولًا</option>
+          <option value="firstrefusal">يعرض حصته على الشركاء أولا</option>
           <option value="valuation">تقيّم الحصة بواسطة مقيم مستقل</option>
           <option value="agreement">يتم الخروج بموافقة الأطراف</option>
-          <option value="later">يحدد لاحقًا</option>
+          <option value="later">يحدد لاحقا</option>
         </select>
       </div>
       <div class="fg full">
-        <label for="keyNotes">نقطة مهمة إضافية</label>
+        <label for="keyNotes" data-help="أضف نقطة مؤثرة مثل حدود الصرف أو صلاحية التوقيع أو موعد التوزيعات.">نقطة مهمة إضافية</label>
         <textarea id="keyNotes" placeholder="مثال: حدود الصرف، صلاحية التوقيع، موعد التوزيعات..."></textarea>
       </div>
     </div>
@@ -834,10 +848,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <!-- Dispute Resolution -->
   <div class="card" id="disputeCard">
     <div class="card-head">حل الخلافات</div>
-    <div class="notice notice-info" style="margin-bottom:14px">ابدأ بتحديد هل يرغب الأطراف في محاولة ودية أولاً، ثم اختر المسار الذي يعتمدونه عند تعذر الحل.</div>
+    <div class="notice notice-info" style="margin-bottom:14px">حدد رغبة الأطراف في محاولة ودية أولا، ثم اختر المسار التالي عند تعذر الحل.</div>
     <div class="grid2">
       <div class="fg">
-        <label>تفعيل الحل الودي أولاً؟</label>
+        <label data-help="يمنح الشركاء فرصة لمعالجة الخلاف مباشرة خلال مدة يحددونها.">تفعيل الحل الودي أولا؟</label>
         <select id="amicableOn" onchange="G.updDisputeFields()">
           <option value="yes">نعم</option>
           <option value="no">لا</option>
@@ -847,19 +861,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="fg" id="amicableDaysWrap">
         <label>مدة المحاولة الودية بالأيام</label>
         <input type="number" lang="en" id="amicableDays" min="0" placeholder="مثال: 30">
-        <div class="help">اتركها فارغة إذا لم يتفق الأطراف على مدة محددة.</div>
+        <div class="help">أدخل المدة التي اتفق عليها الأطراف، أو اتركها لتحديدها لاحقا.</div>
       </div>
     </div>
     <div class="grid2" style="margin-top:10px">
       <div class="fg">
         <label>المسار عند تعذر الحل</label>
         <select id="disputeMethod" onchange="G.updDisputeFields()">
-          <option value="">يُحدد لاحقاً</option>
+          <option value="">يحدد لاحقا</option>
           <option value="arbitration">التحكيم</option>
           <option value="court">القضاء المختص</option>
           <option value="custom">آلية أخرى يتفق عليها الأطراف</option>
         </select>
-        <div class="help">اختر الجهة أو الطريقة التي ينتقل إليها الأطراف إذا لم تنجح المحاولة الودية.</div>
+        <div class="help">اختر الجهة أو الطريقة التالية بعد اكتمال المحاولة الودية.</div>
       </div>
       <div class="fg">
         <label>ملاحظة إضافية</label>
@@ -884,7 +898,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <!-- ═══════════════ PHASE 4 ═══════════════ -->
 <div class="phase" id="ph4">
   <h1 class="ph-title">راجع التوزيع</h1>
-  <div class="ph-sub">هذه نتائج تقديرية بناءً على ما أدخلته. راجعها مع شركائك قبل الانتقال لصياغة البنود.</div>
+  <div class="ph-sub">نتائج تقديرية مبنية على مدخلاتك. راجعها مع شركائك قبل تجهيز البنود.</div>
   <div id="resultsCaptureArea" class="capture-area">
 
     <!-- ترويسة الصورة المصدّرة — مخفية أثناء التصفح -->
@@ -915,8 +929,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
     <!-- تذييل الصورة المصدّرة — مخفي أثناء التصفح -->
     <div class="capture-footer" id="captureFooter">
-      <div class="capture-footer-brand">تطوير وإشراف: نايف المحمدي &nbsp;·&nbsp; @almohammdin</div>
-      <div class="capture-disclaimer">هذه النتائج تقديرية بناءً على المدخلات، ولا تُعد وثيقة قانونية نهائية.</div>
+      <div class="capture-footer-brand">@almohammdin</div>
+      <div class="capture-disclaimer">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.</div>
     </div>
 
   </div>
@@ -941,7 +955,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="agr-badge" id="agrBadge">مسودة</div>
   </div>
 
-  <div class="notice notice-warn">هذه ورقة أولية لأهم البنود وليست عقدًا نهائيًا أو نصًا جاهزًا للتوقيع.</div>
+  <div class="notice notice-warn">ورقة أولية تجمع أهم البنود وتمهد لصياغة الاتفاق مع المختص.</div>
 
   <div class="agr-box" id="agrBox"></div>
   <div id="contractGuidance" class="contract-guidance"></div>
@@ -976,16 +990,16 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <a href="https://www.linkedin.com/in/almohammdin/" target="_blank" rel="noopener" aria-label="حساب LinkedIn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="https://www.tiktok.com/@almohammdin" target="_blank" rel="noopener" aria-label="حساب TikTok">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.83a8.23 8.23 0 0 0 4.82 1.55V6.93a4.85 4.85 0 0 1-1.05-.24z"/></svg>
-      </a>
       <a href="https://www.snapchat.com/@almohammdin" target="_blank" rel="noopener" aria-label="حساب Snapchat">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c-3.1 0-5 2.3-5 5.4v2.2c-.2.8-.9 1.4-2 1.7-.6.2-.7.9-.2 1.3.7.7 1.6 1.2 2.6 1.5-.2.8-.6 1.5-1.1 2.1 1.4.4 2.6.2 3.6 1.4.6.7 1.3 1.1 2.1 1.1s1.5-.4 2.1-1.1c1-1.2 2.2-1 3.6-1.4-.5-.6-.9-1.3-1.1-2.1 1-.3 1.9-.8 2.6-1.5.5-.4.4-1.1-.2-1.3-1.1-.3-1.8-.9-2-1.7V8.4C17 5.3 15.1 3 12 3z"/></svg>
       </a>
+      <a href="https://linktr.ee/almohammdin" target="_blank" rel="noopener" aria-label="حساب Linktree">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.4 9.15 16.8 5.7l1.95 1.98-3.42 3.38h4.86v2.8h-4.88l3.45 3.43-1.97 1.95-3.39-3.42V21h-2.8v-5.16l-3.4 3.42-1.97-1.97 3.45-3.43H3.8v-2.8h4.87L5.25 7.68 7.2 5.7l3.4 3.45V3h2.8v6.15z"/></svg>
+      </a>
     </div>
     <div class="footer-handle">@almohammdin</div>
-    <div class="version-chip">الإصدار 1.0.0</div>
-    <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، ولا تُعد عقدًا نهائيًا أو استشارة قانونية.</div>
+    <div class="version-chip">الإصدار 1.0.1</div>
+    <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
   </div>
 </footer>
 
@@ -1012,10 +1026,10 @@ const G = {
   COLORS: ['#C9A84C','#22C55E','#3B82F6','#A855F7','#EF4444','#F59E0B','#06B6D4','#EC4899'],
 
   HINTS: {
-    startup: '🚀 مشروع جديد يستهدف النمو والتوسع، وغالباً يدخل فيه مستثمر مقابل نسبة ملكية. مناسب إذا كان لديك مشروع قابل للنمو وتحتاج إلى تمويل أو شريك استثماري.',
+    startup: 'مشروع جديد يستهدف النمو والتوسع، ويدخل فيه مستثمر مقابل نسبة ملكية. مناسب للمشروع القابل للنمو الذي يحتاج تمويلا أو شريكا استثماريا.',
     fnb: '⚙️ مشروع يعتمد على التشغيل اليومي مثل متجر، مطعم، فندق، بقالة، محل خضار أو مؤسسة مقاولات. مناسب عندما تختلف المساهمات بين تمويل، إدارة، تشغيل، أصول أو موقع.',
-    deal: '🏗️ شراكة مؤقتة لتنفيذ فرصة محددة مثل شراء وبيع، توريد، تطوير عقار أو صفقة تجارية. تنتهي العلاقة غالباً بانتهاء الصفقة وتوزيع العوائد.',
-    existing: '🏢 إدخال شريك جديد في شركة تعمل فعلياً، مقابل مبلغ أو قيمة مضافة. يتم تقدير حصته بناءً على قيمة الشركة قبل وبعد دخوله.',
+    deal: 'شراكة مؤقتة لتنفيذ فرصة محددة مثل شراء وبيع أو توريد أو تطوير عقار. وتنتهي العلاقة بانتهاء الصفقة وتوزيع العوائد.',
+    existing: 'إدخال شريك جديد في شركة تعمل فعليا، مقابل مبلغ أو قيمة مضافة. تقدر حصته بناء على قيمة الشركة قبل دخوله وبعده.',
     mudaraba: '🤝 اتفاق يقدّم فيه رب المال التمويل فقط، ويقدّم المضارب العمل فقط. الربح يكون بنسبة متفق عليها، والخسارة المالية تكون على رأس المال فقط، بشرط عدم خلط المال والعمل في الطرف نفسه.'
   },
 
@@ -1038,6 +1052,7 @@ const G = {
     this.addParty({ name:'الطرف الثاني' });
     document.getElementById('btnAddParty').addEventListener('click', () => this.addParty());
     this.normalizeNumberInputs();
+    this.applyFieldEnhancements();
     this.updDisputeFields();
     this.updExistingMode();
   },
@@ -1069,8 +1084,6 @@ const G = {
           if (stepbar) stepbar.style.top = (hdrH + tbH) + 'px';
         }, 50);
       });
-      // لا تُفتح المسودة المحفوظة تلقائياً؛ يختار المستخدم المتابعة أو البدء من جديد.
-      this.checkSaved();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 350);
   },
@@ -1113,7 +1126,7 @@ const G = {
     ['projName','legalStruct','preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','cashInAmt','cashOutAmt','managerName','agreementTerm','keyNotes','mudFee','amicableDays','disputeDetails','disputeNote'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
     });
-    const defaults = { entryMode:'cashin', decisionRule:'unanimous', fundingRule:'proportional', reportingRule:'monthly', exitRule:'firstrefusal', mudScope:'restricted', amicableOn:'yes', disputeMethod:'' };
+    const defaults = { entryMode:'cashin', decisionRule:'unanimous', fundingRule:'proportional', exitRule:'firstrefusal', mudScope:'restricted', amicableOn:'yes', disputeMethod:'' };
     Object.entries(defaults).forEach(([id,value]) => { const el = document.getElementById(id); if (el) el.value = value; });
     this.updExistingMode();
     this.updDisputeFields();
@@ -1129,6 +1142,7 @@ const G = {
     this.addParty({ name:'الطرف الثاني' });
     this.go(1);
     this.normalizeNumberInputs();
+    this.applyFieldEnhancements(list);
   },
 
   /* ─── TOOLBAR: SAVE / LOAD ─── */
@@ -1140,7 +1154,7 @@ const G = {
       projName: val('projName'), legalStruct: val('legalStruct'),
       preMoney: val('preMoney'), newInv: val('newInv'), targetPct: val('targetPct'), postMoney: val('postMoney'),
       coVal: val('coVal'), entryAmt: val('entryAmt'), entryPct: val('entryPct'), entryMode: val('entryMode'), cashInAmt: val('cashInAmt'), cashOutAmt: val('cashOutAmt'),
-      managerName: val('managerName'), decisionRule: val('decisionRule'), fundingRule: val('fundingRule'), reportingRule: val('reportingRule'), agreementTerm: val('agreementTerm'), exitRule: val('exitRule'), keyNotes: val('keyNotes'), mudScope: val('mudScope'), mudFee: val('mudFee'),
+      managerName: val('managerName'), decisionRule: val('decisionRule'), fundingRule: val('fundingRule'), agreementTerm: val('agreementTerm'), exitRule: val('exitRule'), keyNotes: val('keyNotes'), mudScope: val('mudScope'), mudFee: val('mudFee'),
       amicableOn: val('amicableOn'), amicableDays: val('amicableDays'), disputeMethod: val('disputeMethod'), disputeDetails: val('disputeDetails'), disputeNote: val('disputeNote'),
       parties, ts: Date.now()
     };
@@ -1168,7 +1182,7 @@ const G = {
       // Restore project fields
       if (data.projName) { const el = document.getElementById('projName'); if(el) el.value = data.projName; }
       if (data.legalStruct) { const el = document.getElementById('legalStruct'); if(el) el.value = data.legalStruct; }
-      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','entryMode','cashInAmt','cashOutAmt','managerName','decisionRule','fundingRule','reportingRule','agreementTerm','exitRule','keyNotes','mudScope','mudFee','amicableOn','amicableDays','disputeMethod','disputeDetails','disputeNote'].forEach(id => {
+      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','entryMode','cashInAmt','cashOutAmt','managerName','decisionRule','fundingRule','agreementTerm','exitRule','keyNotes','mudScope','mudFee','amicableOn','amicableDays','disputeMethod','disputeDetails','disputeNote'].forEach(id => {
         if (data[id] !== undefined) { const el = document.getElementById(id); if (el) el.value = data[id]; }
       });
       this.updDisputeFields();
@@ -1326,7 +1340,7 @@ const G = {
     if (ph3Title && ph3Sub) {
       if (t === 'startup') {
         ph3Title.textContent = 'طريقة تقدير الحصص';
-        ph3Sub.textContent   = 'اختر نمط الشراكة لضبط الأوزان تلقائياً، أو عدلها يدوياً من الإعدادات المتقدمة.';
+        ph3Sub.textContent   = 'اختر نمط الشراكة لضبط الأوزان تلقائيا، أو عدلها من الإعدادات المتقدمة.';
       } else {
         ph3Title.textContent = 'القرارات الأساسية';
         ph3Sub.textContent   = 'حدد أهم ما يلزم للتفاهم: الإدارة، القرارات، التمويل، التقارير، الخروج، وحل الخلافات.';
@@ -1408,7 +1422,7 @@ const G = {
     const roleOpts = [
       ['manager','مدير عام / CEO'], ['ops','تشغيلي / COO'],
       ['tech','تقني / CTO'], ['sales','مبيعات / CMO'],
-      ['silent','صامت / لا دور تنفيذي']
+      ['silent','مستثمر بدور تمويلي']
     ];
 
     const list = document.getElementById('partyList');
@@ -1447,7 +1461,7 @@ const G = {
           <div class="grid2" style="margin-top:10px">
             ${isMudRab ? `
             <div class="fg">
-              <label>رأس المال (ريال)</label>
+              <label data-help="أدخل رأس المال الذي يقدمه رب المال للمضاربة.">رأس المال</label>
               <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',G.pNum(this.value))">
             </div>` : `
             <div class="fg">
@@ -1456,37 +1470,37 @@ const G = {
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg">
-              <label>المبلغ الشهري المستلم فعلياً</label>
+              <label>المبلغ الشهري المستلم فعليا</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',G.pNum(this.value))">
-              <div class="help">إذا كان الراتب العادل في السوق 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يدخل كقيمة جهد غير مدفوعة.</div>
+              <div class="help">مثال: الراتب العادل 10,000 والمستلم 5,000، فيحسب الفرق الشهري ضمن قيمة الجهد.</div>
             </div>
             <div class="fg">
               <label>مدة المساهمة بالجهد (بالأشهر)</label>
               <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'dur',G.pNum(this.value))">
-              <div class="help">المدة التقديرية لاحتساب قيمة الجهد فقط، وليست مدة استحقاق ملكية.</div>
+              <div class="help">مدة تقديرية لاحتساب قيمة الجهد. مدة الاستحقاق تسجل في مسارها المخصص.</div>
             </div>
             `}
           </div>
           ` : `
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
-              <label>التمويل النقدي (ريال)</label>
+              <label data-help="المبلغ النقدي الذي يقدمه هذا الطرف للمشروع.">التمويل النقدي</label>
               <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',G.pNum(this.value))">
             </div>
             <div class="fg">
-              <label>قيمة الأصول العينية (ريال)</label>
+              <label data-help="مثال: معدات أو مركبات أو أجهزة، وتكتب طريقة تقويمها.">قيمة الأصول العينية</label>
               <input type="number" min="0" value="${this.inputVal(p.assets)}" placeholder="0" onchange="G.sp(${p.id},'assets',G.pNum(this.value))">
             </div>
           </div>
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
-              <label>ملكية فكرية / علامة تجارية (ريال)</label>
+              <label data-help="قيمة متفق عليها لحق فكري أو علامة أو برنامج يقدمه الطرف.">ملكية فكرية أو علامة تجارية</label>
               <input type="number" min="0" value="${this.inputVal(p.ip)}" placeholder="0" onchange="G.sp(${p.id},'ip',G.pNum(this.value))">
             </div>
             <div class="fg">
-              <label>التزام آخر قابل للقياس (ريال)</label>
+              <label data-help="التزام له مخرج وموعد وقيمة متفق عليها، مثل تنفيذ دراسة أو تجهيز محدد.">التزام آخر قابل للقياس</label>
               <input type="number" min="0" value="${this.inputVal(p.net)}" placeholder="0" onchange="G.sp(${p.id},'net',G.pNum(this.value))">
-              <div class="help">لا تُقيّم السمعة أو النفوذ أو العلاقات بذاتها. استخدم الحقل فقط لالتزام محدد له مخرج وموعد وقيمة متفق عليها، واشرحه في الملاحظة.</div>
+              <div class="help">الحصص تبنى على مال أو عمل أو أصل قابل للتقويم. يخصص هذا الحقل لالتزام محدد له مخرج وموعد وقيمة متفق عليها.</div>
             </div>
           </div>
           <div class="grid2" style="margin-top:10px">
@@ -1511,20 +1525,20 @@ const G = {
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg" style="margin-top:10px">
-              <label>المبلغ الشهري المستلم فعلياً</label>
+              <label>المبلغ الشهري المستلم فعليا</label>
               <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',G.pNum(this.value))">
-              <div class="help">إذا كان الراتب العادل في السوق 10000 ريال، واستلم فعلياً 5000 ريال، فالفرق 5000 ريال شهرياً يُحتسب كمساهمة عمل.</div>
+              <div class="help">مثال: الراتب العادل 10,000 والمستلم 5,000، فيحسب الفرق الشهري ضمن مساهمة العمل.</div>
             </div>
             <div class="fg" style="margin-top:10px">
               <label>مدة المساهمة بالجهد (بالأشهر)</label>
               <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'dur',G.pNum(this.value))">
-              <div class="help">المدة التقديرية لاحتساب قيمة الجهد فقط، وليست مدة استحقاق ملكية أو Vesting.</div>
+              <div class="help">مدة تقديرية لاحتساب قيمة الجهد. مدة الاستحقاق تسجل في مسار الشركات الناشئة.</div>
             </div>
           </div>
           ${this.type === 'startup' && p.work !== 'no' ? `
           <div class="card-sm" id="vestingBlock_${p.id}" style="margin-top:12px">
             <div class="card-head" style="font-size:12px;margin-bottom:10px;padding-bottom:8px">الاستحقاق التدريجي لهذا الطرف</div>
-            <div class="notice notice-info" style="margin-bottom:10px">يستخدم إذا كانت حصة هذا الطرف مرتبطة باستمراره في العمل، ولا تُكتسب كاملة من اليوم الأول.</div>
+            <div class="notice notice-info" style="margin-bottom:10px">يستخدم عندما ترتبط حصة الطرف باستمراره في العمل، فتستحق الحصة تدريجيا خلال المدة المتفق عليها.</div>
             <div class="grid2">
               <div class="fg">
                 <label>تفعيل الاستحقاق التدريجي؟</label>
@@ -1553,9 +1567,9 @@ const G = {
           <div class="card-sm" style="margin-top:12px">
             <div class="card-head" style="font-size:12px;margin-bottom:10px;padding-bottom:8px">توزيع الأرباح</div>
             <div class="fg">
-              <label>نصيب الأرباح لهذا الطرف (%)</label>
+              <label>نصيب الأرباح لهذا الطرف</label>
               <input id="profit_${p.id}" type="number" lang="en" min="0" max="100" value="${this.inputVal(p.profit)}" onchange="G.sp(${p.id},'profit',this.value === '' ? '' : +this.value)">
-              ${this.type === 'mudaraba' ? '<div class="help">مثال تعليمي: 40% لرب المال و60% للمضارب. أدخل ما اتفقتم عليه؛ يجب أن يكون مجموع النسب 100%. إذا تُركت فارغة ستظهر «تحدد لاحقًا».</div>' : ''}
+              ${this.type === 'mudaraba' ? '<div class="help">مثال تعليمي: % 40 لرب المال و% 60 للمضارب. أدخل النسب المتفق عليها ليصبح مجموعها % 100.</div>' : ''}
             </div>
           </div>` : ''}
 
@@ -1633,7 +1647,7 @@ const G = {
       { k:'Asset',  icon:'🏗️', name:'الأصول والعينيات',          desc:'تجهيزات، موقع، عقارات، بالقيمة السوقية' },
       { k:'Effort', icon:'⚙️', name:'الجهد والعمل',              desc:'الراتب العادل في السوق × الأشهر × الوزن، أو تقدير معياري' },
       { k:'IP',     icon:'💡', name:'ملكية فكرية / علامة تجارية', desc:'تقنية مُطوَّرة، براءة اختراع، فرنشايز مرخَّص' },
-      { k:'Net',    icon:'◇', name:'التزام آخر قابل للقياس',       desc:'مخرج محدد وموعد وقيمة متفق عليها؛ لا يشمل السمعة أو النفوذ' },
+      { k:'Net',    icon:'◇', name:'التزام آخر قابل للقياس',       desc:'مخرج محدد وموعد وقيمة متفق عليها' },
     ];
     const el = document.getElementById('wtItems');
     if (!el) return;
@@ -1698,7 +1712,7 @@ const G = {
     }
 
     if (pre > 0 && inv > 0 && post > 0) {
-      box.innerHTML = `القيمة قبل الاستثمار: <span class="num">${this.fmt(pre)}</span> ريال، بعد الاستثمار: <span class="num">${this.fmt(post)}</span> ريال، حصة المستثمر: <span class="num">${(+pct).toFixed(1)}%</span>`;
+      box.innerHTML = `القيمة قبل الاستثمار: ${this.moneyHtml(pre)}، بعد الاستثمار: ${this.moneyHtml(post)}، حصة المستثمر: ${this.percentHtml((+pct).toFixed(1))}`;
       box.classList.remove('hide');
     } else {
       box.classList.add('hide');
@@ -1719,12 +1733,12 @@ const G = {
 
       if (p.cap === 'رب المال (ممول)') {
         hasRab = true;
-        if (!hasCash) problems.push(`${p.name}: رب المال يجب أن يقدّم مالاً.`);
-        if (hasEffort) problems.push(`${p.name}: رب المال لا يجمع بين المال والعمل في المضاربة.`);
+        if (!hasCash) problems.push(`${p.name}: رب المال يقدم مالا.`);
+        if (hasEffort) problems.push(`${p.name}: صفة رب المال في هذا المسار تقتصر على تقديم المال.`);
       } else if (p.cap === 'مضارب (عامل)') {
         hasMud = true;
-        if (hasCash) problems.push(`${p.name}: المضارب لا يقدّم رأس مال في المضاربة.`);
-        if (!hasEffort) problems.push(`${p.name}: المضارب يجب أن يقدّم عملاً أو جهداً.`);
+        if (hasCash) problems.push(`${p.name}: صفة المضارب في هذا المسار تقتصر على العمل والإدارة.`);
+        if (!hasEffort) problems.push(`${p.name}: المضارب يقدم عملا أو جهدا.`);
       } else {
         problems.push(`${p.name}: يجب تحديد صفته كرب مال أو مضارب.`);
       }
@@ -1914,16 +1928,16 @@ const G = {
     const inv = +document.getElementById('newInv')?.value  || 0;
 
     let kpis = this.type === 'mudaraba' ? [
-      { lbl:'رأس مال المضاربة', val: this.fmt(cash) + ' ر.س', sub:'مقدم من رب المال' },
+      { lbl:'رأس مال المضاربة', val: this.moneyHtml(cash), sub:'مقدم من رب المال' },
       { lbl:'الأطراف', val: String(this.parties.length), sub:'رب مال ومضارب' },
-      { lbl:'نسب الربح', val: this.results.every(x => x.profit !== null) ? 'محددة' : 'تحدد لاحقًا', sub:'لا تُفترض تلقائيًا' }
+      { lbl:'نسب الربح', val: this.results.every(x => x.profit !== null) ? 'محددة' : 'تحدد لاحقا', sub:'تعتمد النسب التي يدخلها المستخدم' }
     ] : [
-      { lbl:'إجمالي التمويل النقدي', val: this.fmt(cash) + ' ر.س', sub: this.parties.length + ' أطراف' },
-      { lbl:'الأصول والحقوق غير النقدية', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + التزامات قابلة للقياس' },
+      { lbl:'إجمالي التمويل النقدي', val: this.moneyHtml(cash), sub: this.parties.length + ' أطراف' },
+      { lbl:'الأصول والحقوق المقومة', val: this.moneyHtml(asset), sub:'أصول + ملكية فكرية + التزامات قابلة للقياس' },
       { lbl:'أطراف عاملون في المشروع', val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
     ];
     if (pre > 0 && inv > 0)
-      kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money Valuation' });
+      kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.moneyHtml(pre+inv), sub:'Post-Money Valuation' });
 
     document.getElementById('kpiGrid').innerHTML = kpis.map(k =>
       `<div class="kpi"><div class="kpi-lbl">${k.lbl}</div><div class="kpi-val">${k.val}</div><div class="kpi-sub">${k.sub}</div></div>`
@@ -1971,7 +1985,7 @@ const G = {
     leg.innerHTML = this.results.map(d => `
       <div class="leg-row">
         <div class="leg-name"><div class="leg-pip" style="background:${d.color}"></div>${d.name}</div>
-        <div class="leg-pct">${d.pct}%</div>
+        <div class="leg-pct">${this.percentHtml(d.pct)}</div>
       </div>`).join('');
   },
 
@@ -1983,8 +1997,8 @@ const G = {
       const complete = this.results.every(r => r.profit !== null);
       box.innerHTML = complete ? `
         <svg width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0 auto 10px">${this.makeDonutSvg(this.results, 'profit', 'الربح')}</svg>
-        <div class="legend">${this.results.map(r => `<div class="leg-row"><div class="leg-name"><div class="leg-pip" style="background:${r.color}"></div>${r.name}</div><div class="leg-pct">${r.profit}%</div></div>`).join('')}</div>`
-        : '<div class="notice notice-warn">نسب الربح لم تُحدد بعد. مثال إرشادي فقط: 40% لرب المال و60% للمضارب، ومجموع النسب يجب أن يكون 100%.</div>';
+        <div class="legend">${this.results.map(r => `<div class="leg-row"><div class="leg-name"><div class="leg-pip" style="background:${r.color}"></div>${r.name}</div><div class="leg-pct">${this.percentHtml(r.profit)}</div></div>`).join('')}</div>`
+        : '<div class="notice notice-warn">أدخل نسب الربح المتفق عليها. المثال الإرشادي % 40 لرب المال و% 60 للمضارب، ويصبح مجموع النسب % 100.</div>';
       return;
     }
     if (this.profitDiffers()) {
@@ -1995,7 +2009,7 @@ const G = {
           ${this.results.map(r => `
             <div class="leg-row">
               <div class="leg-name"><div class="leg-pip" style="background:${r.color}"></div>${r.name}</div>
-              <div class="leg-pct">${r.profit}%</div>
+              <div class="leg-pct">${this.percentHtml(r.profit)}</div>
             </div>`).join('')}
         </div>`;
       return;
@@ -2005,7 +2019,7 @@ const G = {
       <div class="bar-item">
         <div class="bar-meta">
           <span class="bar-name">${r.name}</span>
-          <span class="bar-pct">${r.pct}%</span>
+          <span class="bar-pct">${this.percentHtml(r.pct)}</span>
         </div>
         <div class="bar-bg"><div class="bar-fill" style="width:${r.pct}%;background:${r.color}"></div></div>
       </div>`).join('');
@@ -2015,11 +2029,11 @@ const G = {
     const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
     document.getElementById('partyResults').innerHTML = this.results.map(r => {
       const contribs = [
-        r.cash    ? `نقدي: ${this.fmt(r.cash)} ر.س` : null,
-        r.assets  ? `أصول: ${this.fmt(r.assets)} ر.س` : null,
-        r.ip      ? `ملكية فكرية: ${this.fmt(r.ip)} ر.س` : null,
-        r.net     ? `التزام قابل للقياس: ${this.fmt(r.net)} ر.س` : null,
-        r.effortSc? `جهد غير مدفوع (${r.dur || 0} أشهر): ${this.fmt(r.effortSc)} ر.س` : null,
+        r.cash    ? `نقدي: ${this.moneyHtml(r.cash)}` : null,
+        r.assets  ? `أصول: ${this.moneyHtml(r.assets)}` : null,
+        r.ip      ? `ملكية فكرية: ${this.moneyHtml(r.ip)}` : null,
+        r.net     ? `التزام قابل للقياس: ${this.moneyHtml(r.net)}` : null,
+        r.effortSc? `جهد مقدم (${r.dur || 0} أشهر): ${this.moneyHtml(r.effortSc)}` : null,
       ].filter(Boolean);
 
       return `
@@ -2032,7 +2046,7 @@ const G = {
               <div class="res-cap">${r.cap || ''}${r.role && r.role!=='silent' ? ' · ' + (roleNames[r.role]||'') : ''}${r.note ? '، ' + r.note : ''}</div>
             </div>
           </div>
-          <div class="res-pct">${this.type === 'mudaraba' ? (r.profit === null ? 'تحدد لاحقًا' : r.profit + '%') : r.pct + '%'}</div>
+          <div class="res-pct">${this.type === 'mudaraba' ? (r.profit === null ? 'تحدد لاحقا' : this.percentHtml(r.profit)) : this.percentHtml(r.pct)}</div>
         </div>
         ${this.type === 'mudaraba' ? '' : `<div class="res-bar-bg"><div class="res-bar-fill" style="width:${r.pct}%;background:${r.color}"></div></div>`}
         <div class="res-contrib">${contribs.map(c => {
@@ -2042,12 +2056,12 @@ const G = {
         <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px">
           ${this.type === 'mudaraba' ? '' : `<div style="display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:11px;color:var(--muted);font-weight:600">حصة الملكية</span>
-            <span style="font-size:13px;font-weight:700;color:var(--gold)">${r.pct}%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--gold)">${this.percentHtml(r.pct)}</span>
           </div>`}
           ${this.profitDiffers() ? `
           <div style="display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:11px;color:var(--muted);font-weight:600">نصيب الأرباح</span>
-            <span style="font-size:13px;font-weight:700;color:${r.color}">${r.profit === null ? 'تحدد لاحقًا' : r.profit + '%'}</span>
+            <span style="font-size:13px;font-weight:700;color:${r.color}">${r.profit === null ? 'تحدد لاحقا' : this.percentHtml(r.profit)}</span>
           </div>` : ''}
         </div>
       </div>`;
@@ -2078,12 +2092,12 @@ const G = {
     const max = Math.max(...this.results.map(r => r.pct));
     const dom = this.results.find(r => r.pct === max);
     if (dom && max > 65)
-      alerts.push({ t:'warn', m:`⚠️ ${dom.name} يملك ${max}% من الحصص، تأكد أن هذا مقصود ومكتوب بوضوح في الاتفاقية.` });
+      alerts.push({ t:'warn', m:`${dom.name} يملك ${this.percentHtml(max)} من الحصص. راجع أثر هذه النسبة على القرارات واكتب الصلاحيات المتفق عليها.` });
     if (this.parties.filter(p => p.work === 'no').length === this.parties.length)
-      alerts.push({ t:'warn', m:'⚠️ لا أحد من الأطراف سيعمل في المشروع، كيف سيُدار؟ تأكد من تحديد المدير التنفيذي في الاتفاقية.' });
+      alerts.push({ t:'warn', m:'تحتاج إدارة المشروع إلى مسؤول يومي. حدد اسمه أو صفته في الاتفاق.' });
     const workingWithoutVesting = this.parties.filter(p => p.work !== 'no' && p.vesting !== 'yes');
     if (this.type === 'startup' && workingWithoutVesting.length)
-      alerts.push({ t:'warn', m:'⏳ يوجد شريك عامل لم يُفعّل له الاستحقاق التدريجي، راجع بيانات الأطراف العاملين قبل اعتماد البنود.' });
+      alerts.push({ t:'warn', m:'راجع الاستحقاق التدريجي للشريك العامل وحدد المدة المناسبة له.' });
 
     // تنبيه مدة الجهد الطويلة
     this.parties.forEach(p => {
@@ -2095,7 +2109,7 @@ const G = {
     const has50 = this.results.some(r => Math.abs(r.pct - 50) < 0.5);
     const existPct = this.type === 'existing' ? (this.numVal('entryPct') || 0) : 0;
     if (has50 || Math.abs(existPct - 50) < 0.5)
-      alerts.push({ t:'warn', m:'⚠️ تنبيه مهندس الصفقات: نسبة 50% غالباً هروب من الحرج الاجتماعي، لكنها قانونياً قد تُعطّل القرار عند أي خلاف. افصل بين "ملكية الحصص" و"حق الإدارة"، لمن الكلمة المرجِّحة؟' });
+      alerts.push({ t:'warn', m:'نسبة % 50 تجعل القرار المشترك مرتبطا باتفاق الطرفين. حددوا آلية ترجيح القرار واكتبوا صلاحيات الإدارة.' });
     const existingBox = document.getElementById('existingCalcBox');
     if (this.type === 'existing' && existingBox && !existingBox.classList.contains('hide') && existingBox.classList.contains('notice-warn'))
       alerts.push({ t:'warn', m: existingBox.textContent });
@@ -2106,20 +2120,20 @@ const G = {
         const vals = this.parties.map(p => this.normalizePercentField(p.profit));
         const complete = vals.every(v => v !== null);
         const total = vals.reduce((s,v) => s + (v || 0), 0);
-        if (!complete) alerts.push({ t:'warn', m:'نسب الربح لم تكتمل بعد. المثال 40/60 للتوضيح فقط ولا يطبق تلقائيًا.' });
-        else if (Math.abs(total - 100) > 0.01) alerts.push({ t:'warn', m:`مجموع نسب الربح المدخلة ${total}%، ويجب أن يكون 100%.` });
-        else alerts.push({ t:'ok', m:'مجموع نسب الربح 100%، وتبقى مراجعة بقية شروط المضاربة وكتابتها.' });
+        if (!complete) alerts.push({ t:'warn', m:'أكمل نسب الربح المتفق عليها. المثال % 40 و% 60 للتوضيح.' });
+        else if (Math.abs(total - 100) > 0.01) alerts.push({ t:'warn', m:`مجموع نسب الربح المدخلة ${this.percentHtml(total)}. اضبطها ليصبح المجموع % 100.` });
+        else alerts.push({ t:'ok', m:'مجموع نسب الربح % 100. راجع بقية شروط المضاربة واكتبها.' });
       } else {
-        alerts.push({ t:'warn', m:'⚠️ ملاحظتنا: أحد الأطراف يجمع بين التمويل والعمل، أو أن بيانات المال والعمل غير مكتملة. هذا لا يتوافق مع عقد المضاربة، لذلك تم التعامل مع الحالة كمشاركة عادية لضمان دقة التوزيع.' });
+        alerts.push({ t:'warn', m:'البيانات المدخلة تصف طرفا يجمع بين التمويل والعمل، أو تحتاج استكمال أدوار المال والعمل. عرضت الأداة الحالة كمشاركة عامة.' });
         if (this.mudarabaCheck?.problems?.length) alerts.push({ t:'warn', m:'تفاصيل الملاحظة: ' + this.mudarabaCheck.problems.join(' | ') });
       }
     } else if (this.parties.some(p => (p.cash || 0) > 0 && this.hasEffort(p))) {
-      alerts.push({ t:'ok', m:'🧠 تحليل النموذج: يوجد طرف يجمع بين المال والعمل؛ تأكد من توضيح العلاقة كمشاركة عامة لا كمضاربة.' });
+      alerts.push({ t:'ok', m:'يوجد طرف يجمع بين المال والعمل. وضح العلاقة ضمن المشاركة العامة واكتب أثر كل مساهمة.' });
     }
     const disputeMethod = document.getElementById('disputeMethod')?.value || '';
     const disputeDetails = (document.getElementById('disputeDetails')?.value || '').trim();
     if (disputeMethod === 'arbitration' && !disputeDetails)
-      alerts.push({ t:'warn', m:'⚖️ تم اختيار التحكيم دون تحديد اسم المحكّم أو صفته. لن يُدرج بند التحكيم في المسودة إلا بعد تحديده.' });
+      alerts.push({ t:'warn', m:'أكمل اسم المحكم أو صفته ليظهر بند التحكيم في المسودة.' });
 
     document.getElementById('smartAlerts').innerHTML = alerts.map(a =>
       `<div class="notice notice-${a.t === 'warn' ? 'warn' : 'ok'}" style="margin-bottom:8px">${a.m}</div>`
@@ -2130,11 +2144,11 @@ const G = {
     if (zpAlerts.length) {
       const zpHtml = zpAlerts.map(a => `
         <div class="notice" style="background:#FEF2F2;border:1px solid #FCA5A5;color:#7A1D1D;padding:14px 16px;border-radius:10px;margin-top:10px;line-height:1.75;font-size:13px">
-          <strong>⛔ تنبيه حسابي مهم:</strong> ${a.name} يساهم بـ ${this.fmt(a.contrib)} ريال ويمتلك ${a.equity}% من الشركة — لكن نصيبه من الأرباح <strong>0%</strong>.
-          <br>هذا لا يحدث تلقائياً. تحقق من:<br>
+          <strong>تنبيه حسابي مهم:</strong> ${a.name} يساهم بقيمة ${this.moneyHtml(a.contrib)} ويمتلك ${this.percentHtml(a.equity)} من الشركة، ونصيبه المدخل من الأرباح <strong>% 0</strong>.
+          <br>راجع سبب ذلك:<br>
           &nbsp;&nbsp;① هل يعني هذا أن ربحه يأتي من راتب ثابت فقط؟<br>
           &nbsp;&nbsp;② أم أن توزيع الأرباح يسير بشكل مختلف عن الملكية؟<br>
-          &nbsp;&nbsp;③ إذا كان هذا خطأ — اذهب للخطوة 2 وأدخل نسبة أرباح يدوية لكل طرف.
+          &nbsp;&nbsp;③ لتعديل النسبة، عد إلى الخطوة 2 وأدخل نصيب الأرباح لكل طرف.
         </div>`).join('');
       const smartEl = document.getElementById('smartAlerts');
       if (smartEl) smartEl.innerHTML += zpHtml;
@@ -2153,8 +2167,8 @@ const G = {
     // 1. الحل الودي
     if (amicableOn === 'yes') {
       parts.push(rawDays
-        ? `يلتزم الأطراف بمحاولة الحل الودي لمدة (${rawDays}) يوماً قبل اللجوء إلى أي مسار آخر.`
-        : `يلتزم الأطراف بمحاولة الحل الودي قبل اللجوء إلى أي مسار آخر.`);
+        ? `يلتزم الأطراف بمحاولة الحل الودي لمدة (${rawDays}) يوما قبل الانتقال إلى المسار التالي.`
+        : `يلتزم الأطراف بمحاولة الحل الودي قبل الانتقال إلى المسار التالي.`);
     }
 
     const prefix = (amicableOn === 'yes') ? 'وعند تعذر الحل الودي، ' : '';
@@ -2185,7 +2199,7 @@ const G = {
       this.showCopyStatus('✅ تم نسخ النص إلى الحافظة');
     };
     const fail = () => {
-      this.showCopyStatus('تعذّر النسخ التلقائي، يمكنك تحديد النص ونسخه يدوياً.', true);
+      this.showCopyStatus('تعذر النسخ التلقائي، ويمكنك تحديد النص ونسخه يدويا.', true);
     };
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(t).then(done).catch(() => {
@@ -2249,6 +2263,8 @@ const G = {
 
   const xIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>`;
   const linkedInIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
+  const snapchatIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${gold}" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M12 3c-3.1 0-5 2.3-5 5.4v2.2c-.2.8-.9 1.4-2 1.7-.6.2-.7.9-.2 1.3.7.7 1.6 1.2 2.6 1.5-.2.8-.6 1.5-1.1 2.1 1.4.4 2.6.2 3.6 1.4.6.7 1.3 1.1 2.1 1.1s1.5-.4 2.1-1.1c1-1.2 2.2-1 3.6-1.4-.5-.6-.9-1.3-1.1-2.1 1-.3 1.9-.8 2.6-1.5.5-.4.4-1.1-.2-1.3-1.1-.3-1.8-.9-2-1.7V8.4C17 5.3 15.1 3 12 3z"/></svg>`;
+  const linktreeIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M13.4 9.15 16.8 5.7l1.95 1.98-3.42 3.38h4.86v2.8h-4.88l3.45 3.43-1.97 1.95-3.39-3.42V21h-2.8v-5.16l-3.4 3.42-1.97-1.97 3.45-3.43H3.8v-2.8h4.87L5.25 7.68 7.2 5.7l3.4 3.45V3h2.8v6.15z"/></svg>`;
 
   const projName = (document.getElementById('projName')?.value || '').trim();
   const dates    = this.formatDate(new Date());
@@ -2291,7 +2307,7 @@ const G = {
   };
 
   const chartBlock = isMudExport
-    ? (mudProfitComplete ? makeDonutSVG('profit', 'نسب الربح', 460) : `<div style="width:460px;height:300px;border:2px dashed ${border};border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:${mid};font-size:24px;font-family:${font}">نسب الربح تحدد لاحقًا<br><span style="font-size:18px;color:${muted}">مثال إرشادي فقط: 40% / 60%</span></div>`)
+    ? (mudProfitComplete ? makeDonutSVG('profit', 'نسب الربح', 460) : `<div style="width:460px;height:300px;border:2px dashed ${border};border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:${mid};font-size:24px;font-family:${font}">أدخل نسب الربح المتفق عليها<br><span style="font-size:18px;color:${muted}">مثال إرشادي: % 40 | % 60</span></div>`)
     : hasProfitSplit ? `<div style="display:flex;align-items:center;justify-content:center;gap:28px;width:100%">
          ${makeDonutSVG('pct', 'توزيع الملكية', 350)}
          ${makeDonutSVG('profit', 'توزيع الأرباح', 350)}
@@ -2310,15 +2326,15 @@ const G = {
   const pre = +document.getElementById('preMoney')?.value || 0;
   const inv = +document.getElementById('newInv')?.value  || 0;
   const kpis = isMudExport ? [
-    { lbl:'رأس مال المضاربة', val: this.fmt(cash) + ' ر.س', sub:'مقدم من رب المال' },
+    { lbl:'رأس مال المضاربة', val: this.moneyHtml(cash), sub:'مقدم من رب المال' },
     { lbl:'الأطراف', val:String(this.parties.length), sub:'رب مال ومضارب' },
-    { lbl:'نسب الربح', val:mudProfitComplete ? 'محددة' : 'تحدد لاحقًا', sub:'لا توجد حصة ملكية في هذا العرض' }
+    { lbl:'نسب الربح', val:mudProfitComplete ? 'محددة' : 'تحدد لاحقا', sub:'يعرض هذا المسار نسب الربح' }
   ] : [
-    { lbl:'إجمالي التمويل النقدي', val: this.fmt(cash)  + ' ر.س', sub: this.parties.length + ' أطراف' },
-    { lbl:'الأصول والحقوق المضافة', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + التزامات مقوّمة' },
+    { lbl:'إجمالي التمويل النقدي', val: this.moneyHtml(cash), sub: this.parties.length + ' أطراف' },
+    { lbl:'الأصول والحقوق المضافة', val: this.moneyHtml(asset), sub:'أصول + ملكية فكرية + التزامات مقومة' },
     { lbl:'أطراف عاملون في المشروع', val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
   ];
-  if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money Valuation' });
+  if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.moneyHtml(pre+inv), sub:'Post-Money Valuation' });
 
   const kpiBoxes = kpis.map(k => `
     <div style="background:${surf};border:1px solid ${border};border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;justify-content:center">
@@ -2329,11 +2345,11 @@ const G = {
 
   const partyCards = res.map(r => {
     const contribRows = [
-      r.cash     ? { lbl:'نقدي', val:`${this.fmt(r.cash)} ر.س` } : null,
-      r.assets   ? { lbl:'أصول', val:`${this.fmt(r.assets)} ر.س` } : null,
-      r.ip       ? { lbl:'ملكية فكرية', val:`${this.fmt(r.ip)} ر.س` } : null,
-      r.net      ? { lbl:'التزام قابل للقياس', val:`${this.fmt(r.net)} ر.س` } : null,
-      r.effortSc ? { lbl:`جهد (${r.dur || 0} أشهر)`, val:`${this.fmt(r.effortSc)} ر.س` } : null,
+      r.cash     ? { lbl:'نقدي', val:this.moneyHtml(r.cash) } : null,
+      r.assets   ? { lbl:'أصول', val:this.moneyHtml(r.assets) } : null,
+      r.ip       ? { lbl:'ملكية فكرية', val:this.moneyHtml(r.ip) } : null,
+      r.net      ? { lbl:'التزام قابل للقياس', val:this.moneyHtml(r.net) } : null,
+      r.effortSc ? { lbl:`جهد (${r.dur || 0} أشهر)`, val:this.moneyHtml(r.effortSc) } : null,
     ].filter(Boolean);
 
     const contribsHtml = contribRows.length > 0
@@ -2342,25 +2358,25 @@ const G = {
           <span style="color:${muted};font-size:15px;font-family:${font}">${c.lbl}</span>
           <span style="color:${txt};font-size:15px;font-weight:700;font-family:${font};direction:ltr;unicode-bidi:plaintext">${c.val}</span>
         </div>`).join('')
-      : `<div style="padding:6px 0;color:${muted};font-size:15px;font-family:${font}">لا توجد مساهمات مسجلة</div>`;
+      : `<div style="padding:6px 0;color:${muted};font-size:15px;font-family:${font}">تضاف المساهمات من بطاقات الأطراف</div>`;
 
     const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' - '+(roleNames[r.role]||'') : ''}`;
     const headlineShare = isMudExport
-      ? `<div style="margin-bottom:12px;background:${card};border-radius:10px;padding:14px 16px;text-align:center"><span style="font-size:14px;color:${muted};font-family:${font}">نصيب الربح</span><div style="font-size:30px;font-weight:700;color:${r.color};font-family:${font}">${r.profit === null ? 'يحدد لاحقًا' : r.profit + '%'}</div></div>`
+      ? `<div style="margin-bottom:12px;background:${card};border-radius:10px;padding:14px 16px;text-align:center"><span style="font-size:14px;color:${muted};font-family:${font}">نصيب الربح</span><div style="font-size:30px;font-weight:700;color:${r.color};font-family:${font}">${r.profit === null ? 'يحدد لاحقا' : this.percentHtml(r.profit)}</div></div>`
       : hasProfitSplit
       ? `<div style="display:flex;gap:14px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px">
            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid ${border}">
              <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">الملكية</span>
-             <span style="font-size:28px;font-weight:700;color:${txt};font-family:${font};direction:ltr;unicode-bidi:plaintext;line-height:1">${r.pct}%</span>
+             <span style="font-size:28px;font-weight:700;color:${txt};font-family:${font};line-height:1">${this.percentHtml(r.pct)}</span>
            </div>
            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
              <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">الأرباح</span>
-             <span style="font-size:28px;font-weight:700;color:${r.color};font-family:${font};direction:ltr;unicode-bidi:plaintext;line-height:1">${r.profit}%</span>
+             <span style="font-size:28px;font-weight:700;color:${r.color};font-family:${font};line-height:1">${this.percentHtml(r.profit)}</span>
            </div>
          </div>`
       : `<div style="display:flex;align-items:baseline;justify-content:flex-start;gap:12px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px;direction:rtl">
            <span style="font-size:16px;color:${muted};font-family:${font};white-space:nowrap">الملكية:</span>
-           <span style="font-size:32px;font-weight:700;color:${r.color};font-family:${font};direction:ltr;unicode-bidi:plaintext;line-height:1">${r.pct}%</span>
+           <span style="font-size:32px;font-weight:700;color:${r.color};font-family:${font};line-height:1">${this.percentHtml(r.pct)}</span>
          </div>`;
 
     return `
@@ -2393,7 +2409,7 @@ const G = {
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.0</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.1</div>
         </div>
       </div>
 
@@ -2415,16 +2431,16 @@ const G = {
         ${partyCards}
       </div>
 
-      <div style="padding-top:18px;border-top:2px solid ${border};display:flex;align-items:center;justify-content:center;gap:14px;font-family:${font};white-space:nowrap;flex-shrink:0">
-        <div style="font-size:22px;font-weight:700;color:${txt};font-family:${font}">نايف المحمدي</div>
-        <div style="color:${border};font-size:22px">|</div>
-        <div style="display:flex;align-items:center;gap:8px;font-size:20px;color:${gold};font-weight:600;direction:ltr;font-family:${font}">
-          ${xIcon}
-          ${linkedInIcon}
-          <span>@almohammdin</span>
+      <div style="padding-top:18px;border-top:2px solid ${border};display:flex;align-items:center;justify-content:space-between;gap:18px;font-family:${font};flex-shrink:0">
+        <div style="display:flex;align-items:center;gap:14px">
+          <img src="naif-logo.png" alt="شعار نايف المحمدي" style="width:126px;height:56px;object-fit:contain;filter:sepia(1) saturate(2.2) hue-rotate(355deg) brightness(.82)">
+          <div style="font-size:15px;color:${mid};font-family:${font}">مستشار الحوكمة وتطوير الأعمال</div>
         </div>
-        <div style="color:${border};font-size:22px">|</div>
-        <div style="font-size:18px;color:${muted};font-family:${font}">النتائج تقديرية ولا تُعد وثيقة قانونية نهائية.</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:${gold}">
+          <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
+          <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
+        </div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.1</span></div>
       </div>
     </div>`;
 
@@ -2439,16 +2455,16 @@ const G = {
 /* ─── IMAGE CAPTURE FUNCTION (Configured for 1080x1350) ─── */
 captureResultsImage() {
   if (!this.results || !this.results.length) {
-    alert('لا توجد نتائج للتصدير، يرجى إكمال الحسبة أولاً.');
+    alert('أكمل الحسبة أولا لتجهيز صورة النتائج.');
     return;
   }
   if (typeof html2canvas === 'undefined') {
-    alert('مكتبة التقاط الصورة لم تُحمَّل بعد، يرجى الانتظار لحظة ثم المحاولة مجدداً.');
+    alert('مكتبة التقاط الصورة قيد التحميل. انتظر لحظة ثم حاول مجددا.');
     return;
   }
 
   const btn = document.querySelector('[onclick="G.captureResultsImage()"]');
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ جارٍ التصدير...'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'جار التصدير...'; }
 
   const container = this.buildExportLayout();
   const projName  = (document.getElementById('projName')?.value || '').trim();
@@ -2481,7 +2497,7 @@ captureResultsImage() {
           container.style.visibility = 'hidden';
           container.innerHTML = '';
           if (btn) { btn.disabled = false; btn.textContent = '📸 التقاط صورة للنتائج'; }
-          alert('تعذّر التقاط الصورة: ' + (err?.message || 'خطأ غير معروف'));
+          alert('تعذر التقاط الصورة: ' + (err?.message || 'تعذر تحديد سبب الخطأ'));
         });
       });
     }, 150);
@@ -2502,12 +2518,12 @@ captureResultsImage() {
         { name: '\u062e\u0627\u0644\u062f \u0627\u0644\u0639\u0645\u0631\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u0645\u0648\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u0627\u0644\u0645\u0645\u0648\u0644 \u0627\u0644\u0631\u0626\u064a\u0633\u064a \u0644\u0644\u0635\u0641\u0642\u0629' },
         { name: '\u0633\u0639\u062f \u0627\u0644\u0642\u0631\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0639\u0627\u0645\u0644', cash: 200000, assets: 0, ip: 0, net: 0, work: 'part', fmv: 15000, paid: 0, dur: 6, role: 'manager', note: '\u064a\u062a\u0648\u0644\u0649 \u0627\u0644\u062a\u0641\u0627\u0648\u0636 \u0648\u0625\u0646\u062c\u0627\u0632 \u0627\u0644\u0635\u0641\u0642\u0629 \u062e\u0644\u0627\u0644 \u0633\u062a\u0629 \u0623\u0634\u0647\u0631' }
       ]},
-      existing: { projName: '\u0645\u0637\u0627\u0639\u0645 \u0627\u0644\u0623\u0635\u0627\u0644\u0629 \u2014 \u062f\u062e\u0648\u0644 \u0634\u0631\u064a\u0643 \u062c\u062f\u064a\u062f', legalStruct: 'llc', coVal: '2000000', entryAmt: '500000', parties: [
+      existing: { projName: '\u0645\u0637\u0627\u0639\u0645 \u0627\u0644\u0623\u0635\u0627\u0644\u0629 | \u062f\u062e\u0648\u0644 \u0634\u0631\u064a\u0643 \u062c\u062f\u064a\u062f', legalStruct: 'llc', coVal: '2000000', entryAmt: '500000', parties: [
         { name: '\u0627\u0644\u0634\u0631\u0643\u0627\u0621 \u0627\u0644\u062d\u0627\u0644\u064a\u0648\u0646', cap: '\u0634\u0631\u0643\u0627\u0621 \u0623\u0635\u0644\u064a\u0648\u0646', cash: 0, assets: 0, ip: 200000, net: 0, work: 'full', fmv: 18000, paid: 15000, dur: 24, role: 'manager', note: '\u064a\u0645\u062b\u0644\u0648\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0628\u0643\u0627\u0645\u0644 \u0623\u0635\u0648\u0644\u0647\u0627' },
         { name: '\u0641\u064a\u0635\u0644 \u0627\u0644\u062d\u0631\u0628\u064a', cap: '\u0634\u0631\u064a\u0643 \u062f\u0627\u062e\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u062f\u062e\u0644 \u0645\u0642\u0627\u0628\u0644 \u062d\u0635\u0629 \u0645\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0642\u0627\u0626\u0645\u0629' }
       ]},
       mudaraba: { projName: '\u0645\u0636\u0627\u0631\u0628\u0629 \u062a\u0637\u0648\u064a\u0631 \u0641\u0646\u062f\u0642\u064a', legalStruct: '', parties: [
-        { name: '\u0635\u0646\u062f\u0648\u0642 \u0627\u0644\u0631\u064a\u0627\u0636 \u0644\u0644\u062a\u0637\u0648\u064a\u0631', cap: '\u0631\u0628 \u0627\u0644\u0645\u0627\u0644 (\u0645\u0645\u0648\u0644)', cash: 1000000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', profit: 40, note: '\u064a\u0642\u062f\u0645 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 \u0643\u0627\u0645\u0644\u0627\u064b \u062f\u0648\u0646 \u062a\u062f\u062e\u0644 \u0641\u064a \u0627\u0644\u0625\u062f\u0627\u0631\u0629' },
+        { name: '\u0635\u0646\u062f\u0648\u0642 \u0627\u0644\u0631\u064a\u0627\u0636 \u0644\u0644\u062a\u0637\u0648\u064a\u0631', cap: '\u0631\u0628 \u0627\u0644\u0645\u0627\u0644 (\u0645\u0645\u0648\u0644)', cash: 1000000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', profit: 40, note: '\u064a\u0642\u062f\u0645 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 \u0643\u0627\u0645\u0644\u0627 \u0648\u064a\u062a\u0627\u0628\u0639 \u0627\u0644\u062a\u0642\u0627\u0631\u064a\u0631 \u0627\u0644\u0645\u0627\u0644\u064a\u0629' },
         { name: '\u0634\u0631\u0643\u0629 \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0641\u0646\u0627\u062f\u0642', cap: '\u0645\u0636\u0627\u0631\u0628 (\u0639\u0627\u0645\u0644)', cash: 0, assets: 0, ip: 0, net: 0, work: 'full', fmv: 20000, paid: 0, dur: 18, role: 'manager', profit: 60, note: '\u064a\u0642\u062f\u0645 \u0627\u0644\u062e\u0628\u0631\u0629 \u0627\u0644\u062a\u0634\u063a\u064a\u0644\u064a\u0629 \u0648\u0627\u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0643\u0627\u0645\u0644\u0629' }
       ]}
     };
@@ -2543,6 +2559,7 @@ captureResultsImage() {
     if (entryLabel) entryLabel.textContent = mode === 'cashout' ? 'سعر شراء الحصة من الشريك الحالي' : 'مبلغ التمويل الداخل للشركة';
     this.updExistingDeal('mode');
     this.normalizeNumberInputs();
+    this.applyFieldEnhancements(document.getElementById('existCard'));
   },
 
   updExistingDeal(source = '') {
@@ -2572,99 +2589,98 @@ captureResultsImage() {
 
     if (panel && val > 0 && inv > 0 && pct > 0 && !invalid) {
       panel.classList.remove('hide');
-      document.getElementById('lp_pre').textContent = this.fmt(val) + ' ر.س';
-      document.getElementById('lp_inv').textContent = this.fmt(inv) + ' ر.س';
-      document.getElementById('lp_post').textContent = this.fmt(post) + ' ر.س';
-      document.getElementById('lp_oldPct').textContent = (100 - pct).toFixed(1) + '%';
-      document.getElementById('lp_newPct').textContent = pct.toFixed(1) + '%';
+      document.getElementById('lp_pre').innerHTML = this.moneyHtml(val);
+      document.getElementById('lp_inv').innerHTML = this.moneyHtml(inv);
+      document.getElementById('lp_post').innerHTML = this.moneyHtml(post);
+      document.getElementById('lp_oldPct').innerHTML = this.percentHtml((100 - pct).toFixed(1));
+      document.getElementById('lp_newPct').innerHTML = this.percentHtml(pct.toFixed(1));
       document.getElementById('lp_oldBar').style.width = (100 - pct) + '%';
       document.getElementById('lp_newBar').style.width = pct + '%';
     } else panel?.classList.add('hide');
 
     if (box) {
       if (invalid) {
-        box.textContent = 'راجع المبلغ والنسبة؛ لا يمكن أن تبلغ الحصة 100% أو يتجاوز ثمن الحصة قيمة الشركة في هذا التقدير.';
+        box.textContent = 'راجع المبلغ والنسبة. يعمل هذا التقدير بحصة أقل من % 100، ويكون ثمن الحصة ضمن قيمة الشركة.';
         box.className = 'notice notice-error';
       } else if (val > 0 && inv > 0 && pct > 0) {
-        box.textContent = `${modeNames[mode]} — الحصة التقديرية للشريك الجديد: ${pct.toFixed(1)}%، والقيمة بعد التمويل الداخل للشركة: ${this.fmt(post)} ريال.`;
+        box.innerHTML = `${modeNames[mode]} | الحصة التقديرية للشريك الجديد: ${this.percentHtml(pct.toFixed(1))}، والقيمة بعد التمويل الداخل للشركة: ${this.moneyHtml(post)}.`;
         box.className = 'notice notice-ok';
       } else box.className = 'notice notice-ok hide';
     }
   },
 
-  /* مخرجات موجزة: أهم نقاط الاتفاق وليست عقداً كاملاً. */
+  /* مخرجات موجزة لأهم نقاط الاتفاق. */
   buildAgr() {
     this.calc();
     const selectedType = this.type || 'fnb';
     const t = this.mudarabaCheck?.fallback ? 'partnership' : selectedType;
     const val = id => (document.getElementById(id)?.value || '').trim();
-    const project = val('projName') || 'المشروع — يحدد اسمه لاحقًا';
+    const project = val('projName') || 'المشروع، يحدد اسمه لاحقا';
     const dates = this.formatDate(new Date());
     const dateLabel = dates.label || `${dates.hijri} هـ | ${dates.greg} م`;
-    const typeNames = { startup:'مشروع ناشئ — مسار مخفي قيد التطوير', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'مضاربة', partnership:'مشاركة عامة' };
-    const legalMap = { llc:'شركة ذات مسؤولية محدودة', simplified:'شركة مساهمة مبسطة', jsc:'شركة مساهمة', solidarity:'شركة تضامن', commandite:'شركة توصية بسيطة', '':'يحدد لاحقًا' };
-    const legal = legalMap[val('legalStruct')] || 'يحدد لاحقًا';
+    const typeNames = { startup:'مشروع ناشئ، مسار مخفي قيد التطوير', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'مضاربة', partnership:'مشاركة عامة' };
+    const legalMap = { llc:'شركة ذات مسؤولية محدودة', simplified:'شركة مساهمة مبسطة', jsc:'شركة مساهمة', solidarity:'شركة تضامن', commandite:'شركة توصية بسيطة', '':'يحدد لاحقا' };
+    const legal = legalMap[val('legalStruct')] || 'يحدد لاحقا';
     const resultById = id => this.results.find(r => r.id === id);
     const contribText = p => {
       const items = [];
-      if (+p.cash) items.push(`نقد ${this.fmt(p.cash)} ريال`);
-      if (+p.assets) items.push(`أصول عينية ${this.fmt(p.assets)} ريال`);
-      if (+p.ip) items.push(`ملكية فكرية مقوّمة ${this.fmt(p.ip)} ريال`);
-      if (+p.net) items.push(`التزام آخر قابل للقياس ${this.fmt(p.net)} ريال${p.note ? ` (${p.note})` : ''}`);
-      if (p.work !== 'no') items.push(`عمل ${p.dur ? `لمدة ${p.dur} شهرًا` : 'تحدد مدته لاحقًا'}`);
-      return items.length ? items.join('، ') : 'تحدد مساهمته كتابةً';
+      if (+p.cash) items.push(`نقد ${this.moneyText(p.cash)}`);
+      if (+p.assets) items.push(`أصول عينية ${this.moneyText(p.assets)}`);
+      if (+p.ip) items.push(`ملكية فكرية مقومة ${this.moneyText(p.ip)}`);
+      if (+p.net) items.push(`التزام قابل للقياس ${this.moneyText(p.net)}${p.note ? ` (${p.note})` : ''}`);
+      if (p.work !== 'no') items.push(`عمل ${p.dur ? `لمدة ${p.dur} شهر` : 'تحدد مدته لاحقا'}`);
+      return items.length ? items.join('، ') : 'تحدد مساهمته كتابة';
     };
     const parties = this.parties.map((p,i) => {
       const r = resultById(p.id);
-      if (t === 'mudaraba') return `${i+1}. ${p.name || this.partyOrdinal(i)} — ${p.cap} — ${contribText(p)} — الربح: ${r?.profit === null || r?.profit === undefined ? 'يحدد لاحقًا' : r.profit + '%'}.`;
-      const profit = r && this.profitDiffers() ? `، ونصيب الربح ${r.profit}%` : '';
-      return `${i+1}. ${p.name || this.partyOrdinal(i)} — ${p.cap || 'شريك'} — ${contribText(p)} — الحصة التقديرية ${r?.pct ?? 0}%${profit}.`;
+      if (t === 'mudaraba') return `${i+1}. ${p.name || this.partyOrdinal(i)} | ${p.cap} | ${contribText(p)} | الربح: ${r?.profit === null || r?.profit === undefined ? 'يحدد لاحقا' : this.percentText(r.profit)}.`;
+      const profit = r && this.profitDiffers() ? `، ونصيب الربح ${this.percentText(r.profit)}` : '';
+      return `${i+1}. ${p.name || this.partyOrdinal(i)} | ${p.cap || 'شريك'} | ${contribText(p)} | الحصة التقديرية ${this.percentText(r?.pct ?? 0)}${profit}.`;
     }).join('\n');
 
     const decisionLabels = {
-      unanimous:'بموافقة جميع الأطراف', majority:'بالأغلبية', weighted:'بحسب نسب الحصص', later:'تحدد لاحقًا',
-      proportional:'يموّل الأطراف بنسبة حصصهم', approval:'لا يتم إلا بموافقة الأطراف', loan:'يبحث تمويل مستقل',
-      monthly:'شهريًا', quarterly:'كل ثلاثة أشهر', onrequest:'عند طلب أي شريك',
-      firstrefusal:'تعرض الحصة على الشركاء أولًا', valuation:'تقيّم الحصة بواسطة مقيم مستقل', agreement:'يتم الخروج بموافقة الأطراف'
+      unanimous:'بموافقة جميع الأطراف', majority:'بالأغلبية', weighted:'بحسب نسب الحصص', later:'تحدد لاحقا',
+      proportional:'يمول الأطراف بنسبة حصصهم', approval:'يتطلب موافقة الأطراف', loan:'يبحث تمويل مستقل',
+      firstrefusal:'تعرض الحصة على الشركاء أولا', valuation:'تقيم الحصة بواسطة مقيم مستقل', agreement:'يتم الخروج بموافقة الأطراف'
     };
-    const decision = id => decisionLabels[val(id)] || 'يحدد لاحقًا';
-    const manager = val('managerName') || 'يحدد لاحقًا';
-    const term = val('agreementTerm') || (t === 'deal' ? 'حتى انتهاء الصفقة وتسوية حساباتها' : 'تحدد لاحقًا');
-    const dispute = this.buildDisputeClause() || 'تحدد آلية الحل الودي ثم الجهة المختصة كتابةً.';
+    const decision = id => decisionLabels[val(id)] || 'يحدد لاحقا';
+    const manager = val('managerName') || 'يحدد لاحقا';
+    const term = val('agreementTerm') || (t === 'deal' ? 'حتى انتهاء الصفقة وتسوية حساباتها' : 'تحدد لاحقا');
+    const dispute = this.buildDisputeClause() || 'تحدد آلية الحل الودي ثم الجهة المختصة كتابة.';
 
     const sections = [];
     sections.push(`1) موضوع التفاهم\nالمشروع: ${project}.\nالحالة: ${typeNames[t] || 'شراكة'}.\nالشكل القانوني المقترح: ${legal}.`);
-    sections.push(`2) الأطراف ومساهماتهم\n${parties}\nملاحظة: لا تُعد السمعة أو النفوذ أو المكانة المالية حصة. وكل مساهمة غير نقدية تحتاج وصفًا وتقويمًا متفقًا عليه.`);
+    sections.push(`2) الأطراف ومساهماتهم\n${parties}\nملاحظة: الحصص تبنى على مال أو عمل أو أصل قابل للتقويم. وتوصف كل مساهمة عينية وتقوم بأساس يتفق عليه الشركاء.`);
 
     if (t === 'mudaraba') {
-      const profits = this.results.every(r => r.profit !== null) ? `النسب المدخلة: ${this.results.map(r => `${r.name} ${r.profit}%`).join('، ')}.` : 'نسب الربح تحدد لاحقًا. مثال إرشادي فقط: 40% لرب المال و60% للمضارب، على أن يكون المجموع 100%.';
-      const scope = { restricted:'مقيد بالنشاط والصلاحيات المتفق عليها', unrestricted:'غير مقيد ضمن المعتاد في النشاط', later:'يحدد لاحقًا' }[val('mudScope')] || 'يحدد لاحقًا';
-      sections.push(`3) رأس المال والعمل والربح\nرأس المال: ${this.fmt(this.parties.reduce((s,p)=>s+(+p.cash||0),0))} ريال، ويسلّم وفق آلية وموعد يحددان كتابةً. المضارب يقدم العمل والإدارة. ${profits}\nالخسارة المالية في رأس المال على رب المال، ويخسر المضارب جهده، ما لم يقع تعدٍ أو تفريط أو مخالفة. لا يكون الربح مبلغًا ثابتًا مضمونًا.`);
-      sections.push(`4) نطاق المضارب والتقارير\nنطاق التصرف: ${scope}. التقارير والسجلات: ${decision('reportingRule')}. ${val('mudFee') ? `أجر مستقل لعمل معلوم: ${val('mudFee')}.` : 'لا يوجد أجر مستقل مدخل حاليًا.'}`);
+      const profits = this.results.every(r => r.profit !== null) ? `النسب المدخلة: ${this.results.map(r => `${r.name} ${this.percentText(r.profit)}`).join('، ')}.` : 'نسب الربح تحدد لاحقا. المثال الإرشادي % 40 لرب المال و% 60 للمضارب، ويصبح المجموع % 100.';
+      const scope = { restricted:'مقيد بالنشاط والصلاحيات المتفق عليها', unrestricted:'مفتوح ضمن المعتاد في النشاط', later:'يحدد لاحقا' }[val('mudScope')] || 'يحدد لاحقا';
+      sections.push(`3) رأس المال والعمل والربح\nرأس المال: ${this.moneyText(this.parties.reduce((s,p)=>s+(+p.cash||0),0))}، ويسلم وفق آلية وموعد يحددان كتابة. المضارب يقدم العمل والإدارة. ${profits}\nيتحمل رب المال خسارة رأس المال، ويقدم المضارب جهده وخبرته. ويكتب أثر التعدي أو التفريط أو المخالفة وفق المراجعة النظامية.`);
+      sections.push(`4) نطاق المضارب\nنطاق التصرف: ${scope}.${val('mudFee') ? ` أجر مستقل لعمل معلوم: ${val('mudFee')}.` : ''}`);
     } else {
       if (t === 'existing') {
         const mode = val('entryMode') || 'cashin';
         const modeText = { cashin:'ضخ تمويل في الشركة', cashout:'شراء حصة من شريك حالي', mixed:'دخول مختلط: جزء للشركة وجزء للبائع' }[mode];
-        sections.push(`3) دخول الشريك الجديد\nالطريقة: ${modeText}. قيمة الشركة قبل الدخول: ${this.fmt(this.numVal('coVal'))} ريال. إجمالي مبلغ الدخول: ${this.fmt(this.numVal('entryAmt'))} ريال. الحصة التقديرية: ${this.numVal('entryPct').toFixed(1)}%.${mode === 'mixed' ? ` منها ${this.fmt(this.numVal('cashInAmt'))} ريال للشركة و${this.fmt(this.numVal('cashOutAmt'))} ريال للبائع.` : ''}\nتحدد صراحةً الالتزامات السابقة التي يتحملها الشريك الجديد، إن وجدت.`);
+        sections.push(`3) دخول الشريك الجديد\nالطريقة: ${modeText}. قيمة الشركة قبل الدخول: ${this.moneyText(this.numVal('coVal'))}. إجمالي مبلغ الدخول: ${this.moneyText(this.numVal('entryAmt'))}. الحصة التقديرية: ${this.percentText(this.numVal('entryPct').toFixed(1))}.${mode === 'mixed' ? ` منها ${this.moneyText(this.numVal('cashInAmt'))} للشركة و${this.moneyText(this.numVal('cashOutAmt'))} للبائع.` : ''}\nتحدد الالتزامات السابقة التي يتحملها الشريك الجديد، عند وجودها.`);
       } else if (t === 'deal') {
         sections.push(`3) نطاق الصفقة\nتحدد الصفقة ومصاريفها وموعد انتهائها بوضوح، وتنتهي المشاركة بعد الإنجاز والتحصيل وتسوية التكاليف وتوزيع صافي العائد.`);
       } else {
-        sections.push(`3) التوزيع المالي\nالحصص الظاهرة تقدير أولي مبني على القيم المدخلة. يثبت الاتفاق النهائي نسب الحصص والأرباح والخسائر، ولا يخصص لشريك ربح ثابت أو إعفاء كامل من الخسارة بالمخالفة لطبيعة المشاركة.`);
+        sections.push(`3) التوزيع المالي\nالحصص الظاهرة تقدير أولي مبني على القيم المدخلة. يثبت الاتفاق نسب الحصص والأرباح والخسائر بما ينسجم مع طبيعة المشاركة.`);
       }
     }
 
-    sections.push(`${sections.length + 1}) الإدارة والقرارات\nالإدارة اليومية: ${manager}. القرارات المهمة: ${decision('decisionRule')}. التمويل الإضافي: ${decision('fundingRule')}. عرض السجلات: ${decision('reportingRule')}.`);
+    sections.push(`${sections.length + 1}) الإدارة والقرارات\nالإدارة اليومية: ${manager}. القرارات المهمة: ${decision('decisionRule')}. التمويل الإضافي: ${decision('fundingRule')}.`);
     sections.push(`${sections.length + 1}) المدة والخروج والاستمرار\nالمدة: ${term}. عند خروج شريك: ${decision('exitRule')}. ويحدد الاتفاق أثر الوفاة أو العجز أو الإفلاس، وطريقة تقييم الحصة وتسوية الحقوق.`);
     sections.push(`${sections.length + 1}) حل الخلافات\n${dispute}`);
     if (val('keyNotes')) sections.push(`${sections.length + 1}) نقطة إضافية\n${val('keyNotes')}`);
-    sections.push(`${sections.length + 1}) الكتابة والمراجعة\nيكتب اتفاق الشركاء وأي تعديل عليه. هذه الورقة تجمع أهم نقاط التفاهم فقط، وليست عقدًا نهائيًا أو نصًا جاهزًا للتوقيع، وتراجع الصياغة النهائية مع مختص.`);
+    sections.push(`${sections.length + 1}) الكتابة والمراجعة\nيكتب اتفاق الشركاء وأي تعديل عليه. تجمع هذه الورقة أهم نقاط التفاهم، ثم تراجع وتصاغ في الاتفاق المناسب مع المختص.`);
 
-    const text = `مسودة نقاط اتفاق الشركاء\n${dateLabel}\nالإصدار 1.0.0\n\n${sections.join('\n\n')}`;
-    document.getElementById('agrBox').textContent = text;
-    document.getElementById('agrTitle').textContent = `مسودة نقاط اتفاق الشركاء — ${project}`;
+    const text = `مسودة نقاط اتفاق الشركاء\n${dateLabel}\nالإصدار 1.0.1\n\n${sections.join('\n\n')}`;
+    document.getElementById('agrBox').innerHTML = this.escapeHtml(text).replaceAll('⃁', '<span class="riyal-symbol" aria-label="ريال سعودي"><span class="sr-only">⃁</span></span>');
+    document.getElementById('agrTitle').textContent = `مسودة نقاط اتفاق الشركاء | ${project}`;
     document.getElementById('agrMeta').textContent = `${typeNames[t] || ''} · ${this.parties.length} أطراف · ${dateLabel}`;
     document.getElementById('agrBadge').textContent = 'مسودة استرشادية';
-    document.getElementById('contractGuidance').innerHTML = '<div class="notice notice-info">راجعوا الأرقام والأسماء والصلاحيات أولًا؛ ثم سلّموا هذه النقاط للمختص لصياغة العقد المناسب دون تحويل الأداة إلى عقد معقد.</div>';
+    document.getElementById('contractGuidance').innerHTML = '<div class="notice notice-info">راجعوا الأرقام والأسماء والصلاحيات أولا، ثم سلموا النقاط للمختص لصياغة الاتفاق المناسب بصورة مبسطة.</div>';
   },
 
   downloadWord() {
@@ -2676,6 +2692,57 @@ captureResultsImage() {
   },
 
   printDraft() { window.print(); },
+
+  applyFieldEnhancements(root = document) {
+    const fields = root.querySelectorAll ? root.querySelectorAll('.fg') : [];
+    fields.forEach(fg => {
+      const label = Array.from(fg.children).find(el => el.tagName === 'LABEL');
+      if (!label) return;
+      const inlineHelp = Array.from(fg.children).find(el => el.classList?.contains('help'));
+      const tip = (label.dataset.help || inlineHelp?.textContent || '').trim();
+      if (tip && !label.querySelector('.help-q')) {
+        const q = document.createElement('button');
+        q.type = 'button';
+        q.className = 'help-q';
+        q.textContent = '؟';
+        q.setAttribute('aria-label', 'شرح الحقل');
+        q.setAttribute('data-tip', tip);
+        q.setAttribute('aria-expanded', 'false');
+        q.addEventListener('click', event => {
+          event.preventDefault();
+          event.stopPropagation();
+          document.querySelectorAll('.help-q.open').forEach(item => {
+            if (item !== q) { item.classList.remove('open'); item.setAttribute('aria-expanded', 'false'); }
+          });
+          const open = q.classList.toggle('open');
+          q.setAttribute('aria-expanded', String(open));
+        });
+        label.appendChild(q);
+        inlineHelp?.classList.add('help-source-hidden');
+      }
+
+      const labelText = label.childNodes[0]?.textContent?.trim() || label.textContent.trim();
+      const input = Array.from(fg.children).find(el => el.tagName === 'INPUT' && (el.classList.contains('num') || el.inputMode === 'numeric' || el.inputMode === 'decimal'));
+      if (!input || input.parentElement?.classList.contains('money-field-wrap') || input.parentElement?.classList.contains('percent-field-wrap')) return;
+      const isPercent = /نسبة|%/.test(labelText);
+      const isMoney = !isPercent && /مال|تمويل|نقد|قيمة|أصول|استثمار|راتب|مبلغ|تقييم|أجر/.test(labelText);
+      if (!isPercent && !isMoney) return;
+      const wrap = document.createElement('div');
+      wrap.className = isPercent ? 'percent-field-wrap' : 'money-field-wrap';
+      input.parentNode.insertBefore(wrap, input);
+      wrap.appendChild(input);
+      const unit = document.createElement('span');
+      unit.className = 'field-unit';
+      if (isPercent) {
+        unit.textContent = '%';
+        unit.setAttribute('aria-hidden', 'true');
+      } else {
+        unit.classList.add('riyal-symbol');
+        unit.setAttribute('aria-label', 'ريال سعودي');
+      }
+      wrap.appendChild(unit);
+    });
+  },
 
   normalizeNumberInputs() {
     document.querySelectorAll('input[type="number"], input.num').forEach(el => {
@@ -2721,7 +2788,18 @@ captureResultsImage() {
     return Number(val.toString().replace(/,/g, '')) || 0;
   },
 
-  fmt(v) { return new Intl.NumberFormat('en-US').format(Math.round(Number(v)||0)); }
+  fmt(v) { return new Intl.NumberFormat('en-US').format(Math.round(Number(v)||0)); },
+  moneyHtml(v) {
+    return `<span class="value-with-unit"><span class="riyal-symbol" aria-label="ريال سعودي"><span class="sr-only">⃁</span></span><bdi>${this.fmt(v)}</bdi></span>`;
+  },
+  percentHtml(v) {
+    return `<span class="value-with-unit"><span class="unit">%</span><bdi>${v}</bdi></span>`;
+  },
+  moneyText(v) { return `⃁ ${this.fmt(v)}`; },
+  percentText(v) { return `% ${v}`; },
+  escapeHtml(value) {
+    return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => G.init());
