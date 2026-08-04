@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#081B2C"/>
+      <stop offset="1" stop-color="#153A55"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#C8A95B" stroke-opacity=".08"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1040" cy="80" r="230" fill="#C8A95B" fill-opacity=".07"/>
+  <circle cx="100" cy="610" r="260" fill="#FFFFFF" fill-opacity=".035"/>
+  <g transform="translate(930 204)" fill="none" stroke="#D4B765" stroke-width="8">
+    <rect x="0" y="0" width="72" height="72" rx="18"/>
+    <rect x="80" y="80" width="72" height="72" rx="18"/>
+    <path d="M52 52h76v76H52z"/>
+  </g>
+  <g font-family="IBM Plex Sans Arabic, DejaVu Sans, sans-serif" text-anchor="middle">
+    <text x="500" y="210" fill="#D4B765" font-size="30" font-weight="600">SHARAKAH  •  1.0.0</text>
+    <text x="500" y="310" fill="#FFFFFF" font-size="66" font-weight="700" direction="rtl">حاسبة الشراكات</text>
+    <text x="500" y="376" fill="#C9D4DB" font-size="31" direction="rtl">تقدير الحصص وتجهيز نقاط اتفاق الشركاء</text>
+    <text x="500" y="455" fill="#D4B765" font-size="24" direction="rtl">بوضوح • ببساطة • كنقطة بداية</text>
+  </g>
+  <rect x="120" y="520" width="960" height="2" rx="1" fill="#D4B765" fill-opacity=".45"/>
+  <text x="600" y="567" fill="#91A5B2" font-family="IBM Plex Sans Arabic, DejaVu Sans, sans-serif" font-size="20" text-anchor="middle" direction="rtl">أداة استرشادية وليست عقدًا نهائيًا</text>
+</svg>

@@ -3,18 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حاسبة الشراكات | أداة ذكية لتوزيع الحصص وبناء اتفاق الشراكة</title>
+<title>حاسبة الشراكات | تقدير الحصص وتجهيز نقاط اتفاق الشركاء</title>
 
-<meta property="og:title" content="حاسبة الشراكات | أداة ذكية لتوزيع الحصص وبناء اتفاق الشراكة">
-<meta property="og:description" content="أداة ذكية تساعدك على توزيع الحصص وبناء أبرز بنود اتفاق الشراكة بشكل احترافي">
+<meta name="description" content="أداة استرشادية لتقدير الحصص وتجهيز نقاط اتفاق الشركاء بصورة مبسطة.">
+<meta name="theme-color" content="#0B1F33">
+<meta property="og:title" content="حاسبة الشراكات | تقدير الحصص وتجهيز نقاط اتفاق الشركاء">
+<meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
 <meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.jpg">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230B1F33%22/><path d=%22M18 22h12v8H18zm16 12h12v8H34zM26 26h12v12H26z%22 fill=%22%23C8A95B%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -400,36 +402,58 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   }
 }
 
+/* ─── VERSION 1.0.0: NAVY / GOLD DESIGN SYSTEM ─── */
+:root{
+  --bg:#F5F3ED;--surface:#FFFFFF;--card:#FAF8F2;--card2:#EAE5D8;
+  --gold:#B58D35;--gold-lt:#D0AD5A;--gold-dim:rgba(181,141,53,.10);--gold-bd:rgba(181,141,53,.34);
+  --text:#102538;--text-mid:#405466;--muted:#6E7C88;--border:#DCE1E4;
+  --navy:#0B1F33;--navy-2:#14344D;--shadow:0 12px 36px rgba(11,31,51,.08)
+}
+body,main,.intro-section,.prog-wrap,.step-bar{background:var(--bg);color:var(--text)}
+header,.brand-footer{background:var(--navy);border-color:var(--gold-bd)}
+header{position:relative;padding:12px 0}
+.author-top{display:none!important}
+.hdr-text-title{font-size:18px;color:#E7C976}.hdr-text-sub{color:#C6D0D8;font-size:12px}
+.tool-toolbar{position:sticky;top:0!important;background:rgba(255,255,255,.96);backdrop-filter:blur(12px)}
+#toolbarSpacer{display:none}
+.step-bar{top:43px!important}
+.prog-wrap{position:sticky;top:40px;z-index:145}
+.type-btn,.card,.party-card,.chart-box,.res-party,.kpi,.agr-box{box-shadow:var(--shadow)}
+.type-btn:hover{box-shadow:0 14px 36px rgba(11,31,51,.12)}
+.type-icon{width:38px;height:38px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;color:var(--navy)}
+.type-icon svg{width:30px;height:30px}
+.ph-title{color:var(--navy)!important}.section-head,.card-head,.party-lbl{color:var(--navy)}
+.btn-gold{background:var(--navy);color:#fff}.btn-gold:hover{background:var(--navy-2)}
+.btn-outline{color:var(--navy);border-color:#B9C5CE;background:#F5F8FA}
+.splash{min-height:calc(100vh - 66px);padding:30px 16px 44px;background:linear-gradient(180deg,#F8F6F0,#EEF2F3)}
+.splash-inner{max-width:720px}.splash-tahmeed,.splash-desc{box-shadow:var(--shadow);border-color:#D9E0E4}
+.splash-tahmeed-text,.splash-tahmeed-hadith{font-family:'Amiri Quran','Amiri',serif;font-size:18px;line-height:2.05;color:#172D3F}
+.splash-tahmeed-hadith{font-size:17px}.splash-ref{font-family:var(--font);font-size:11px;color:#6E7C88}
+.law-card{background:#F7F4EA;border:1px solid #D7C48E;border-radius:12px;padding:13px 15px;margin-top:12px;text-align:right}
+.law-title{font-weight:700;color:var(--navy);margin-bottom:6px}.law-text{font-size:12px;line-height:1.85;color:#405466}.law-explain{font-size:12px;color:#725817;margin-top:7px;font-weight:600}
+.example-panel{margin-top:14px}.example-toggle{padding:8px 14px;font-size:12px;border:1px solid #C8D1D7;background:#fff;color:var(--navy);border-radius:9px;cursor:pointer;font-family:var(--font);font-weight:600}.example-content{margin-top:10px;background:#F0F3F4;border:1px dashed #BBC7CE;border-radius:12px;padding:14px}.example-reset{margin-top:10px;width:100%}
+.decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.decision-grid .full{grid-column:1/-1}
+.field-prefix{position:relative}.field-prefix input{padding-left:42px}.field-prefix span{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#6E7C88;pointer-events:none}
+.version-chip{color:#C4D0D8;font-size:11px;margin-top:5px}
+.footer-naif-logo{height:47px;filter:sepia(1) saturate(2.2) hue-rotate(355deg) brightness(1.13)}
+.footer-social-row{gap:11px;margin:9px 0 4px}.footer-social-row a{width:34px;height:34px;justify-content:center;border:1px solid rgba(201,168,76,.26);border-radius:9px;color:#D6BC75}.footer-social-row a svg{width:15px;height:15px}
+.footer-handle{direction:ltr;color:#D6BC75;font-weight:600;font-size:12px}.footer-legal{color:#91A0AA;border-top-color:rgba(255,255,255,.10);margin-top:9px}
+.restore-banner{background:#EDF5F8;border:1px solid #B9D1DA;border-radius:12px;padding:13px 15px;margin-bottom:16px;display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;color:#28495B}.restore-actions{display:flex;gap:8px}
+.capture-area{background:var(--navy)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid rgba(181,141,53,.38);outline-offset:2px}
+@media(max-width:600px){.decision-grid{grid-template-columns:1fr}.decision-grid .full{grid-column:auto}.step-name{display:none}.step-bar{top:41px!important}.splash-tahmeed-text,.splash-tahmeed-hadith{font-size:16px}.type-grid{grid-template-columns:1fr 1fr}.capture-area{padding:14px}.restore-banner{align-items:flex-start}}
+@media print{.tool-toolbar,.step-bar,.prog-wrap,.nav-row,.agr-acts,.brand-footer,header{display:none!important}.phase{display:none!important}#ph5{display:block!important}.agr-box{max-height:none;overflow:visible;box-shadow:none}.notice{break-inside:avoid}main{padding:0}}
+
 </style>
 </head>
 <body>
-
-<!-- HEADER TOP -->
-<div class="author-top author-top-compact">
-  <img class="naif-logo-top" src="data:image/png;base64,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nDWkSJKEhYWFGB0d7X8zrDmBm3xwgwcPXktD9ej0jb//fQGGhaltldHR0f6FhYXs8EF+oIDVasWkpJlYky6lQPWFHAaDAcLCwuA///mPhsPgPJhD3RdTpkxGAIBHHun6HM3SlyQnGeqll146z8f8Al5019UpLqFw6dIFx8AEOlhPcRyJex7Hjx93cefOHRWmfdBDJbYcsdGEG3Z3hHmUkKP+f7vdzrw9mg1nMqm1dF9fX3jvvfcYBfdf//oXS8AJa15N8daSJUs0QuzsdLNWIGNUZHLJDt65jOvXrxXx1l1k1Wn/REVFmTZs2MB6HxRFYWe6U2KXvLxOnTol9OvXb0FNJxXvOq3cuXPnfvxAP36on3NKjBnN5jIHa879lFBFkcX51XeRoJOQ8m53hw4deixZsgSfffbZr8mQ8M0sfPmM58oLQa8Ga75mzRqUZdlxvI6EilJxgidf/+R52tQtpmZP197S6SQCd77gu/5bZQamrhqCWrnziSX1xx9/sLq6yt5yulIqy0wH164Vwdtvz4aMjHNgMvkBosL+X683QEFBHsya9aZOaOa7E8SU5DvcKmPhKYoi2G/VDYqz3njjDcZSUsc00xRZq+as9cjISPjss41cY4yahBs3buxZ1UsQLruAQK12uTp16pRw6JCzX7y0VD0rbffu3cj3WgOowwDS09XhjatWrarRwxwFBAQ8FHQSYl9fX5gzZw4WFRU5DtgrxJiYmAjXo5ABABo0aADUVyySKgICtT2B4Mh+8hY5Ojra/29/+xs++uijo8jF54XZdWSzEHABgTswbne1+tdz+wUEBO5QKy8YSwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICtxP/BxE1yrZUKZoIAAAAAElFTkSuQmCC" alt="نايف المحمدي">
-  <div class="social-row-compact">
-    <a class="soc-sm" href="https://x.com/almohammdin" target="_blank" title="X">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>
-    </a>
-    <a class="soc-sm" href="https://www.linkedin.com/in/almohammdin/" target="_blank" title="LinkedIn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    </a>
-    <a class="soc-sm" href="https://www.tiktok.com/@almohammdin" target="_blank" title="TikTok">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.83a8.23 8.23 0 0 0 4.82 1.55V6.93a4.85 4.85 0 0 1-1.05-.24z"/></svg>
-    </a>
-    <a class="soc-sm" href="https://www.snapchat.com/@almohammdin" target="_blank" title="Snapchat">
-      <i class="fa-brands fa-snapchat" style="font-size:14px"></i>
-    </a>
-    <span class="soc-handle">@almohammdin</span>
-  </div>
-</div>
 
 <!-- HEADER -->
 <header>
   <div class="wrap hdr-inner">
     <div>
       <div class="hdr-text-title">حاسبة الشراكات</div>
-      <div class="hdr-text-sub">أداة ذكية لتوزيع الحصص وبناء اتفاق الشراكة</div>
+      <div class="hdr-text-sub">أداة استرشادية لتقدير الحصص وتجهيز نقاط اتفاق الشركاء</div>
     </div>
     <div class="hdr-spacer"></div>
     
@@ -438,15 +462,20 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <!-- ONBOARDING SPLASH -->
 <div class="splash" id="splashScreen">
   <div class="splash-inner">
-    <div class="splash-badge">🤝 مرشد بناء الشراكات</div>
+    <div class="splash-badge">مرشد مبسط لبناء التفاهم</div>
 
     <div class="splash-tahmeed">
       <div class="splash-tahmeed-label">تمهيد</div>
       <div class="splash-tahmeed-text">﴿يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنْتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ﴾ <span class="splash-ref">سورة البقرة: 282</span></div>
-      <div class="splash-tahmeed-hadith">وقال الله تعالى في الحديث القدسي: أَنَا ثَالِثُ الشَّرِيكَيْنِ مَا لَمْ يَخُنْ أَحَدُهُمَا صَاحِبَهُ، فَإِذَا خَانَهُ خَرَجْتُ مِنْ بَيْنِهِمَا. <span class="splash-ref">أخرجه أبو داود (3383)</span></div>
+      <div class="splash-tahmeed-hadith">قال رسول الله ﷺ فيما يرويه عن ربه: «أَنَا ثَالِثُ الشَّرِيكَيْنِ مَا لَمْ يَخُنْ أَحَدُهُمَا صَاحِبَهُ، فَإِذَا خَانَهُ خَرَجْتُ مِنْ بَيْنِهِمَا». <span class="splash-ref">أخرجه أبو داود (3383)</span></div>
+      <div class="law-card">
+        <div class="law-title">الكتابة ركن مهم — المادة (528)</div>
+        <div class="law-text">1. يجب أن تكون عقود المشاركة الواردة في هذا الباب مكتوبة، وإلا كانت باطلة، ولا يجوز أن يحتج المتعاقد بالبطلان تجاه الغير، ولا يكون للبطلان أثر فيما بين المتعاقدين أنفسهم إلا إذا طلب أحدهم الحكم به، فيسري ذلك من تاريخ قيد الدعوى.<br>2. يسري حكم الفقرة (1) من هذه المادة على أي تعديل يطرأ على عقود المشاركة الواردة في هذا الباب.</div>
+        <div class="law-explain">المعنى ببساطة: اتفاق الشركاء وتعديلاته يكتبان من البداية.</div>
+      </div>
     </div>
 
-    <div class="splash-desc">هذه الأداة هي النواة للتفاهمات الودية، تمنح الشركاء نظرة أفضل وأشمل للحصص وصياغةً رصينة لأبرز بنود التعاقد، لتكون الركيزة التي ينطلق منها محاميكم لصياغة عقد الشراكة النهائي.</div>
+    <div class="splash-desc">تساعدك الأداة على تقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء بصورة واضحة. الناتج ورقة تفاهم أولية للمناقشة، وليس عقدًا نهائيًا.</div>
 
     <button class="splash-cta" onclick="G.startTool()">
       <span>ابدأ الآن</span>
@@ -463,12 +492,12 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <div class="tool-toolbar" id="toolToolbar">
   <div class="wrap">
     <div class="tool-toolbar-inner">
-      <button class="tb-btn tb-btn-ghost" onclick="G.goHome()" title="العودة للرئيسية">🏠<span class="tb-label"> الرئيسية</span></button>
+      <button class="tb-btn tb-btn-ghost" onclick="G.goHome()" title="العودة للرئيسية"><span class="tb-label">الرئيسية</span></button>
       <div class="tb-sep"></div>
-      <button class="tb-btn tb-btn-save" onclick="G.saveProgress()" title="حفظ واستكمال لاحقاً">💾<span class="tb-label"> حفظ واستكمال</span></button>
-      <span class="tb-saved-badge" id="savedBadge">✓ تم الحفظ</span>
+      <button class="tb-btn tb-btn-save" onclick="G.saveProgress()" title="حفظ على هذا الجهاز"><span class="tb-label">حفظ على هذا الجهاز</span></button>
+      <span class="tb-saved-badge" id="savedBadge">تم الحفظ — تبقى المسودة في هذا المتصفح</span>
       <div class="tb-spacer"></div>
-      <button class="tb-btn tb-btn-warn" onclick="G.confirmReset()" title="إعادة التعيين">↺<span class="tb-label"> إعادة التعيين</span></button>
+      <button class="tb-btn tb-btn-warn" onclick="G.confirmReset()" title="بدء مشروع جديد"><span class="tb-label">مشروع جديد</span></button>
     </div>
   </div>
 </div>
@@ -504,16 +533,25 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <!-- MAIN -->
 <main id="tool-container">
 <div class="wrap">
+<div id="restoreBanner" class="restore-banner hide">
+  <span>توجد مسودة محفوظة في هذا المتصفح.</span>
+  <div class="restore-actions">
+    <button class="btn btn-outline" type="button" onclick="G.restoreSaved()">متابعة</button>
+    <button class="btn btn-ghost" type="button" onclick="G.dismissSaved()">بدء مشروع جديد</button>
+  </div>
+</div>
 
 <!-- ═══════════════ PHASE 1 ═══════════════ -->
 <div class="phase active" id="ph1">
-  <div class="ph-title">ما طبيعة شراكتك؟</div>
-  <div class="ph-sub">اختر النموذج الأقرب لواقعك، هذا الاختيار يُحدد طريقة الحساب والبنود المُقترحة في الخطوات التالية.</div>
+  <h1 class="ph-title">ما طبيعة شراكتك؟</h1>
+  <div class="ph-sub">اختر الحالة الأقرب لواقعك؛ ستتغير الحقول والنقاط المقترحة بناءً عليها.</div>
   <div class="type-grid" id="typeGrid"></div>
   <div id="typeHint" class="notice notice-gold hide"></div>
 
   <!-- QUICK EXAMPLES CARD — distinct compact style -->
-  <div id="quickExamplesCard" style="margin-top:16px;background:#F5F5F3;border:1.5px dashed #C8C0B8;border-radius:12px;padding:14px 16px">
+  <div id="quickExamplesCard" class="example-panel">
+    <button class="example-toggle" type="button" aria-expanded="false" aria-controls="quickExamplesContent" onclick="G.toggleExamples(this)">جرب بمثال جاهز</button>
+    <div id="quickExamplesContent" class="example-content hide">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
       <span style="font-size:13px">⚡</span>
       <span style="font-size:12px;font-weight:700;color:#9B8B7D;letter-spacing:.3px">أمثلة سريعة، اضغط لتعبئة البيانات تلقائياً</span>
@@ -527,7 +565,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
       <button onclick="G.loadExample('deal')" style="background:#F8F7F5;border:1px solid #D4CBC0;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#9B8B7D'" onmouseout="this.style.borderColor='#D4CBC0'">
         <div style="font-size:16px;margin-bottom:5px">🏗️</div>
         <div style="font-size:12px;font-weight:700;color:#2B211A;margin-bottom:3px">صفقة النخيل</div>
-        <div style="font-size:11px;color:#9B8B7D;line-height:1.5">ممول + شبكة علاقات</div>
+        <div style="font-size:11px;color:#9B8B7D;line-height:1.5">ممول + منفّذ للصفقة</div>
       </button>
       <button onclick="G.loadExample('existing')" style="background:#F8F7F5;border:1px solid #D4CBC0;border-radius:9px;padding:10px 12px;text-align:right;cursor:pointer;font-family:var(--font);transition:border-color .2s" onmouseover="this.style.borderColor='#9B8B7D'" onmouseout="this.style.borderColor='#D4CBC0'">
         <div style="font-size:16px;margin-bottom:5px">🏢</div>
@@ -540,6 +578,8 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
         <div style="font-size:11px;color:#9B8B7D;line-height:1.5">صندوق + شركة إدارة</div>
       </button>
     </div>
+    <button class="btn btn-ghost example-reset" type="button" onclick="G.clearExample()">امسح المثال وابدأ من جديد</button>
+    </div>
   </div>
 
   <div class="notice notice-info">هذه التصنيفات تمثل حالات شراكة وليست أشكالاً قانونية نهائية. الشكل القانوني المناسب يُحدد لاحقاً وفق نظام الشركات مثل: شركة ذات مسؤولية محدودة أو شركة مساهمة مبسطة.</div>
@@ -551,27 +591,25 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
 <!-- ═══════════════ PHASE 2 ═══════════════ -->
 <div class="phase" id="ph2">
-  <div class="ph-title">الأطراف والمساهمات</div>
+  <h1 class="ph-title">الأطراف والمساهمات</h1>
   <div class="ph-sub">أضف كل شريك وحدّد ما يقدمه: رأس مال، أصول، عمل، أو ملكية فكرية. الحصص تُحسب تلقائياً.</div>
 
   <div class="card">
     <div class="card-head">معلومات المشروع</div>
     <div class="grid2">
       <div class="fg">
-        <label>اسم المشروع / الصفقة</label>
+        <label for="projName">اسم المشروع / الصفقة</label>
         <input type="text" id="projName" placeholder="مثال: مقهى الفجر / صفقة أرض النخيل / تطبيق رحلات"><div class="help">اكتب الاسم العملي للمشروع أو الصفقة كما سيظهر في مسودة البنود.</div>
       </div>
       <div class="fg">
-        <label>الهيكل القانوني المقترح</label>
+        <label for="legalStruct">الشكل القانوني المقترح</label>
         <select id="legalStruct">
           <option value="">، يُحدد لاحقاً ،</option>
           <option value="llc">شركة ذات مسؤولية محدودة</option>
           <option value="simplified">شركة مساهمة مبسطة</option>
+          <option value="jsc">شركة مساهمة</option>
           <option value="solidarity">شركة تضامن</option>
           <option value="commandite">شركة توصية بسيطة</option>
-          <option value="mudaraba">عقد مضاربة</option>
-          <option value="jv">اتفاق مشاركة JV غير مسجّل</option>
-          <option value="deal">صفقة تجارية محددة</option>
         </select>
         <div class="help">هذا اختيار مبدئي، وليس اعتماداً نهائياً للشكل القانوني.</div>
       </div>
@@ -587,14 +625,14 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   <button class="btn-add" id="btnAddParty">＋ إضافة طرف</button>
 
   <div class="nav-row">
-    <button class="btn btn-ghost" onclick="G.go(1)">← السابق</button>
+    <button class="btn btn-ghost" onclick="G.go(1)">السابق →</button>
     <button class="btn btn-gold" onclick="G.go(3)">التالي ←</button>
   </div>
 </div>
 
 <!-- ═══════════════ PHASE 3 ═══════════════ -->
 <div class="phase" id="ph3">
-  <div class="ph-title" id="ph3Title">كيف تُوزَّع الأوزان؟</div>
+  <h1 class="ph-title" id="ph3Title">القرارات الأساسية</h1>
   <div class="ph-sub" id="ph3Sub">اختر نمط الشراكة المناسب، والأداة تضبط الأوزان تلقائياً. يمكنك ضبطها يدوياً إذا أردت.</div>
   <div id="nonStartupWeightNotice" class="notice notice-info hide">حساب الحصص لهذا النوع يعتمد على القيم المُدخلة مباشرة، ولا يتأثر بتعديل الأوزان.</div>
 
@@ -642,8 +680,21 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
   <!-- Existing company panel -->
   <div class="card hide" id="existCard">
-    <div class="card-head">🏢 دخول شريك جديد في شركة قائمة</div>
-    <div class="notice notice-info" style="margin-bottom:14px">أدخل أي قيمتين من الثلاث وستُحسب الثالثة تلقائياً.</div>
+    <div class="card-head">دخول شريك جديد في شركة قائمة</div>
+    <div class="fg" style="margin-bottom:14px">
+      <label for="entryMode">إلى أين يذهب مبلغ الدخول؟</label>
+      <select id="entryMode" onchange="G.updExistingMode()">
+        <option value="cashin">إلى الشركة لتمويلها (Cash-in)</option>
+        <option value="cashout">إلى شريك حالي مقابل بيع حصة (Cash-out)</option>
+        <option value="mixed">جزء للشركة وجزء لشريك حالي</option>
+      </select>
+      <div class="help">هذا الاختيار يغيّر معنى الصفقة والحساب، لذلك يجب تحديده بوضوح.</div>
+    </div>
+    <div id="mixedSplit" class="grid2 hide" style="margin-bottom:14px">
+      <div class="fg"><label for="cashInAmt">المبلغ الداخل للشركة</label><input id="cashInAmt" type="number" min="0" placeholder="0" oninput="G.updExistingDeal('investment')"></div>
+      <div class="fg"><label for="cashOutAmt">المبلغ المدفوع للبائع</label><input id="cashOutAmt" type="number" min="0" placeholder="0" oninput="G.updExistingDeal('investment')"></div>
+    </div>
+    <div class="notice notice-info" style="margin-bottom:14px">أدخل القيمة الحالية ومبلغ الدخول، أو أدخل النسبة مع أحدهما، لتحصل على تقدير أولي.</div>
     <div class="grid3">
       <div class="fg">
         <label>القيمة الحالية للشركة قبل دخول الشريك</label>
@@ -711,24 +762,78 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 
   <!-- Mudaraba panel -->
   <div class="card hide" id="mudCard">
-    <div class="card-head">🤝 نسب الربح في المضاربة</div>
-    <div class="notice notice-gold" style="margin-bottom:14px">في المضاربة: الربح بالنسبة المتفق عليها، ليس بالنقاط. حدد النسبة مباشرة.</div>
+    <div class="card-head">ضوابط المضاربة</div>
+    <div class="notice notice-gold" style="margin-bottom:14px">نسب الربح تدخل في بطاقات الأطراف. المثال 40/60 توضيحي فقط، ولا يطبق إذا تركت الحقول فارغة.</div>
     <div class="grid2">
       <div class="fg">
-        <label>حصة رب المال من الربح (%)</label>
-        <input type="number" id="mudRab" min="0" max="100" value="40">
+        <label for="mudScope">نطاق تصرف المضارب</label>
+        <select id="mudScope"><option value="restricted">مقيد بنشاط أو صلاحيات محددة</option><option value="unrestricted">غير مقيد، ضمن المعتاد في النشاط</option><option value="later">يحدد لاحقًا</option></select>
       </div>
       <div class="fg">
-        <label>حصة المضارب من الربح (%)</label>
-        <input type="number" id="mudMud" min="0" max="100" value="60">
+        <label for="mudFee">أجر مستقل لعمل محدد — إن وجد</label>
+        <input type="text" id="mudFee" placeholder="مثال: 20,000 ريال لدراسة وتجهيز محدد">
+        <div class="help">اختياري، ويكون مقابل عمل معلوم منفصل، وليس مبلغ ربح مضمونًا.</div>
       </div>
     </div>
   </div>
 
-  <div class="section-head">الاتفاقيات والشروط</div>
+  <div class="section-head">القرارات الأساسية</div>
+  <div class="card" id="keyTermsCard">
+    <div class="card-head">أهم ما ينبغي الاتفاق عليه</div>
+    <div class="decision-grid">
+      <div class="fg">
+        <label for="managerName">من يدير العمل اليومي؟</label>
+        <input id="managerName" type="text" placeholder="اسم الطرف أو صفته">
+      </div>
+      <div class="fg">
+        <label for="decisionRule">كيف تعتمد القرارات المهمة؟</label>
+        <select id="decisionRule">
+          <option value="unanimous">بموافقة جميع الأطراف</option>
+          <option value="majority">بالأغلبية</option>
+          <option value="weighted">بحسب نسب الحصص</option>
+          <option value="later">تحدد لاحقًا</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label for="fundingRule">إذا احتاج المشروع تمويلًا إضافيًا</label>
+        <select id="fundingRule">
+          <option value="proportional">يموّل الأطراف بنسبة حصصهم</option>
+          <option value="approval">لا يتم إلا بموافقة الأطراف</option>
+          <option value="loan">يبحث تمويل أو قرض مستقل</option>
+          <option value="later">يحدد لاحقًا</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label for="reportingRule">متى تعرض السجلات والتقارير؟</label>
+        <select id="reportingRule">
+          <option value="monthly">شهريًا</option>
+          <option value="quarterly">كل ثلاثة أشهر</option>
+          <option value="onrequest">عند طلب أي شريك</option>
+          <option value="later">يحدد لاحقًا</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label for="agreementTerm">مدة التفاهم أو المشروع</label>
+        <input id="agreementTerm" type="text" placeholder="مثال: سنة قابلة للتجديد / حتى انتهاء الصفقة">
+      </div>
+      <div class="fg">
+        <label for="exitRule">عند رغبة شريك في الخروج</label>
+        <select id="exitRule">
+          <option value="firstrefusal">يعرض حصته على الشركاء أولًا</option>
+          <option value="valuation">تقيّم الحصة بواسطة مقيم مستقل</option>
+          <option value="agreement">يتم الخروج بموافقة الأطراف</option>
+          <option value="later">يحدد لاحقًا</option>
+        </select>
+      </div>
+      <div class="fg full">
+        <label for="keyNotes">نقطة مهمة إضافية</label>
+        <textarea id="keyNotes" placeholder="مثال: حدود الصرف، صلاحية التوقيع، موعد التوزيعات..."></textarea>
+      </div>
+    </div>
+  </div>
   <!-- Dispute Resolution -->
   <div class="card" id="disputeCard">
-    <div class="card-head">⚖️ حل الخلافات</div>
+    <div class="card-head">حل الخلافات</div>
     <div class="notice notice-info" style="margin-bottom:14px">ابدأ بتحديد هل يرغب الأطراف في محاولة ودية أولاً، ثم اختر المسار الذي يعتمدونه عند تعذر الحل.</div>
     <div class="grid2">
       <div class="fg">
@@ -771,14 +876,14 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   </div>
 
   <div class="nav-row">
-    <button class="btn btn-ghost" onclick="G.go(2)">← السابق</button>
+    <button class="btn btn-ghost" onclick="G.go(2)">السابق →</button>
     <button class="btn btn-gold" onclick="G.go(4)">عرض النتائج ←</button>
   </div>
 </div>
 
 <!-- ═══════════════ PHASE 4 ═══════════════ -->
 <div class="phase" id="ph4">
-  <div class="ph-title">راجع توزيع الحصص</div>
+  <h1 class="ph-title">راجع التوزيع</h1>
   <div class="ph-sub">هذه نتائج تقديرية بناءً على ما أدخلته. راجعها مع شركائك قبل الانتقال لصياغة البنود.</div>
   <div id="resultsCaptureArea" class="capture-area">
 
@@ -817,33 +922,35 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   </div>
   <div id="smartAlerts"></div>
   <div class="nav-row" style="flex-wrap:wrap;gap:10px">
-    <button class="btn btn-ghost" onclick="G.go(3)">← السابق</button>
+    <button class="btn btn-ghost" onclick="G.go(3)">السابق →</button>
     <button class="btn btn-outline" onclick="G.captureResultsImage()">📸 التقاط صورة للنتائج</button>
-    <button class="btn btn-gold" onclick="G.go(5)">توليد أبرز بنود التعاقد ←</button>
+    <button class="btn btn-gold" onclick="G.go(5)">تجهيز نقاط الاتفاق ←</button>
   </div>
 </div>
 
 <!-- ═══════════════ PHASE 5 ═══════════════ -->
 <div class="phase" id="ph5">
-  <div class="ph-title">بنود الاتفاق المقترحة</div>
-  <div class="ph-sub">انسخ هذه المسودة وشاركها مع محاميك، فهي نقطة الانطلاق لصياغة العقد النهائي.</div>
+  <h1 class="ph-title">نقاط اتفاق الشركاء</h1>
+  <div class="ph-sub">هذه أهم النقاط التي تساعدكم في النقاش الأولي قبل الصياغة القانونية النهائية.</div>
 
   <div class="agr-header">
     <div>
-      <div class="agr-title" id="agrTitle">مسودة اتفاقية شراكة</div>
+      <div class="agr-title" id="agrTitle">مسودة نقاط اتفاق الشركاء</div>
       <div class="agr-meta" id="agrMeta"></div>
     </div>
     <div class="agr-badge" id="agrBadge">مسودة</div>
   </div>
 
-  <div class="notice notice-warn">⚠️ هذه مسودة أولية للتفاوض وليست عقد أو اتفاق نهائي وينصح بعد إعدادها استشارة محامي مختص.</div>
+  <div class="notice notice-warn">هذه ورقة أولية لأهم البنود وليست عقدًا نهائيًا أو نصًا جاهزًا للتوقيع.</div>
 
   <div class="agr-box" id="agrBox"></div>
   <div id="contractGuidance" class="contract-guidance"></div>
 
   <div class="agr-acts">
     <button class="btn btn-gold" onclick="G.copyAgr()">📋 نسخ النص</button>
-    <button class="btn btn-ghost" onclick="G.go(4)">← العودة</button>
+    <button class="btn btn-outline" onclick="G.downloadWord()">تنزيل Word</button>
+    <button class="btn btn-outline" onclick="G.printDraft()">حفظ PDF / طباعة</button>
+    <button class="btn btn-ghost" onclick="G.go(4)">العودة →</button>
   </div>
   <div id="copyStatus" class="copy-status" aria-live="polite"></div>
 
@@ -860,28 +967,25 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 <div id="exportResultsLayout" style="position:fixed;left:-9999px;top:0;visibility:hidden;pointer-events:none"></div>
 <footer class="brand-footer">
   <div class="brand-footer-inner">
-    <img class="footer-naif-logo" src="data:image/png;base64,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nDWkSJKEhYWFGB0d7X8zrDmBm3xwgwcPXktD9ej0jb//fQGGhaltldHR0f6FhYXs8EF+oIDVasWkpJlYky6lQPWFHAaDAcLCwuA///mPhsPgPJhD3RdTpkxGAIBHHun6HM3SlyQnGeqll146z8f8Al5019UpLqFw6dIFx8AEOlhPcRyJex7Hjx93cefOHRWmfdBDJbYcsdGEG3Z3hHmUkKP+f7vdzrw9mg1nMqm1dF9fX3jvvfcYBfdf//oXS8AJa15N8daSJUs0QuzsdLNWIGNUZHLJDt65jOvXrxXx1l1k1Wn/REVFmTZs2MB6HxRFYWe6U2KXvLxOnTol9OvXb0FNJxXvOq3cuXPnfvxAP36on3NKjBnN5jIHa879lFBFkcX51XeRoJOQ8m53hw4deixZsgSfffbZr8mQ8M0sfPmM58oLQa8Ga75mzRqUZdlxvI6EilJxgidf/+R52tQtpmZP197S6SQCd77gu/5bZQamrhqCWrnziSX1xx9/sLq6yt5yulIqy0wH164Vwdtvz4aMjHNgMvkBosL+X683QEFBHsya9aZOaOa7E8SU5DvcKmPhKYoi2G/VDYqz3njjDcZSUsc00xRZq+as9cjISPjss41cY4yahBs3buxZ1UsQLruAQK12uTp16pRw6JCzX7y0VD0rbffu3cj3WgOowwDS09XhjatWrarRwxwFBAQ8FHQSYl9fX5gzZw4WFRU5DtgrxJiYmAjXo5ABABo0aADUVyySKgICtT2B4Mh+8hY5Ojra/29/+xs++uijo8jF54XZdWSzEHABgTswbne1+tdz+wUEBO5QKy8YSwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICtxP/BxE1yrZUKZoIAAAAAElFTkSuQmCC" alt="نايف المحمدي">
-    <div class="footer-name-main">نايف المحمدي</div>
+    <img class="footer-naif-logo" src="naif-logo.png" alt="نايف المحمدي">
     <div class="footer-role-main">مستشار الحوكمة وتطوير الأعمال</div>
     <div class="footer-social-row">
-      <a href="https://x.com/almohammdin" target="_blank">
+      <a href="https://x.com/almohammdin" target="_blank" rel="noopener" aria-label="حساب X">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>
-        @almohammdin
       </a>
-      <a href="https://www.linkedin.com/in/almohammdin/" target="_blank">
+      <a href="https://www.linkedin.com/in/almohammdin/" target="_blank" rel="noopener" aria-label="حساب LinkedIn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        @almohammdin
       </a>
-      <a href="https://www.tiktok.com/@almohammdin" target="_blank">
+      <a href="https://www.tiktok.com/@almohammdin" target="_blank" rel="noopener" aria-label="حساب TikTok">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.83a8.23 8.23 0 0 0 4.82 1.55V6.93a4.85 4.85 0 0 1-1.05-.24z"/></svg>
-        @almohammdin
       </a>
-      <a href="https://www.snapchat.com/@almohammdin" target="_blank">
-        <i class="fa-brands fa-snapchat" style="font-size:15px"></i>
-        @almohammdin
+      <a href="https://www.snapchat.com/@almohammdin" target="_blank" rel="noopener" aria-label="حساب Snapchat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c-3.1 0-5 2.3-5 5.4v2.2c-.2.8-.9 1.4-2 1.7-.6.2-.7.9-.2 1.3.7.7 1.6 1.2 2.6 1.5-.2.8-.6 1.5-1.1 2.1 1.4.4 2.6.2 3.6 1.4.6.7 1.3 1.1 2.1 1.1s1.5-.4 2.1-1.1c1-1.2 2.2-1 3.6-1.4-.5-.6-.9-1.3-1.1-2.1 1-.3 1.9-.8 2.6-1.5.5-.4.4-1.1-.2-1.3-1.1-.3-1.8-.9-2-1.7V8.4C17 5.3 15.1 3 12 3z"/></svg>
       </a>
     </div>
-    <div class="footer-legal">هذه الأداة تعليمية ومساعدة، لا تُغني عن استشارة محامٍ مختص لصياغة العقد النهائي. © نايف المحمدي</div>
+    <div class="footer-handle">@almohammdin</div>
+    <div class="version-chip">الإصدار 1.0.0</div>
+    <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، ولا تُعد عقدًا نهائيًا أو استشارة قانونية.</div>
   </div>
 </footer>
 
@@ -898,10 +1002,10 @@ const G = {
   MAX_PARTIES: 8,
 
   TYPES: [
-    { id:'fnb',     icon:'⚙️', name:'مشروع تشغيلي', desc:'إدارة وتشغيل يومي: متجر، مطعم، فندق، مقاولات' },
-    { id:'deal',    icon:'🏗️', name:'صفقة تجارية محددة', desc:'فرصة مؤقتة تنتهي بانتهاء الصفقة' },
-    { id:'existing',icon:'🏢', name:'دخول شريك في شركة قائمة', desc:'تقييم شركة قائمة وإدخال شريك جديد' },
-    { id:'mudaraba',icon:'🤝', name:'عقد مضاربة', desc:'رب مال يقدم المال ومضارب يقدم العمل' },
+    { id:'fnb', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19h16M6 16V8l6-4 6 4v8M9 16v-5h6v5"/></svg>', name:'مشروع تشغيلي', desc:'إدارة وتشغيل يومي: متجر، مطعم، فندق، مقاولات' },
+    { id:'deal', icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 20h18M5 17l5-5 4 3 5-8M16 7h3v3"/></svg>', name:'صفقة تجارية محددة', desc:'فرصة مؤقتة تنتهي بانتهاء الصفقة' },
+    { id:'existing',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20h16M6 20V5h8v15M14 10h4v10M9 8h2M9 12h2M9 16h2"/></svg>', name:'دخول شريك في شركة قائمة', desc:'شراء حصة قائمة أو ضخ تمويل جديد' },
+    { id:'mudaraba',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8l4-3 4 3 4-3 4 3M4 8v8l4 3 4-3 4 3 4-3V8M8 5v8M16 5v8"/></svg>', name:'عقد مضاربة', desc:'رب مال يقدم المال ومضارب يقدم العمل' },
   ],
 
 
@@ -935,6 +1039,7 @@ const G = {
     document.getElementById('btnAddParty').addEventListener('click', () => this.addParty());
     this.normalizeNumberInputs();
     this.updDisputeFields();
+    this.updExistingMode();
   },
 
   /* ─── SPLASH → TOOL ─── */
@@ -964,8 +1069,8 @@ const G = {
           if (stepbar) stepbar.style.top = (hdrH + tbH) + 'px';
         }, 50);
       });
-      // Auto-load saved data if exists
-      this.loadProgress();
+      // لا تُفتح المسودة المحفوظة تلقائياً؛ يختار المستخدم المتابعة أو البدء من جديد.
+      this.checkSaved();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 350);
   },
@@ -1005,6 +1110,14 @@ const G = {
     this.activeProfile = 'balanced';
     this.W = { Cash:4, Asset:3, Effort:3, IP:3, Net:2 };
     localStorage.removeItem('sharakah_save');
+    ['projName','legalStruct','preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','cashInAmt','cashOutAmt','managerName','agreementTerm','keyNotes','mudFee','amicableDays','disputeDetails','disputeNote'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    const defaults = { entryMode:'cashin', decisionRule:'unanimous', fundingRule:'proportional', reportingRule:'monthly', exitRule:'firstrefusal', mudScope:'restricted', amicableOn:'yes', disputeMethod:'' };
+    Object.entries(defaults).forEach(([id,value]) => { const el = document.getElementById(id); if (el) el.value = value; });
+    this.updExistingMode();
+    this.updDisputeFields();
+    document.getElementById('restoreBanner')?.classList.add('hide');
     // Re-init
     this.renderTypes();
     this.renderProfiles();
@@ -1026,7 +1139,8 @@ const G = {
       type: this.type, phase: this.phase, activeProfile: this.activeProfile, W: this.W,
       projName: val('projName'), legalStruct: val('legalStruct'),
       preMoney: val('preMoney'), newInv: val('newInv'), targetPct: val('targetPct'), postMoney: val('postMoney'),
-      coVal: val('coVal'), entryAmt: val('entryAmt'), entryPct: val('entryPct'),
+      coVal: val('coVal'), entryAmt: val('entryAmt'), entryPct: val('entryPct'), entryMode: val('entryMode'), cashInAmt: val('cashInAmt'), cashOutAmt: val('cashOutAmt'),
+      managerName: val('managerName'), decisionRule: val('decisionRule'), fundingRule: val('fundingRule'), reportingRule: val('reportingRule'), agreementTerm: val('agreementTerm'), exitRule: val('exitRule'), keyNotes: val('keyNotes'), mudScope: val('mudScope'), mudFee: val('mudFee'),
       amicableOn: val('amicableOn'), amicableDays: val('amicableDays'), disputeMethod: val('disputeMethod'), disputeDetails: val('disputeDetails'), disputeNote: val('disputeNote'),
       parties, ts: Date.now()
     };
@@ -1044,7 +1158,7 @@ const G = {
       if (!raw) return;
       const data = JSON.parse(raw);
       if (!data || !data.type) return;
-      const allowedTypes = ['fnb','deal','existing','mudaraba'];
+      const allowedTypes = ['startup','fnb','deal','existing','mudaraba'];
       if (!allowedTypes.includes(data.type)) {
         localStorage.removeItem('sharakah_save');
         return;
@@ -1054,10 +1168,11 @@ const G = {
       // Restore project fields
       if (data.projName) { const el = document.getElementById('projName'); if(el) el.value = data.projName; }
       if (data.legalStruct) { const el = document.getElementById('legalStruct'); if(el) el.value = data.legalStruct; }
-      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','amicableOn','amicableDays','disputeMethod','disputeDetails','disputeNote'].forEach(id => {
+      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','entryMode','cashInAmt','cashOutAmt','managerName','decisionRule','fundingRule','reportingRule','agreementTerm','exitRule','keyNotes','mudScope','mudFee','amicableOn','amicableDays','disputeMethod','disputeDetails','disputeNote'].forEach(id => {
         if (data[id] !== undefined) { const el = document.getElementById(id); if (el) el.value = data[id]; }
       });
       this.updDisputeFields();
+      this.updExistingMode();
       // Restore weights & profile
       if (data.W) this.W = data.W;
       if (data.activeProfile) {
@@ -1075,7 +1190,36 @@ const G = {
       }
       // Navigate to saved phase
       if (data.phase && data.phase > 1) this.go(data.phase);
+      document.getElementById('restoreBanner')?.classList.add('hide');
     } catch(e) { /* ignore corrupt data */ }
+  },
+
+  checkSaved() {
+    let valid = false;
+    try { const d = JSON.parse(localStorage.getItem('sharakah_save') || 'null'); valid = !!(d && d.type); } catch(e) {}
+    document.getElementById('restoreBanner')?.classList.toggle('hide', !valid);
+  },
+
+  restoreSaved() { this.loadProgress(); },
+
+  dismissSaved() {
+    localStorage.removeItem('sharakah_save');
+    document.getElementById('restoreBanner')?.classList.add('hide');
+    this.doReset(false);
+  },
+
+  toggleExamples(btn) {
+    const content = document.getElementById('quickExamplesContent');
+    const opening = content?.classList.contains('hide');
+    content?.classList.toggle('hide', !opening);
+    btn?.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  },
+
+  clearExample() {
+    this.doReset(false);
+    document.getElementById('quickExamplesContent')?.classList.add('hide');
+    const btn = document.querySelector('.example-toggle');
+    btn?.setAttribute('aria-expanded','false');
   },
 
   /* ─── NAVIGATION ─── */
@@ -1106,8 +1250,7 @@ const G = {
   updSteps() {
     const list = document.getElementById('stepList');
     const counter = document.getElementById('stepCounter');
-    const step3Name = this.type === 'startup' ? 'اضبط طريقة الحساب' : 'تفاصيل الاتفاق';
-    const steps = ['اختر نوع الشراكة', 'أضف الشركاء', step3Name, 'راجع الحصص', 'جهّز بنود الاتفاق'];
+    const steps = ['طبيعة الشراكة', 'الأطراف والمساهمات', 'القرارات الأساسية', 'مراجعة التوزيع', 'نقاط الاتفاق'];
     if (counter) counter.textContent = `الخطوة ${this.phase} من ${steps.length}`;
     list.innerHTML = steps.map((s, i) => {
       const n = i + 1;
@@ -1126,11 +1269,11 @@ const G = {
   /* ─── TYPE ─── */
   renderTypes() {
     document.getElementById('typeGrid').innerHTML = this.TYPES.map(t => `
-      <div class="type-btn" id="tp_${t.id}" onclick="G.selType('${t.id}')">
+      <button type="button" class="type-btn" id="tp_${t.id}" onclick="G.selType('${t.id}')">
         <span class="type-icon">${t.icon}</span>
         <div class="type-name">${t.name}</div>
         <div class="type-desc">${t.desc}</div>
-      </div>`).join('');
+      </button>`).join('');
   },
 
   selType(id) {
@@ -1175,7 +1318,7 @@ const G = {
     show('nonStartupWeightNotice', !!t && t !== 'startup');
     show('startupCard',  t === 'startup');
     show('existCard',    t === 'existing');
-    show('mudCard',      false); // تم إخفاؤها لمنع تكرار إدخال نسب الربح؛ النسب تُقرأ من كروت الأطراف في الخطوة 2
+    show('mudCard',      t === 'mudaraba');
 
     // عناوين المرحلة الثالثة الديناميكية
     const ph3Title = document.getElementById('ph3Title');
@@ -1185,8 +1328,8 @@ const G = {
         ph3Title.textContent = 'طريقة تقدير الحصص';
         ph3Sub.textContent   = 'اختر نمط الشراكة لضبط الأوزان تلقائياً، أو عدلها يدوياً من الإعدادات المتقدمة.';
       } else {
-        ph3Title.textContent = 'تفاصيل الاتفاق';
-        ph3Sub.textContent   = 'أكمل بنود الاتفاق مثل آلية اتخاذ القرار، فض النزاعات، والجوانب القانونية.';
+        ph3Title.textContent = 'القرارات الأساسية';
+        ph3Sub.textContent   = 'حدد أهم ما يلزم للتفاهم: الإدارة، القرارات، التمويل، التقارير، الخروج، وحل الخلافات.';
       }
     }
 
@@ -1341,8 +1484,9 @@ const G = {
               <input type="number" min="0" value="${this.inputVal(p.ip)}" placeholder="0" onchange="G.sp(${p.id},'ip',G.pNum(this.value))">
             </div>
             <div class="fg">
-              <label>شبكة علاقات / دعم خارجي (ريال)</label>
+              <label>التزام آخر قابل للقياس (ريال)</label>
               <input type="number" min="0" value="${this.inputVal(p.net)}" placeholder="0" onchange="G.sp(${p.id},'net',G.pNum(this.value))">
+              <div class="help">لا تُقيّم السمعة أو النفوذ أو العلاقات بذاتها. استخدم الحقل فقط لالتزام محدد له مخرج وموعد وقيمة متفق عليها، واشرحه في الملاحظة.</div>
             </div>
           </div>
           <div class="grid2" style="margin-top:10px">
@@ -1411,7 +1555,7 @@ const G = {
             <div class="fg">
               <label>نصيب الأرباح لهذا الطرف (%)</label>
               <input id="profit_${p.id}" type="number" lang="en" min="0" max="100" value="${this.inputVal(p.profit)}" onchange="G.sp(${p.id},'profit',this.value === '' ? '' : +this.value)">
-              ${this.type === 'mudaraba' ? '<div class="help">إذا تُرك هذا الحقل فارغاً، سيُفترض 40% لرب المال و60% للمضارب، موزعة داخل كل فئة.</div>' : ''}
+              ${this.type === 'mudaraba' ? '<div class="help">مثال تعليمي: 40% لرب المال و60% للمضارب. أدخل ما اتفقتم عليه؛ يجب أن يكون مجموع النسب 100%. إذا تُركت فارغة ستظهر «تحدد لاحقًا».</div>' : ''}
             </div>
           </div>` : ''}
 
@@ -1489,7 +1633,7 @@ const G = {
       { k:'Asset',  icon:'🏗️', name:'الأصول والعينيات',          desc:'تجهيزات، موقع، عقارات، بالقيمة السوقية' },
       { k:'Effort', icon:'⚙️', name:'الجهد والعمل',              desc:'الراتب العادل في السوق × الأشهر × الوزن، أو تقدير معياري' },
       { k:'IP',     icon:'💡', name:'ملكية فكرية / علامة تجارية', desc:'تقنية مُطوَّرة، براءة اختراع، فرنشايز مرخَّص' },
-      { k:'Net',    icon:'🤝', name:'شبكة العلاقات والدعم',       desc:'عملاء جاهزون، تراخيص، علاقات حكومية أو تجارية' },
+      { k:'Net',    icon:'◇', name:'التزام آخر قابل للقياس',       desc:'مخرج محدد وموعد وقيمة متفق عليها؛ لا يشمل السمعة أو النفوذ' },
     ];
     const el = document.getElementById('wtItems');
     if (!el) return;
@@ -1520,96 +1664,6 @@ const G = {
     const el = document.getElementById(id);
     if (!el) return;
     el.value = value ? String(Math.round(value * 100) / 100) : '';
-  },
-
-  updExistingDeal(source) {
-    if (!this.existingTouched) this.existingTouched = { valuation:false, investment:false, percent:false };
-    if (['valuation','investment','percent'].includes(source)) this.existingTouched[source] = true;
-
-    // FIX 1: إذا أصبح الحقل المُعدَّل فارغاً (صفر)، أعِد ضبط حالته واستنتج قيمته تلقائياً من الحقلين الآخرين
-    if (source === 'valuation' && this.numVal('coVal') <= 0) {
-      this.existingTouched.valuation = false;
-      const _i = this.numVal('entryAmt'), _p = this.numVal('entryPct');
-      if (_i > 0 && _p > 0 && _p < 100) { this.setNumVal('coVal', _i * (100 - _p) / _p); }
-    } else if (source === 'investment' && this.numVal('entryAmt') <= 0) {
-      this.existingTouched.investment = false;
-      const _v = this.numVal('coVal'), _p = this.numVal('entryPct');
-      if (_v > 0 && _p > 0 && _p < 100) { this.setNumVal('entryAmt', _v * _p / (100 - _p)); }
-    } else if (source === 'percent' && this.numVal('entryPct') <= 0) {
-      this.existingTouched.percent = false;
-      const _v = this.numVal('coVal'), _i = this.numVal('entryAmt');
-      if (_v > 0 && _i > 0) { this.setNumVal('entryPct', _i / (_v + _i) * 100); }
-    }
-
-    const box = document.getElementById('existingCalcBox');
-    const panel = document.getElementById('existLivePanel');
-    let val = this.numVal('coVal');
-    let inv = this.numVal('entryAmt');
-    let pct = this.numVal('entryPct');
-    const allFilled = val > 0 && inv > 0 && pct > 0;
-    const touchedAll = this.existingTouched.valuation && this.existingTouched.investment && this.existingTouched.percent;
-    let conflict = false;
-    let msg = '';
-
-    if (allFilled && touchedAll && source !== 'calc') {
-      const expectedPct = inv / (val + inv) * 100;
-      if (Math.abs(expectedPct - pct) > 0.3) {
-        conflict = true;
-        msg = `⚠️ البيانات غير متطابقة: مبلغ الدخول ${this.fmt(inv)} ريال على تقييم قبل الدخول ${this.fmt(val)} ريال يعطي نسبة ${expectedPct.toFixed(1)}%، وليس ${pct.toFixed(1)}%. صحح أحد الحقول الثلاثة.`;
-      }
-    }
-
-    if (!conflict) {
-      if (source === 'valuation') {
-        if (val > 0 && pct > 0 && inv <= 0 && pct < 100) { inv = val * pct / (100 - pct); this.setNumVal('entryAmt', inv); this.existingTouched.investment = false; }
-        else if (val > 0 && inv > 0 && pct <= 0) { pct = inv / (val + inv) * 100; this.setNumVal('entryPct', pct); this.existingTouched.percent = false; }
-      } else if (source === 'investment') {
-        if (inv > 0 && pct > 0 && val <= 0 && pct < 100) { val = inv * (100 - pct) / pct; this.setNumVal('coVal', val); this.existingTouched.valuation = false; }
-        else if (inv > 0 && val > 0 && pct <= 0) { pct = inv / (val + inv) * 100; this.setNumVal('entryPct', pct); this.existingTouched.percent = false; }
-      } else if (source === 'percent') {
-        if (pct > 0 && pct < 100 && inv > 0 && val <= 0) { val = inv * (100 - pct) / pct; this.setNumVal('coVal', val); this.existingTouched.valuation = false; }
-        else if (pct > 0 && pct < 100 && val > 0 && inv <= 0) { inv = val * pct / (100 - pct); this.setNumVal('entryAmt', inv); this.existingTouched.investment = false; }
-      } else if (source === 'calc') {
-        if (val > 0 && inv > 0) { pct = inv / (val + inv) * 100; this.setNumVal('entryPct', pct); }
-      }
-    }
-
-    val = this.numVal('coVal');
-    inv = this.numVal('entryAmt');
-    pct = this.numVal('entryPct');
-    const post = val + inv;
-
-    if (panel && post > 0) {
-      panel.classList.remove('hide');
-      const oldPct = Math.max(0, 100 - (pct || 0));
-      document.getElementById('lp_pre').textContent = this.fmt(val) + ' ر.س';
-      document.getElementById('lp_inv').textContent = this.fmt(inv) + ' ر.س';
-      document.getElementById('lp_post').textContent = this.fmt(post) + ' ر.س';
-      document.getElementById('lp_oldPct').textContent = oldPct.toFixed(1) + '%';
-      document.getElementById('lp_newPct').textContent = (pct || 0).toFixed(1) + '%';
-      const oldBar = document.getElementById('lp_oldBar');
-      const newBar = document.getElementById('lp_newBar');
-      if (oldBar) oldBar.style.width = oldPct + '%';
-      if (newBar) newBar.style.width = (pct || 0) + '%';
-    } else if (panel) {
-      panel.classList.add('hide');
-    }
-
-    if (box) {
-      if (conflict) {
-        box.textContent = msg;
-        box.className = 'notice notice-error';
-      } else if (pct >= 100) {
-        // FIX 2: نسبة ≥ 100% منطقياً خاطئة — اعرض خطأ واضحاً بدل رسالة النجاح
-        box.textContent = 'تنبيه: نسبة الشريك الجديد (' + pct.toFixed(1) + '%) غير منطقية. يجب أن تكون أقل من 100%. تأكد من صحة المدخلات.';
-        box.className = 'notice notice-error';
-      } else if (post > 0 && pct > 0) {
-        box.textContent = 'قيمة الشركة بعد الدخول: ' + this.fmt(post) + ' ريال، نسبة الشريك الجديد: ' + pct.toFixed(1) + '%';
-        box.className = 'notice notice-ok';
-      } else {
-        box.className = 'notice notice-ok hide';
-      }
-    }
   },
 
   updPostMoney(source = '') {
@@ -1724,6 +1778,7 @@ const G = {
   },
 
   profitDiffers() {
+    if (this.type === 'mudaraba') return true;
     return this.results.some(r => Math.abs((Number(r.profit) || 0) - (Number(r.pct) || 0)) >= 0.1);
   },
 
@@ -1741,25 +1796,17 @@ const G = {
         const mudParties = this.parties.filter(p => p.cap === 'مضارب (عامل)');
         const manualProfit = this.parties.map(p => this.normalizePercentField(p.profit));
         const hasManualProfit = manualProfit.some(v => v !== null);
-        const manualTotal = manualProfit.reduce((sum, v) => sum + (v || 0), 0) || 100;
         const totalCash = rabParties.reduce((sum, p) => sum + (Number(p.cash) || 0), 0);
         const effortValue = p => Math.max(0, (Number(p.fmv) || 0) - (Number(p.paid) || 0)) * (Number(p.dur) || 0);
         const totalEffort = mudParties.reduce((sum, p) => sum + effortValue(p), 0);
         this.results = this.parties.map((p, i) => {
           const isRab = p.cap === 'رب المال (ممول)';
           const effortVal = effortValue(p);
-          const equityPct = isRab
-            ? (totalCash > 0 ? (Number(p.cash) || 0) / totalCash * 100 : 100 / Math.max(1, rabParties.length))
-            : 0;
-          // في المضاربة تُقرأ نسب الربح مباشرة من كروت الأطراف في الخطوة 2.
-          // إذا تُركت فارغة، نستخدم افتراضاً إرشادياً: 40% لرب المال و60% للمضارب، موزعة داخل كل فئة.
-          const fallbackProfitPct = isRab
-            ? (totalCash > 0 ? ((Number(p.cash) || 0) / totalCash) * 40 : 40 / Math.max(1, rabParties.length))
-            : (totalEffort > 0 ? (effortVal / totalEffort) * 60 : 60 / Math.max(1, mudParties.length));
-          const profitPct = hasManualProfit ? ((manualProfit[i] || 0) / manualTotal * 100) : fallbackProfitPct;
+          const equityPct = 0; // المضاربة توزيع ربح لا توزيع ملكية.
+          const profitPct = hasManualProfit ? manualProfit[i] : null;
           return { ...p,
-            pct: +equityPct.toFixed(1),
-            profit: +profitPct.toFixed(1),
+            pct: equityPct,
+            profit: profitPct === null ? null : +profitPct.toFixed(1),
             cashSc: isRab ? (p.cash || 0) : 0,
             assetSc:0, ipSc:0, netSc:0,
             effortSc: isRab ? 0 : effortVal,
@@ -1813,9 +1860,8 @@ const G = {
     const entAmt = this.numVal('entryAmt') || 0;
     let existingHandled = false;
 
-    if (this.type === 'existing' && coVal > 0 && entAmt > 0) {
-      const post   = coVal + entAmt;
-      const newPct = +(entAmt / post * 100).toFixed(1);
+    if (this.type === 'existing' && coVal > 0 && entAmt > 0 && this.numVal('entryPct') > 0) {
+      const newPct = +this.numVal('entryPct').toFixed(1);
       const oldPct = +(100 - newPct).toFixed(1);
 
       const newParty   = this.parties[this.parties.length - 1];
@@ -1867,9 +1913,13 @@ const G = {
     const pre = +document.getElementById('preMoney')?.value || 0;
     const inv = +document.getElementById('newInv')?.value  || 0;
 
-    let kpis = [
+    let kpis = this.type === 'mudaraba' ? [
+      { lbl:'رأس مال المضاربة', val: this.fmt(cash) + ' ر.س', sub:'مقدم من رب المال' },
+      { lbl:'الأطراف', val: String(this.parties.length), sub:'رب مال ومضارب' },
+      { lbl:'نسب الربح', val: this.results.every(x => x.profit !== null) ? 'محددة' : 'تحدد لاحقًا', sub:'لا تُفترض تلقائيًا' }
+    ] : [
       { lbl:'إجمالي التمويل النقدي', val: this.fmt(cash) + ' ر.س', sub: this.parties.length + ' أطراف' },
-      { lbl:'الأصول والحقوق غير النقدية', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + شبكة' },
+      { lbl:'الأصول والحقوق غير النقدية', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + التزامات قابلة للقياس' },
       { lbl:'أطراف عاملون في المشروع', val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
     ];
     if (pre > 0 && inv > 0)
@@ -1907,6 +1957,15 @@ const G = {
   renderDonut() {
     const svg = document.getElementById('donutSvg');
     const leg = document.getElementById('donutLegend');
+    const title = svg?.closest('.chart-box')?.querySelector('.chart-title');
+    if (this.type === 'mudaraba') {
+      if (title) title.textContent = 'رأس المال والأدوار';
+      svg.style.display = 'none';
+      leg.innerHTML = this.results.map(d => `<div class="leg-row"><div class="leg-name"><div class="leg-pip" style="background:${d.color}"></div>${d.name}</div><div class="leg-pct">${d.cap}</div></div>`).join('');
+      return;
+    }
+    svg.style.display = 'block';
+    if (title) title.textContent = 'توزيع الملكية';
     svg.innerHTML = this.makeDonutSvg(this.results, 'pct', 'ملكية');
 
     leg.innerHTML = this.results.map(d => `
@@ -1919,6 +1978,15 @@ const G = {
   renderBars() {
     const box = document.getElementById('barChart');
     const title = box?.closest('.chart-box')?.querySelector('.chart-title');
+    if (this.type === 'mudaraba') {
+      if (title) title.textContent = 'نسب الربح المتفق عليها';
+      const complete = this.results.every(r => r.profit !== null);
+      box.innerHTML = complete ? `
+        <svg width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0 auto 10px">${this.makeDonutSvg(this.results, 'profit', 'الربح')}</svg>
+        <div class="legend">${this.results.map(r => `<div class="leg-row"><div class="leg-name"><div class="leg-pip" style="background:${r.color}"></div>${r.name}</div><div class="leg-pct">${r.profit}%</div></div>`).join('')}</div>`
+        : '<div class="notice notice-warn">نسب الربح لم تُحدد بعد. مثال إرشادي فقط: 40% لرب المال و60% للمضارب، ومجموع النسب يجب أن يكون 100%.</div>';
+      return;
+    }
     if (this.profitDiffers()) {
       if (title) title.textContent = 'توزيع الأرباح';
       box.innerHTML = `
@@ -1950,7 +2018,7 @@ const G = {
         r.cash    ? `نقدي: ${this.fmt(r.cash)} ر.س` : null,
         r.assets  ? `أصول: ${this.fmt(r.assets)} ر.س` : null,
         r.ip      ? `ملكية فكرية: ${this.fmt(r.ip)} ر.س` : null,
-        r.net     ? `شبكة: ${this.fmt(r.net)} ر.س` : null,
+        r.net     ? `التزام قابل للقياس: ${this.fmt(r.net)} ر.س` : null,
         r.effortSc? `جهد غير مدفوع (${r.dur || 0} أشهر): ${this.fmt(r.effortSc)} ر.س` : null,
       ].filter(Boolean);
 
@@ -1964,22 +2032,22 @@ const G = {
               <div class="res-cap">${r.cap || ''}${r.role && r.role!=='silent' ? ' · ' + (roleNames[r.role]||'') : ''}${r.note ? '، ' + r.note : ''}</div>
             </div>
           </div>
-          <div class="res-pct">${r.pct}%</div>
+          <div class="res-pct">${this.type === 'mudaraba' ? (r.profit === null ? 'تحدد لاحقًا' : r.profit + '%') : r.pct + '%'}</div>
         </div>
-        <div class="res-bar-bg"><div class="res-bar-fill" style="width:${r.pct}%;background:${r.color}"></div></div>
+        ${this.type === 'mudaraba' ? '' : `<div class="res-bar-bg"><div class="res-bar-fill" style="width:${r.pct}%;background:${r.color}"></div></div>`}
         <div class="res-contrib">${contribs.map(c => {
           const [lbl,...rest] = c.split(':');
           return `<div class="rc-row"><span class="rc-lbl">${lbl}</span><span class="rc-val">${rest.join(':')}</span></div>`;
         }).join('')}</div>
         <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px">
-          <div style="display:flex;align-items:center;justify-content:space-between">
+          ${this.type === 'mudaraba' ? '' : `<div style="display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:11px;color:var(--muted);font-weight:600">حصة الملكية</span>
             <span style="font-size:13px;font-weight:700;color:var(--gold)">${r.pct}%</span>
-          </div>
+          </div>`}
           ${this.profitDiffers() ? `
           <div style="display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:11px;color:var(--muted);font-weight:600">نصيب الأرباح</span>
-            <span style="font-size:13px;font-weight:700;color:${r.color}">${r.profit}%</span>
+            <span style="font-size:13px;font-weight:700;color:${r.color}">${r.profit === null ? 'تحدد لاحقًا' : r.profit + '%'}</span>
           </div>` : ''}
         </div>
       </div>`;
@@ -1988,6 +2056,7 @@ const G = {
 
   /* Check for silent zero-profit anomaly */
   zeroProfit_checkResults() {
+    if (this.type === 'mudaraba') return [];
     const alerts = [];
     this.results.forEach(r => {
       const equity = Number(r.pct) || 0;
@@ -2033,8 +2102,13 @@ const G = {
 
     if (this.type === 'mudaraba') {
       if (this.mudarabaCheck?.valid) {
-        alerts.push({ t:'ok', m:'🤝 هذا النموذج متوافق مع منطق المضاربة: رب المال يقدّم المال فقط، والمضارب يقدّم العمل فقط.' });
-        alerts.push({ t:'ok', m:'🤝 تأكد أن نسب الربح مُتفَق عليها صراحةً وموثقة كتابةً، ولا تكون بمبلغ مقطوع.' });
+        alerts.push({ t:'ok', m:'هذا النموذج يفصل بين رب المال الذي يقدم المال والمضارب الذي يقدم العمل.' });
+        const vals = this.parties.map(p => this.normalizePercentField(p.profit));
+        const complete = vals.every(v => v !== null);
+        const total = vals.reduce((s,v) => s + (v || 0), 0);
+        if (!complete) alerts.push({ t:'warn', m:'نسب الربح لم تكتمل بعد. المثال 40/60 للتوضيح فقط ولا يطبق تلقائيًا.' });
+        else if (Math.abs(total - 100) > 0.01) alerts.push({ t:'warn', m:`مجموع نسب الربح المدخلة ${total}%، ويجب أن يكون 100%.` });
+        else alerts.push({ t:'ok', m:'مجموع نسب الربح 100%، وتبقى مراجعة بقية شروط المضاربة وكتابتها.' });
       } else {
         alerts.push({ t:'warn', m:'⚠️ ملاحظتنا: أحد الأطراف يجمع بين التمويل والعمل، أو أن بيانات المال والعمل غير مكتملة. هذا لا يتوافق مع عقد المضاربة، لذلك تم التعامل مع الحالة كمشاركة عادية لضمان دقة التوزيع.' });
         if (this.mudarabaCheck?.problems?.length) alerts.push({ t:'warn', m:'تفاصيل الملاحظة: ' + this.mudarabaCheck.problems.join(' | ') });
@@ -2067,171 +2141,6 @@ const G = {
     }
   },
 
-
-  displayCap(p, fallback=false) {
-    if (!fallback) return p.cap || 'شريك';
-    const hasCash = (Number(p.cash)||0) > 0;
-    const hasEffort = p.work !== 'no';
-    if (hasCash && hasEffort) return 'شريك عامل وممول';
-    if (hasCash) return 'شريك ممول';
-    if (hasEffort) return 'شريك عامل';
-    return 'شريك';
-  },
-
-
-  buildSmartPreamble(nm, typeLabel, t) {
-    const lines = [];
-    lines.push(`حيث إن الأطراف يرغبون في ترتيب تفاهم أولي بشأن مشروع "${nm}" من نوع ${typeLabel}؛`);
-    this.parties.forEach((p, idx) => {
-      const ref = this.partyRef(p, idx);
-      const facts = [];
-      const cash = Number(p.cash) || 0;
-      const assets = Number(p.assets) || 0;
-      const ip = Number(p.ip) || 0;
-      const net = Number(p.net) || 0;
-      const hasEffort = this.hasEffort(p);
-      if (cash) facts.push(`يقدم تمويلاً نقدياً قدره ${this.fmt(cash)} ريال`);
-      if (assets) facts.push(`يقدم أصولاً أو تجهيزات عينية بقيمة تقديرية ${this.fmt(assets)} ريال`);
-      if (ip) facts.push(`يقدم مساهمة في الملكية الفكرية أو العلامة التجارية بقيمة تقديرية ${this.fmt(ip)} ريال`);
-      if (net) facts.push(`يقدم شبكة علاقات أو دعماً تجارياً بقيمة تقديرية ${this.fmt(net)} ريال`);
-      if (hasEffort) {
-        const paid = Number(p.paid) || 0;
-        const fmv  = Number(p.fmv)  || 0;
-        const dur  = p.dur || 0;
-        const unpaid = Math.max(0, fmv - paid) * dur;
-        let effortText = `يقدم عملاً للمشروع وفق الراتب العادل في السوق قدره ${this.fmt(fmv)} ريال شهرياً، وبمبلغ مستلم فعلياً قدره ${this.fmt(paid)} ريال شهرياً، لمدة ${dur} شهراً`;
-        if (unpaid) effortText += `؛ وتُعامل قيمة الفرق غير المدفوع (${this.fmt(unpaid)} ريال) كمساهمة تقديرية بالجهد لأغراض احتساب الحصص، ما لم يتفق الأطراف على خلاف ذلك`;
-        facts.push(effortText);
-      }
-      if (!facts.length) facts.push('تُحدد مساهمته كتابةً في العقد النهائي')
-      if (p.note) facts.push(`ودوّن بشأنه: ${p.note}`);
-      lines.push(`وحيث إن ${ref} ${facts.join('، ')}؛`);
-    });
-    if (t === 'mudaraba') lines.push('وحيث إن الأطراف يرغبون في أن يكون الربح بنسبة متفق عليها، مع الفصل بين من يقدّم المال ومن يقدّم العمل؛');
-    if (t === 'partnership') lines.push('وحيث إن المدخلات تُظهر وجود مساهمات مختلطة بين المال والعمل، فإن التفاهم يُعامل كمشاركة عامة لا كمضاربة؛');
-    lines.push('فإن البنود التالية تمثل أبرز نقاط التفاهم الأولية التي يُبنى عليها التفاوض وصياغة العقد النهائي بواسطة محامٍ مختص.');
-    return lines.join('\n');
-  },
-
-  /* ─── AGREEMENT ─── */
-  buildAgr() {
-    this.calc();
-    const originalType = this.type || 'startup';
-    const t = this.mudarabaCheck?.fallback ? 'partnership' : originalType;
-    const nm = document.getElementById('projName')?.value || 'المشروع';
-    const dateObj = this.formatDate(new Date());
-    const today = dateObj?.hijri ? `${dateObj.hijri} هـ ، ${dateObj.greg} م` : dateObj;
-    const typeNames = { startup:'شركة ناشئة / مشروع قابل للاستثمار', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'عقد مضاربة', partnership:'مشاركة عامة' };
-    const legalMap = { llc:'شركة ذات مسؤولية محدودة', simplified:'شركة مساهمة مبسطة', solidarity:'شركة تضامن', commandite:'شركة توصية بسيطة', mudaraba:'عقد مضاربة', jv:'اتفاق مشاركة مشترك غير مسجل', deal:'صفقة تجارية محددة', '':'يُحدد لاحقاً بعد التشاور القانوني' };
-    const legalVal = document.getElementById('legalStruct')?.value || '';
-    const legalLabel = legalMap[legalVal] || 'يُحدد لاحقاً بعد التشاور القانوني';
-    const roleNames = { manager:'إدارة عامة', ops:'تشغيل', tech:'تقنية', sales:'مبيعات', silent:'دون دور تنفيذي' };
-    const partyLines = this.results.map((r,i)=>`${this.partyOrdinal(i)}: ${r.name}، الصفة: ${this.displayCap(r, t === 'partnership')}، حصة الملكية: ${r.pct}%${this.profitDiffers() ? `، نصيب الأرباح: ${r.profit}%` : ''}.${r.note ? ' ملاحظة: '+r.note : ''}`).join('\n');
-    const contribs = this.parties.map((p,i) => {
-      const lines = [];
-      if (p.cash) lines.push(`تمويل نقدي: ${this.fmt(p.cash)} ريال`);
-      if (p.assets) lines.push(`أصول عينية: ${this.fmt(p.assets)} ريال`);
-      if (p.ip) lines.push(`ملكية فكرية / علامة تجارية: ${this.fmt(p.ip)} ريال`);
-      if (p.net) lines.push(`شبكة علاقات / دعم: ${this.fmt(p.net)} ريال`);
-      if (p.work !== 'no') {
-        const dur = p.dur || 0;
-        const unpaid = Math.max(0,(p.fmv||0)-(p.paid||0)) * dur;
-        lines.push(`عمل وجهد: ${p.work === 'full' ? 'دوام كامل' : p.work === 'part' ? 'دوام جزئي' : 'مدة محددة'}، الراتب العادل في السوق: ${this.fmt(p.fmv||0)} ريال شهرياً، المستلم فعلياً: ${this.fmt(p.paid||0)} ريال شهرياً، المدة: ${dur} شهر، قيمة الجهد غير المدفوع: ${this.fmt(unpaid)} ريال، الدور: ${roleNames[p.role]||''}`);
-      }
-      return `${this.partyRef(p,i)}: ${lines.length ? lines.join('، ') : 'تُحدد مساهمته كتابةً في العقد النهائي.'}`;
-    }).join('\n');
-    const pre = this.numVal('preMoney') || 0;
-    const inv = this.numVal('newInv') || 0;
-    const post = this.numVal('postMoney') || (pre + inv);
-    const pct = this.numVal('targetPct') || (post > 0 ? inv / post * 100 : 0);
-    const rab = this.parties.find(p => p.cap === 'رب المال (ممول)');
-    const mud = this.parties.find(p => p.cap === 'مضارب (عامل)');
-    const smartPreamble = this.buildSmartPreamble(nm, typeNames[t] || 'شراكة', t);
-    const intro = `مسودة لأبرز بنود التعاقد بشأن مشروع: ${nm}
-التاريخ: ${today}
-نوع الحالة / الصفقة: ${typeNames[t] || 'شراكة'}
-الإطار القانوني المقترح: ${legalLabel}
-
-تمهيد:
-${smartPreamble}
-`;
-
-    let clauses = [];
-    clauses.push(`البند الأول: الأطراف
-${partyLines}`);
-    clauses.push(`البند الثاني: المساهمات
-${contribs}`);
-    if (legalVal) {
-      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: الإطار القانوني المقترح
-اتفق الأطراف مبدئياً على أن يكون الإطار القانوني المقترح للعلاقة هو: ${legalLabel}. ويُراجع الشكل النهائي مع محامٍ مختص قبل الإبرام.`);
-    }
-
-    if (t === 'startup') {
-      clauses.push(`البند الثالث: التقييم والاستثمار
-1. قيمة الاستثمار الجديد: ${this.fmt(inv)} ريال.
-2. التقييم قبل الاستثمار: ${this.fmt(pre)} ريال.
-3. التقييم بعد الاستثمار: ${this.fmt(post)} ريال.
-4. النسبة التقريبية للمستثمر الجديد: ${pct ? pct.toFixed(1) : '0'}%.`);
-      const vestedParties = this.parties.filter(p => p.work !== 'no' && p.vesting === 'yes');
-      if (vestedParties.length) {
-        const vestLines = vestedParties.map((p,i) => `${i+1}. ${this.partyRef(p, this.parties.indexOf(p))}: مدة الاستحقاق ${p.vestYrs || '[تحدد]'} سنوات، ومدة الاختبار قبل استحقاق أي حصة ${p.cliffMo || '[تحدد]'} شهر.${p.vestNote ? ' ملاحظة: ' + p.vestNote + '.' : ''}`).join('\n');
-        clauses.push(`البند الرابع: الاستحقاق التدريجي للشركاء العاملين
-يُطبق الاستحقاق التدريجي على الأطراف العاملين التالية أسماؤهم فقط:
-${vestLines}
-ولا تُكتسب الحصة غير المستحقة عند الانسحاب المبكر إلا وفق ما يرد في العقد النهائي.`);
-      }
-      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح
-تُوزع الأرباح وفق نسب نصيب الأرباح المبيّنة في البند الأول.`);
-    } else if (t === 'fnb') {
-      clauses.push(`البند الثالث: الإدارة والتشغيل
-تُحدد الإدارة اليومية، الصلاحيات التشغيلية، التوقيع، التوريد، المخزون، الجودة، والرقابة المالية كتابةً في العقد النهائي.`);
-      clauses.push(`البند الرابع: توزيع الأرباح
-تُوزع الأرباح الصافية وفق نسب نصيب الأرباح المبيّنة في البند الأول.`);
-    } else if (t === 'deal') {
-      clauses.push(`البند الثالث: نطاق الصفقة ومدتها
-الغرض هو تنفيذ صفقة تجارية محددة فقط، وتنتهي العلاقة بانتهاء الصفقة وتصفية التكاليف وتوزيع العوائد.`);
-      clauses.push(`البند الرابع: توزيع العوائد
-تُوزع صافي عوائد الصفقة وفق نسب المساهمة المبيّنة في البند الأول. لا توجد ملكية مستمرة في هذا الهيكل؛ كل طرف يستحق نصيبه من العائد فور إنجاز الصفقة وتسوية التكاليف.`);
-    } else if (t === 'existing') {
-      clauses.push(`البند الثالث: دخول الشريك الجديد
-تُحدد قيمة الشركة قبل الدخول، ومبلغ دخول الشريك الجديد، ونسبة ملكيته الناتجة. وتُحسب هذه القيم على أساس أن نسبة الشريك = مبلغ الدخول ÷ القيمة بعد الدخول.`);
-      clauses.push(`البند الرابع: الالتزامات السابقة واللاحقة
-يجب تحديد ما إذا كان الشريك الجديد يتحمل أي التزامات سابقة، وما حقوقه في الاطلاع والإدارة والتصويت بعد دخوله.`);
-      clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: توزيع الأرباح
-تُوزع الأرباح وفق نسب نصيب الأرباح المبيّنة في البند الأول.`);
-    } else if (t === 'mudaraba') {
-      clauses.push(`البند الثالث: رأس المال والعمل
-1. رب المال: ${rab?.name || '[اسم رب المال]'}، يقدم رأس المال بمبلغ ${this.fmt(rab?.cash || 0)} ريال.
-2. المضارب: ${mud?.name || '[اسم المضارب]'}، يقدم العمل والإدارة ولا يقدم رأس مال في هذه المضاربة.`);
-      const rabProfit = this.results.filter(r => r.cap === 'رب المال (ممول)').reduce((sum, r) => sum + (Number(r.profit) || 0), 0).toFixed(1).replace(/\.0$/, '');
-      const mudProfit = this.results.filter(r => r.cap === 'مضارب (عامل)').reduce((sum, r) => sum + (Number(r.profit) || 0), 0).toFixed(1).replace(/\.0$/, '');
-      clauses.push(`البند الرابع: توزيع الربح والخسارة
-1. حصة رب المال من الربح: ${rabProfit}%.
-2. حصة المضارب من الربح: ${mudProfit}%.
-3. الخسارة المالية تكون على رأس المال، ويخسر المضارب جهده، ما لم يوجد تعدٍّ أو تفريط أو مخالفة.`);
-    } else {
-      clauses.push(`البند الثالث: طبيعة المشاركة
-اختار المستخدم عقد مضاربة، لكن المدخلات لا تحقق الفصل الكامل بين المال والعمل؛ لذلك تُعامل الحالة كمشاركة عامة لا كمضاربة.`);
-      clauses.push(`البند الرابع: الأرباح والخسائر
-تُوزع الأرباح والخسائر وفق ما يتفق عليه الأطراف كتابةً، وبما ينسجم مع طبيعة مساهمة كل طرف والأنظمة ذات العلاقة.`);
-    }
-
-    const dispute = this.buildDisputeClause();
-    if (dispute) clauses.push(`البند ${this.ordinalClause(clauses.length + 1)}: حل الخلافات\n${dispute}`);
-
-    const numberedClauses = clauses.map((c, i) => c.replace(/^البند\s+[^:]+:/, 'البند ' + this.ordinalClause(i + 1) + ':'));
-    const text = `${intro}\n${numberedClauses.join('\n\n')}`;
-    document.getElementById('agrBox').textContent = text;
-    document.getElementById('agrTitle').textContent = `مسودة أبرز بنود العقد، ${nm}`;
-    document.getElementById('agrMeta').textContent = `${typeNames[t] || ''} · ${this.parties.length} أطراف · ${today}`;
-    document.getElementById('agrBadge').textContent = typeNames[t] || 'شراكة';
-    this.renderContractGuidance();
-  },
-
-  ordinalClause(n){
-    const names = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر'];
-    return names[n-1] || String(n);
-  },
 
   buildDisputeClause(){
     const amicableOn = document.getElementById('amicableOn')?.value || 'yes';
@@ -2268,15 +2177,6 @@ ${vestLines}
 
     return parts.join(' ');
   },
-  renderContractGuidance(){
-    const el = document.getElementById('contractGuidance');
-    if (!el) return;
-    el.innerHTML = `
-      <div class="notice notice-info">هذه المسودة لا تتضمن كل تفاصيل العقد النهائي. يراجع المحامي الهيكل القانوني المناسب، التخارج وحق الأولوية، الصلاحيات، السجلات، التوقيع، السرية، عدم المنافسة.</div>
-      <div class="notice notice-warn">تنبيه: البنود أعلاه للتفاهم والتفاوض وليست عقداً نهائياً قابلاً للتوقيع بصيغته الحالية.</div>
-    `;
-  },
-
   copyAgr() {
     const t = document.getElementById('agrBox')?.textContent || '';
     if (!t.trim()) return;
@@ -2337,14 +2237,14 @@ ${vestLines}
   /* ─── EXPORT LAYOUT BUILDER ─── */
   buildExportLayout() {
   const W = 1080, H = 1350, PAD = 24;
-  const bg     = '#F7F4EC';
-  const surf   = '#FFFDF8';
-  const card   = '#F8F1E4';
-  const txt    = '#2B211A';
-  const mid    = '#7B6B5D';
-  const muted  = '#8A7570';
-  const border = '#E5D8BA';
-  const gold   = '#C9A84C';
+  const bg     = '#F5F3ED';
+  const surf   = '#FFFFFF';
+  const card   = '#EAEFF2';
+  const txt    = '#102538';
+  const mid    = '#405466';
+  const muted  = '#6E7C88';
+  const border = '#DCE1E4';
+  const gold   = '#B58D35';
   const font   = "'IBM Plex Sans Arabic', sans-serif";
 
   const xIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>`;
@@ -2353,7 +2253,9 @@ ${vestLines}
   const projName = (document.getElementById('projName')?.value || '').trim();
   const dates    = this.formatDate(new Date());
   const res      = this.results;
-  const hasProfitSplit = this.profitDiffers();
+  const isMudExport = this.type === 'mudaraba' && this.mudarabaCheck?.valid;
+  const hasProfitSplit = !isMudExport && this.profitDiffers();
+  const mudProfitComplete = isMudExport && res.every(r => r.profit !== null);
   const roleNames = { manager:'مدير عام', ops:'تشغيلي', tech:'تقني', sales:'مبيعات', silent:'' };
   const px = v => `${v}px`;
 
@@ -2388,8 +2290,9 @@ ${vestLines}
       </div>`;
   };
 
-  const chartBlock = hasProfitSplit
-    ? `<div style="display:flex;align-items:center;justify-content:center;gap:28px;width:100%">
+  const chartBlock = isMudExport
+    ? (mudProfitComplete ? makeDonutSVG('profit', 'نسب الربح', 460) : `<div style="width:460px;height:300px;border:2px dashed ${border};border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:${mid};font-size:24px;font-family:${font}">نسب الربح تحدد لاحقًا<br><span style="font-size:18px;color:${muted}">مثال إرشادي فقط: 40% / 60%</span></div>`)
+    : hasProfitSplit ? `<div style="display:flex;align-items:center;justify-content:center;gap:28px;width:100%">
          ${makeDonutSVG('pct', 'توزيع الملكية', 350)}
          ${makeDonutSVG('profit', 'توزيع الأرباح', 350)}
        </div>`
@@ -2406,9 +2309,13 @@ ${vestLines}
   const working = this.parties.filter(p => p.work !== 'no').length;
   const pre = +document.getElementById('preMoney')?.value || 0;
   const inv = +document.getElementById('newInv')?.value  || 0;
-  const kpis = [
+  const kpis = isMudExport ? [
+    { lbl:'رأس مال المضاربة', val: this.fmt(cash) + ' ر.س', sub:'مقدم من رب المال' },
+    { lbl:'الأطراف', val:String(this.parties.length), sub:'رب مال ومضارب' },
+    { lbl:'نسب الربح', val:mudProfitComplete ? 'محددة' : 'تحدد لاحقًا', sub:'لا توجد حصة ملكية في هذا العرض' }
+  ] : [
     { lbl:'إجمالي التمويل النقدي', val: this.fmt(cash)  + ' ر.س', sub: this.parties.length + ' أطراف' },
-    { lbl:'الأصول والحقوق المضافة', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + شبكة' },
+    { lbl:'الأصول والحقوق المضافة', val: this.fmt(asset) + ' ر.س', sub:'أصول + ملكية فكرية + التزامات مقوّمة' },
     { lbl:'أطراف عاملون في المشروع', val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
   ];
   if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.fmt(pre+inv) + ' ر.س', sub:'Post-Money Valuation' });
@@ -2425,7 +2332,7 @@ ${vestLines}
       r.cash     ? { lbl:'نقدي', val:`${this.fmt(r.cash)} ر.س` } : null,
       r.assets   ? { lbl:'أصول', val:`${this.fmt(r.assets)} ر.س` } : null,
       r.ip       ? { lbl:'ملكية فكرية', val:`${this.fmt(r.ip)} ر.س` } : null,
-      r.net      ? { lbl:'شبكة علاقات', val:`${this.fmt(r.net)} ر.س` } : null,
+      r.net      ? { lbl:'التزام قابل للقياس', val:`${this.fmt(r.net)} ر.س` } : null,
       r.effortSc ? { lbl:`جهد (${r.dur || 0} أشهر)`, val:`${this.fmt(r.effortSc)} ر.س` } : null,
     ].filter(Boolean);
 
@@ -2438,7 +2345,9 @@ ${vestLines}
       : `<div style="padding:6px 0;color:${muted};font-size:15px;font-family:${font}">لا توجد مساهمات مسجلة</div>`;
 
     const capLine = `${r.cap||''}${r.role && r.role!=='silent' ? ' - '+(roleNames[r.role]||'') : ''}`;
-    const headlineShare = hasProfitSplit
+    const headlineShare = isMudExport
+      ? `<div style="margin-bottom:12px;background:${card};border-radius:10px;padding:14px 16px;text-align:center"><span style="font-size:14px;color:${muted};font-family:${font}">نصيب الربح</span><div style="font-size:30px;font-weight:700;color:${r.color};font-family:${font}">${r.profit === null ? 'يحدد لاحقًا' : r.profit + '%'}</div></div>`
+      : hasProfitSplit
       ? `<div style="display:flex;gap:14px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px">
            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid ${border}">
              <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">الملكية</span>
@@ -2470,7 +2379,7 @@ ${vestLines}
           </div>
         </div>
         <div style="margin-top:20px;height:10px;background:${card};border-radius:5px;overflow:hidden">
-          <div style="height:100%;width:${hasProfitSplit ? r.profit : r.pct}%;background:${r.color};border-radius:5px"></div>
+          <div style="height:100%;width:${isMudExport ? (r.profit || 0) : hasProfitSplit ? r.profit : r.pct}%;background:${r.color};border-radius:5px"></div>
         </div>
       </div>`;
   }).join('');
@@ -2483,8 +2392,8 @@ ${vestLines}
           ${projName ? `<div style="font-size:20px;color:${mid};font-family:${font}">المشروع: ${projName}</div>` : ''}
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
-          <div>${dates.hijri}</div>
-          <div style="font-size:15px;opacity:0.8">${dates.greg}</div>
+          <div>${dates.label}</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.0</div>
         </div>
       </div>
 
@@ -2589,15 +2498,15 @@ captureResultsImage() {
         { name: '\u0623\u062d\u0645\u062f \u0627\u0644\u063a\u0627\u0645\u062f\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u0645\u0648\u0644', cash: 300000, assets: 150000, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u0642\u062f\u0645 \u0627\u0644\u062a\u0645\u0648\u064a\u0644 \u0627\u0644\u0646\u0642\u062f\u064a \u0648\u062a\u062c\u0647\u064a\u0632\u0627\u062a \u0627\u0644\u0645\u0642\u0647\u0649' },
         { name: '\u0645\u062d\u0645\u062f \u0627\u0644\u0632\u0647\u0631\u0627\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u062f\u064a\u0631', cash: 50000, assets: 0, ip: 0, net: 0, work: 'full', fmv: 12000, paid: 4000, dur: 12, role: 'ops', note: '\u0645\u062f\u064a\u0631 \u0627\u0644\u062a\u0634\u063a\u064a\u0644 \u0627\u0644\u064a\u0648\u0645\u064a' }
       ]},
-      deal: { projName: '\u0635\u0641\u0642\u0629 \u0623\u0631\u0627\u0636\u064a \u0627\u0644\u0646\u062e\u064a\u0644', legalStruct: 'deal', parties: [
+      deal: { projName: '\u0635\u0641\u0642\u0629 \u0623\u0631\u0627\u0636\u064a \u0627\u0644\u0646\u062e\u064a\u0644', legalStruct: '', parties: [
         { name: '\u062e\u0627\u0644\u062f \u0627\u0644\u0639\u0645\u0631\u064a', cap: '\u0634\u0631\u064a\u0643 \u0645\u0645\u0648\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u0627\u0644\u0645\u0645\u0648\u0644 \u0627\u0644\u0631\u0626\u064a\u0633\u064a \u0644\u0644\u0635\u0641\u0642\u0629' },
-        { name: '\u0633\u0639\u062f \u0627\u0644\u0642\u0631\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0639\u0627\u0645\u0644', cash: 200000, assets: 0, ip: 0, net: 150000, work: 'part', fmv: 15000, paid: 0, dur: 6, role: 'manager', note: '\u064a\u0645\u062a\u0644\u0643 \u0627\u0644\u0634\u0628\u0643\u0629 \u0648\u0627\u0644\u0639\u0644\u0627\u0642\u0627\u062a \u0627\u0644\u0639\u0642\u0627\u0631\u064a\u0629' }
+        { name: '\u0633\u0639\u062f \u0627\u0644\u0642\u0631\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0639\u0627\u0645\u0644', cash: 200000, assets: 0, ip: 0, net: 0, work: 'part', fmv: 15000, paid: 0, dur: 6, role: 'manager', note: '\u064a\u062a\u0648\u0644\u0649 \u0627\u0644\u062a\u0641\u0627\u0648\u0636 \u0648\u0625\u0646\u062c\u0627\u0632 \u0627\u0644\u0635\u0641\u0642\u0629 \u062e\u0644\u0627\u0644 \u0633\u062a\u0629 \u0623\u0634\u0647\u0631' }
       ]},
       existing: { projName: '\u0645\u0637\u0627\u0639\u0645 \u0627\u0644\u0623\u0635\u0627\u0644\u0629 \u2014 \u062f\u062e\u0648\u0644 \u0634\u0631\u064a\u0643 \u062c\u062f\u064a\u062f', legalStruct: 'llc', coVal: '2000000', entryAmt: '500000', parties: [
-        { name: '\u0627\u0644\u0634\u0631\u0643\u0627\u0621 \u0627\u0644\u062d\u0627\u0644\u064a\u0648\u0646', cap: '\u0634\u0631\u0643\u0627\u0621 \u0623\u0635\u0644\u064a\u0648\u0646', cash: 0, assets: 0, ip: 200000, net: 100000, work: 'full', fmv: 18000, paid: 15000, dur: 24, role: 'manager', note: '\u064a\u0645\u062b\u0644\u0648\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0628\u0643\u0627\u0645\u0644 \u0623\u0635\u0648\u0644\u0647\u0627' },
+        { name: '\u0627\u0644\u0634\u0631\u0643\u0627\u0621 \u0627\u0644\u062d\u0627\u0644\u064a\u0648\u0646', cap: '\u0634\u0631\u0643\u0627\u0621 \u0623\u0635\u0644\u064a\u0648\u0646', cash: 0, assets: 0, ip: 200000, net: 0, work: 'full', fmv: 18000, paid: 15000, dur: 24, role: 'manager', note: '\u064a\u0645\u062b\u0644\u0648\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0628\u0643\u0627\u0645\u0644 \u0623\u0635\u0648\u0644\u0647\u0627' },
         { name: '\u0641\u064a\u0635\u0644 \u0627\u0644\u062d\u0631\u0628\u064a', cap: '\u0634\u0631\u064a\u0643 \u062f\u0627\u062e\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u062f\u062e\u0644 \u0645\u0642\u0627\u0628\u0644 \u062d\u0635\u0629 \u0645\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0642\u0627\u0626\u0645\u0629' }
       ]},
-      mudaraba: { projName: '\u0645\u0636\u0627\u0631\u0628\u0629 \u062a\u0637\u0648\u064a\u0631 \u0641\u0646\u062f\u0642\u064a', legalStruct: 'mudaraba', parties: [
+      mudaraba: { projName: '\u0645\u0636\u0627\u0631\u0628\u0629 \u062a\u0637\u0648\u064a\u0631 \u0641\u0646\u062f\u0642\u064a', legalStruct: '', parties: [
         { name: '\u0635\u0646\u062f\u0648\u0642 \u0627\u0644\u0631\u064a\u0627\u0636 \u0644\u0644\u062a\u0637\u0648\u064a\u0631', cap: '\u0631\u0628 \u0627\u0644\u0645\u0627\u0644 (\u0645\u0645\u0648\u0644)', cash: 1000000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', profit: 40, note: '\u064a\u0642\u062f\u0645 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 \u0643\u0627\u0645\u0644\u0627\u064b \u062f\u0648\u0646 \u062a\u062f\u062e\u0644 \u0641\u064a \u0627\u0644\u0625\u062f\u0627\u0631\u0629' },
         { name: '\u0634\u0631\u0643\u0629 \u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0641\u0646\u0627\u062f\u0642', cap: '\u0645\u0636\u0627\u0631\u0628 (\u0639\u0627\u0645\u0644)', cash: 0, assets: 0, ip: 0, net: 0, work: 'full', fmv: 20000, paid: 0, dur: 18, role: 'manager', profit: 60, note: '\u064a\u0642\u062f\u0645 \u0627\u0644\u062e\u0628\u0631\u0629 \u0627\u0644\u062a\u0634\u063a\u064a\u0644\u064a\u0629 \u0648\u0627\u0644\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0643\u0627\u0645\u0644\u0629' }
       ]}
@@ -2623,6 +2532,150 @@ captureResultsImage() {
       if (badge) { const orig = badge.textContent; badge.textContent = '\u2713 \u062a\u0645 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0645\u062b\u0627\u0644'; badge.classList.add('show'); setTimeout(() => { badge.textContent = orig; badge.classList.remove('show'); }, 2500); }
     }, 100);
   },
+
+  /* معادلات دخول الشريك: ضخ للشركة، شراء حصة قائمة، أو مزيج بينهما. */
+  updExistingMode() {
+    const mode = document.getElementById('entryMode')?.value || 'cashin';
+    document.getElementById('mixedSplit')?.classList.toggle('hide', mode !== 'mixed');
+    const entryGroup = document.getElementById('entryAmt')?.closest('.fg');
+    if (entryGroup) entryGroup.classList.toggle('hide', mode === 'mixed');
+    const entryLabel = entryGroup?.querySelector('label');
+    if (entryLabel) entryLabel.textContent = mode === 'cashout' ? 'سعر شراء الحصة من الشريك الحالي' : 'مبلغ التمويل الداخل للشركة';
+    this.updExistingDeal('mode');
+    this.normalizeNumberInputs();
+  },
+
+  updExistingDeal(source = '') {
+    const mode = document.getElementById('entryMode')?.value || 'cashin';
+    const val = this.numVal('coVal');
+    let cashIn = mode === 'cashin' ? this.numVal('entryAmt') : mode === 'mixed' ? this.numVal('cashInAmt') : 0;
+    let cashOut = mode === 'cashout' ? this.numVal('entryAmt') : mode === 'mixed' ? this.numVal('cashOutAmt') : 0;
+    let inv = cashIn + cashOut;
+    let pct = this.numVal('entryPct');
+
+    if (mode !== 'mixed' && source === 'percent' && val > 0 && pct > 0 && pct < 100) {
+      inv = mode === 'cashout' ? val * pct / 100 : val * pct / (100 - pct);
+      this.setNumVal('entryAmt', inv);
+      cashIn = mode === 'cashin' ? inv : 0;
+      cashOut = mode === 'cashout' ? inv : 0;
+    } else if (val > 0 && inv > 0) {
+      pct = mode === 'cashout' ? (cashOut / val * 100) : ((cashIn + cashOut) / (val + cashIn) * 100);
+      this.setNumVal('entryPct', pct);
+    }
+    if (mode === 'mixed') this.setNumVal('entryAmt', inv);
+
+    const post = val + cashIn;
+    const invalid = pct >= 100 || (mode === 'cashout' && cashOut > val);
+    const box = document.getElementById('existingCalcBox');
+    const panel = document.getElementById('existLivePanel');
+    const modeNames = { cashin:'ضخ تمويل جديد في الشركة', cashout:'شراء حصة من شريك حالي', mixed:'دخول مختلط: تمويل وشراء حصة' };
+
+    if (panel && val > 0 && inv > 0 && pct > 0 && !invalid) {
+      panel.classList.remove('hide');
+      document.getElementById('lp_pre').textContent = this.fmt(val) + ' ر.س';
+      document.getElementById('lp_inv').textContent = this.fmt(inv) + ' ر.س';
+      document.getElementById('lp_post').textContent = this.fmt(post) + ' ر.س';
+      document.getElementById('lp_oldPct').textContent = (100 - pct).toFixed(1) + '%';
+      document.getElementById('lp_newPct').textContent = pct.toFixed(1) + '%';
+      document.getElementById('lp_oldBar').style.width = (100 - pct) + '%';
+      document.getElementById('lp_newBar').style.width = pct + '%';
+    } else panel?.classList.add('hide');
+
+    if (box) {
+      if (invalid) {
+        box.textContent = 'راجع المبلغ والنسبة؛ لا يمكن أن تبلغ الحصة 100% أو يتجاوز ثمن الحصة قيمة الشركة في هذا التقدير.';
+        box.className = 'notice notice-error';
+      } else if (val > 0 && inv > 0 && pct > 0) {
+        box.textContent = `${modeNames[mode]} — الحصة التقديرية للشريك الجديد: ${pct.toFixed(1)}%، والقيمة بعد التمويل الداخل للشركة: ${this.fmt(post)} ريال.`;
+        box.className = 'notice notice-ok';
+      } else box.className = 'notice notice-ok hide';
+    }
+  },
+
+  /* مخرجات موجزة: أهم نقاط الاتفاق وليست عقداً كاملاً. */
+  buildAgr() {
+    this.calc();
+    const selectedType = this.type || 'fnb';
+    const t = this.mudarabaCheck?.fallback ? 'partnership' : selectedType;
+    const val = id => (document.getElementById(id)?.value || '').trim();
+    const project = val('projName') || 'المشروع — يحدد اسمه لاحقًا';
+    const dates = this.formatDate(new Date());
+    const dateLabel = dates.label || `${dates.hijri} هـ | ${dates.greg} م`;
+    const typeNames = { startup:'مشروع ناشئ — مسار مخفي قيد التطوير', fnb:'مشروع تشغيلي', deal:'صفقة تجارية محددة', existing:'دخول شريك في شركة قائمة', mudaraba:'مضاربة', partnership:'مشاركة عامة' };
+    const legalMap = { llc:'شركة ذات مسؤولية محدودة', simplified:'شركة مساهمة مبسطة', jsc:'شركة مساهمة', solidarity:'شركة تضامن', commandite:'شركة توصية بسيطة', '':'يحدد لاحقًا' };
+    const legal = legalMap[val('legalStruct')] || 'يحدد لاحقًا';
+    const resultById = id => this.results.find(r => r.id === id);
+    const contribText = p => {
+      const items = [];
+      if (+p.cash) items.push(`نقد ${this.fmt(p.cash)} ريال`);
+      if (+p.assets) items.push(`أصول عينية ${this.fmt(p.assets)} ريال`);
+      if (+p.ip) items.push(`ملكية فكرية مقوّمة ${this.fmt(p.ip)} ريال`);
+      if (+p.net) items.push(`التزام آخر قابل للقياس ${this.fmt(p.net)} ريال${p.note ? ` (${p.note})` : ''}`);
+      if (p.work !== 'no') items.push(`عمل ${p.dur ? `لمدة ${p.dur} شهرًا` : 'تحدد مدته لاحقًا'}`);
+      return items.length ? items.join('، ') : 'تحدد مساهمته كتابةً';
+    };
+    const parties = this.parties.map((p,i) => {
+      const r = resultById(p.id);
+      if (t === 'mudaraba') return `${i+1}. ${p.name || this.partyOrdinal(i)} — ${p.cap} — ${contribText(p)} — الربح: ${r?.profit === null || r?.profit === undefined ? 'يحدد لاحقًا' : r.profit + '%'}.`;
+      const profit = r && this.profitDiffers() ? `، ونصيب الربح ${r.profit}%` : '';
+      return `${i+1}. ${p.name || this.partyOrdinal(i)} — ${p.cap || 'شريك'} — ${contribText(p)} — الحصة التقديرية ${r?.pct ?? 0}%${profit}.`;
+    }).join('\n');
+
+    const decisionLabels = {
+      unanimous:'بموافقة جميع الأطراف', majority:'بالأغلبية', weighted:'بحسب نسب الحصص', later:'تحدد لاحقًا',
+      proportional:'يموّل الأطراف بنسبة حصصهم', approval:'لا يتم إلا بموافقة الأطراف', loan:'يبحث تمويل مستقل',
+      monthly:'شهريًا', quarterly:'كل ثلاثة أشهر', onrequest:'عند طلب أي شريك',
+      firstrefusal:'تعرض الحصة على الشركاء أولًا', valuation:'تقيّم الحصة بواسطة مقيم مستقل', agreement:'يتم الخروج بموافقة الأطراف'
+    };
+    const decision = id => decisionLabels[val(id)] || 'يحدد لاحقًا';
+    const manager = val('managerName') || 'يحدد لاحقًا';
+    const term = val('agreementTerm') || (t === 'deal' ? 'حتى انتهاء الصفقة وتسوية حساباتها' : 'تحدد لاحقًا');
+    const dispute = this.buildDisputeClause() || 'تحدد آلية الحل الودي ثم الجهة المختصة كتابةً.';
+
+    const sections = [];
+    sections.push(`1) موضوع التفاهم\nالمشروع: ${project}.\nالحالة: ${typeNames[t] || 'شراكة'}.\nالشكل القانوني المقترح: ${legal}.`);
+    sections.push(`2) الأطراف ومساهماتهم\n${parties}\nملاحظة: لا تُعد السمعة أو النفوذ أو المكانة المالية حصة. وكل مساهمة غير نقدية تحتاج وصفًا وتقويمًا متفقًا عليه.`);
+
+    if (t === 'mudaraba') {
+      const profits = this.results.every(r => r.profit !== null) ? `النسب المدخلة: ${this.results.map(r => `${r.name} ${r.profit}%`).join('، ')}.` : 'نسب الربح تحدد لاحقًا. مثال إرشادي فقط: 40% لرب المال و60% للمضارب، على أن يكون المجموع 100%.';
+      const scope = { restricted:'مقيد بالنشاط والصلاحيات المتفق عليها', unrestricted:'غير مقيد ضمن المعتاد في النشاط', later:'يحدد لاحقًا' }[val('mudScope')] || 'يحدد لاحقًا';
+      sections.push(`3) رأس المال والعمل والربح\nرأس المال: ${this.fmt(this.parties.reduce((s,p)=>s+(+p.cash||0),0))} ريال، ويسلّم وفق آلية وموعد يحددان كتابةً. المضارب يقدم العمل والإدارة. ${profits}\nالخسارة المالية في رأس المال على رب المال، ويخسر المضارب جهده، ما لم يقع تعدٍ أو تفريط أو مخالفة. لا يكون الربح مبلغًا ثابتًا مضمونًا.`);
+      sections.push(`4) نطاق المضارب والتقارير\nنطاق التصرف: ${scope}. التقارير والسجلات: ${decision('reportingRule')}. ${val('mudFee') ? `أجر مستقل لعمل معلوم: ${val('mudFee')}.` : 'لا يوجد أجر مستقل مدخل حاليًا.'}`);
+    } else {
+      if (t === 'existing') {
+        const mode = val('entryMode') || 'cashin';
+        const modeText = { cashin:'ضخ تمويل في الشركة', cashout:'شراء حصة من شريك حالي', mixed:'دخول مختلط: جزء للشركة وجزء للبائع' }[mode];
+        sections.push(`3) دخول الشريك الجديد\nالطريقة: ${modeText}. قيمة الشركة قبل الدخول: ${this.fmt(this.numVal('coVal'))} ريال. إجمالي مبلغ الدخول: ${this.fmt(this.numVal('entryAmt'))} ريال. الحصة التقديرية: ${this.numVal('entryPct').toFixed(1)}%.${mode === 'mixed' ? ` منها ${this.fmt(this.numVal('cashInAmt'))} ريال للشركة و${this.fmt(this.numVal('cashOutAmt'))} ريال للبائع.` : ''}\nتحدد صراحةً الالتزامات السابقة التي يتحملها الشريك الجديد، إن وجدت.`);
+      } else if (t === 'deal') {
+        sections.push(`3) نطاق الصفقة\nتحدد الصفقة ومصاريفها وموعد انتهائها بوضوح، وتنتهي المشاركة بعد الإنجاز والتحصيل وتسوية التكاليف وتوزيع صافي العائد.`);
+      } else {
+        sections.push(`3) التوزيع المالي\nالحصص الظاهرة تقدير أولي مبني على القيم المدخلة. يثبت الاتفاق النهائي نسب الحصص والأرباح والخسائر، ولا يخصص لشريك ربح ثابت أو إعفاء كامل من الخسارة بالمخالفة لطبيعة المشاركة.`);
+      }
+    }
+
+    sections.push(`${sections.length + 1}) الإدارة والقرارات\nالإدارة اليومية: ${manager}. القرارات المهمة: ${decision('decisionRule')}. التمويل الإضافي: ${decision('fundingRule')}. عرض السجلات: ${decision('reportingRule')}.`);
+    sections.push(`${sections.length + 1}) المدة والخروج والاستمرار\nالمدة: ${term}. عند خروج شريك: ${decision('exitRule')}. ويحدد الاتفاق أثر الوفاة أو العجز أو الإفلاس، وطريقة تقييم الحصة وتسوية الحقوق.`);
+    sections.push(`${sections.length + 1}) حل الخلافات\n${dispute}`);
+    if (val('keyNotes')) sections.push(`${sections.length + 1}) نقطة إضافية\n${val('keyNotes')}`);
+    sections.push(`${sections.length + 1}) الكتابة والمراجعة\nيكتب اتفاق الشركاء وأي تعديل عليه. هذه الورقة تجمع أهم نقاط التفاهم فقط، وليست عقدًا نهائيًا أو نصًا جاهزًا للتوقيع، وتراجع الصياغة النهائية مع مختص.`);
+
+    const text = `مسودة نقاط اتفاق الشركاء\n${dateLabel}\nالإصدار 1.0.0\n\n${sections.join('\n\n')}`;
+    document.getElementById('agrBox').textContent = text;
+    document.getElementById('agrTitle').textContent = `مسودة نقاط اتفاق الشركاء — ${project}`;
+    document.getElementById('agrMeta').textContent = `${typeNames[t] || ''} · ${this.parties.length} أطراف · ${dateLabel}`;
+    document.getElementById('agrBadge').textContent = 'مسودة استرشادية';
+    document.getElementById('contractGuidance').innerHTML = '<div class="notice notice-info">راجعوا الأرقام والأسماء والصلاحيات أولًا؛ ثم سلّموا هذه النقاط للمختص لصياغة العقد المناسب دون تحويل الأداة إلى عقد معقد.</div>';
+  },
+
+  downloadWord() {
+    const text = document.getElementById('agrBox')?.textContent || '';
+    const body = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    const html = `<!doctype html><html dir="rtl"><meta charset="utf-8"><style>body{font-family:Arial;line-height:1.9;margin:36px;color:#102538}h1{color:#0B1F33}</style><body><h1>مسودة نقاط اتفاق الشركاء</h1>${body}</body></html>`;
+    const blob = new Blob(['\ufeff', html], {type:'application/msword'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'نقاط-اتفاق-الشركاء.doc'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  },
+
+  printDraft() { window.print(); },
 
   normalizeNumberInputs() {
     document.querySelectorAll('input[type="number"], input.num').forEach(el => {
@@ -2652,25 +2705,15 @@ captureResultsImage() {
 
 
   formatDate(d) {
-    // دالة مساعدة لاستخراج اليوم والشهر والسنة بأرقام إنجليزية (0-9) وبترتيب مضمون 100%
-    const formatNum = (cal) => {
-      const parts = new Intl.DateTimeFormat('en-US-u-ca-' + cal, { 
-        day: '2-digit', 
-        month: '2-digit', 
-        year: 'numeric' 
-      }).formatToParts(d);
-      
-      const D = parts.find(p => p.type === 'day').value;
-      const M = parts.find(p => p.type === 'month').value;
-      const Y = parts.find(p => p.type === 'year').value;
-      
-      return `${D}/${M}/${Y}`; // التنسيق النهائي: يوم/شهر/سنة
+    const get = calendar => {
+      const parts = new Intl.DateTimeFormat(`ar-SA-u-ca-${calendar}-nu-latn`, {day:'numeric',month:'long',year:'numeric'}).formatToParts(d);
+      const part = type => parts.find(p => p.type === type)?.value || '';
+      return `${part('day')} ${part('month')} ${part('year')}`.trim();
     };
-    
-    return {
-      hijri: formatNum('islamic-umalqura'),
-      greg: formatNum('gregory')
-    };
+    const weekday = new Intl.DateTimeFormat('ar-SA', {weekday:'long'}).format(d);
+    const hijri = get('islamic-umalqura');
+    const greg = get('gregory');
+    return { hijri, greg, label:`${weekday} | ${hijri} هـ | ${greg} م` };
   },
 
   pNum(val) {
