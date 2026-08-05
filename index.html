@@ -11,11 +11,11 @@
 <meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
-<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.4">
+<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.5">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.4">
+<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.5">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230B1F33%22/><path d=%22M18 22h12v8H18zm16 12h12v8H34zM26 26h12v12H26z%22 fill=%22%23C8A95B%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -405,7 +405,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   }
 }
 
-/* VERSION 1.0.4: NAVY / GOLD DESIGN SYSTEM */
+/* VERSION 1.0.5: NAVY / GOLD DESIGN SYSTEM */
 :root{
   --bg:#F5F3ED;--surface:#FFFFFF;--card:#FAF8F2;--card2:#EAE5D8;
   --gold:#B58D35;--gold-lt:#D0AD5A;--gold-dim:rgba(181,141,53,.10);--gold-bd:rgba(181,141,53,.34);
@@ -439,8 +439,10 @@ header{position:relative;padding:12px 0}
 .splash-tahmeed-text,.splash-tahmeed-hadith{font-family:'Amiri Quran','Amiri',serif;font-size:18px;line-height:2.05;color:#172D3F}
 .splash-tahmeed-hadith{font-size:17px}.splash-ref{font-family:var(--font);font-size:11px;color:#6E7C88}
 .law-card{background:#F7F4EA;border:1px solid #D7C48E;border-radius:12px;padding:13px 15px;margin-top:12px;text-align:right}
-.law-title{font-weight:700;color:var(--navy);margin-bottom:6px}.law-text{font-size:12px;line-height:1.85;color:#405466}
-.law-source-link{display:block;color:#6E7C88;text-decoration:none}.law-source-link:hover,.law-source-link:focus{color:#8B671E;text-decoration:underline}
+.law-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:7px}
+.law-source-link{display:block;color:#405466;text-decoration:none;font-size:13px;line-height:1.75;font-weight:600;margin-bottom:10px}
+.law-source-link:hover,.law-source-link:focus{color:#8B671E;text-decoration:underline}
+.law-text{font-size:17px;line-height:1.9;color:#172D3F;font-weight:700;background:#FFFDF8;border-right:3px solid #B58D35;border-radius:8px;padding:10px 12px}
 .example-panel{margin-top:14px}.example-toggle{padding:8px 14px;font-size:12px;border:1px solid #C8D1D7;background:#fff;color:var(--navy);border-radius:9px;cursor:pointer;font-family:var(--font);font-weight:600}.example-content{margin-top:10px;background:#F0F3F4;border:1px dashed #BBC7CE;border-radius:12px;padding:14px}.example-reset{margin-top:10px;width:100%}
 .decision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.decision-grid .full{grid-column:1/-1}
 .field-prefix{position:relative}.field-prefix input{padding-left:42px}.field-prefix span{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;color:#6E7C88;pointer-events:none}
@@ -463,7 +465,7 @@ label:has(.help-q){display:flex;align-items:center;gap:6px;overflow:visible;posi
 .restore-banner{background:#EDF5F8;border:1px solid #B9D1DA;border-radius:12px;padding:13px 15px;margin-bottom:16px;display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;color:#28495B}.restore-actions{display:flex;gap:8px}
 .capture-area{background:var(--navy)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid rgba(181,141,53,.38);outline-offset:2px}
-@media(max-width:600px){.decision-grid{grid-template-columns:1fr}.decision-grid .full{grid-column:auto}.step-name{display:none}.step-bar{top:41px!important}.splash-tahmeed-text,.splash-tahmeed-hadith{font-size:16px}.type-grid{grid-template-columns:1fr 1fr}.capture-area{padding:14px}.restore-banner{align-items:flex-start}.hdr-text-sub{display:none}.hdr-naif-logo{height:25px}.hdr-owner{gap:6px}.hdr-socials{gap:3px}.hdr-socials a{width:23px;height:23px}.hdr-socials svg{width:11px;height:11px}}
+@media(max-width:600px){.decision-grid{grid-template-columns:1fr}.decision-grid .full{grid-column:auto}.step-name{display:none}.step-bar{top:41px!important}.splash-tahmeed-text,.splash-tahmeed-hadith{font-size:16px}.law-source-link{font-size:12px}.law-text{font-size:16px}.type-grid{grid-template-columns:1fr 1fr}.capture-area{padding:14px}.restore-banner{align-items:flex-start}.hdr-text-sub{display:none}.hdr-naif-logo{height:25px}.hdr-owner{gap:6px}.hdr-socials{gap:3px}.hdr-socials a{width:23px;height:23px}.hdr-socials svg{width:11px;height:11px}}
 @media print{.tool-toolbar,.step-bar,.prog-wrap,.nav-row,.agr-acts,.brand-footer,header{display:none!important}.phase{display:none!important}#ph5{display:block!important}.agr-box{max-height:none;overflow:visible;box-shadow:none}.notice{break-inside:avoid}main{padding:0}}
 
 </style>
@@ -500,7 +502,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="splash-tahmeed-hadith">قال رسول الله ﷺ فيما يرويه عن ربه: «أَنَا ثَالِثُ الشَّرِيكَيْنِ مَا لَمْ يَخُنْ أَحَدُهُمَا صَاحِبَهُ، فَإِذَا خَانَهُ خَرَجْتُ مِنْ بَيْنِهِمَا». <span class="splash-ref">أخرجه أبو داود (3383)</span></div>
       <div class="law-card">
         <div class="law-title">الكتابة ركن مهم | المادة (528)</div>
-        <a class="splash-ref law-source-link" style="margin-bottom:6px" href="https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/655fdb42-8c96-422b-b8c4-b04f0095c94c/1" target="_blank" rel="noopener">نظام المعاملات المدنية | القسم الثاني: العقود المسماة | الباب الرابع: عقود المشاركة</a>
+        <a class="splash-ref law-source-link" href="https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/655fdb42-8c96-422b-b8c4-b04f0095c94c/1" target="_blank" rel="noopener">نظام المعاملات المدنية | القسم الثاني: العقود المسماة | الباب الرابع: عقود المشاركة</a>
         <div class="law-text">يجب أن تكون عقود المشاركة الواردة في هذا الباب مكتوبة، وإلا كانت باطلة.</div>
       </div>
     </div>
@@ -993,7 +995,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       </a>
     </div>
     <div class="footer-handle">@almohammdin</div>
-    <div class="version-chip">الإصدار 1.0.4</div>
+    <div class="version-chip">الإصدار 1.0.5</div>
     <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
   </div>
 </footer>
@@ -2406,7 +2408,7 @@ const G = {
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.4</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.5</div>
         </div>
       </div>
 
@@ -2437,7 +2439,7 @@ const G = {
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.4</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.5</span></div>
       </div>
     </div>`;
 
