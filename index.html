@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حاسبة الشراكات | تقدير الحصص وتجهيز نقاط اتفاق الشركاء</title>
+<title>حاسبة الشراكات | Partnership Share Calculator</title>
 
 <meta name="description" content="أداة استرشادية لتقدير الحصص وتجهيز نقاط اتفاق الشركاء بصورة مبسطة.">
 <meta name="theme-color" content="#0B1F33">
-<meta property="og:title" content="حاسبة الشراكات | تقدير الحصص وتجهيز نقاط اتفاق الشركاء">
+<meta property="og:title" content="حاسبة الشراكات | Partnership Share Calculator">
 <meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
-<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.6">
+<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.7">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.6">
+<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.7">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230B1F33%22/><path d=%22M18 22h12v8H18zm16 12h12v8H34zM26 26h12v12H26z%22 fill=%22%23C8A95B%22/></svg>">
+<link rel="icon" type="image/svg+xml" href="sharakah-icon.svg?v=1.0.7">
+<link rel="apple-touch-icon" href="sharakah-icon.png?v=1.0.7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -52,9 +53,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 /* ─── HEADER ─── */
 header{background:linear-gradient(180deg,#0A1520 0%,var(--surface) 100%);border-bottom:1px solid var(--gold-bd);padding:14px 0;position:sticky;top:0;z-index:200}
 .hdr-inner{display:flex;align-items:center;gap:12px}
-.hdr-logo{width:38px;height:38px;background:var(--gold);border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#070D14;flex-shrink:0;letter-spacing:.5px}
-.hdr-text-title{font-size:15px;font-weight:700;color:var(--gold);letter-spacing:.3px}
-.hdr-text-sub{font-size:12px;color:var(--muted);margin-top:1px}
+.hdr-brand-logo{display:block;width:220px;height:auto;border-radius:10px;flex-shrink:0}
 .hdr-spacer{flex:1}
 
 /* ─── STEP NAV ─── */
@@ -377,12 +376,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   border-bottom:1px solid rgba(201,168,76,.45);
 }
 .capture-header-left{display:flex;align-items:center;gap:12px}
-.capture-logo-badge{
-  width:36px;height:36px;border-radius:8px;
-  background:var(--gold);display:flex;align-items:center;justify-content:center;
-  font-weight:700;font-size:12px;color:#070D14;letter-spacing:.5px;flex-shrink:0;
-}
-.capture-title{color:#C9A84C;font-size:18px;font-weight:700;line-height:1.3}
+.capture-brand-logo{display:block;width:310px;height:auto;border-radius:9px;flex-shrink:0}
 .capture-subtitle{color:#8A7570;font-size:11px;margin-top:2px}
 .capture-meta{color:#C8B8A8;font-size:11px;text-align:left;direction:ltr;line-height:1.6}
 .capture-footer{
@@ -405,7 +399,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   }
 }
 
-/* VERSION 1.0.6: NAVY / GOLD DESIGN SYSTEM */
+/* VERSION 1.0.7: NAVY / GOLD DESIGN SYSTEM */
 :root{
   --bg:#F5F3ED;--surface:#FFFFFF;--card:#FAF8F2;--card2:#EAE5D8;
   --gold:#B58D35;--gold-lt:#D0AD5A;--gold-dim:rgba(181,141,53,.10);--gold-bd:rgba(181,141,53,.34);
@@ -414,9 +408,8 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
 }
 body,main,.intro-section,.prog-wrap,.step-bar{background:var(--bg);color:var(--text)}
 header,.brand-footer{background:var(--navy);border-color:var(--gold-bd)}
-header{position:relative;padding:12px 0}
+header{position:relative;padding:8px 0}
 .author-top{display:none!important}
-.hdr-text-title{font-size:18px;color:#E7C976}.hdr-text-sub{color:#C6D0D8;font-size:12px}
 .hdr-owner{display:flex;align-items:center;gap:10px;direction:ltr;flex-shrink:0}
 .hdr-naif-logo{display:block;width:auto;height:31px;object-fit:contain}
 .hdr-socials{display:flex;align-items:center;gap:5px}
@@ -465,7 +458,7 @@ label:has(.help-q){display:flex;align-items:center;gap:6px;overflow:visible;posi
 .restore-banner{background:#EDF5F8;border:1px solid #B9D1DA;border-radius:12px;padding:13px 15px;margin-bottom:16px;display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;color:#28495B}.restore-actions{display:flex;gap:8px}
 .capture-area{background:var(--navy)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid rgba(181,141,53,.38);outline-offset:2px}
-@media(max-width:600px){.decision-grid{grid-template-columns:1fr}.decision-grid .full{grid-column:auto}.step-name{display:none}.step-bar{top:41px!important}.splash-tahmeed-text,.splash-tahmeed-hadith{font-size:16px}.law-source-link{font-size:12px}.law-text{font-size:16px}.type-grid{grid-template-columns:1fr 1fr}.capture-area{padding:14px}.restore-banner{align-items:flex-start}.hdr-text-sub{display:none}.hdr-naif-logo{height:25px}.hdr-owner{gap:6px}.hdr-socials{gap:3px}.hdr-socials a{width:23px;height:23px}.hdr-socials svg{width:11px;height:11px}}
+@media(max-width:600px){.decision-grid{grid-template-columns:1fr}.decision-grid .full{grid-column:auto}.step-name{display:none}.step-bar{top:41px!important}.splash-tahmeed-text,.splash-tahmeed-hadith{font-size:16px}.law-source-link{font-size:12px}.law-text{font-size:16px}.type-grid{grid-template-columns:1fr 1fr}.capture-area{padding:14px}.restore-banner{align-items:flex-start}.hdr-brand-logo{width:150px;border-radius:8px}.hdr-naif-logo{height:20px}.hdr-owner{gap:4px}.hdr-socials{gap:2px}.hdr-socials a{width:20px;height:20px}.hdr-socials svg{width:10px;height:10px}}
 @media print{.tool-toolbar,.step-bar,.prog-wrap,.nav-row,.agr-acts,.brand-footer,header{display:none!important}.phase{display:none!important}#ph5{display:block!important}.agr-box{max-height:none;overflow:visible;box-shadow:none}.notice{break-inside:avoid}main{padding:0}}
 
 </style>
@@ -475,10 +468,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <!-- HEADER -->
 <header>
   <div class="wrap hdr-inner">
-    <div>
-      <div class="hdr-text-title">حاسبة الشراكات</div>
-      <div class="hdr-text-sub">أداة استرشادية لتقدير الحصص وتجهيز نقاط اتفاق الشركاء</div>
-    </div>
+    <img class="hdr-brand-logo" src="sharakah-logo.svg" alt="حاسبة الشراكات | Partnership Share Calculator">
     <div class="hdr-spacer"></div>
     <div class="hdr-owner" aria-label="هوية نايف المحمدي وحساباته">
       <img class="hdr-naif-logo" src="naif-logo-gold.png" alt="شعار نايف المحمدي">
@@ -901,9 +891,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <!-- ترويسة الصورة المصدّرة — مخفية أثناء التصفح -->
     <div class="capture-header" id="captureHeader">
       <div class="capture-header-left">
-        <div class="capture-logo-badge">SH</div>
         <div>
-          <div class="capture-title">حاسبة الشراكات | SHARAKAH</div>
+          <img class="capture-brand-logo" src="sharakah-logo.svg" alt="حاسبة الشراكات | Partnership Share Calculator">
           <div class="capture-subtitle" id="captureProjectName"></div>
         </div>
       </div>
@@ -995,7 +984,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       </a>
     </div>
     <div class="footer-handle">@almohammdin</div>
-    <div class="version-chip">الإصدار 1.0.6</div>
+    <div class="version-chip">الإصدار 1.0.7</div>
     <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
   </div>
 </footer>
@@ -2403,12 +2392,12 @@ const G = {
     <div style="width:${px(W)};height:${px(H)};padding:${px(PAD)};background:${bg};box-sizing:border-box;font-family:${font};direction:rtl;display:flex;flex-direction:column;justify-content:space-between">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:28px;border-bottom:1px solid ${border};flex-shrink:0">
         <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="font-size:32px;font-weight:700;color:${txt};font-family:${font}">حاسبة الشراكات | SHARAKAH</div>
+          <img src="sharakah-logo.svg" alt="حاسبة الشراكات | Partnership Share Calculator" style="width:430px;height:138px;object-fit:contain;border-radius:10px">
           ${projName ? `<div style="font-size:20px;color:${mid};font-family:${font}">المشروع: ${projName}</div>` : ''}
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.6</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.7</div>
         </div>
       </div>
 
@@ -2439,7 +2428,7 @@ const G = {
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.6</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.7</span></div>
       </div>
     </div>`;
 
