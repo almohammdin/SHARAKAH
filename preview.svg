@@ -32,7 +32,7 @@
     <path d="M56 56h92v92H56z"/>
   </g>
 
-  <text x="548" y="137" class="latin" text-anchor="middle" fill="#D9BC69" font-size="25" font-weight="700" letter-spacing="3">SHARAKAH  |  1.0.3</text>
+  <text x="548" y="137" class="latin" text-anchor="middle" fill="#D9BC69" font-size="25" font-weight="700" letter-spacing="3">SHARAKAH  |  1.0.4</text>
   <text x="548" y="246" class="ar" text-anchor="middle" fill="#FFFFFF" font-size="70" font-weight="700">حاسبة الشراكات</text>
   <text x="548" y="322" class="ar" text-anchor="middle" fill="#D7E0E5" font-size="32" font-weight="400">تقدير الحصص وتجهيز نقاط اتفاق الشركاء</text>
   <rect x="256" y="365" width="584" height="56" rx="28" fill="#D6B65B" fill-opacity=".11" stroke="#D6B65B" stroke-opacity=".34"/>

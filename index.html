@@ -11,11 +11,11 @@
 <meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
-<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.3">
+<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.3">
+<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.4">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230B1F33%22/><path d=%22M18 22h12v8H18zm16 12h12v8H34zM26 26h12v12H26z%22 fill=%22%23C8A95B%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -405,7 +405,7 @@ main .bar-bg, main .res-bar-bg{background:#EFE4CC}
   }
 }
 
-/* VERSION 1.0.3: NAVY / GOLD DESIGN SYSTEM */
+/* VERSION 1.0.4: NAVY / GOLD DESIGN SYSTEM */
 :root{
   --bg:#F5F3ED;--surface:#FFFFFF;--card:#FAF8F2;--card2:#EAE5D8;
   --gold:#B58D35;--gold-lt:#D0AD5A;--gold-dim:rgba(181,141,53,.10);--gold-bd:rgba(181,141,53,.34);
@@ -492,7 +492,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <!-- ONBOARDING SPLASH -->
 <div class="splash" id="splashScreen">
   <div class="splash-inner">
-    <div class="splash-badge">مرشد مبسط لبناء التفاهم</div>
+    <div class="splash-badge">مرشد لنقاط اتفاق الشركاء</div>
 
     <div class="splash-tahmeed">
       <div class="splash-tahmeed-label">تمهيد</div>
@@ -501,11 +501,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="law-card">
         <div class="law-title">الكتابة ركن مهم | المادة (528)</div>
         <a class="splash-ref law-source-link" style="margin-bottom:6px" href="https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/655fdb42-8c96-422b-b8c4-b04f0095c94c/1" target="_blank" rel="noopener">نظام المعاملات المدنية | القسم الثاني: العقود المسماة | الباب الرابع: عقود المشاركة</a>
-        <div class="law-text">1. يجب أن تكون عقود المشاركة الواردة في هذا الباب مكتوبة، وإلا كانت باطلة، ولا يجوز أن يحتج المتعاقد بالبطلان تجاه الغير، ولا يكون للبطلان أثر فيما بين المتعاقدين أنفسهم إلا إذا طلب أحدهم الحكم به، فيسري ذلك من تاريخ قيد الدعوى.<br>2. يسري حكم الفقرة (1) من هذه المادة على أي تعديل يطرأ على عقود المشاركة الواردة في هذا الباب.</div>
+        <div class="law-text">يجب أن تكون عقود المشاركة الواردة في هذا الباب مكتوبة، وإلا كانت باطلة.</div>
       </div>
     </div>
 
-    <div class="splash-desc">تساعدك الأداة على تقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء. وفي النهاية تحصل على ورقة تفاهم أولية تمهد لصياغة الاتفاق مع المختص.</div>
+    <div class="splash-desc">تساعدك الأداة على تقدير الحصص وترتيب أهم نقاط اتفاق الشركاء، ثم تقدم لك ورقة تفاهم أولية لمراجعتها مع المختص.</div>
 
     <button class="splash-cta" onclick="G.startTool()">
       <span>ابدأ الآن</span>
@@ -993,7 +993,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       </a>
     </div>
     <div class="footer-handle">@almohammdin</div>
-    <div class="version-chip">الإصدار 1.0.3</div>
+    <div class="version-chip">الإصدار 1.0.4</div>
     <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
   </div>
 </footer>
@@ -2406,7 +2406,7 @@ const G = {
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.3</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.4</div>
         </div>
       </div>
 
@@ -2437,7 +2437,7 @@ const G = {
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.3</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.4</span></div>
       </div>
     </div>`;
 
