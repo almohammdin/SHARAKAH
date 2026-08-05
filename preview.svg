@@ -13,10 +13,8 @@
       <path d="M44 0H0V44" fill="none" stroke="#D5B65E" stroke-opacity=".065"/>
     </pattern>
     <style>
-      @font-face{font-family:PlexArabic;src:url('assets/fonts/ibm-plex-sans-arabic-400.woff2') format('woff2');font-weight:400}
-      @font-face{font-family:PlexArabic;src:url('assets/fonts/ibm-plex-sans-arabic-700.woff2') format('woff2');font-weight:700}
-      .ar{font-family:PlexArabic,'DejaVu Sans',sans-serif;direction:rtl;unicode-bidi:bidi-override}
-      .latin{font-family:'DejaVu Sans',sans-serif;direction:ltr}
+      .ar{font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;unicode-bidi:bidi-override}
+      .latin{font-family:'IBM Plex Sans Arabic',sans-serif;direction:ltr}
     </style>
   </defs>
 
@@ -32,7 +30,7 @@
     <path d="M56 56h92v92H56z"/>
   </g>
 
-  <text x="548" y="137" class="latin" text-anchor="middle" fill="#D9BC69" font-size="25" font-weight="700" letter-spacing="3">SHARAKAH  |  1.0.5</text>
+  <text x="548" y="137" class="latin" text-anchor="middle" fill="#D9BC69" font-size="25" font-weight="700" letter-spacing="3">SHARAKAH  |  1.0.6</text>
   <text x="548" y="246" class="ar" text-anchor="middle" fill="#FFFFFF" font-size="70" font-weight="700">حاسبة الشراكات</text>
   <text x="548" y="322" class="ar" text-anchor="middle" fill="#D7E0E5" font-size="32" font-weight="400">تقدير الحصص وتجهيز نقاط اتفاق الشركاء</text>
   <rect x="256" y="365" width="584" height="56" rx="28" fill="#D6B65B" fill-opacity=".11" stroke="#D6B65B" stroke-opacity=".34"/>
