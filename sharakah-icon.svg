@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">رمز حاسبة الشراكات</title>
+  <rect width="256" height="256" rx="42" fill="#0B1F33"/>
+  <rect x="24" y="22" width="208" height="82" rx="18" fill="#FFFFFF"/>
+  <rect x="34" y="32" width="188" height="62" rx="11" fill="#B58D35"/>
+  <g fill="#0B1F33">
+    <circle cx="62" cy="50" r="8"/>
+    <circle cx="82" cy="76" r="8"/>
+    <path d="M82 40h11L62 86H51z"/>
+  </g>
+  <rect x="112" y="45" width="92" height="14" rx="7" fill="#FFFFFF"/>
+  <rect x="112" y="67" width="92" height="14" rx="7" fill="#FFFFFF"/>
+  <path d="M112 45h58v14h-58zM112 67h38v14h-38z" fill="#0B1F33"/>
+  <rect x="24" y="120" width="208" height="112" rx="18" fill="#FFFFFF"/>
+  <rect x="35" y="132" width="42" height="26" rx="7" fill="#0B1F33"/>
+  <rect x="179" y="132" width="42" height="26" rx="7" fill="#0B1F33"/>
+  <g fill="#0B1F33">
+    <circle cx="78" cy="176" r="13"/>
+    <path d="M53 215c2-19 11-29 25-29s23 10 25 29z"/>
+  </g>
+  <g fill="#B58D35">
+    <circle cx="178" cy="176" r="13"/>
+    <path d="M153 215c2-19 11-29 25-29s23 10 25 29z"/>
+  </g>
+  <path d="M122 174v-14h12v14h14v12h-14v14h-12v-14h-14v-12z" fill="#B58D35"/>
+</svg>
