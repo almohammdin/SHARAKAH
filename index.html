@@ -11,14 +11,14 @@
 <meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
-<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.10">
+<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.11">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.10">
+<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.0.11">
 
-<link rel="icon" type="image/svg+xml" href="sharakah-icon.svg?v=1.0.10">
-<link rel="apple-touch-icon" href="sharakah-icon.png?v=1.0.10">
+<link rel="icon" type="image/svg+xml" href="sharakah-icon.svg?v=1.0.11">
+<link rel="apple-touch-icon" href="sharakah-icon.png?v=1.0.11">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -399,7 +399,7 @@ main .bar-bg, main .res-bar-bg{background:#EAE5D8}
   }
 }
 
-/* VERSION 1.0.10: UNIFIED NAVY / GOLD DESIGN SYSTEM */
+/* VERSION 1.0.11: CALCULATION AUDIT + PARTNERSHIP ASSISTANT */
 :root{
   --bg:#F5F3ED;
   --surface:#FFFDF8;
@@ -585,7 +585,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 @media print{.tool-toolbar,.step-bar,.prog-wrap,.nav-row,.agr-acts,.brand-footer,header{display:none!important}.phase{display:none!important}#ph5{display:block!important}.agr-box{max-height:none;overflow:visible;box-shadow:none}.notice{break-inside:avoid}main{padding:0}}
 
 
-/* VERSION 1.0.10: CALM NAVY UI — NO BRIGHT YELLOW FILLS */
+/* VERSION 1.0.11: CALM NAVY UI — NO BRIGHT YELLOW FILLS */
 :root{
   --gold:#8B671E;
   --gold-lt:#A9823F;
@@ -695,6 +695,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   color:var(--navy)!important;
 }
 
+.assistant-launch{position:fixed;left:22px;bottom:22px;z-index:1200;border:0;border-radius:999px;background:var(--navy);color:#fff;padding:13px 18px;font-family:var(--font);font-weight:700;box-shadow:0 10px 30px rgba(11,31,51,.25);cursor:pointer;display:flex;align-items:center;gap:8px}
+.assistant-panel{position:fixed;left:22px;bottom:82px;z-index:1199;width:min(410px,calc(100vw - 28px));height:min(610px,calc(100vh - 110px));background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:0 18px 55px rgba(11,31,51,.25);display:flex;flex-direction:column;overflow:hidden}
+.assistant-panel.hide{display:none}.assistant-head{background:var(--navy);color:#fff;padding:15px 16px;display:flex;align-items:center;justify-content:space-between}.assistant-head strong{font-size:15px}.assistant-head small{display:block;color:#d5dce3;font-size:11px;margin-top:2px}.assistant-close{border:0;background:transparent;color:#fff;font-size:24px;cursor:pointer}.assistant-messages{flex:1;overflow:auto;padding:14px;background:#f8f7f4}.assistant-msg{max-width:91%;padding:10px 12px;border-radius:12px;margin-bottom:10px;line-height:1.75;font-size:13px;white-space:pre-wrap}.assistant-msg.bot{background:#fff;border:1px solid var(--border);margin-left:auto}.assistant-msg.user{background:#e8eef1;color:var(--navy);margin-right:auto}.assistant-source{display:block;margin-top:7px;color:var(--muted);font-size:10px}.assistant-quick{display:flex;gap:6px;overflow-x:auto;padding:9px 12px;border-top:1px solid var(--border);background:#fff}.assistant-quick button{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 9px;font-family:var(--font);font-size:11px;cursor:pointer}.assistant-compose{display:grid;grid-template-columns:1fr auto auto;gap:7px;padding:10px;background:#fff;border-top:1px solid var(--border)}.assistant-compose textarea{resize:none;min-height:42px;max-height:90px;border:1px solid var(--border);border-radius:10px;padding:9px;font-family:var(--font);font-size:13px}.assistant-icon{width:42px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer;font-size:17px}.assistant-icon.voice{background:var(--gold)}.assistant-speaking{animation:pulseAssistant 1s infinite}@keyframes pulseAssistant{50%{opacity:.55}}@media(max-width:600px){.assistant-launch{left:14px;bottom:14px}.assistant-panel{left:14px;bottom:72px;height:min(590px,calc(100vh - 92px))}}
 </style>
 </head>
 <body>
@@ -939,6 +942,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="fg"><label for="cashInAmt">المبلغ الداخل للشركة</label><input id="cashInAmt" type="number" min="0" placeholder="0" oninput="G.updExistingDeal('investment')"></div>
       <div class="fg"><label for="cashOutAmt">المبلغ المدفوع للبائع</label><input id="cashOutAmt" type="number" min="0" placeholder="0" oninput="G.updExistingDeal('investment')"></div>
     </div>
+    <div id="sellerPartyWrap" class="fg hide" style="margin-bottom:14px">
+      <label for="sellerPartyId">الشريك الحالي البائع</label>
+      <select id="sellerPartyId" onchange="G.updExistingDeal('seller')"></select>
+      <div class="help">في الشراء أو الدخول المختلط تنتقل الحصة من هذا الشريك فقط، ولا تُخصم من بقية الشركاء.</div>
+    </div>
     <div class="notice notice-info" style="margin-bottom:14px">أدخل القيمة الحالية ومبلغ الدخول، أو أدخل النسبة مع أحدهما، لتحصل على تقدير أولي.</div>
     <div class="grid3">
       <div class="fg">
@@ -1069,8 +1077,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </div>
   <!-- Dispute Resolution -->
   <div class="card" id="disputeCard">
-    <div class="card-head">حل الخلافات</div>
-    <div class="notice notice-info" style="margin-bottom:14px">حدد رغبة الأطراف في محاولة ودية أولا، ثم اختر طريقة الفصل في الخلاف عند تعذر الحل.</div>
+    <div class="card-head">التوجه المبدئي لحل الخلافات</div>
+    <div class="notice notice-info" style="margin-bottom:14px">هذه خيارات أولية للنقاش عند إعداد العقد النهائي، وليست شرط تحكيم أو اتفاق فصل نهائيا.</div>
     <div class="grid2">
       <div class="fg">
         <label data-help="يمنح الشركاء فرصة لمعالجة الخلاف مباشرة خلال مدة يحددونها.">تفعيل الحل الودي أولا؟</label>
@@ -1078,7 +1086,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <option value="yes">نعم</option>
           <option value="no">لا</option>
         </select>
-        <div class="help">الحل الودي خطوة مستقلة قبل التحكيم أو القضاء أو أي آلية أخرى.</div>
+        <div class="help">الحل الودي توجه أولي يمكن تفصيله في العقد النهائي.</div>
       </div>
       <div class="fg" id="amicableDaysWrap">
         <label>مدة المحاولة الودية بالأيام</label>
@@ -1095,18 +1103,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <option value="court">القضاء المختص</option>
           <option value="custom">آلية أخرى يتفق عليها الأطراف</option>
         </select>
-        <div class="help">اختر الجهة أو الطريقة التالية بعد اكتمال المحاولة الودية.</div>
+        <div class="help">اختيار مبدئي فقط، وتستكمل الصياغة النظامية في العقد النهائي.</div>
       </div>
       <div class="fg">
         <label>ملاحظة إضافية</label>
         <input type="text" id="disputeNote" placeholder="اختياري">
-      </div>
-    </div>
-    <div id="disputeExtra" class="grid2 dispute-extra hide" style="margin-top:10px">
-      <div class="fg full">
-        <label>تفاصيل التحكيم أو الجهة</label>
-        <input type="text" id="disputeDetails" placeholder="مثال: عبدالله بن محمد / مدير شركة كذا / المحكمة التجارية المختصة">
-        <div class="help">اكتب اسم الشخص أو الأشخاص، أو صفتهم، أو أي تفصيل يرغب الأطراف في اعتماده. مثلا: تحديد اسم محدد: عبدالله بن محمد، أو تحديد صفة مثل مدير شركة كذا.</div>
       </div>
     </div>
   </div>
@@ -1198,6 +1199,27 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 </main>
 </div><!-- /toolWrapper -->
 
+<button type="button" class="assistant-launch" id="assistantLaunch" onclick="PartnershipAssistant.toggle()" aria-controls="assistantPanel" aria-expanded="false">🎙️ مساعد بناء الشراكة</button>
+<section class="assistant-panel hide" id="assistantPanel" aria-label="مساعد بناء الشراكة">
+  <div class="assistant-head">
+    <div><strong>مساعد بناء الشراكة</strong><small>الشركات · المشاركة · المضاربة</small></div>
+    <button type="button" class="assistant-close" onclick="PartnershipAssistant.toggle(false)" aria-label="إغلاق">×</button>
+  </div>
+  <div class="assistant-messages" id="assistantMessages" aria-live="polite">
+    <div class="assistant-msg bot">اسألني عن تأسيس الشركة، الحصص، الأرباح والخسائر، أحكام المشاركة أو المضاربة. إذا كانت المسألة تحتاج تقديرا مهنيا سأوجهك إلى نوع المختص المناسب.</div>
+  </div>
+  <div class="assistant-quick">
+    <button type="button" onclick="PartnershipAssistant.askQuick('كيف توزع الأرباح والخسائر بين الشركاء؟')">الأرباح والخسائر</button>
+    <button type="button" onclick="PartnershipAssistant.askQuick('ما الفرق بين المشاركة والمضاربة؟')">المشاركة والمضاربة</button>
+    <button type="button" onclick="PartnershipAssistant.askQuick('متى نحتاج مقيما معتمدا للحصص العينية؟')">الحصص العينية</button>
+  </div>
+  <div class="assistant-compose">
+    <textarea id="assistantInput" placeholder="اكتب سؤالك..." onkeydown="PartnershipAssistant.keydown(event)"></textarea>
+    <button type="button" class="assistant-icon voice" id="assistantVoice" onclick="PartnershipAssistant.listen()" title="تحدث">🎤</button>
+    <button type="button" class="assistant-icon" onclick="PartnershipAssistant.send()" title="إرسال">←</button>
+  </div>
+</section>
+
 <!-- حاوية التصدير المخفية — تُبنى برمجياً عند التقاط الصورة فقط -->
 <div id="exportResultsLayout" style="position:fixed;left:-9999px;top:0;visibility:hidden;pointer-events:none"></div>
 <footer class="brand-footer">
@@ -1219,11 +1241,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       </a>
     </div>
     <div class="footer-handle">@almohammdin</div>
-    <div class="version-chip">الإصدار 1.0.10</div>
+    <div class="version-chip">الإصدار 1.0.11</div>
     <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
   </div>
 </footer>
 
+<script src="assistant-knowledge.js?v=1.0.11"></script>
 <script>
 const G = {
   type: null,
@@ -1234,6 +1257,7 @@ const G = {
   activeProfile: 'balanced',
   results: [],
   mudarabaCheck: null,
+  calculationError: null,
   MAX_PARTIES: 8,
 
   TYPES: [
@@ -1344,7 +1368,7 @@ const G = {
     this.activeProfile = 'balanced';
     this.W = { Cash:4, Asset:3, Effort:3, IP:3, Net:2 };
     localStorage.removeItem('sharakah_save');
-    ['projName','legalStruct','preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','cashInAmt','cashOutAmt','managerName','agreementTerm','keyNotes','mudFee','amicableDays','disputeDetails','disputeNote'].forEach(id => {
+    ['projName','legalStruct','preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','cashInAmt','cashOutAmt','managerName','agreementTerm','keyNotes','mudFee','amicableDays','disputeNote'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
     });
     const defaults = { entryMode:'cashin', decisionRule:'unanimous', fundingRule:'proportional', exitRule:'firstrefusal', mudScope:'restricted', amicableOn:'yes', disputeMethod:'' };
@@ -1374,9 +1398,9 @@ const G = {
       type: this.type, phase: this.phase, activeProfile: this.activeProfile, W: this.W,
       projName: val('projName'), legalStruct: val('legalStruct'),
       preMoney: val('preMoney'), newInv: val('newInv'), targetPct: val('targetPct'), postMoney: val('postMoney'),
-      coVal: val('coVal'), entryAmt: val('entryAmt'), entryPct: val('entryPct'), entryMode: val('entryMode'), cashInAmt: val('cashInAmt'), cashOutAmt: val('cashOutAmt'),
+      coVal: val('coVal'), entryAmt: val('entryAmt'), entryPct: val('entryPct'), entryMode: val('entryMode'), cashInAmt: val('cashInAmt'), cashOutAmt: val('cashOutAmt'), sellerPartyId: val('sellerPartyId'),
       managerName: val('managerName'), decisionRule: val('decisionRule'), fundingRule: val('fundingRule'), agreementTerm: val('agreementTerm'), exitRule: val('exitRule'), keyNotes: val('keyNotes'), mudScope: val('mudScope'), mudFee: val('mudFee'),
-      amicableOn: val('amicableOn'), amicableDays: val('amicableDays'), disputeMethod: val('disputeMethod'), disputeDetails: val('disputeDetails'), disputeNote: val('disputeNote'),
+      amicableOn: val('amicableOn'), amicableDays: val('amicableDays'), disputeMethod: val('disputeMethod'), disputeNote: val('disputeNote'),
       parties, ts: Date.now()
     };
     try {
@@ -1403,7 +1427,7 @@ const G = {
       // Restore project fields
       if (data.projName) { const el = document.getElementById('projName'); if(el) el.value = data.projName; }
       if (data.legalStruct) { const el = document.getElementById('legalStruct'); if(el) el.value = data.legalStruct; }
-      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','entryMode','cashInAmt','cashOutAmt','managerName','decisionRule','fundingRule','agreementTerm','exitRule','keyNotes','mudScope','mudFee','amicableOn','amicableDays','disputeMethod','disputeDetails','disputeNote'].forEach(id => {
+      ['preMoney','newInv','targetPct','postMoney','coVal','entryAmt','entryPct','entryMode','cashInAmt','cashOutAmt','managerName','decisionRule','fundingRule','agreementTerm','exitRule','keyNotes','mudScope','mudFee','amicableOn','amicableDays','disputeMethod','disputeNote'].forEach(id => {
         if (data[id] !== undefined) { const el = document.getElementById(id); if (el) el.value = data[id]; }
       });
       this.updDisputeFields();
@@ -1422,6 +1446,10 @@ const G = {
         this.parties = [];
         this.cnt = 0;
         data.parties.forEach(p => this.addParty(p));
+      }
+      if (data.sellerPartyId) {
+        const sellerSelect = document.getElementById('sellerPartyId');
+        if (sellerSelect) sellerSelect.value = data.sellerPartyId;
       }
       // Navigate to saved phase
       if (data.phase && data.phase > 1) this.go(data.phase);
@@ -1472,14 +1500,36 @@ const G = {
   },
 
   validateStep2() {
-    const hasData = this.parties.some(p =>
-      (Number(p.cash)||0) > 0 || (Number(p.assets)||0) > 0 || (Number(p.ip)||0) > 0 ||
-      (Number(p.net)||0) > 0 || p.work !== 'no' || (Number(p.fmv)||0) > 0
-    );
     const warn = document.getElementById('step2Warn');
-    if (warn) warn.classList.toggle('hide', hasData);
-    if (!hasData) warn?.scrollIntoView({ behavior:'smooth', block:'center' });
-    return hasData;
+    let valid = true;
+    let message = 'أدخل مساهمة قابلة للحساب لطرف واحد على الأقل.';
+
+    if (this.type === 'existing') {
+      const investors = this.parties.filter(p => p.cap === 'مستثمر جديد');
+      const owners = this.parties.filter(p => p.cap !== 'مستثمر جديد');
+      const ownership = owners.map(p => Number(p.currentPct));
+      const total = ownership.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
+      valid = investors.length === 1 && owners.length > 0 && ownership.every(value => Number.isFinite(value) && value > 0 && value <= 100) && Math.abs(total - 100) < 0.05;
+      message = investors.length !== 1
+        ? 'حدد مستثمرا جديدا واحدا فقط.'
+        : `أدخل نسبة الملكية الحالية لكل شريك، ويجب أن يكون مجموعها % 100. المجموع الحالي: ${this.percentText(total)}.`;
+    } else if (this.type === 'mudaraba') {
+      const check = this.validateMudaraba();
+      valid = check.valid;
+      message = check.problems.join(' | ') || message;
+    } else {
+      valid = this.parties.some(p => {
+        const effort = p.work !== 'no' ? Math.max(0, (Number(p.fmv)||0) - (Number(p.paid)||0)) * (Number(p.dur)||0) : 0;
+        return (Number(p.cash)||0) > 0 || (Number(p.assets)||0) > 0 || (Number(p.ip)||0) > 0 || (Number(p.net)||0) > 0 || effort > 0;
+      });
+    }
+
+    if (warn) {
+      warn.textContent = message;
+      warn.classList.toggle('hide', valid);
+    }
+    if (!valid) warn?.scrollIntoView({ behavior:'smooth', block:'center' });
+    return valid;
   },
 
   updSteps() {
@@ -1539,10 +1589,23 @@ const G = {
           if (p.work === 'no') p.work = 'full';
         }
       });
+    } else if (t === 'existing') {
+      let investorAssigned = false;
+      this.parties.forEach((p, i) => {
+        if (p.cap === 'مستثمر جديد' && !investorAssigned) {
+          investorAssigned = true;
+        } else {
+          p.cap = 'شريك حالي';
+        }
+      });
+      if (!investorAssigned && this.parties.length) {
+        this.parties[this.parties.length - 1].cap = 'مستثمر جديد';
+      }
     } else {
       this.parties.forEach((p, i) => {
         if (p.cap === 'رب المال (ممول)') p.cap = i === 0 ? 'شريك ممول' : 'شريك';
         if (p.cap === 'مضارب (عامل)') p.cap = 'شريك مدير';
+        if (p.cap === 'شريك حالي') p.cap = 'شريك';
       });
     }
 
@@ -1572,6 +1635,7 @@ const G = {
     this.updSteps();
 
     this.renderParties();
+    this.renderExistingSellerOptions();
     this.normalizeNumberInputs();
   },
 
@@ -1585,7 +1649,9 @@ const G = {
     this.parties.push({
       id: this.cnt,
       name: d.name || ('الطرف ' + this.cnt),
-      cap:  d.cap  || 'شريك',
+      cap:  d.cap  || (this.type === 'existing'
+        ? (this.parties.some(p => p.cap === 'مستثمر جديد') ? 'شريك حالي' : 'مستثمر جديد')
+        : 'شريك'),
       cash: d.cash  || 0,
       assets: d.assets || 0,
       ip:   d.ip   || 0,
@@ -1600,6 +1666,7 @@ const G = {
       vestNote: d.vestNote || '',
       paid: d.paid || 0,
       profit: d.profit !== undefined ? d.profit : '',
+      currentPct: d.currentPct !== undefined ? d.currentPct : '',
       note: d.note || ''
     });
     this.renderParties();
@@ -1627,10 +1694,15 @@ const G = {
     const amicableOn = document.getElementById('amicableOn')?.value || 'yes';
     const daysWrap = document.getElementById('amicableDaysWrap');
     if (daysWrap) daysWrap.classList.toggle('hide', amicableOn !== 'yes');
-    const m = document.getElementById('disputeMethod')?.value || '';
-    const ex = document.getElementById('disputeExtra');
-    // حقل التفاصيل يظهر فقط مع التحكيم أو آلية أخرى — القضاء لا يحتاج تفاصيل
-    if (ex) ex.classList.toggle('hide', !['arbitration','custom'].includes(m));
+  },
+
+  renderExistingSellerOptions() {
+    const select = document.getElementById('sellerPartyId');
+    if (!select) return;
+    const current = this.parties.filter(p => p.cap !== 'مستثمر جديد');
+    const previous = select.value;
+    select.innerHTML = current.map(p => `<option value="${p.id}">${p.name || 'شريك حالي'}</option>`).join('');
+    if (current.some(p => String(p.id) === previous)) select.value = previous;
   },
 
 
@@ -1638,7 +1710,9 @@ const G = {
     const isMud = this.type === 'mudaraba';
     const capOpts = isMud
       ? ['رب المال (ممول)', 'مضارب (عامل)']
-      : ['شريك ممول', 'شريك مدير', 'شريك تشغيلي', 'شريك صامت', 'مستثمر جديد', 'صاحب امتياز', 'صاحب موقع / أصل', 'شريك تقني'];
+      : this.type === 'existing'
+        ? ['شريك حالي', 'مستثمر جديد']
+        : ['شريك ممول', 'شريك مدير', 'شريك تشغيلي', 'شريك صامت', 'مستثمر جديد', 'صاحب امتياز', 'صاحب موقع / أصل', 'شريك تقني'];
 
     const roleOpts = [
       ['manager','مدير عام / CEO'], ['ops','تشغيلي / COO'],
@@ -1674,30 +1748,37 @@ const G = {
             </div>
             <div class="fg">
               <label>الصفة</label>
-              <select onchange="G.sp(${p.id},'cap',this.value); G.renderParties(); G.normalizeNumberInputs();">${capHtml}</select>
+              <select onchange="G.sp(${p.id},'cap',this.value); G.renderParties(); G.renderExistingSellerOptions(); G.normalizeNumberInputs();">${capHtml}</select>
             </div>
           </div>
+
+          ${this.type === 'existing' && p.cap !== 'مستثمر جديد' ? `
+          <div class="fg" style="margin-top:10px">
+            <label>نسبة الملكية الحالية قبل دخول المستثمر</label>
+            <input type="number" lang="en" min="0" max="100" value="${this.inputVal(p.currentPct)}" placeholder="مثال: 60" oninput="G.sp(${p.id},'currentPct',G.pNum(this.value)); G.updExistingDeal('ownership')">
+            <div class="help">أدخل النسبة الحالية كما هي في عقد التأسيس أو سجل المساهمين. يجب أن يكون مجموع نسب الشركاء الحاليين % 100.</div>
+          </div>` : ''}
 
           ${isMud ? `
           <div class="grid2" style="margin-top:10px">
             ${isMudRab ? `
             <div class="fg">
               <label data-help="أدخل رأس المال الذي يقدمه رب المال للمضاربة.">رأس المال</label>
-              <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',G.pNum(this.value))">
+              <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" oninput="G.sp(${p.id},'cash',G.pNum(this.value))">
             </div>` : `
             <div class="fg">
               <label>الراتب العادل في السوق</label>
-              <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="" onchange="G.sp(${p.id},'fmv',G.pNum(this.value))">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="" oninput="G.sp(${p.id},'fmv',G.pNum(this.value))">
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg">
               <label>المبلغ الشهري المستلم فعليا</label>
-              <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',G.pNum(this.value))">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" oninput="G.sp(${p.id},'paid',G.pNum(this.value))">
               <div class="help">مثال: الراتب العادل 10,000 والمستلم 5,000، فيحسب الفرق الشهري ضمن قيمة الجهد.</div>
             </div>
             <div class="fg">
               <label>مدة المساهمة بالجهد (بالأشهر)</label>
-              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'dur',G.pNum(this.value))">
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" oninput="G.sp(${p.id},'dur',G.pNum(this.value))">
               <div class="help">مدة تقديرية لاحتساب قيمة الجهد. مدة الاستحقاق تسجل في مسارها المخصص.</div>
             </div>
             `}
@@ -1706,21 +1787,21 @@ const G = {
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
               <label data-help="المبلغ النقدي الذي يقدمه هذا الطرف للمشروع.">التمويل النقدي</label>
-              <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" onchange="G.sp(${p.id},'cash',G.pNum(this.value))">
+              <input type="number" min="0" value="${this.inputVal(p.cash)}" placeholder="0" oninput="G.sp(${p.id},'cash',G.pNum(this.value))">
             </div>
             <div class="fg">
               <label data-help="مثال: معدات أو مركبات أو أجهزة، وتكتب طريقة تقويمها.">قيمة الأصول العينية</label>
-              <input type="number" min="0" value="${this.inputVal(p.assets)}" placeholder="0" onchange="G.sp(${p.id},'assets',G.pNum(this.value))">
+              <input type="number" min="0" value="${this.inputVal(p.assets)}" placeholder="0" oninput="G.sp(${p.id},'assets',G.pNum(this.value))">
             </div>
           </div>
           <div class="grid2" style="margin-top:10px">
             <div class="fg">
               <label data-help="قيمة متفق عليها لحق فكري أو علامة أو برنامج يقدمه الطرف.">ملكية فكرية أو علامة تجارية</label>
-              <input type="number" min="0" value="${this.inputVal(p.ip)}" placeholder="0" onchange="G.sp(${p.id},'ip',G.pNum(this.value))">
+              <input type="number" min="0" value="${this.inputVal(p.ip)}" placeholder="0" oninput="G.sp(${p.id},'ip',G.pNum(this.value))">
             </div>
             <div class="fg">
               <label data-help="التزام له مخرج وموعد وقيمة متفق عليها، مثل تنفيذ دراسة أو تجهيز محدد.">التزام آخر قابل للقياس</label>
-              <input type="number" min="0" value="${this.inputVal(p.net)}" placeholder="0" onchange="G.sp(${p.id},'net',G.pNum(this.value))">
+              <input type="number" min="0" value="${this.inputVal(p.net)}" placeholder="0" oninput="G.sp(${p.id},'net',G.pNum(this.value))">
               <div class="help">الحصص تبنى على مال أو عمل أو أصل قابل للتقويم. يخصص هذا الحقل لالتزام محدد له مخرج وموعد وقيمة متفق عليها.</div>
             </div>
           </div>
@@ -1742,17 +1823,17 @@ const G = {
           <div id="fmvBlock_${p.id}" style="${showFmv?'':'display:none'}" class="grid2" style="margin-top:10px">
             <div class="fg" style="margin-top:10px">
               <label>الراتب العادل في السوق</label>
-              <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="" onchange="G.sp(${p.id},'fmv',G.pNum(this.value))">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.fmv)}" placeholder="" oninput="G.sp(${p.id},'fmv',G.pNum(this.value))">
               <div class="help">القيمة السوقية الشهرية العادلة لعمل هذا الطرف لو تم توظيف شخص بنفس الدور.</div>
             </div>
             <div class="fg" style="margin-top:10px">
               <label>المبلغ الشهري المستلم فعليا</label>
-              <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" onchange="G.sp(${p.id},'paid',G.pNum(this.value))">
+              <input type="number" lang="en" min="0" value="${this.inputVal(p.paid)}" placeholder="0" oninput="G.sp(${p.id},'paid',G.pNum(this.value))">
               <div class="help">مثال: الراتب العادل 10,000 والمستلم 5,000، فيحسب الفرق الشهري ضمن مساهمة العمل.</div>
             </div>
             <div class="fg" style="margin-top:10px">
               <label>مدة المساهمة بالجهد (بالأشهر)</label>
-              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" onchange="G.sp(${p.id},'dur',G.pNum(this.value))">
+              <input type="number" lang="en" min="1" value="${this.inputVal(p.dur)}" placeholder="مثال: 12" oninput="G.sp(${p.id},'dur',G.pNum(this.value))">
               <div class="help">مدة تقديرية لاحتساب قيمة الجهد. مدة الاستحقاق تسجل في مسار الشركات الناشئة.</div>
             </div>
           </div>
@@ -1789,7 +1870,7 @@ const G = {
             <div class="card-head" style="font-size:12px;margin-bottom:10px;padding-bottom:8px">توزيع الأرباح</div>
             <div class="fg">
               <label>نصيب الأرباح لهذا الطرف</label>
-              <input id="profit_${p.id}" type="number" lang="en" min="0" max="100" value="${this.inputVal(p.profit)}" onchange="G.sp(${p.id},'profit',this.value === '' ? '' : +this.value)">
+              <input id="profit_${p.id}" type="number" lang="en" min="0" max="100" value="${this.inputVal(p.profit)}" oninput="G.sp(${p.id},'profit',this.value === '' ? '' : +G.pNum(this.value))">
               ${this.type === 'mudaraba' ? '<div class="help">مثال تعليمي: % 40 لرب المال و% 60 للمضارب. أدخل النسب المتفق عليها ليصبح مجموعها % 100.</div>' : ''}
             </div>
           </div>` : ''}
@@ -1808,6 +1889,7 @@ const G = {
       if (!document.getElementById('maxPartyNote')) addBtn.insertAdjacentHTML('afterend', '<div id=\"maxPartyNote\" class=\"notice notice-info hide\" style=\"margin-top:8px\">تم الوصول للحد الأعلى للأطراف حتى تبقى قراءة النتائج واضحة.</div>');
       document.getElementById('maxPartyNote')?.classList.toggle('hide', !atMax);
     }
+    this.renderExistingSellerOptions();
     this.normalizeNumberInputs();
   },
 
@@ -1907,10 +1989,10 @@ const G = {
     const invEl = document.getElementById('newInv');
     const pctEl = document.getElementById('targetPct');
     const box = document.getElementById('postMoneyBox');
-    const inv = +invEl?.value || 0;
-    let pct = +pctEl?.value || 0;
-    let pre = +preEl?.value || 0;
-    let post = +postEl?.value || 0;
+    const inv = this.numVal('newInv');
+    let pct = this.numVal('targetPct');
+    let pre = this.numVal('preMoney');
+    let post = this.numVal('postMoney');
 
     if ((source === 'inv' || source === 'pct') && inv > 0 && pct > 0 && pct < 100) {
       post = inv / (pct / 100);
@@ -1986,7 +2068,20 @@ const G = {
   normalizePercentField(value) {
     if (value === undefined || value === null || value === '') return null;
     const n = Number(value);
-    return Number.isFinite(n) ? Math.max(0, n) : null;
+    return Number.isFinite(n) && n >= 0 && n <= 100 ? n : null;
+  },
+
+  allocatePercentages(values, target = 100) {
+    const clean = values.map(value => Math.max(0, Number(value) || 0));
+    const total = clean.reduce((sum, value) => sum + value, 0);
+    if (!(total > 0) || !(target >= 0)) return clean.map(() => 0);
+    const exactUnits = clean.map(value => value / total * target * 10);
+    const units = exactUnits.map(value => Math.floor(value + 1e-9));
+    let remainder = Math.round(target * 10 - units.reduce((sum, value) => sum + value, 0));
+    const order = exactUnits.map((value, index) => ({ index, fraction:value - Math.floor(value + 1e-9) }))
+      .sort((a, b) => b.fraction - a.fraction || clean[b.index] - clean[a.index]);
+    for (let i = 0; i < remainder; i++) units[order[i % order.length].index] += 1;
+    return units.map(value => +(value / 10).toFixed(1));
   },
 
   applyProfitShares() {
@@ -1994,27 +2089,77 @@ const G = {
     const hasManual = manual.some(v => v !== null);
 
     if (this.profitShareEnabled() && hasManual) {
-      const total = manual.reduce((sum, v) => sum + (v || 0), 0) || 100;
-      this.results.forEach((r, i) => { r.profit = +(((manual[i] || 0) / total) * 100).toFixed(1); });
+      this.results.forEach((r, i) => { r.profit = manual[i] === null ? null : +manual[i].toFixed(1); });
     } else {
-      // FIX: use normalizePercentField so empty string '' is treated as null (not 0)
       this.results.forEach(r => {
         const rawProfit = this.normalizePercentField(r.profit);
         const base = (rawProfit !== null) ? rawProfit : Number(r.pct || 0);
         r.profit = +(Number.isFinite(base) ? base : 0).toFixed(1);
       });
     }
+  },
 
-    const sum = this.results.reduce((total, r) => total + (Number(r.profit) || 0), 0);
-    const diff = +(100 - sum).toFixed(1);
-    if (this.results.length && Math.abs(diff) >= 0.1) {
-      this.results[this.results.length - 1].profit = +((Number(this.results[this.results.length - 1].profit) || 0) + diff).toFixed(1);
-    }
+  profitSharesComplete() {
+    if (!this.results.length || !this.results.every(r => this.normalizePercentField(r.profit) !== null)) return false;
+    const total = this.results.reduce((sum, r) => sum + Number(r.profit), 0);
+    return Math.abs(total - 100) < 0.05 && this.results.every(r => Number(r.profit) > 0);
   },
 
   profitDiffers() {
+    if (!this.profitSharesComplete()) return false;
     if (this.type === 'mudaraba') return true;
     return this.results.some(r => Math.abs((Number(r.profit) || 0) - (Number(r.pct) || 0)) >= 0.1);
+  },
+
+  calcExisting() {
+    this.updExistingDeal('calc');
+    const owners = this.parties.filter(p => p.cap !== 'مستثمر جديد');
+    const investors = this.parties.filter(p => p.cap === 'مستثمر جديد');
+    const investor = investors[0];
+    const mode = document.getElementById('entryMode')?.value || 'cashin';
+    const valuation = this.numVal('coVal');
+    const cashIn = mode === 'cashin' ? this.numVal('entryAmt') : mode === 'mixed' ? this.numVal('cashInAmt') : 0;
+    const cashOut = mode === 'cashout' ? this.numVal('entryAmt') : mode === 'mixed' ? this.numVal('cashOutAmt') : 0;
+    const sellerId = Number(document.getElementById('sellerPartyId')?.value);
+    const ownershipTotal = owners.reduce((sum, p) => sum + (Number(p.currentPct) || 0), 0);
+    const seller = owners.find(p => p.id === sellerId);
+    const problems = [];
+
+    if (investors.length !== 1) problems.push('يجب تحديد مستثمر جديد واحد فقط.');
+    if (!owners.length) problems.push('يجب وجود شريك حالي واحد على الأقل.');
+    if (owners.some(p => !(Number(p.currentPct) > 0 && Number(p.currentPct) <= 100)) || Math.abs(ownershipTotal - 100) >= 0.05)
+      problems.push(`مجموع نسب الملكية الحالية يجب أن يساوي % 100، والمجموع المدخل ${this.percentText(ownershipTotal)}.`);
+    if (!(valuation > 0)) problems.push('أدخل قيمة الشركة قبل الدخول.');
+    if (!((cashIn + cashOut) > 0)) problems.push('أدخل مبلغ الدخول.');
+    if (['cashout','mixed'].includes(mode) && !seller) problems.push('حدد الشريك الحالي البائع.');
+    if (seller && cashOut > valuation * (Number(seller.currentPct) || 0) / 100 + 0.01)
+      problems.push(`المبلغ المدفوع للبائع يتجاوز قيمة حصته الحالية البالغة ${this.moneyText(valuation * Number(seller.currentPct) / 100)}.`);
+
+    this.calculationError = problems.length ? problems.join(' ') : null;
+    if (problems.length) {
+      this.results = this.parties.map((p, i) => ({ ...p, pct:0, profit:null, cashSc:0, assetSc:0, ipSc:0, netSc:0, effortSc:0, roleSc:0, total:0, color:this.COLORS[i % this.COLORS.length] }));
+      this.renderResults();
+      return;
+    }
+
+    const postMoney = valuation + cashIn;
+    const dilution = valuation / postMoney;
+    const transferredPct = cashOut / postMoney * 100;
+    const raw = this.parties.map(p => {
+      if (p.id === investor.id) return (cashIn + cashOut) / postMoney * 100;
+      let pct = Number(p.currentPct) * dilution;
+      if (p.id === sellerId) pct -= transferredPct;
+      return Math.max(0, pct);
+    });
+    const allocated = this.allocatePercentages(raw);
+    this.results = this.parties.map((p, i) => ({ ...p,
+      pct: allocated[i], profit:p.profit ?? null,
+      cashSc:p.id === investor.id ? cashIn + cashOut : 0,
+      assetSc:0, ipSc:0, netSc:0, effortSc:0, roleSc:0,
+      total:raw[i], color:this.COLORS[i % this.COLORS.length]
+    }));
+    this.applyProfitShares();
+    this.renderResults();
   },
 
   /* ─── CALCULATE ─── */
@@ -2022,6 +2167,12 @@ const G = {
     const W = this.W;
     const isMud = this.type === 'mudaraba';
     this.mudarabaCheck = null;
+    this.calculationError = null;
+
+    if (this.type === 'existing') {
+      this.calcExisting();
+      return;
+    }
 
     if (isMud) {
       const check = this.validateMudaraba();
@@ -2032,6 +2183,7 @@ const G = {
         const manualProfit = this.parties.map(p => this.normalizePercentField(p.profit));
         const hasManualProfit = manualProfit.some(v => v !== null);
         const totalCash = rabParties.reduce((sum, p) => sum + (Number(p.cash) || 0), 0);
+        const capitalPcts = this.allocatePercentages(this.parties.map(p => p.cap === 'رب المال (ممول)' ? Number(p.cash) || 0 : 0));
         const effortValue = p => Math.max(0, (Number(p.fmv) || 0) - (Number(p.paid) || 0)) * (Number(p.dur) || 0);
         const totalEffort = mudParties.reduce((sum, p) => sum + effortValue(p), 0);
         this.results = this.parties.map((p, i) => {
@@ -2041,6 +2193,7 @@ const G = {
           const profitPct = hasManualProfit ? manualProfit[i] : null;
           return { ...p,
             pct: equityPct,
+            capitalPct: capitalPcts[i],
             profit: profitPct === null ? null : +profitPct.toFixed(1),
             cashSc: isRab ? (p.cash || 0) : 0,
             assetSc:0, ipSc:0, netSc:0,
@@ -2073,57 +2226,30 @@ const G = {
       return { ...p, cashSc, assetSc, ipSc, netSc, effortSc, roleSc, total, color: this.COLORS[i % this.COLORS.length] };
     });
 
-    const grand = this.results.reduce((s, r) => s + r.total, 0) || 1;
-    this.results.forEach(r => r.pct = +(r.total / grand * 100).toFixed(1));
+    const grand = this.results.reduce((s, r) => s + r.total, 0);
+    if (!(grand > 0)) {
+      this.calculationError = 'لا توجد مساهمات موجبة قابلة للحساب. أدخل قيمة مالية أو جهدا له راتب عادل ومدة محددة.';
+      this.results.forEach(r => r.pct = 0);
+      this.applyProfitShares();
+      this.renderResults();
+      return;
+    }
+    const basePcts = this.allocatePercentages(this.results.map(x => x.total));
+    this.results.forEach((r, i) => { r.pct = basePcts[i]; });
 
     // Startup investment dilution
-    const pre = +document.getElementById('preMoney')?.value || 0;
-    const inv = +document.getElementById('newInv')?.value || 0;
+    const pre = this.numVal('preMoney');
+    const inv = this.numVal('newInv');
     if (this.type === 'startup' && pre > 0 && inv > 0) {
       const factor = pre / (pre + inv);
-      this.results.forEach(r => r.pct = +(r.pct * factor).toFixed(1));
-      const invPct = +(inv / (pre + inv) * 100).toFixed(1);
-      this.results.push({ id:-1, name:'المستثمر الجديد', cap:'مستثمر جديد', pct: invPct,
+      const rawPcts = this.results.map(r => r.total / grand * 100 * factor);
+      rawPcts.push(inv / (pre + inv) * 100);
+      const balanced = this.allocatePercentages(rawPcts);
+      this.results.forEach((r, i) => { r.pct = balanced[i]; });
+      this.results.push({ id:-1, name:'المستثمر الجديد', cap:'مستثمر جديد', pct: balanced[balanced.length - 1],
         cash:inv, assets:0, ip:0, net:0, work:'no', role:'silent', note:'استثمار جديد',
         cashSc:inv, assetSc:0, ipSc:0, netSc:0, effortSc:0, roleSc:0, total:inv,
         color:'#6B7A8D' });
-    }
-
-    // Existing company
-    if (this.type === 'existing') this.updExistingDeal('calc');
-    const coVal  = this.numVal('coVal') || 0;
-    const entAmt = this.numVal('entryAmt') || 0;
-    let existingHandled = false;
-
-    if (this.type === 'existing' && coVal > 0 && entAmt > 0 && this.numVal('entryPct') > 0) {
-      const newPct = +this.numVal('entryPct').toFixed(1);
-      const oldPct = +(100 - newPct).toFixed(1);
-
-      const newParty   = this.parties[this.parties.length - 1];
-      const newResult  = newParty ? this.results.find(r => r.id === newParty.id) : null;
-      const oldResults = this.results.filter(r => !newParty || r.id !== newParty.id);
-
-      if (newResult) newResult.pct = newPct;
-
-      // Distribute oldPct proportionally by raw total points (not pct) — avoids circular dependency
-      const oldTotalPoints = oldResults.reduce((s, r) => s + (r.total || 0), 0) || 1;
-      if (oldResults.length > 0) {
-        oldResults.forEach(r => {
-          r.pct = +((r.total || 0) / oldTotalPoints * oldPct).toFixed(1);
-        });
-        // Fix floating-point rounding on last old party only
-        const checkSum = oldResults.reduce((s, r) => s + r.pct, 0);
-        const rndFix = +(oldPct - checkSum).toFixed(1);
-        oldResults[oldResults.length - 1].pct = +(oldResults[oldResults.length - 1].pct + rndFix).toFixed(1);
-      }
-      existingHandled = true;
-    }
-
-    // Normalize (skip for existing — already balanced above)
-    if (!existingHandled) {
-      const sum = this.results.reduce((s, r) => s + r.pct, 0);
-      const diff = +(100 - sum).toFixed(1);
-      if (this.results.length) this.results[this.results.length - 1].pct = +(this.results[this.results.length - 1].pct + diff).toFixed(1);
     }
     this.results.forEach((r, i) => { if (!r.color) r.color = this.COLORS[i % this.COLORS.length]; });
     this.applyProfitShares();
@@ -2145,8 +2271,8 @@ const G = {
     const cash  = this.parties.reduce((s,p) => s+(p.cash||0), 0);
     const asset = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
     const working = this.parties.filter(p => p.work !== 'no').length;
-    const pre = +document.getElementById('preMoney')?.value || 0;
-    const inv = +document.getElementById('newInv')?.value  || 0;
+    const pre = this.numVal('preMoney');
+    const inv = this.numVal('newInv');
 
     let kpis = this.type === 'mudaraba' ? [
       { lbl:'رأس مال المضاربة', val: this.moneyHtml(cash), sub:'مقدم من رب المال' },
@@ -2275,6 +2401,10 @@ const G = {
           return `<div class="rc-row"><span class="rc-lbl">${lbl}</span><span class="rc-val">${rest.join(':')}</span></div>`;
         }).join('')}</div>
         <div style="margin-top:10px;padding-top:9px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px">
+          ${this.type === 'mudaraba' && r.cap === 'رب المال (ممول)' ? `<div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:11px;color:var(--muted);font-weight:600">نسبة رأس المال وتحمل خسارته</span>
+            <span style="font-size:13px;font-weight:700;color:var(--gold)">${this.percentHtml(r.capitalPct || 0)}</span>
+          </div>` : ''}
           ${this.type === 'mudaraba' ? '' : `<div style="display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:11px;color:var(--muted);font-weight:600">حصة الملكية</span>
             <span style="font-size:13px;font-weight:700;color:var(--gold)">${this.percentHtml(r.pct)}</span>
@@ -2295,9 +2425,10 @@ const G = {
     const alerts = [];
     this.results.forEach(r => {
       const equity = Number(r.pct) || 0;
+      const profitEntered = this.normalizePercentField(r.profit) !== null;
       const profit = Number(r.profit) || 0;
       const cashContrib = Number(r.cash || 0) + Number(r.assets || 0) + Number(r.ip || 0) + Number(r.net || 0);
-      if (equity > 1 && profit < 0.1 && cashContrib > 0) {
+      if (profitEntered && equity > 1 && profit < 0.1 && cashContrib > 0) {
         alerts.push({
           name: r.name,
           equity: equity.toFixed(1),
@@ -2310,6 +2441,8 @@ const G = {
 
   renderAlerts() {
     const alerts = [];
+    if (this.calculationError)
+      alerts.push({ t:'warn', m:this.calculationError });
     const max = Math.max(...this.results.map(r => r.pct));
     const dom = this.results.find(r => r.pct === max);
     if (dom && max > 65)
@@ -2342,19 +2475,23 @@ const G = {
         const complete = vals.every(v => v !== null);
         const total = vals.reduce((s,v) => s + (v || 0), 0);
         if (!complete) alerts.push({ t:'warn', m:'أكمل نسب الربح المتفق عليها. المثال % 40 و% 60 للتوضيح.' });
+        else if (vals.some(v => !(v > 0))) alerts.push({ t:'warn', m:'يجب أن تكون لكل طرف حصة شائعة موجبة من الربح، ولا يصح جعل نصيب أحد الأطراف صفرا.' });
         else if (Math.abs(total - 100) > 0.01) alerts.push({ t:'warn', m:`مجموع نسب الربح المدخلة ${this.percentHtml(total)}. اضبطها ليصبح المجموع % 100.` });
         else alerts.push({ t:'ok', m:'مجموع نسب الربح % 100. راجع بقية شروط المضاربة واكتبها.' });
       } else {
         alerts.push({ t:'warn', m:'البيانات المدخلة تصف طرفا يجمع بين التمويل والعمل، أو تحتاج استكمال أدوار المال والعمل. عرضت الأداة الحالة كمشاركة عامة.' });
         if (this.mudarabaCheck?.problems?.length) alerts.push({ t:'warn', m:'تفاصيل الملاحظة: ' + this.mudarabaCheck.problems.join(' | ') });
       }
+    } else if (this.type === 'fnb') {
+      const vals = this.parties.map(p => this.normalizePercentField(p.profit));
+      const entered = vals.some(v => v !== null);
+      const total = vals.reduce((sum, value) => sum + (value || 0), 0);
+      if (entered && (!vals.every(v => v !== null) || vals.some(v => !(v > 0)) || Math.abs(total - 100) >= 0.05))
+        alerts.push({ t:'warn', m:`أكمل نسب الأرباح لكل الأطراف بنسب موجبة مجموعها % 100. المجموع الحالي: ${this.percentHtml(total)}.` });
+      else if (entered) alerts.push({ t:'ok', m:'مجموع نسب الأرباح المدخلة % 100.' });
     } else if (this.parties.some(p => (p.cash || 0) > 0 && this.hasEffort(p))) {
       alerts.push({ t:'ok', m:'يوجد طرف يجمع بين المال والعمل. وضح العلاقة ضمن المشاركة العامة واكتب أثر كل مساهمة.' });
     }
-    const disputeMethod = document.getElementById('disputeMethod')?.value || '';
-    const disputeDetails = (document.getElementById('disputeDetails')?.value || '').trim();
-    if (disputeMethod === 'arbitration' && !disputeDetails)
-      alerts.push({ t:'warn', m:'أكمل اسم المحكم أو صفته ليظهر بند التحكيم في المسودة.' });
 
     document.getElementById('smartAlerts').innerHTML = alerts.map(a =>
       `<div class="notice notice-${a.t === 'warn' ? 'warn' : 'ok'}" style="margin-bottom:8px">${a.m}</div>`
@@ -2381,7 +2518,6 @@ const G = {
     const amicableOn = document.getElementById('amicableOn')?.value || 'yes';
     const rawDays = (document.getElementById('amicableDays')?.value || '').trim();
     const method = document.getElementById('disputeMethod')?.value || '';
-    const details = (document.getElementById('disputeDetails')?.value || '').trim();
     const note = (document.getElementById('disputeNote')?.value || '').trim();
     const parts = [];
 
@@ -2392,23 +2528,15 @@ const G = {
     }
 
     const prefix = (amicableOn === 'yes') ? 'وعند تعذر الحل الودي، ' : '';
-    let methodAdded = false;
-
     if (method === 'arbitration') {
-      if (details) {
-        parts.push(`${prefix}يُحال النزاع إلى التحكيم لدى ${details}، وتكون النتيجة التي ينتهي إليها التحكيم نهائية وملزمة للأطراف.`);
-        methodAdded = true;
-      }
+      parts.push(`${prefix}اتجه الأطراف مبدئيا إلى مناقشة إدراج شرط تحكيم في العقد النهائي، على أن تستكمل صياغته وتفاصيله مع مختص، ولا يعد هذا النص شرط تحكيم نهائيا.`);
     } else if (method === 'court') {
-      parts.push(`${prefix}ينعقد الاختصاص للجهات القضائية المختصة.`);
-      methodAdded = true;
+      parts.push(`${prefix}اتجه الأطراف مبدئيا إلى اعتماد القضاء المختص في العقد النهائي.`);
     } else if (method === 'custom') {
-      if (details) {
-        parts.push(`${prefix}يتم تسوية النزاع عبر: ${details}.`);
-        methodAdded = true;
-      }
+      parts.push(`${prefix}تحدد آلية أخرى وتستكمل تفاصيلها في العقد النهائي.`);
+    } else {
+      parts.push(`${prefix}تحدد آلية حل الخلافات في العقد النهائي.`);
     }
-    if (!methodAdded) parts.push(`${prefix}تحدد جهة الفصل في النزاع كتابة.`);
 
     if (note) parts.push(`كما يُتفق على ما يلي: ${note}.`);
 
@@ -2547,8 +2675,8 @@ const G = {
   const cash  = this.parties.reduce((s,p) => s+(p.cash||0), 0);
   const asset = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
   const working = this.parties.filter(p => p.work !== 'no').length;
-  const pre = +document.getElementById('preMoney')?.value || 0;
-  const inv = +document.getElementById('newInv')?.value  || 0;
+  const pre = this.numVal('preMoney');
+  const inv = this.numVal('newInv');
   const kpis = isMudExport ? [
     { lbl:'رأس مال المضاربة', val: this.moneyHtml(cash), sub:'مقدم من رب المال' },
     { lbl:'الأطراف', val:String(this.parties.length), sub:'رب مال ومضارب' },
@@ -2633,7 +2761,7 @@ const G = {
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.10</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.11</div>
         </div>
       </div>
 
@@ -2664,7 +2792,7 @@ const G = {
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.10</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.11</span></div>
       </div>
     </div>`;
 
@@ -2743,8 +2871,8 @@ captureResultsImage() {
         { name: '\u0633\u0639\u062f \u0627\u0644\u0642\u0631\u0646\u064a', cap: '\u0634\u0631\u064a\u0643 \u0639\u0627\u0645\u0644', cash: 200000, assets: 0, ip: 0, net: 0, work: 'part', fmv: 15000, paid: 0, dur: 6, role: 'manager', note: '\u064a\u062a\u0648\u0644\u0649 \u0627\u0644\u062a\u0641\u0627\u0648\u0636 \u0648\u0625\u0646\u062c\u0627\u0632 \u0627\u0644\u0635\u0641\u0642\u0629 \u062e\u0644\u0627\u0644 \u0633\u062a\u0629 \u0623\u0634\u0647\u0631' }
       ]},
       existing: { projName: '\u0645\u0637\u0627\u0639\u0645 \u0627\u0644\u0623\u0635\u0627\u0644\u0629 | \u062f\u062e\u0648\u0644 \u0634\u0631\u064a\u0643 \u062c\u062f\u064a\u062f', legalStruct: 'llc', coVal: '2000000', entryAmt: '500000', parties: [
-        { name: '\u0627\u0644\u0634\u0631\u0643\u0627\u0621 \u0627\u0644\u062d\u0627\u0644\u064a\u0648\u0646', cap: '\u0634\u0631\u0643\u0627\u0621 \u0623\u0635\u0644\u064a\u0648\u0646', cash: 0, assets: 0, ip: 200000, net: 0, work: 'full', fmv: 18000, paid: 15000, dur: 24, role: 'manager', note: '\u064a\u0645\u062b\u0644\u0648\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0628\u0643\u0627\u0645\u0644 \u0623\u0635\u0648\u0644\u0647\u0627' },
-        { name: '\u0641\u064a\u0635\u0644 \u0627\u0644\u062d\u0631\u0628\u064a', cap: '\u0634\u0631\u064a\u0643 \u062f\u0627\u062e\u0644', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u062f\u062e\u0644 \u0645\u0642\u0627\u0628\u0644 \u062d\u0635\u0629 \u0645\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0642\u0627\u0626\u0645\u0629' }
+        { name: '\u0627\u0644\u0634\u0631\u0643\u0627\u0621 \u0627\u0644\u062d\u0627\u0644\u064a\u0648\u0646', cap: '\u0634\u0631\u064a\u0643 \u062d\u0627\u0644\u064a', currentPct: 100, cash: 0, assets: 0, ip: 200000, net: 0, work: 'full', fmv: 18000, paid: 15000, dur: 24, role: 'manager', note: '\u064a\u0645\u062b\u0644\u0648\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0623\u0635\u0644\u064a\u0629 \u0628\u0643\u0627\u0645\u0644 \u0623\u0635\u0648\u0644\u0647\u0627' },
+        { name: '\u0641\u064a\u0635\u0644 \u0627\u0644\u062d\u0631\u0628\u064a', cap: '\u0645\u0633\u062a\u062b\u0645\u0631 \u062c\u062f\u064a\u062f', cash: 500000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', note: '\u064a\u062f\u062e\u0644 \u0645\u0642\u0627\u0628\u0644 \u062d\u0635\u0629 \u0645\u0646 \u0627\u0644\u0634\u0631\u0643\u0629 \u0627\u0644\u0642\u0627\u0626\u0645\u0629' }
       ]},
       mudaraba: { projName: '\u0645\u0636\u0627\u0631\u0628\u0629 \u062a\u0637\u0648\u064a\u0631 \u0641\u0646\u062f\u0642\u064a', legalStruct: '', parties: [
         { name: '\u0635\u0646\u062f\u0648\u0642 \u0627\u0644\u0631\u064a\u0627\u0636 \u0644\u0644\u062a\u0637\u0648\u064a\u0631', cap: '\u0631\u0628 \u0627\u0644\u0645\u0627\u0644 (\u0645\u0645\u0648\u0644)', cash: 1000000, assets: 0, ip: 0, net: 0, work: 'no', role: 'silent', fmv: 0, paid: 0, dur: '', profit: 40, note: '\u064a\u0642\u062f\u0645 \u0631\u0623\u0633 \u0627\u0644\u0645\u0627\u0644 \u0643\u0627\u0645\u0644\u0627 \u0648\u064a\u062a\u0627\u0628\u0639 \u0627\u0644\u062a\u0642\u0627\u0631\u064a\u0631 \u0627\u0644\u0645\u0627\u0644\u064a\u0629' },
@@ -2777,6 +2905,8 @@ captureResultsImage() {
   updExistingMode() {
     const mode = document.getElementById('entryMode')?.value || 'cashin';
     document.getElementById('mixedSplit')?.classList.toggle('hide', mode !== 'mixed');
+    document.getElementById('sellerPartyWrap')?.classList.toggle('hide', !['cashout','mixed'].includes(mode));
+    this.renderExistingSellerOptions();
     const entryGroup = document.getElementById('entryAmt')?.closest('.fg');
     if (entryGroup) entryGroup.classList.toggle('hide', mode === 'mixed');
     const entryLabel = entryGroup?.querySelector('label');
@@ -2806,7 +2936,11 @@ captureResultsImage() {
     if (mode === 'mixed') this.setNumVal('entryAmt', inv);
 
     const post = val + cashIn;
-    const invalid = pct >= 100 || (mode === 'cashout' && cashOut > val);
+    const sellerId = Number(document.getElementById('sellerPartyId')?.value);
+    const seller = this.parties.find(p => p.id === sellerId && p.cap !== 'مستثمر جديد');
+    const sellerLimit = seller ? val * (Number(seller.currentPct) || 0) / 100 : 0;
+    const invalidSeller = ['cashout','mixed'].includes(mode) && (!seller || cashOut > sellerLimit + 0.01);
+    const invalid = pct >= 100 || (mode === 'cashout' && cashOut > val) || invalidSeller;
     const box = document.getElementById('existingCalcBox');
     const panel = document.getElementById('existLivePanel');
     const modeNames = { cashin:'ضخ تمويل جديد في الشركة', cashout:'شراء حصة من شريك حالي', mixed:'دخول مختلط: تمويل وشراء حصة' };
@@ -2824,7 +2958,9 @@ captureResultsImage() {
 
     if (box) {
       if (invalid) {
-        box.textContent = 'راجع المبلغ والنسبة. يعمل هذا التقدير بحصة أقل من % 100، ويكون ثمن الحصة ضمن قيمة الشركة.';
+        box.textContent = invalidSeller && seller
+          ? `راجع مبلغ الشراء؛ قيمة حصة البائع الحالية لا تتجاوز ${this.moneyText(sellerLimit)} بحسب النسبة المدخلة.`
+          : 'راجع المبلغ والنسبة وبيانات البائع. يعمل هذا التقدير بحصة أقل من % 100.';
         box.className = 'notice notice-error';
       } else if (val > 0 && inv > 0 && pct > 0) {
         box.innerHTML = `${modeNames[mode]} | الحصة التقديرية للشريك الجديد: ${this.percentHtml(pct.toFixed(1))}، والقيمة بعد التمويل الداخل للشركة: ${this.moneyHtml(post)}.`;
@@ -2877,9 +3013,10 @@ captureResultsImage() {
     sections.push(`2) الأطراف ومساهماتهم\n${parties}\nملاحظة: الحصص تبنى على مال أو عمل أو أصل قابل للتقويم. وتوصف كل مساهمة عينية وتقوم بأساس يتفق عليه الشركاء.`);
 
     if (t === 'mudaraba') {
-      const profits = this.results.every(r => r.profit !== null) ? `النسب المدخلة: ${this.results.map(r => `${r.name} ${this.percentText(r.profit)}`).join('، ')}.` : 'نسب الربح تحدد لاحقا. المثال الإرشادي % 40 لرب المال و% 60 للمضارب، ويصبح المجموع % 100.';
+      const profits = this.profitSharesComplete() ? `النسب المدخلة: ${this.results.map(r => `${r.name} ${this.percentText(r.profit)}`).join('، ')}.` : 'نسب الربح لم تكتمل بعد؛ تحدد لكل طرف بنسبة شائعة موجبة ويكون مجموعها % 100.';
       const scope = { restricted:'مقيد بالنشاط والصلاحيات المتفق عليها', unrestricted:'مفتوح ضمن المعتاد في النشاط', later:'يحدد لاحقا' }[val('mudScope')] || 'يحدد لاحقا';
-      sections.push(`3) رأس المال والعمل والربح\nرأس المال: ${this.moneyText(this.parties.reduce((s,p)=>s+(+p.cash||0),0))}، ويسلم وفق آلية وموعد يحددان كتابة. المضارب يقدم العمل والإدارة. ${profits}\nيتحمل رب المال خسارة رأس المال، ويقدم المضارب جهده وخبرته. ويكتب أثر التعدي أو التفريط أو المخالفة وفق المراجعة النظامية.`);
+      const capitalProviders = this.results.filter(r => r.cap === 'رب المال (ممول)').map(r => `${r.name} ${this.percentText(r.capitalPct || 0)}`).join('، ');
+      sections.push(`3) رأس المال والعمل والربح\nرأس المال: ${this.moneyText(this.parties.reduce((s,p)=>s+(+p.cash||0),0))}، ويسلم وفق آلية وموعد يحددان كتابة. نسب رأس المال بين مقدميه: ${capitalProviders || 'تحدد بحسب مساهمة كل رب مال'}. المضارب يقدم العمل والإدارة. ${profits}\nتكون خسارة رأس المال على أرباب المال بحسب مساهمة كل منهم، ولا يضمنها المضارب إلا بسبب تعديه أو تقصيره، ويخسر المضارب جهده في غير ذلك.`);
       sections.push(`4) نطاق المضارب\nنطاق التصرف: ${scope}.${val('mudFee') ? ` أجر مستقل لعمل معلوم: ${val('mudFee')}.` : ''}`);
     } else {
       if (t === 'existing') {
@@ -2889,13 +3026,13 @@ captureResultsImage() {
       } else if (t === 'deal') {
         sections.push(`3) نطاق الصفقة\nتحدد الصفقة ومصاريفها وموعد انتهائها بوضوح، وتنتهي المشاركة بعد الإنجاز والتحصيل وتسوية التكاليف وتوزيع صافي العائد.`);
       } else {
-        sections.push(`3) التوزيع المالي\nنسب الحصص الواردة في نتيجة الحاسبة تقدير أولي مبني على القيم المدخلة. يثبت اتفاق الشركاء النسب المعتمدة لتوزيع الملكية والأرباح والخسائر.`);
+        sections.push(`3) التوزيع المالي\nنسب الحصص الواردة في نتيجة الحاسبة تقدير أولي مبني على القيم المدخلة. يجوز الاتفاق على توزيع الأرباح بالنسب المدخلة الصحيحة، أما الخسائر فتوزع بحسب حصة كل شريك، ولا يعفى شريك من الخسارة. وتثبت الصياغة النهائية في الاتفاق.`);
       }
     }
 
     sections.push(`${sections.length + 1}) الإدارة والقرارات\nالإدارة اليومية: ${manager}. القرارات المهمة: ${decision('decisionRule')}. التمويل الإضافي: ${decision('fundingRule')}.`);
     sections.push(`${sections.length + 1}) المدة والخروج والاستمرار\nالمدة: ${term}. عند خروج شريك: ${decision('exitRule')}. ويحدد الاتفاق أثر الوفاة أو العجز أو الإفلاس، وطريقة تقييم الحصة وتسوية الحقوق.`);
-    sections.push(`${sections.length + 1}) حل الخلافات\n${dispute}`);
+    sections.push(`${sections.length + 1}) التوجه المبدئي لحل الخلافات\n${dispute}`);
     if (val('keyNotes')) sections.push(`${sections.length + 1}) نقطة إضافية\n${val('keyNotes')}`);
     sections.push(`${sections.length + 1}) الكتابة والمراجعة\nيكتب اتفاق الشركاء وأي تعديل عليه. وتستخدم ورقة التفاهم كمرجع لإعداد الاتفاق ومراجعته مع المختص.`);
 
@@ -3026,7 +3163,162 @@ captureResultsImage() {
   }
 };
 
+const PartnershipAssistant = {
+  voiceReply:false,
+  normalize(text){
+    return String(text || '').normalize('NFKD').replace(/[\u064B-\u065F\u0670]/g,'')
+      .replace(/[إأآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي')
+      .replace(/[^\u0621-\u064A0-9\s]/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
+  },
+  escape(text){
+    return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  },
+  toggle(force){
+    const panel = document.getElementById('assistantPanel');
+    const launch = document.getElementById('assistantLaunch');
+    const open = force === undefined ? panel.classList.contains('hide') : force;
+    panel.classList.toggle('hide', !open);
+    launch.setAttribute('aria-expanded', String(open));
+    if (open) document.getElementById('assistantInput')?.focus();
+  },
+  keydown(event){
+    if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); this.send(); }
+  },
+  askQuick(question){
+    this.toggle(true);
+    const input = document.getElementById('assistantInput');
+    input.value = question;
+    this.send();
+  },
+  addMessage(text, role, sources=[]){
+    const wrap = document.getElementById('assistantMessages');
+    const msg = document.createElement('div');
+    msg.className = `assistant-msg ${role}`;
+    msg.innerHTML = this.escape(text);
+    if (role === 'bot' && sources.length) {
+      const cite = document.createElement('span');
+      cite.className = 'assistant-source';
+      cite.textContent = sources.map(s => `${s.source} — صفحة ${s.page}`).join(' | ');
+      msg.appendChild(cite);
+    }
+    if (role === 'bot') {
+      const speak = document.createElement('button');
+      speak.type = 'button';
+      speak.textContent = '🔊 استماع';
+      speak.style.cssText = 'display:block;margin-top:7px;border:0;background:transparent;color:#8B671E;font-family:inherit;cursor:pointer;font-size:11px';
+      speak.onclick = () => this.speak(text);
+      msg.appendChild(speak);
+    }
+    wrap.appendChild(msg);
+    wrap.scrollTop = wrap.scrollHeight;
+  },
+  specialistFor(q){
+    if (/زكاه|زكوي|ضريب|ضريبي/.test(q)) return 'مستشار زكوي وضريبي';
+    if (/تقييم|تقويم|قيمه عادله|حصه عينيه|اصل عيني/.test(q)) return 'مقيّم معتمد';
+    if (/محاسب|قوايم ماليه|مراجعه ماليه|تدقيق|قيود|ميزانيه/.test(q)) return 'محاسب قانوني';
+    if (/علامه|براءه|ملكيه فكريه|حقوق مولف|سر تجاري/.test(q)) return 'مختص بالملكية الفكرية';
+    if (/شرعي|شريعه|حلال|ربا|مضارب|مضاربه/.test(q)) return 'مختص شرعي';
+    return 'مختص شركات';
+  },
+  directAnswer(q){
+    if (/فرق.*مشارك.*مضارب|فرق.*مضارب.*مشارك/.test(q))
+      return 'المشاركة تقوم على مساهمة شريكين أو أكثر بمال أو عمل أو بهما معا، ويتقاسمون الربح والخسارة. أما المضاربة فيقدم رب المال رأس المال ويقدم المضارب العمل، والربح بنسبة شائعة متفق عليها، وخسارة رأس المال على رب المال ما لم يتعد المضارب أو يقصر.';
+    if (/ربح|ارباح|خسار|خساير/.test(q) && /مضارب/.test(q))
+      return 'في المضاربة يحدد نصيب كل طرف من الربح بحسب الاتفاق، ولا يصح اشتراط مبلغ ربح ثابت. يتحمل رب المال نقص رأس المال، ولا يضمنه المضارب إلا عند التعدي أو التقصير.';
+    if (/ربح|ارباح|خسار|خساير/.test(q))
+      return 'في عقد الشركة تكون الأرباح بحسب حصة كل شريك ما لم يتفق على نسب أخرى، أما الخسائر فتكون بحسب حصة كل شريك. لا يصح تحديد مبلغ ربح ثابت لشريك، أو حرمانه من الربح، أو إعفاؤه من الخسارة.';
+    if (/كتاب|مكتوب|توثيق|شفهي/.test(q))
+      return 'عقد الشركة وتعديلاته يجب أن تكون مكتوبة؛ لذلك تعامل المنصة مخرجاتها كنقاط أولية لإعداد اتفاق مكتوب، لا كعقد نهائي.';
+    if (/حصه عينيه|اصل عيني|تقييم|تقويم/.test(q))
+      return 'يجوز أن تكون الحصة غير نقدية، وتقوم بالقيمة المتفق عليها وقت التعاقد أو وفق أساس صالح للتقويم. إذا كان التقدير مؤثرا أو معقدا فالأفضل مراجعة مقيّم معتمد.';
+    if (/تحكيم|محكم|خلاف|نزاع/.test(q))
+      return 'اختيار التحكيم في المنصة هو توجه مبدئي فقط. لا تعد العبارة شرط تحكيم نهائيا، ولا تسمي المنصة محكما؛ وتستكمل الصياغة والتفاصيل في العقد النهائي مع مختص.';
+    return '';
+  },
+  directSources(q){
+    const knowledge = Array.isArray(window.SHARAKAH_KNOWLEDGE) ? window.SHARAKAH_KNOWLEDGE : [];
+    let pages = [];
+    if (/فرق.*مشارك.*مضارب|فرق.*مضارب.*مشارك/.test(q)) pages = [137,142];
+    else if (/ربح|ارباح|خسار|خساير/.test(q) && /مضارب/.test(q)) pages = [143,144];
+    else if (/ربح|ارباح|خسار|خساير/.test(q)) pages = [138];
+    else if (/كتاب|مكتوب|توثيق|شفهي/.test(q)) pages = [136];
+    else if (/حصه عينيه|اصل عيني|تقييم|تقويم/.test(q)) pages = [137];
+    return knowledge.filter(item => /المعاملات المدنية/.test(item.source) && pages.includes(Number(item.page))).slice(0,2);
+  },
+  search(question){
+    const knowledge = Array.isArray(window.SHARAKAH_KNOWLEDGE) ? window.SHARAKAH_KNOWLEDGE : [];
+    const q = this.normalize(question);
+    const stop = new Set(['ما','ماذا','هل','كيف','متي','على','علي','في','من','الى','عن','هذا','هذه','مع','او','وما','اذا']);
+    const tokens = [...new Set(q.split(' ').filter(t => t.length > 2 && !stop.has(t)))];
+    return knowledge.map(item => {
+      const text = this.normalize(item.text);
+      let score = tokens.reduce((sum, token) => sum + (text.includes(token) ? (token.length > 5 ? 4 : 2) : 0), 0);
+      if (/مضارب/.test(q) && /المعاملات المدنية/.test(item.source)) score += 8;
+      if (/ربح|خسار|عقد الشركه|حصه عينيه/.test(q) && /المعاملات المدنية/.test(item.source)) score += 8;
+      if (/شرك|حصص|حوكم|مدير|مساهم/.test(q) && /الشركات/.test(item.source)) score += 4;
+      return { ...item, score };
+    }).filter(item => item.score > 0).sort((a,b) => b.score - a.score).slice(0,3);
+  },
+  buildAnswer(question){
+    const q = this.normalize(question);
+    const scope = /شرك|حص|مساهم|مضارب|راس مال|ربح|خسار|ادار|مدير|حوكم|تاسيس|تحكيم|نزاع|زكاه|ضريب|محاسب|تقييم|تقويم|ملكيه فكريه|عقد|نظام/.test(q);
+    if (!scope) return { text:'هذا المساعد مخصص لبناء الشراكات، نظام الشركات، وأحكام المشاركة والمضاربة. اطرح سؤالك داخل هذا النطاق.', sources:[] };
+    const direct = this.directAnswer(q);
+    const hits = direct ? this.directSources(q) : this.search(question);
+    if (!direct && (!hits.length || hits[0].score < 4)) {
+      return { text:`لم أجد في المواد المتاحة نصا واضحا يكفي لهذه الحالة. الأفضل مراجعة ${this.specialistFor(q)}.`, sources:[] };
+    }
+    let text = direct || 'بحسب أقرب المواد إلى سؤالك:';
+    if (!direct && hits.length) {
+      const excerpts = hits.slice(0,2).map(h => h.text.replace(/\s+/g,' ').trim().slice(0,360));
+      text += '\n\n' + excerpts.join('\n\n');
+    }
+    if (/معقد|تفصيل|استثناء|نزاع|تقييم|تقويم|زكاه|ضريب|ملكيه فكريه|قوايم ماليه/.test(q))
+      text += `\n\nهذه الحالة تتطلب تقديرا مهنيا؛ الأفضل مراجعة ${this.specialistFor(q)}.`;
+    return { text, sources:hits.slice(0, direct ? 2 : 3) };
+  },
+  send(){
+    const input = document.getElementById('assistantInput');
+    const question = (input?.value || '').trim();
+    if (!question) return;
+    input.value = '';
+    this.addMessage(question, 'user');
+    const answer = this.buildAnswer(question);
+    this.addMessage(answer.text, 'bot', answer.sources);
+    if (this.voiceReply) { this.speak(answer.text); this.voiceReply = false; }
+  },
+  listen(){
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) {
+      this.addMessage('الإملاء الصوتي غير مدعوم في هذا المتصفح. يمكنك كتابة السؤال، ثم استخدام زر الاستماع لسماع الإجابة.', 'bot');
+      return;
+    }
+    const recognition = new Recognition();
+    recognition.lang = 'ar-SA';
+    recognition.interimResults = false;
+    const btn = document.getElementById('assistantVoice');
+    btn?.classList.add('assistant-speaking');
+    recognition.onresult = event => {
+      document.getElementById('assistantInput').value = event.results[0][0].transcript;
+      this.voiceReply = true;
+      this.send();
+    };
+    recognition.onerror = () => this.addMessage('تعذر التقاط الصوت. حاول مرة أخرى أو اكتب السؤال.', 'bot');
+    recognition.onend = () => btn?.classList.remove('assistant-speaking');
+    recognition.start();
+  },
+  speak(text){
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ar-SA';
+    utterance.rate = .95;
+    speechSynthesis.speak(utterance);
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => G.init());
 </script>
 </body>
 </html>
+
