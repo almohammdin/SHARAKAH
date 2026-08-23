@@ -1,5 +1,5 @@
 import {GoogleGenAI,Modality} from 'https://cdn.jsdelivr.net/npm/@google/genai@2.14.0/+esm';
-import './sharakah-ai-appcheck.js?v=1.0.13';
+import './sharakah-ai-appcheck.js?v=1.0.14';
 
 const MODEL='gemini-3.1-flash-live-preview';
 const INPUT_RATE=16000;
@@ -42,6 +42,9 @@ function setState(text,state=''){
   const voice=$('#assistantVoice');
   voice?.classList.toggle('assistant-speaking',voiceActive);
   voice?.setAttribute('aria-pressed',String(voiceActive));
+  $('#assistantStopVoice')?.classList.toggle('hide',!voiceActive);
+  const label=document.querySelector('.assistant-mic-label');
+  if(label)label.textContent=voiceActive?'المحادثة الصوتية تعمل الآن':'اضغط وابدأ الحديث';
 }
 
 function addMessage(text,role,sources=[]){
@@ -127,9 +130,138 @@ function currentContext(){
   }};
 }
 
+const BUILT_IN_EXAMPLES=[
+  {id:'fnb',name:'مقهى الفجر',summary:'ممول مع مدير تشغيل في مشروع تشغيلي'},
+  {id:'deal',name:'صفقة النخيل',summary:'ممول مع منفذ لصفقة تجارية محددة'},
+  {id:'existing',name:'مطاعم الأصالة',summary:'دخول شريك جديد في شركة قائمة'},
+  {id:'mudaraba',name:'مضاربة فندقية',summary:'رب مال يقدم التمويل ومضارب يقدم الإدارة'}
+];
+
+const STATIC_FIELDS=new Set([
+  'projName','legalStruct','newInv','targetPct','preMoney','postMoney','entryMode','cashInAmt','cashOutAmt','sellerPartyId','coVal','entryAmt','entryPct',
+  'mudScope','mudFee','managerName','decisionRule','fundingRule','agreementTerm','exitRule','keyNotes','amicableOn','amicableDays','disputeMethod','disputeNote'
+]);
+
+const PARTY_FIELDS=new Set(['name','cap','cash','assets','ip','net','work','fmv','paid','dur','role','vesting','vestYrs','cliffMo','vestNote','profit','currentPct','note']);
+const NUMERIC_PARTY_FIELDS=new Set(['cash','assets','ip','net','fmv','paid','dur','vestYrs','cliffMo','profit','currentPct']);
+
+function visibleElement(element){
+  if(!element||element.closest('.hide'))return false;
+  const style=getComputedStyle(element);
+  return style.display!=='none'&&style.visibility!=='hidden';
+}
+
+function fieldLabel(element){
+  const group=element.closest('.fg');
+  const label=group?.querySelector('label');
+  return String(label?.childNodes?.[0]?.textContent||label?.textContent||element.getAttribute('aria-label')||element.id).replace(/\s+/g,' ').trim();
+}
+
+function controlSnapshot(element){
+  const result={target:element.id,label:fieldLabel(element),kind:element.tagName.toLowerCase(),value:String(element.value||'')};
+  if(element.tagName==='SELECT'){
+    result.selected=element.selectedOptions?.[0]?.textContent?.trim()||'';
+    result.options=[...element.options].map(option=>({value:option.value,label:option.textContent.trim()}));
+  }else{
+    result.placeholder=element.placeholder||'';
+  }
+  return result;
+}
+
+function visibleScreen(){
+  const app=window.SHARAKAH_APP;
+  const phase=Number(app?.phase)||1;
+  const active=document.querySelector('.phase.active')||document.getElementById(`ph${phase}`);
+  const heading=active?.querySelector('h1')?.textContent?.trim()||'';
+  const visibleText=[...(active?.querySelectorAll('h1,h2,h3,.ph-sub,.card-head,.section-head,.notice,.help,.example-help,.example-content,.agr-box,.agr-meta')||[])]
+    .filter(visibleElement).map(node=>node.innerText?.replace(/\s+/g,' ').trim()).filter(Boolean).join('\n').slice(0,10000);
+  const controls=[...(active?.querySelectorAll('input[id],select[id],textarea[id]')||[])]
+    .filter(element=>STATIC_FIELDS.has(element.id)&&visibleElement(element)).map(controlSnapshot);
+  const parties=(app?.parties||[]).map((party,index)=>({
+    party_id:party.id,position:index+1,name:party.name,capacity:party.cap,
+    fields:[...PARTY_FIELDS].map(field=>({target:`party:${party.id}:${field}`,field,value:party[field]??''}))
+  }));
+  return {ok:true,screen:{phase,step_title:heading,visible_text:visibleText,partnership_type:app?.type||'',controls,parties,calculated_results:(app?.results||[]).map(r=>({name:r.name,ownership:r.pct,profit:r.profit,capital_share:r.capitalPct})),built_in_examples:BUILT_IN_EXAMPLES}};
+}
+
+function normalizedChoice(value){return normalize(String(value||'')).replace(/\s+/g,' ');}
+function numericValue(value){
+  const latin=String(value??'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[,،\s%]/g,'');
+  const number=Number(latin);
+  return Number.isFinite(number)?number:0;
+}
+
+function selectValue(select,requested){
+  const wanted=normalizedChoice(requested);
+  const option=[...select.options].find(item=>normalizedChoice(item.value)===wanted||normalizedChoice(item.textContent)===wanted);
+  return option?option.value:null;
+}
+
+async function updateForm(args={}){
+  const app=window.SHARAKAH_APP;
+  if(!app)return {ok:false,error:'platform-not-ready'};
+  const updates=Array.isArray(args.updates)?args.updates.slice(0,30):[];
+  const applied=[],rejected=[];
+  let rerenderParties=false;
+  let navigateTo=null;
+  for(const update of updates){
+    const target=String(update?.target||'').trim(),value=String(update?.value??'').trim();
+    try{
+      if(target==='partnership_type'){
+        const wanted=normalizedChoice(value);
+        const type=(app.TYPES||[]).find(item=>normalizedChoice(item.id)===wanted||normalizedChoice(item.name)===wanted);
+        if(!type)throw new Error('قيمة نوع الشراكة غير معروفة');
+        app.selType(type.id);applied.push({target,value:type.name});continue;
+      }
+      if(target==='load_example'){
+        const wanted=normalizedChoice(value);
+        const example=BUILT_IN_EXAMPLES.find(item=>normalizedChoice(item.id)===wanted||normalizedChoice(item.name)===wanted);
+        if(!example)throw new Error('المثال غير معروف');
+        app.loadExample(example.id);
+        await new Promise(resolve=>setTimeout(resolve,180));
+        applied.push({target,value:example.name});continue;
+      }
+      if(target==='add_party'){
+        app.addParty(value?{name:value}:{});applied.push({target,value:value||'طرف جديد'});continue;
+      }
+      if(target==='navigate_step'){
+        const step=Math.max(1,Math.min(5,Math.round(numericValue(value))));
+        navigateTo=step;applied.push({target,value:step});continue;
+      }
+      const partyMatch=target.match(/^party:(\d+):([A-Za-z]+)$/);
+      if(partyMatch){
+        const id=Number(partyMatch[1]),field=partyMatch[2],party=app.parties.find(item=>item.id===id);
+        if(!party||!PARTY_FIELDS.has(field))throw new Error('حقل الطرف غير معروف');
+        let next=NUMERIC_PARTY_FIELDS.has(field)?numericValue(value):value;
+        if(field==='work'){
+          const workMap={لا:'no','دوام كامل':'full','نعم دوام كامل':'full','دوام جزئي':'part','نعم دوام جزئي':'part','لمدة محددة':'period','نعم لمدة محددة':'period'};
+          next=workMap[normalizedChoice(value)]||value;
+        }
+        app.sp(id,field,next);rerenderParties=true;applied.push({target,value:next});continue;
+      }
+      if(STATIC_FIELDS.has(target)){
+        const element=document.getElementById(target);
+        if(!element)throw new Error('الحقل غير موجود في الصفحة');
+        const next=element.tagName==='SELECT'?selectValue(element,value):value;
+        if(next===null)throw new Error('الخيار غير متاح');
+        element.value=next;
+        element.dispatchEvent(new Event(element.tagName==='SELECT'?'change':'input',{bubbles:true}));
+        if(element.tagName!=='SELECT')element.dispatchEvent(new Event('change',{bubbles:true}));
+        applied.push({target,value:element.tagName==='SELECT'?(element.selectedOptions?.[0]?.textContent?.trim()||next):value});continue;
+      }
+      throw new Error('الهدف غير مسموح');
+    }catch(error){rejected.push({target,value,error:String(error?.message||error)});}
+  }
+  if(rerenderParties){app.renderParties();app.renderExistingSellerOptions();app.normalizeNumberInputs();}
+  if(navigateTo!==null)app.go(navigateTo);
+  return {ok:rejected.length===0,applied,rejected,current_screen:visibleScreen().screen};
+}
+
 const TOOL_DECLARATIONS=[
   {name:'search_legal_knowledge',description:'Search the supplied Saudi Companies Law and its Executive Regulations, or only the partnership and mudaraba chapters supplied from the Civil Transactions Law. Always use this before stating a legal rule, article or regulatory requirement.',parametersJsonSchema:{type:'object',properties:{query:{type:'string'},source:{type:'string',enum:['all','companies','civil']},max_results:{type:'number'}},required:['query'],additionalProperties:false}},
   {name:'get_partnership_context',description:'Read the user current partnership type, parties, contributions, calculated ownership/profit percentages and dispute direction from the platform before commenting on their case.',parametersJsonSchema:{type:'object',properties:{},additionalProperties:false}},
+  {name:'get_visible_screen',description:'Read the exact currently open platform step, all visible explanatory text, visible field labels, their current values and choices, party field targets, results, and built-in examples. You MUST call this before answering any question about what is on screen, explaining a platform example or current step, or deciding which fields to fill.',parametersJsonSchema:{type:'object',properties:{},additionalProperties:false}},
+  {name:'update_partnership_form',description:'Fill the platform on behalf of the user using only values the user explicitly provided. First call get_visible_screen, then submit updates using its exact targets. Targets include partnership_type, load_example, add_party, navigate_step, visible control ids such as projName or legalStruct, and party targets such as party:1:name, party:1:cash, party:2:work. Values must be strings. Never guess missing values.',parametersJsonSchema:{type:'object',properties:{updates:{type:'array',items:{type:'object',properties:{target:{type:'string'},value:{type:'string'}},required:['target','value'],additionalProperties:false}}},required:['updates'],additionalProperties:false}},
   {name:'identify_specialist',description:'Choose the appropriate specialist type for a complex question instead of referring every case only to a lawyer.',parametersJsonSchema:{type:'object',properties:{question:{type:'string'}},required:['question'],additionalProperties:false}}
 ];
 
@@ -145,6 +277,9 @@ function instruction(){
 - تحدث بالعربية السعودية المهنية السهلة، وافهم سياق الرسائل السابقة داخل الجلسة ولا تطلب من المستخدم إعادة ما قاله.
 - اسأل سؤالا واحدا واضحا في كل مرة عندما تحتاج معلومة ناقصة، وساعد المستخدم تدريجيا في بناء شراكته.
 - لا تكتف بعرض مقتطفات. افهم النص، اربطه بحالة المستخدم، ثم اشرح النتيجة بوضوح واختصار.
+- أنت داخل المنصة ولديك أداة تقرأ الشاشة الحالية وأداة تعبئ الحقول. قبل أن تشرح الصفحة المفتوحة أو أي مثال أو نتائج ظاهرة، استخدم get_visible_screen واقرأ النص والقيم الفعلية؛ لا تقل إنك لا تستطيع رؤية الشاشة.
+- عندما يطلب المستخدم تعبئة البيانات، استخدم get_visible_screen أولا ثم update_partnership_form. عبئ فقط المعلومات التي ذكرها صراحة، ولا تخمّن قيمة ناقصة. بعد التنفيذ اذكر باختصار ما عبأته واسأل عن أول معلومة ناقصة.
+- عند شرح مثال من أمثلة المنصة، حمّل المثال إذا طلب المستخدم ذلك، ثم اشرحه صفحة صفحة: اشرح الصفحة المفتوحة فقط اعتمادا على قيمها الظاهرة، وبعدها اسأل هل ينتقل للصفحة التالية. لا تعط شرحا عاما منفصلا عن بيانات المثال.
 - قبل أي تقرير نظامي أو رقم مادة استخدم أداة search_legal_knowledge. اذكر اسم النظام ورقم المادة إن ظهر بوضوح في النتائج، ولا تخترع مادة أو حكما.
 - استخدم get_partnership_context إذا كان السؤال عن بيانات المستخدم أو النسب التي حسبتها المنصة.
 - نتائج المنصة ونقاشك نقاط أولية وليست عقدا نهائيا. التحكيم في المنصة توجه مبدئي وليس شرط تحكيم نهائيا.
@@ -152,7 +287,7 @@ function instruction(){
 - لا تقدم إجابة قاطعة عند تعقّد الوقائع أو غياب نص واضح. قل: الأفضل مراجعة مختص مناسب، وحدد أحد هؤلاء بحسب المسألة: مختص شركات، محاسب قانوني، مستشار زكوي وضريبي، مقيّم معتمد، مختص شرعي، أو مختص بالملكية الفكرية.
 - لا تحصر الإحالة في المحامي، ولا تنشئ ملخصا للمختص، ولا تتحدث عن الخصوصية أو البنية التقنية من تلقاء نفسك.
 - إذا خرج السؤال عن نطاق الشراكات والشركات والمضاربة، اعتذر باختصار وأعد المستخدم إلى نطاق المنصة.
-- لا تدّع أنك نفذت تغييرا في الحاسبة؛ دورك الشرح والمساعدة الحوارية فقط.`;
+- إذا نفذت update_partnership_form فاذكر التغييرات التي أعادتها الأداة فقط، ولا تدّع تنفيذ شيء لم يظهر في نتيجة الأداة.`;
 }
 
 async function appCheckToken(force=false){
@@ -183,13 +318,15 @@ async function fetchToken(){
 
 async function handleTools(calls=[]){
   if(!session||!calls.length)return;
-  setState('أراجع الأنظمة وحالتك…','working');
+  setState('أقرأ الصفحة وأنفذ طلبك…','working');
   const responses=[];
   for(const call of calls){
     let result;
     try{
       if(call.name==='search_legal_knowledge')result=searchKnowledge(call.args||{});
       else if(call.name==='get_partnership_context')result=currentContext();
+      else if(call.name==='get_visible_screen')result=visibleScreen();
+      else if(call.name==='update_partnership_form')result=await updateForm(call.args||{});
       else if(call.name==='identify_specialist')result={ok:true,specialist:specialistFor(call.args?.question||'')};
       else result={ok:false,error:'unknown-tool'};
     }catch(error){result={ok:false,error:String(error?.message||error)};}
@@ -430,6 +567,6 @@ async function disconnect(reason='manual'){
   if(reason==='idle')setState('انتهى الاتصال لعدم وجود تفاعل','idle');
 }
 
-window.PartnershipAssistant={toggle,keydown,askQuick,send,listen:startVoice,stopVoice,disconnect,get active(){return Boolean(session);},get voiceActive(){return voiceActive;}};
+window.PartnershipAssistant={toggle,keydown,askQuick,send,listen:startVoice,stopVoice,disconnect,getVisibleScreen:visibleScreen,updateForm,get active(){return Boolean(session);},get voiceActive(){return voiceActive;}};
 setState('جاهز للكتابة أو الصوت','ready');
 
