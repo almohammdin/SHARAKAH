@@ -1,5 +1,5 @@
 import {GoogleGenAI,Modality} from 'https://cdn.jsdelivr.net/npm/@google/genai@2.14.0/+esm';
-import './sharakah-ai-appcheck.js?v=1.0.12';
+import './sharakah-ai-appcheck.js?v=1.0.13';
 
 const MODEL='gemini-3.1-flash-live-preview';
 const INPUT_RATE=16000;
@@ -262,7 +262,7 @@ async function ensureSession(){
         onopen:()=>setState('المساعد الذكي متصل','ready'),
         onmessage:handleMessage,
         onerror:error=>{console.error('Sharakah AI:',error);setState('تعذر استمرار الاتصال','error');},
-        onclose:()=>{session=null;if($('#assistantPanel')&&!$('#assistantPanel').classList.contains('hide'))setState('انقطع الاتصال. حاول مرة أخرى.','error');}
+        onclose:()=>{session=null;if($('#assistantPanel'))setState('انقطع الاتصال. حاول مرة أخرى.','error');}
       }
     });
     resetIdle();
@@ -411,13 +411,12 @@ async function send(){
 }
 
 function toggle(force){
-  const panel=$('#assistantPanel'),launch=$('#assistantLaunch');
-  if(!panel)return;
-  const open=force===undefined?panel.classList.contains('hide'):Boolean(force);
-  panel.classList.toggle('hide',!open);
-  launch?.setAttribute('aria-expanded',String(open));
+  const conversation=$('#assistantConversation'),trigger=$('#assistantTextToggle');
+  if(!conversation)return;
+  const open=force===undefined?conversation.classList.contains('hide'):Boolean(force);
+  conversation.classList.toggle('hide',!open);
+  trigger?.setAttribute('aria-expanded',String(open));
   if(open){$('#assistantInput')?.focus();setState(session?'المساعد الذكي متصل':'جاهز للكتابة أو الصوت','ready');}
-  else if(voiceActive)stopVoice();
 }
 
 function keydown(event){if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}}
