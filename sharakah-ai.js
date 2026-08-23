@@ -1,5 +1,5 @@
-import {GoogleGenAI,Modality} from 'https://cdn.jsdelivr.net/npm/@google/genai@2.14.0/+esm';
-import './sharakah-ai-appcheck.js?v=1.0.14';
+import {GoogleGenAI,Modality,StartSensitivity,EndSensitivity} from 'https://cdn.jsdelivr.net/npm/@google/genai@2.14.0/+esm';
+import './sharakah-ai-appcheck.js?v=1.0.15';
 
 const MODEL='gemini-3.1-flash-live-preview';
 const INPUT_RATE=16000;
@@ -19,6 +19,8 @@ let silentGain=null;
 let outputGain=null;
 let outputQueuedUntil=0;
 let micSuppressed=false;
+let voiceAwaiting=false;
+let voiceResponseTimer=null;
 let assistantBubble=null;
 let assistantText='';
 let voiceUserBubble=null;
@@ -43,8 +45,9 @@ function setState(text,state=''){
   voice?.classList.toggle('assistant-speaking',voiceActive);
   voice?.setAttribute('aria-pressed',String(voiceActive));
   $('#assistantStopVoice')?.classList.toggle('hide',!voiceActive);
+  $('#assistantFinishVoice')?.classList.toggle('hide',!voiceActive||voiceAwaiting);
   const label=document.querySelector('.assistant-mic-label');
-  if(label)label.textContent=voiceActive?'المحادثة الصوتية تعمل الآن':'اضغط وابدأ الحديث';
+  if(label)label.textContent=voiceActive?(voiceAwaiting?'تم إرسال السؤال':'المحادثة الصوتية تعمل الآن'):'اضغط وابدأ الحديث';
 }
 
 function addMessage(text,role,sources=[]){
@@ -348,24 +351,30 @@ function handleMessage(message){
   if(!content)return;
   if(content.interrupted){
     clearPlayback();
+    clearTimeout(voiceResponseTimer);
+    voiceAwaiting=false;
     assistantBubble=null;
     assistantText='';
     micSuppressed=false;
     setState(voiceActive?'أسمعك الآن':'جاهز لسؤالك','listening');
   }
   if(content.inputTranscription?.text&&voiceActive){
+    clearTimeout(voiceResponseTimer);
     if(!voiceUserBubble){voiceUserText='';voiceUserBubble=addMessage('','user');}
     voiceUserText+=content.inputTranscription.text;
     updateBubble(voiceUserBubble,voiceUserText.trim());
+    setState('وصلني صوتك…','working');
   }
   if(content.outputTranscription?.text){
+    clearTimeout(voiceResponseTimer);
+    voiceAwaiting=true;
     if(!assistantBubble)beginAssistantBubble();
     assistantText+=content.outputTranscription.text;
     updateBubble(assistantBubble,assistantText.trim());
     setState(voiceActive?'المساعد يتحدث':'يكتب الإجابة…','speaking');
   }
   for(const part of content.modelTurn?.parts||[]){
-    if(part.inlineData?.data&&voiceActive)playPcm(part.inlineData.data);
+    if(part.inlineData?.data&&voiceActive){clearTimeout(voiceResponseTimer);voiceAwaiting=true;playPcm(part.inlineData.data);}
   }
   if(content.turnComplete){
     assistantBubble?.classList.remove('is-streaming');
@@ -389,6 +398,7 @@ async function ensureSession(){
       model:MODEL,
       config:{
         responseModalities:[Modality.AUDIO],
+        realtimeInputConfig:{automaticActivityDetection:{disabled:false,startOfSpeechSensitivity:StartSensitivity.START_SENSITIVITY_LOW,endOfSpeechSensitivity:EndSensitivity.END_SENSITIVITY_LOW,prefixPaddingMs:40,silenceDurationMs:700}},
         systemInstruction:instruction(),
         inputAudioTranscription:{},
         outputAudioTranscription:{},
@@ -484,11 +494,30 @@ function clearPlayback(){
 
 function resumeMicAfterPlayback(){
   const delay=Math.max(0,(outputQueuedUntil-(outputContext?.currentTime||0))*1000)+120;
-  setTimeout(()=>{if(voiceActive){micSuppressed=false;setState('أسمعك الآن','listening');}},delay);
+  setTimeout(()=>{if(voiceActive){voiceAwaiting=false;micSuppressed=false;setState('أسمعك الآن','listening');}},delay);
+}
+
+function finishVoiceTurn(){
+  if(!voiceActive||!session||voiceAwaiting)return;
+  micSuppressed=true;
+  voiceAwaiting=true;
+  try{session.sendRealtimeInput({audioStreamEnd:true});}
+  catch(error){console.error('Sharakah finish voice:',error);voiceAwaiting=false;micSuppressed=false;setState('تعذر إرسال السؤال، حاول مرة أخرى','error');return;}
+  setState('أرسلت سؤالك، أنتظر الرد…','working');
+  clearTimeout(voiceResponseTimer);
+  voiceResponseTimer=setTimeout(()=>{
+    if(!voiceActive||!voiceAwaiting)return;
+    voiceAwaiting=false;
+    micSuppressed=false;
+    setState('لم يصل رد؛ اضغط وتحدث ثم أرسل السؤال','error');
+  },15000);
 }
 
 async function stopVoice(){
+  clearTimeout(voiceResponseTimer);
+  try{if(voiceActive&&session)session.sendRealtimeInput({audioStreamEnd:true});}catch{}
   voiceActive=false;
+  voiceAwaiting=false;
   micSuppressed=false;
   if(micProcessor)micProcessor.onaudioprocess=null;
   try{micProcessor?.disconnect();micSource?.disconnect();silentGain?.disconnect();outputGain?.disconnect();}catch{}
@@ -506,6 +535,7 @@ async function startVoice(){
     await prepareAudio();
     await ensureSession();
     voiceActive=true;
+    voiceAwaiting=false;
     startMic();
     setState('أسمعك الآن','listening');
     resetIdle();
@@ -556,6 +586,14 @@ function toggle(force){
   if(open){$('#assistantInput')?.focus();setState(session?'المساعد الذكي متصل':'جاهز للكتابة أو الصوت','ready');}
 }
 
+async function toggleCard(open=true){
+  const panel=$('#assistantPanel');
+  if(!panel)return;
+  panel.classList.toggle('is-collapsed',!open);
+  panel.setAttribute('aria-expanded',String(open));
+  if(!open){toggle(false);await disconnect('card-closed');}
+}
+
 function keydown(event){if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();send();}}
 function askQuick(question){toggle(true);const input=$('#assistantInput');if(input)input.value=question;send();}
 
@@ -567,6 +605,6 @@ async function disconnect(reason='manual'){
   if(reason==='idle')setState('انتهى الاتصال لعدم وجود تفاعل','idle');
 }
 
-window.PartnershipAssistant={toggle,keydown,askQuick,send,listen:startVoice,stopVoice,disconnect,getVisibleScreen:visibleScreen,updateForm,get active(){return Boolean(session);},get voiceActive(){return voiceActive;}};
+window.PartnershipAssistant={toggle,toggleCard,keydown,askQuick,send,listen:startVoice,finishVoiceTurn,stopVoice,disconnect,getVisibleScreen:visibleScreen,updateForm,get active(){return Boolean(session);},get voiceActive(){return voiceActive;}};
 setState('جاهز للكتابة أو الصوت','ready');
 
