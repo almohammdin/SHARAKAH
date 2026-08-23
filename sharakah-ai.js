@@ -1,5 +1,5 @@
 import {GoogleGenAI,Modality,StartSensitivity,EndSensitivity} from 'https://cdn.jsdelivr.net/npm/@google/genai@2.14.0/+esm';
-import './sharakah-ai-appcheck.js?v=1.0.15';
+import './sharakah-ai-appcheck.js?v=1.0.16';
 
 const MODEL='gemini-3.1-flash-live-preview';
 const INPUT_RATE=16000;
