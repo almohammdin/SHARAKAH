@@ -1743,6 +1743,9 @@ captureResultsImage() {
     };
     const parties = this.parties.map((p,i) => {
       const r = resultById(p.id);
+      if (t === 'existing') return p.cap === 'مستثمر جديد'
+        ? `${i+1}. ${p.name || this.partyOrdinal(i)} | مستثمر جديد | إجمالي مبلغ الصفقة ${this.moneyText(p.cash)} | الملكية بعد الدخول ${this.percentText(r?.pct ?? 0)}.`
+        : `${i+1}. ${p.name || this.partyOrdinal(i)} | شريك حالي | الملكية قبل الدخول ${this.percentText(p.currentPct || 0)} | الملكية بعد الدخول ${this.percentText(r?.pct ?? 0)}. أصول الشركة وأعمالها القائمة مشمولة في تقييم الشركة، ولا تحسب مساهمة جديدة في هذه الصفقة.`;
       if (t === 'mudaraba') return `${i+1}. ${p.name || this.partyOrdinal(i)} | ${p.cap} | ${contribText(p)} | الربح: ${r?.profit === null || r?.profit === undefined ? 'يحدد لاحقا' : this.percentText(r.profit)}.`;
       const profit = r && this.profitDiffers() ? `، ونصيب الربح ${this.percentText(r.profit)}` : '';
       return `${i+1}. ${p.name || this.partyOrdinal(i)} | ${p.cap || 'شريك'} | ${contribText(p)} | الحصة التقديرية ${this.percentText(r?.pct ?? 0)}${profit}.`;
