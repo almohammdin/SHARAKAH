@@ -1,4 +1,5 @@
 .money-field-wrap,.percent-field-wrap{position:relative;width:100%;direction:ltr}
+.assistant-privacy-note{margin-block:10px 24px;padding-block:14px;border-top:1px solid var(--border);color:#5f7180;font-size:12px;line-height:1.85;text-align:start}.assistant-privacy-note strong{font-size:12px;font-weight:600}.assistant-privacy-note p{margin-block:4px 0}.assistant-privacy-note button{border:0;padding:0;background:none;color:var(--navy);font:inherit;text-decoration:underline;cursor:pointer}
 .money-field-wrap input,.percent-field-wrap input{padding-left:42px!important;direction:ltr;text-align:left;font-variant-numeric:tabular-nums}
 .field-unit{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none;color:#102538;font-size:17px;line-height:1}
 .money-field-wrap .riyal-symbol{width:14px;height:17px;display:block}
