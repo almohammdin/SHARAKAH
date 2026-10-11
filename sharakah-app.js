@@ -960,7 +960,7 @@ const G = {
       // If the inputs do not qualify as mudaraba, continue through the regular weighted partnership calculation.
     }
 
-    // roleBonus محذوف — المسمى الوظيفي وصف في العقد لا وزن في الحصص
+    // roleBonus محذوف المسمى الوظيفي وصف في العقد لا وزن في الحصص
     // قيمة الجهد = (الراتب العادل - المستلم) × المدة × الوزن (Startup فقط)
     const isStartup = this.type === 'startup';
     this.results = this.parties.map((p, i) => {
@@ -1465,7 +1465,7 @@ const G = {
         </div>`).join('')
       : `<div style="padding:6px 0;color:${muted};font-size:15px;font-family:${font}">تضاف المساهمات من بطاقات الأطراف</div>`;
 
-    const capLine = `${this.escapeHtml(r.cap||'')}${r.role && r.role!=='silent' ? ' - '+(roleNames[r.role]||'') : ''}`;
+    const capLine = `${this.escapeHtml(r.cap||'')}${r.role && r.role!=='silent' ? ' '+(roleNames[r.role]||'') : ''}`;
     const headlineShare = isMudExport
       ? `<div style="margin-bottom:12px;background:${card};border-radius:10px;padding:14px 16px;text-align:center"><span style="font-size:14px;color:${muted};font-family:${font}">نصيب الربح</span><div style="font-size:30px;font-weight:700;color:${navy};font-family:${font}">${r.profit === null ? 'يحدد لاحقا' : this.percentHtml(r.profit)}</div></div>`
       : hasProfitSplit
@@ -1914,8 +1914,11 @@ captureResultsImage() {
   },
   moneyText(v) { return `⃁ ${this.fmt(v)}`; },
   percentText(v) { return `% ${v}`; },
+  displayText(value) {
+    return String(value ?? '').replace(/[ \t]*[\u2010-\u2015][ \t]*/g,' ').replace(/(?<=[\u0600-\u06ffA-Za-z])[ \t]+-[ \t]+(?=[\u0600-\u06ffA-Za-z])/g,' ').replace(/(^|\n)[ \t]*-[ \t]+(?=[\u0600-\u06ffA-Za-z])/g,'$1');
+  },
   escapeHtml(value) {
-    return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    return this.displayText(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 };
 
