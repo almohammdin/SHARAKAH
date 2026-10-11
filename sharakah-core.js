@@ -24,7 +24,7 @@
    const hint=fg.querySelector('.help');if(hint){if(!hint.id)hint.id=input.id+'-hint';input.setAttribute('aria-describedby',hint.id)}
    if(!input.classList.contains('num'))return;
    const handler=input.getAttribute('oninput')||input.getAttribute('onchange')||'';const match=handler.match(/G\.sp\(\d+,'([^']+)'/);const key=match?.[1];
-   const isMoney=moneyIds.has(input.id)||moneyKeys.has(key),isPercent=percentIds.has(input.id)||['profit','currentPct'].includes(key);input.dataset.unit=isMoney?'money':isPercent?'percent':'number';
+   const isMoney=input.dataset.unit==='money'||moneyIds.has(input.id)||moneyKeys.has(key),isPercent=input.dataset.unit==='percent'||percentIds.has(input.id)||['profit','currentPct'].includes(key);input.dataset.unit=isMoney?'money':isPercent?'percent':'number';
    if(!isMoney&&!isPercent)return;
    let wrap=input.parentElement;if(!wrap.classList.contains('money-field-wrap')&&!wrap.classList.contains('percent-field-wrap')){wrap=document.createElement('div');input.before(wrap);wrap.appendChild(input)}wrap.className=isMoney?'money-field-wrap':'percent-field-wrap';
    let unit=wrap.querySelector('.field-unit');if(!unit){unit=document.createElement('span');unit.className='field-unit';wrap.appendChild(unit)}unit.classList.toggle('riyal-symbol',isMoney);unit.textContent=isPercent?'%':'';unit.setAttribute('aria-hidden','true');input.setAttribute('aria-label',(label?.childNodes[0]?.textContent||label?.textContent||'القيمة').trim()+(isMoney?'، ريال سعودي':isPercent?'، نسبة مئوية':''));
@@ -62,6 +62,8 @@
  g.doReset=async function(...args){clearTimeout(saveTimer);for(const key of Object.keys(stateByType))delete stateByType[key];source.doReset(...args);if(byId('savedBadge'))byId('savedBadge').textContent='';await window.PartnershipAssistant?.disconnect?.('project-reset');window.PartnershipAssistant?.clearHistory?.()};
  g.loadExample=function(type){for(const id of fieldIds){const el=byId(id);if(el)el.value=el.tagName==='SELECT'?(g.initialFields?.[id]||''):''}for(const key of Object.keys(stateByType))delete stateByType[key];source.loadExample(type);setTimeout(()=>{g.normalizeNumberInputs();g.syncEntry();g.scheduleSave();g.notice('مثال تعليمي. استبدل الأسماء والقيم واتفقوا على البنود المناسبة لحالتكم.')},160)};
  g.init=function(){source.init();g.initialFields=Object.fromEntries(fieldIds.map(id=>[id,byId(id)?.value||'']));g.normalizeNumberInputs();g.checkSaved();document.addEventListener('input',()=>g.scheduleSave());document.addEventListener('change',()=>g.scheduleSave());};
+ g.getTypeStates=()=>structuredClone(stateByType);
+ g.setTypeStates=function(states={}){for(const key of Object.keys(stateByType))delete stateByType[key];Object.assign(stateByType,structuredClone(states))};
  window.addEventListener('pagehide',()=>{if(g.type)g.saveProgress()});
  document.addEventListener('keydown',event=>{const modal=byId('resetModal');if(!modal?.classList.contains('open'))return;if(event.key==='Escape')g.closeModal('resetModal');if(event.key==='Tab'){const buttons=[...modal.querySelectorAll('button')];if(event.shiftKey&&document.activeElement===buttons[0]){event.preventDefault();buttons.at(-1).focus()}else if(!event.shiftKey&&document.activeElement===buttons.at(-1)){event.preventDefault();buttons[0].focus()}}});
 })();

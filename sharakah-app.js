@@ -877,7 +877,7 @@ const G = {
 
     if (investors.length !== 1) problems.push('يجب تحديد مستثمر جديد واحد فقط.');
     if (!owners.length) problems.push('يجب وجود شريك حالي واحد على الأقل.');
-    if (owners.some(p => !(Number(p.currentPct) > 0 && Number(p.currentPct) <= 100)) || Math.abs(ownershipTotal - 100) >= 0.05)
+    if (owners.some(p => !(Number(p.currentPct) > 0 && Number(p.currentPct) <= 100)) || Math.abs(ownershipTotal - 100) > 1e-8)
       problems.push(`مجموع نسب الملكية الحالية يجب أن يساوي % 100، والمجموع المدخل ${this.percentText(ownershipTotal)}.`);
     if (!(valuation > 0)) problems.push('أدخل قيمة الشركة قبل الدخول.');
     if (!((cashIn + cashOut) > 0)) problems.push('أدخل مبلغ الدخول.');
@@ -1424,7 +1424,8 @@ const G = {
 
   const cash  = this.parties.reduce((s,p) => s+(p.cash||0), 0);
   const asset = this.parties.reduce((s,p) => s+(p.assets||0)+(p.ip||0)+(p.net||0), 0);
-  const working = this.parties.filter(p => p.work !== 'no').length;
+  const knownWorkers = this.parties.filter(p => ['no','full','part','period'].includes(p.work));
+  const working = knownWorkers.filter(p => p.work !== 'no').length;
   const pre = this.numVal('preMoney');
   const inv = this.numVal('newInv');
   const kpis = isMudExport ? [
@@ -1432,11 +1433,13 @@ const G = {
     { lbl:'الأطراف', val:String(this.parties.length), sub:'رب مال ومضارب' },
     { lbl:'نسب الربح', val:mudProfitComplete ? 'محددة' : 'تحدد لاحقا', sub:'يعرض هذا المسار نسب الربح' }
   ] : [
-    { lbl:'إجمالي التمويل النقدي', val: this.moneyHtml(cash), sub: this.parties.length + ' أطراف' },
-    { lbl:'الأصول والحقوق المضافة', val: this.moneyHtml(asset), sub:'أصول + ملكية فكرية + التزامات مقومة' },
-    { lbl:'أطراف عاملون في المشروع', val: working + ' / ' + this.parties.length, sub:'من مجموع الأطراف' },
+    { lbl:this.type==='existing'?'مبلغ الصفقة للشركة والبائع':'إجمالي المساهمات النقدية المدخلة', val: this.moneyHtml(cash), sub:'مبلغ متفق أو مقترح؛ المدفوع الفعلي مستقل' },
+    { lbl:this.type==='existing'?'أصول الشركة السابقة':'الأصول والحقوق المضافة', val:this.type==='existing'?'ضمن التقييم':this.moneyHtml(asset), sub:this.type==='existing'?'لا تُحسب مساهمة جديدة':'أصول + ملكية فكرية + التزامات مقومة' },
+    { lbl:'الشركاء العاملون', val:knownWorkers.length===this.parties.length?working + ' / ' + this.parties.length:'لم تُحدد بالكامل', sub:working+' عاملون مؤكدون؛ '+(this.parties.length-knownWorkers.length)+' حالات لم تُحدد' },
   ];
   if (pre > 0 && inv > 0) kpis.push({ lbl:'التقييم بعد الاستثمار', val: this.moneyHtml(pre+inv), sub:'Post-Money Valuation' });
+
+  if(this.type==='existing'&&this.entryFundingText){kpis.splice(0,kpis.length,{lbl:'تفاصيل الصفقة والدفعات',val:'',sub:this.escapeHtml(this.entryFundingText()).replaceAll('\n','<br>')});}
 
   const kpiBoxes = kpis.map(k => `
     <div style="background:${surf};border:1px solid ${border};border-radius:14px;padding:20px 24px;display:flex;flex-direction:column;justify-content:center">
@@ -1448,9 +1451,9 @@ const G = {
   const partyCards = res.map(r => {
     const contribRows = [
       r.cash     ? { lbl:'نقدي', val:this.moneyHtml(r.cash) } : null,
-      r.assets   ? { lbl:'أصول', val:this.moneyHtml(r.assets) } : null,
-      r.ip       ? { lbl:'ملكية فكرية', val:this.moneyHtml(r.ip) } : null,
-      r.net      ? { lbl:'التزام قابل للقياس', val:this.moneyHtml(r.net) } : null,
+      r.assets && this.type!=='existing' ? { lbl:'أصول', val:this.moneyHtml(r.assets) } : null,
+      r.ip && this.type!=='existing' ? { lbl:'ملكية فكرية', val:this.moneyHtml(r.ip) } : null,
+      r.net && this.type!=='existing' ? { lbl:'التزام قابل للقياس', val:this.moneyHtml(r.net) } : null,
       r.effortSc ? { lbl:`جهد (${r.dur || 0} أشهر)`, val:this.moneyHtml(r.effortSc) } : null,
     ].filter(Boolean);
 
@@ -1511,7 +1514,7 @@ const G = {
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.0.16</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.2.0</div>
         </div>
       </div>
 
@@ -1542,7 +1545,7 @@ const G = {
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.0.16</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.2.0</span></div>
       </div>
     </div>`;
 

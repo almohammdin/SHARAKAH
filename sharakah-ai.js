@@ -50,6 +50,7 @@ function searchKnowledge(args={}){
 }
 function currentContext(){
   const app=window.SHARAKAH_APP;
+  if(app?.type==='reorg')return {ok:true,context:window.SharakahReorg.context()};
   const value=id=>document.getElementById(id)?.value||'';
   if(!app)return {ok:true,stage:'unavailable'};
   return {ok:true,context:{
@@ -60,6 +61,9 @@ function currentContext(){
     parties:(app.parties||[]).map(p=>({name:p.name,capacity:p.cap,cash:p.cash,assets:p.assets,ip:p.ip,measurable_commitment:p.net,work:p.work,current_ownership:p.currentPct,profit_share:p.profit})),
     calculated_results:(app.results||[]).map(r=>({name:r.name,ownership:r.pct,profit:r.profit,capital_share:r.capitalPct})),
     calculation_note:app.calculationError||'',
+    clause_states:app.termStates||{},
+    transaction:{...app.transaction,amount:value('entryAmt'),company_funding:value('cashInAmt'),seller_price:value('cashOutAmt'),valuation:value('coVal'),percentage:value('entryPct')},
+    calculated_ownership_status:'proposed',
     dispute_direction:value('disputeMethod')
   }};
 }
@@ -73,7 +77,7 @@ const BUILT_IN_EXAMPLES=[
 
 const STATIC_FIELDS=new Set([
   'projName','legalStruct','newInv','targetPct','preMoney','postMoney','entryMode','cashInAmt','cashOutAmt','sellerPartyId','coVal','entryAmt','entryPct',
-  'mudScope','mudFee','managerName','decisionRule','fundingRule','agreementTerm','exitRule','keyNotes','amicableOn','amicableDays','disputeMethod','disputeNote'
+  'mudScope','mudFee','managerName','decisionRule','fundingRule','agreementTerm','exitRule','keyNotes','amicableOn','amicableDays','disputeMethod','disputeNote','existingValuationBasis','valuationDate','entryPaidIn','entryPaidOut','entryLater'
 ]);
 
 const PARTY_FIELDS=new Set(['name','cap','cash','assets','ip','net','work','fmv','paid','dur','role','vesting','vestYrs','cliffMo','vestNote','profit','currentPct','note']);
@@ -103,6 +107,7 @@ function controlSnapshot(element){
 }
 
 function visibleScreen(){
+  if(window.SHARAKAH_APP?.type==='reorg')return {ok:true,screen:window.SharakahReorg.context()};
   const app=window.SHARAKAH_APP;
   const phase=Number(app?.phase)||1;
   const active=document.querySelector('.phase.active')||document.getElementById(`ph${phase}`);
@@ -129,6 +134,7 @@ function selectValue(select,requested){
 
 async function updateForm(args={}){
  const app=window.SHARAKAH_APP;if(!app)return {ok:false,error:'platform-not-ready'};
+ if(app.type==='reorg')return {ok:false,error:'هذا المسار يسجل الأدوار والقرارات من نماذجه مباشرة؛ يمكنني قراءة بياناته وشرحها، ولا أعتمد أو أغيّر قرارات الأطراف تلقائيًا.'};
  const before=app.snapshot(),updates=Array.isArray(args.updates)?args.updates.slice(0,30):[],applied=[],rejected=[];let render=false;
  for(const update of updates){const target=String(update?.target||'').trim(),value=String(update?.value??'').trim();try{
   if(target==='partnership_type'){const type=app.TYPES.find(t=>normalizedChoice(t.id)===normalizedChoice(value)||normalizedChoice(t.name)===normalizedChoice(value));if(!type)throw new Error('نوع الشراكة غير متاح');app.selType(type.id);applied.push({target,value:type.name});continue;}
@@ -166,6 +172,7 @@ const TOOL_DECLARATIONS=[
 function instruction(){return `أنت مساعد بناء الشراكة في السعودية. تساعد المستخدم في ترتيب الوقائع والقرارات، وتشرح نتائج الأداة ضمن نطاقها.
 في الصوت: لهجتك سعودية بيضاء ثابتة قريبة من حديث أهل الرياض المهني، بنبرة هادئة وواضحة وجمل قصيرة. حافظ على اللهجة السعودية في كل الأدوار ولا تقلد لهجة المتحدث أو تنتقل إلى الشامية أو اللبنانية. انطق القاف قافًا واضحة في المصطلحات: طَريقة، قيمة، عقد، حقوق؛ لا تحول القاف إلى همزة. استخدم تعبيرات سعودية بسيطة مثل «حياك الله»، «خلّنا نرتبها»، «وش نوع الشراكة؟»، «تقدر»، «الحين» عند ملاءمتها، دون تكرار أو مبالغة. قل مثلًا: «حياك الله، خلّنا نرتب شراكتك. وش نوعها؟» و«الطَريقة تعتمد على نوع الشراكة والمبالغ المتفق عليها». إذا تعذر النطق المحلي، استخدم عربية فصحى واضحة مع القاف الصحيحة. هذه أمثلة أسلوب فقط ولا تلزمك بتحية جديدة في كل رد. ابدأ بالنتيجة، واذكر نقطتين أو ثلاثًا، ثم سؤالًا واحدًا عند الحاجة. لا تقرأ الروابط أو جداول طويلة أو رموز الريال والفواصل بصوتك. انطق المبلغ بوضوح، وأظهر الأرقام والمراجع كتابيًا. في الكتابة يمكن إضافة تفصيل مناسب.
 اقرأ get_visible_screen قبل شرح مثال أو حقل أو تغيير مدخل. اعتمد القيم التي أعادتها الأداة فقط؛ إذا تعذرت القراءة اذكر ذلك. لا تدع معرفة الشاشة دون نتيجة الأداة. الأسماء في سياق الأدوات مستعارة؛ استخدم رقم الطرف أو اسمه الذي ذكره المستخدم صراحة.
+حالة كل قرار جزء من البيانات: pending لم يتم البت فيه، proposed مقترح، approved معتمد كما سجله المستخدم. لا تصف المقترح أو الخيار الافتراضي كاتفاق. في إعادة التنظيم، الملكية المتفق عليها مستقلة عن تقييم المساهمات ولا تتغير بالحساب. المبلغ المتفق أو المقترح ليس المدفوع؛ البيانات المفقودة «لم تُحدد». افصل ضخ الشركة عن ثمن الشراء للبائع، واذكر أن التقييم المستنتج من الصفقة ليس تقييمًا مستقلًا. لا تدّع اعتماد دور أو صلاحية أو إتمام تحول أو حفظ سحابي من محادثتك.
 قبل الحكم النظامي استخدم search_legal_knowledge وحدد الإطار: شركة خاضعة لنظام الشركات بحسب شكلها، مشاركة مدنية، أم مضاربة. لا تطبق قاعدة الخسائر المدنية على كل شركة. ميّز رأس المال المسجل عن تقويم الجهد والملكية المقترحة ونصيب الربح والأجر. اعرض ملخص المرجع كشرح، ولا تنسبه كنص حرفي للنظام. استخدم رقم المادة والرابط الذي أعادته الأداة؛ لا تخترع نصًا أو رقمًا. عند نقص النص أو الوقائع اذكر ما يحتاج مراجعة.
 الأداة تدعم مضاربة نقدية بسيطة. مساهمة المضارب بمال أو رأس مال غير نقدي تستدعي مراجعة أحكامها؛ لا تصفر مساهمة ولا تحكم ببطلان الحالة لمجرد الجمع بين المال والعمل. التحكيم توجه للنقاش؛ الورقة ليست توثيق تأسيس أو نقل ملكية.
 الصناديق والطروحات والشركات المدرجة والمشورة بشأن ورقة مالية محددة قد تدخل نطاق هيئة السوق المالية. اشرح حدود الأداة وأحل لمختص بالسوق المالية؛ لا تقدم توصية شراء أو بيع أو وعد بعائد أو ضمان نظامي.
