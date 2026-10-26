@@ -6,16 +6,16 @@
 <title>حاسبة الشراكات | Partnership Share Calculator</title>
 
 <meta name="description" content="أداة استرشادية لتقدير الحصص وتجهيز نقاط اتفاق الشركاء بصورة مبسطة.">
-<meta name="theme-color" content="#0B1F33">
+<meta name="theme-color" content="#061F56">
 <meta property="og:title" content="حاسبة الشراكات | Partnership Share Calculator">
 <meta property="og:description" content="أداة استرشادية مبسطة لتقدير الحصص وتجهيز أهم نقاط اتفاق الشركاء.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://almohammdin.github.io/SHARAKAH/">
-<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.2.2">
+<meta property="og:image" content="https://almohammdin.github.io/SHARAKAH/preview-hatta.png?v=1.2.3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview.png?v=1.2.2">
+<meta name="twitter:image" content="https://almohammdin.github.io/SHARAKAH/preview-hatta.png?v=1.2.3">
 
 <link rel="icon" type="image/svg+xml" href="sharakah-icon.svg?v=1.2.2">
 <link rel="apple-touch-icon" href="sharakah-icon.png?v=1.2.2">
@@ -704,8 +704,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .assistant-conversation{border-top:1px solid var(--border);background:#fff}.assistant-conversation.hide{display:none}.assistant-conversation-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--navy);color:#fff}.assistant-conversation-head strong{font-size:13px}.assistant-close{border:0;background:transparent;color:#fff;font-size:22px;cursor:pointer}.assistant-messages{height:270px;overflow:auto;padding:14px;background:#f8f7f4}.assistant-msg{max-width:91%;padding:10px 12px;border-radius:12px;margin-bottom:10px;line-height:1.75;font-size:13px;white-space:pre-wrap}.assistant-msg.bot{background:#fff;border:1px solid var(--border);margin-left:auto}.assistant-msg.user{background:#e8eef1;color:var(--navy);margin-right:auto}.assistant-source{display:block;margin-top:7px;color:var(--muted);font-size:10px}.assistant-quick{display:flex;gap:6px;overflow-x:auto;padding:9px 12px;border-top:1px solid var(--border);background:#fff}.assistant-quick button{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 9px;font-family:var(--font);font-size:11px;cursor:pointer}.assistant-compose{display:grid;grid-template-columns:1fr auto;gap:7px;padding:10px;background:#fff;border-top:1px solid var(--border)}.assistant-compose textarea{resize:none;min-height:42px;max-height:90px;border:1px solid var(--border);border-radius:10px;padding:9px;font-family:var(--font);font-size:13px}.assistant-icon{width:44px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer;font-size:17px}.assistant-listen{display:block;margin-top:7px;border:0;background:transparent;color:#8B671E;font-family:inherit;cursor:pointer;font-size:11px}.assistant-msg.is-streaming{border-color:#bda45f}
 @media(max-width:700px){.assistant-panel{margin:16px 0 2px;border-radius:18px}.assistant-card-main{grid-template-columns:1fr;gap:25px;padding:24px 20px}.assistant-title{font-size:20px}.assistant-desc{font-size:13px}.assistant-mic{width:104px;height:104px}.assistant-card-actions{align-items:flex-start;flex-direction:column;padding:13px 20px}.assistant-text-toggle{width:100%}.assistant-messages{height:250px}}
 </style>
-<link rel="stylesheet" href="sharakah-ui.css?v=1.2.2">
-<link rel="stylesheet" href="sharakah-v2.css?v=1.2.2">
+<link rel="stylesheet" href="sharakah-ui.css?v=1.2.3">
+<link rel="stylesheet" href="sharakah-v2.css?v=1.2.3">
+<link rel="stylesheet" href="hatta-theme.css?v=1.2.3">
 </head>
 <body>
 
@@ -713,6 +714,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <header>
   <div class="wrap hdr-inner">
     <img class="hdr-brand-logo" src="sharakah-logo.svg" alt="حاسبة الشراكات | Partnership Share Calculator">
+    <span class="hatta-logo hdr-hatta-logo"><img src="https://almohammdin.github.io/hatta-brand-guide/assets/hatta-logo.webp" alt="حتى لحلول الأعمال" width="1000" height="526"></span>
     <div class="hdr-spacer"></div>
     <div class="hdr-owner" aria-label="هوية نايف المحمدي وحساباته">
       <img class="hdr-naif-logo" src="naif-logo-gold.png" alt="شعار نايف المحمدي">
@@ -1225,6 +1227,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 <!-- ═══════════════ PHASE 5 ═══════════════ -->
 <div class="phase" id="ph5">
+<div class="print-brand"><span class="hatta-logo "><img src="https://almohammdin.github.io/hatta-brand-guide/assets/hatta-logo.webp" alt="حتى لحلول الأعمال" width="1000" height="526"></span><img src="sharakah-logo.svg" alt="حاسبة الشراكات | Partnership Share Calculator"></div>
   <h1 class="ph-title">نقاط اتفاق الشركاء</h1>
   <div class="ph-sub">هذه أهم النقاط التي تساعدكم في النقاش الأولي قبل الصياغة القانونية النهائية.</div>
 
@@ -1267,9 +1270,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <div id="exportResultsLayout" style="position:fixed;left:-9999px;top:0;visibility:hidden;pointer-events:none"></div>
 <footer class="brand-footer">
   <div class="brand-footer-inner">
-    <img class="footer-naif-logo" src="naif-logo-gold.png" alt="شعار نايف المحمدي">
-    <div class="footer-role-main">مستشار الحوكمة وتطوير الأعمال</div>
-    <div class="footer-social-row">
+    <div class="footer-marks"><span class="hatta-logo footer-hatta-logo"><img src="https://almohammdin.github.io/hatta-brand-guide/assets/hatta-logo.webp" alt="حتى لحلول الأعمال" width="1000" height="526"></span><div class="footer-author"><img class="footer-naif-logo" src="naif-logo-gold.png" alt="شعار نايف المحمدي">
+<div class="footer-role-main">مستشار الحوكمة وتطوير الأعمال</div></div></div>
+    <div class="footer-contact"><div class="footer-social-row">
       <a href="https://x.com/almohammdin" target="_blank" rel="noopener" aria-label="حساب X">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>
       </a>
@@ -1282,22 +1285,22 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <a href="https://linktr.ee/almohammdin" target="_blank" rel="noopener" aria-label="حساب Linktree">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.4 9.15 16.8 5.7l1.95 1.98-3.42 3.38h4.86v2.8h-4.88l3.45 3.43-1.97 1.95-3.39-3.42V21h-2.8v-5.16l-3.4 3.42-1.97-1.97 3.45-3.43H3.8v-2.8h4.87L5.25 7.68 7.2 5.7l3.4 3.45V3h2.8v6.15z"/></svg>
       </a>
-    </div>
-    <div class="footer-handle">@almohammdin</div>
-    <div class="version-chip">الإصدار 1.2.2</div>
+    </div><div class="footer-handle">@almohammdin</div></div>
     <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
+    <div class="footer-meta"><span class="version-chip">الإصدار 1.2.3</span><span class="footer-account-slot" id="footerAccountSlot"></span></div>
   </div>
 </footer>
 
-<script src="assistant-knowledge.js?v=1.2.2"></script>
-<script src="sharakah-legal.js?v=1.2.2"></script>
-<script type="module" src="sharakah-ai.js?v=1.2.2"></script>
-<script src="sharakah-app.js?v=1.2.2" defer></script>
-<script src="sharakah-core.js?v=1.2.2" defer></script>
-<script src="sharakah-v2.js?v=1.2.2" defer></script>
-<script src="sharakah-reorg.js?v=1.2.2" defer></script>
-<script src="sharakah-export.js?v=1.2.2" defer></script>
-<script src="sharakah-account.js?v=1.2.2" defer></script>
+<script src="assistant-knowledge.js?v=1.2.3"></script>
+<script src="sharakah-legal.js?v=1.2.3"></script>
+<script type="module" src="sharakah-ai.js?v=1.2.3"></script>
+<script src="sharakah-app.js?v=1.2.3" defer></script>
+<script src="sharakah-core.js?v=1.2.3" defer></script>
+<script src="sharakah-v2.js?v=1.2.3" defer></script>
+<script src="sharakah-reorg.js?v=1.2.3" defer></script>
+<script src="hatta-export-assets.js?v=1.2.3" defer></script>
+<script src="sharakah-export.js?v=1.2.3" defer></script>
+<script src="sharakah-account.js?v=1.2.3" defer></script>
 
 <aside id="voiceDock" class="voice-dock hide" aria-label="التحكم بالمحادثة الصوتية"><div class="voice-dock-head"><button type="button" class="voice-dock-open" onclick="PartnershipAssistant.openVoicePanel()" aria-label="فتح محادثة المساعد"><span class="voice-orb" id="voiceOrb" aria-hidden="true"><span class="voice-wave"></span><span class="voice-wave"></span><span class="voice-wave"></span><span class="voice-wave"></span><span class="voice-wave"></span></span><span><strong>المساعد الصوتي</strong><span id="voiceDockStatus" role="status">يتصل…</span></span></button></div><div class="voice-dock-actions"><button id="voiceMute" type="button" onclick="PartnershipAssistant.muteVoice()" aria-pressed="false">كتم الميكروفون</button><button id="voiceFinish" type="button" onclick="PartnershipAssistant.finishVoiceTurn()">أنهيت سؤالي</button><button type="button" class="voice-end" onclick="PartnershipAssistant.stopVoice()">■ إنهاء</button></div></aside><script>window.PartnershipAssistant=window.PartnershipAssistant||{toggle(){document.getElementById('assistantStatus').textContent='تعذر تحميل المساعد. أعد تحميل الصفحة.'},toggleCard(open){document.getElementById('assistantPanel').classList.toggle('is-collapsed',!open)},listen(){this.toggle()},send(){this.toggle()},keydown(){},askQuick(){this.toggle()}};</script>
 </body>
