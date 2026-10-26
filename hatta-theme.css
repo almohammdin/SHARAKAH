@@ -40,9 +40,9 @@ header{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 0
 .hdr-inner{gap:24px;min-height:66px}
 .hdr-brand-logo{width:220px;max-width:100%;padding:0;border:0;background:none;border-radius:0}
 .hatta-logo{position:relative;display:block;width:174px;aspect-ratio:746/269;overflow:hidden;flex:none}
-.hatta-logo>img{position:absolute;display:block;width:134.0483%;max-width:none;height:auto;left:-17.9625%;top:-55.3903%;margin:0;object-fit:initial}
+.hatta-logo>img{display:block;width:100%;max-width:100%;height:auto;margin:0;object-fit:contain}
 .hdr-hatta-logo{width:150px}
-.hdr-owner{gap:12px}.hdr-naif-logo{height:28px;filter:brightness(0) saturate(100%) invert(10%) sepia(53%) saturate(3562%) hue-rotate(213deg) brightness(92%) contrast(102%)}
+.hdr-owner{gap:12px}.hdr-naif-logo{height:28px;filter:none}
 .hdr-socials{gap:4px}.hdr-socials a{width:36px;height:36px;border-color:var(--border);color:var(--navy);border-radius:9px}
 .hdr-socials svg{width:15px;height:15px}
 .hdr-socials a:hover{background:var(--gold-soft);border-color:var(--gold-lt)}
@@ -87,7 +87,7 @@ svg text{font-family:var(--font)}
 .footer-marks{grid-area:marks;display:flex;align-items:center;gap:28px;min-width:0}
 .footer-hatta-logo{width:190px}
 .footer-author{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
-.footer-naif-logo{grid-area:auto;width:90px;height:auto;max-height:none;margin:0;filter:brightness(0) saturate(100%) invert(10%) sepia(53%) saturate(3562%) hue-rotate(213deg) brightness(92%) contrast(102%)}
+.footer-naif-logo{grid-area:auto;width:90px;height:auto;max-height:none;margin:0;filter:none}
 .footer-role-main{grid-area:auto;color:var(--muted);font-size:12px;line-height:1.5;font-weight:400}
 .footer-contact{grid-area:contact;display:flex;flex-direction:column;align-items:center;gap:4px}
 .footer-social-row{grid-area:auto;display:flex;direction:ltr;gap:4px;margin:0;flex-wrap:nowrap}

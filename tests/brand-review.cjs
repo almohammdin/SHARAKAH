@@ -20,7 +20,7 @@ const root=process.cwd(),out=path.join(root,'tests/.brand-output');fs.mkdirSync(
  await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
  await page.locator('#accountLock').click();assert(await page.locator('#accountDialog').isVisible());await page.locator('#accountClose').click();
  await page.evaluate(()=>{G.startTool();G.loadExample('fnb');G.go(2)});await page.evaluate(()=>document.fonts.ready);
- assert.equal(await page.locator('.card-head').first().evaluate(e=>getComputedStyle(e).fontFeatureSettings),'"salt" 1');
+ assert.match(await page.locator('.card-head').first().evaluate(e=>getComputedStyle(e).fontFeatureSettings),/^"salt"(?: 1)?$/);
  const fonts=await page.evaluate(()=>({body:document.fonts.check('16px "Thmanyah Sans"'),title:document.fonts.check('32px "Thmanyah Serif Display"'),english:document.fonts.check('16px "El Messiri"')}));assert(Object.values(fonts).every(Boolean),JSON.stringify(fonts));
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  await page.setViewportSize({width:1440,height:1000});await page.evaluate(()=>{G.go(4);G.buildExportLayout()});await page.evaluate(()=>document.fonts.ready);
