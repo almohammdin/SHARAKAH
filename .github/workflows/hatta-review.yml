@@ -16,7 +16,8 @@ jobs:
       - run: npm install --no-package-lock
       - run: npm install --no-save --no-package-lock sharp
       - run: npx playwright install chromium
-      - run: node tests/brand-review.cjs
+      - run: timeout --signal=KILL 90s node tests/brand-review.cjs
+        timeout-minutes: 2
       - run: npm test
         if: always()
       - uses: actions/upload-artifact@v4

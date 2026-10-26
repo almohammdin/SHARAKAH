@@ -1,7 +1,8 @@
 const fs=require('fs'),http=require('http'),path=require('path'),assert=require('assert/strict');
 const {chromium}=require('playwright'),sharp=require('sharp');
 const root=process.cwd(),out=path.join(root,'tests/.brand-output');fs.mkdirSync(out,{recursive:true});fs.mkdirSync('assets/brand',{recursive:true});
-setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},90000).unref();
+function emit(file,bytes){const b=bytes.toString('base64');console.log('FILE_BEGIN '+file);for(let i=0;i<b.length;i+=4000)console.log('FILE_CHUNK '+b.slice(i,i+4000));console.log('FILE_END '+file)}
+setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},60000).unref();
 (async()=>{
  const get=async u=>{const r=await fetch(u);if(!r.ok)throw Error(u+': '+r.status);return Buffer.from(await r.arrayBuffer())};
  const base='https://almohammdin.github.io/hatta-brand-guide/assets/';
@@ -19,7 +20,7 @@ setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},90000).unref()
  assert.equal(await page.locator('.footer-social-row a').count(),4);assert.equal((await page.locator('footer').innerText()).match(/@almohammdin/g).length,1);
  for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:950});await page.locator('#accountLock').scrollIntoViewIfNeeded();const v=await page.locator('.version-chip').boundingBox(),l=await page.locator('#accountLock').boundingBox();assert(l&&v);assert(l.x+l.width<=v.x||v.x+v.width<=l.x||l.y+l.height<=v.y||v.y+v.height<=l.y,'lock overlaps version at '+width);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'overflow '+width)}
  await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
- console.log('FILE_BASE64 tests/.brand-output/desktop.png '+fs.readFileSync(path.join(out,'desktop.png')).toString('base64'));
+ emit('tests/.brand-output/desktop.png',fs.readFileSync(path.join(out,'desktop.png')));
  console.log('QA_STAGE account');
  await page.locator('#accountLock').click();assert(await page.locator('#accountDialog').isVisible());await page.locator('#accountClose').click();
  console.log('QA_STAGE tool');
@@ -42,7 +43,7 @@ setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},90000).unref()
  await og.evaluate(()=>document.fonts.ready);await og.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth));
  await og.screenshot({path:'preview-hatta.png'});
  console.log('BRAND_CHECKS '+JSON.stringify({fonts,errors,footer:'4 icons, 1 handle; lock separate at 320/390/768/1440',docx:'logo and fonts present'}));assert.deepEqual(errors,[]);
- for(const file of ['assets/brand/hatta-logo.png','assets/brand/naif-navy.png','hatta-export-assets.js','preview-hatta.png','tests/.brand-output/desktop.png','tests/.brand-output/mobile.png','tests/.brand-output/result.png'])console.log('FILE_BASE64 '+file+' '+fs.readFileSync(file).toString('base64'));
+ for(const file of ['assets/brand/hatta-logo.png','assets/brand/naif-navy.png','hatta-export-assets.js','preview-hatta.png','tests/.brand-output/desktop.png','tests/.brand-output/mobile.png','tests/.brand-output/result.png'])emit(file,fs.readFileSync(file));
  console.log('QA_STAGE complete');
  await browser.close();await new Promise(r=>server.close(r));
 })().catch(e=>{console.error(e);process.exit(1)});
