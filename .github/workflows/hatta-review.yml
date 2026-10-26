@@ -18,6 +18,7 @@ jobs:
       - run: npx playwright install chromium
       - run: node tests/brand-review.cjs
       - run: npm test
+        if: always()
       - uses: actions/upload-artifact@v4
         if: always()
         with:
