@@ -1,3 +1,9 @@
+1.2.3 · 2026-10-26
+Hatta identity 2.0: original Hatta logo and Naif signature; Thmanyah heading/body roles and El Messiri; light navy/gold interface, print and export styling.
+Footer: four existing social links, one account handle; account lock and version in separate in-flow controls at all widths.
+Preserved page text, form controls, routes, calculations, account behavior and assistant behavior. Updated link preview.
+Validation: 62 existing browser regression checks passed, plus font loading, footer overlap checks at 320/390/768/1440px, DOCX media/font inspection and print/image rendering.
+
 الإصدار 1.2.2
 
 حذف شرطات الفصل من العناوين والخيارات والأمثلة، ومن عرض ردود المساعد والمسودات والمخرجات. توجيه المساعد لاستخدام الجمل والأسطر والترقيم بدل شرطات الفصل.

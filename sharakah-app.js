@@ -18,7 +18,7 @@ const G = {
   ],
 
 
-  COLORS: ['#0B1F33','#2F6F73','#56758F','#8B671E','#66856F','#7D4753','#667684','#6E5F80'],
+  COLORS: ['#061F56','#087A55','#0B2F75','#B47A2D','#66856F','#8A5B20','#657084','#6E5F80'],
 
   HINTS: {
     startup: 'مشروع جديد يستهدف النمو والتوسع، ويدخل فيه مستثمر مقابل نسبة ملكية. مناسب للمشروع القابل للنمو الذي يحتاج تمويلا أو شريكا استثماريا.',
@@ -1061,8 +1061,8 @@ const G = {
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#EAE5D8" stroke-width="${sw}"/>
       ${arcs}
       <circle cx="${cx}" cy="${cy}" r="${r-sw/2-8}" fill="var(--surface)"/>
-      <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="11" fill="#405466" font-family="IBM Plex Sans Arabic">${label}</text>
-      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="14" fill="#0B1F33" font-weight="700" font-family="IBM Plex Sans Arabic">${data.length} أطراف</text>`;
+      <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="11" fill="#405466" font-family="Thmanyah Sans">${label}</text>
+      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="14" fill="#0B1F33" font-weight="700" font-family="Thmanyah Sans">${data.length} أطراف</text>`;
   },
 
   renderDonut() {
@@ -1352,16 +1352,16 @@ const G = {
   /* ─── EXPORT LAYOUT BUILDER ─── */
   buildExportLayout() {
   const W = 1080, H = 1350, PAD = 24;
-  const bg     = '#F5F3ED';
-  const surf   = '#FFFDF8';
-  const card   = '#EAE5D8';
-  const txt    = '#102538';
-  const mid    = '#405466';
-  const muted  = '#5F7180';
-  const border = '#D2D8DC';
-  const navy   = '#0B1F33';
-  const gold   = '#8B671E';
-  const font   = "'IBM Plex Sans Arabic', sans-serif";
+  const bg     = '#FBFAF7';
+  const surf   = '#FFFFFF';
+  const card   = '#F7F1E7';
+  const txt    = '#17233C';
+  const mid    = '#3D4960';
+  const muted  = '#657084';
+  const border = '#DFE3EB';
+  const navy   = '#061F56';
+  const gold   = '#8A5B20';
+  const font   = "'Thmanyah Sans', sans-serif";
 
   const xIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63z"/></svg>`;
   const linkedInIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="${gold}" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
@@ -1513,8 +1513,9 @@ const G = {
           ${projName ? `<div style="font-size:20px;color:${mid};font-family:${font}">المشروع: ${projName}</div>` : ''}
         </div>
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
+          <img src="assets/brand/hatta-logo.png" alt="حتى لحلول الأعمال" style="width:190px;height:auto;display:block;margin:0 0 18px auto">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.2.0</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.2.3</div>
         </div>
       </div>
 
@@ -1538,19 +1539,29 @@ const G = {
 
       <div style="padding-top:18px;border-top:2px solid ${border};display:flex;align-items:center;justify-content:space-between;gap:18px;font-family:${font};flex-shrink:0">
         <div style="display:flex;align-items:center;gap:14px">
-          <img src="naif-logo-gold.png" alt="شعار نايف المحمدي" style="width:126px;height:56px;object-fit:contain">
+          <img src="assets/brand/naif-navy.png" alt="شعار نايف المحمدي" style="width:110px;height:51px;object-fit:contain">
           <div style="font-size:15px;color:${mid};font-family:${font}">مستشار الحوكمة وتطوير الأعمال</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:${gold}">
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.2.0</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.2.3</span></div>
       </div>
     </div>`;
 
   const container = document.getElementById('exportResultsLayout');
   container.innerHTML = html;
+  // Use the original riyal artwork with explicit dimensions for html2canvas.
+  const riyalImage = "data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20width%3D%221124%22%20height%3D%221256%22%20id%3D%22Layer_1%22%20data-name%3D%22Layer%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201124.14%201256.39%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20.cls-1%20%7B%0A%20%20%20%20%20%20%20%20fill%3A%20%23061F56%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3C%2Fstyle%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cpath%20class%3D%22cls-1%22%20d%3D%22M699.62%2C1113.02h0c-20.06%2C44.48-33.32%2C92.75-38.4%2C143.37l424.51-90.24c20.06-44.47%2C33.31-92.75%2C38.4-143.37l-424.51%2C90.24Z%22%2F%3E%0A%20%20%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1085.73%2C895.8c20.06-44.47%2C33.32-92.75%2C38.4-143.37l-330.68%2C70.33v-135.2l292.27-62.11c20.06-44.47%2C33.32-92.75%2C38.4-143.37l-330.68%2C70.27V66.13c-50.67%2C28.45-95.67%2C66.32-132.25%2C110.99v403.35l-132.25%2C28.11V0c-50.67%2C28.44-95.67%2C66.32-132.25%2C110.99v525.69l-295.91%2C62.88c-20.06%2C44.47-33.33%2C92.75-38.42%2C143.37l334.33-71.05v170.26l-358.3%2C76.14c-20.06%2C44.47-33.32%2C92.75-38.4%2C143.37l375.04-79.7c30.53-6.35%2C56.77-24.4%2C73.83-49.24l68.78-101.97v-.02c7.14-10.55%2C11.3-23.27%2C11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z%22%2F%3E%0A%3C%2Fsvg%3E";
+  container.querySelectorAll('.riyal-symbol').forEach(symbol => {
+    const size = parseFloat(getComputedStyle(symbol).fontSize) || 16;
+    const icon = document.createElement('img');
+    icon.src = riyalImage;
+    icon.alt = symbol.getAttribute('aria-label') || 'ريال سعودي';
+    icon.style.cssText = 'display:inline-block;flex:0 0 auto;width:' + (size * .78) + 'px;height:' + (size * .9) + 'px;vertical-align:-.08em';
+    symbol.replaceWith(icon);
+  });
   container.style.visibility = 'visible';
   container.style.width = px(W);
   container.style.height = px(H);
@@ -1578,7 +1589,7 @@ captureResultsImage() {
     setTimeout(() => {
       document.fonts.ready.then(() => {
         html2canvas(container.firstElementChild, {
-          backgroundColor: '#F5F3ED',
+          backgroundColor: '#FBFAF7',
           scale: 3,
           useCORS: true,
           logging: false,
