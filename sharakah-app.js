@@ -1552,6 +1552,18 @@ const G = {
 
   const container = document.getElementById('exportResultsLayout');
   container.innerHTML = html;
+  // html2canvas does not support CSS masks; use the original SVG in exports.
+  container.querySelectorAll('.riyal-symbol').forEach(symbol => {
+    symbol.style.mask = 'none';
+    symbol.style.webkitMask = 'none';
+    symbol.style.background = 'none';
+    const icon = document.createElement('img');
+    icon.src = 'riyal-symbol.svg';
+    icon.alt = '';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.style.cssText = 'display:block;width:100%;height:100%;object-fit:contain';
+    symbol.appendChild(icon);
+  });
   container.style.visibility = 'visible';
   container.style.width = px(W);
   container.style.height = px(H);

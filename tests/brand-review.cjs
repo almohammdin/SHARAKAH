@@ -15,6 +15,7 @@ setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},60000).unref()
  const server=http.createServer((req,res)=>{const u=new URL(req.url,'http://localhost');const f=path.join(root,u.pathname==='/'?'index.html':u.pathname);if(!fs.existsSync(f)){res.writeHead(404);res.end();return}const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2'};res.setHeader('Content-Type',mime[path.extname(f)]||'application/octet-stream');res.end(fs.readFileSync(f))});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
  const browser=await chromium.launch({headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}});
+ await page.emulateMedia({reducedMotion:'reduce'});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(origin,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
  assert.equal(await page.locator('.footer-social-row a').count(),4);assert.equal((await page.locator('footer').innerText()).match(/@almohammdin/g).length,1);
