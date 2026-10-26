@@ -15,12 +15,13 @@ jobs:
           node-version: '22'
       - run: npm install --no-package-lock
       - run: npm install --no-save --no-package-lock sharp
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install chromium
       - run: node tests/brand-review.cjs
       - run: npm test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
+          include-hidden-files: true
           name: hatta-review
           path: |
             tests/.brand-output
