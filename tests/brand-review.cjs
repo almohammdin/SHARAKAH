@@ -24,7 +24,7 @@ setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},60000).unref()
  console.log('QA_STAGE account');
  await page.locator('#accountLock').click();assert(await page.locator('#accountDialog').isVisible());await page.locator('#accountClose').click();
  console.log('QA_STAGE tool');
- await page.evaluate(()=>{G.startTool();G.loadExample('fnb');G.go(2)});await page.evaluate(()=>document.fonts.ready);
+ await page.evaluate(()=>G.startTool());await page.waitForFunction(()=>document.getElementById('splashScreen').classList.contains('gone'));await page.evaluate(()=>G.loadExample('fnb'));await page.waitForFunction(()=>G.type==='fnb'&&G.parties.length===2&&G.parties[0].name==='محمد العلي');await page.evaluate(()=>G.go(2));await page.evaluate(()=>document.fonts.ready);
  assert.match(await page.locator('.card-head').first().evaluate(e=>getComputedStyle(e).fontFeatureSettings),/^"salt"(?: 1)?$/);
  console.log('QA_STAGE fonts');
  const fonts=await page.evaluate(()=>({body:document.fonts.check('16px "Thmanyah Sans"'),title:document.fonts.check('700 32px "Thmanyah Serif Display"'),english:document.fonts.check('600 16px "El Messiri"')}));assert(Object.values(fonts).every(Boolean),JSON.stringify(fonts));
@@ -32,7 +32,7 @@ setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},60000).unref()
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  console.log('QA_STAGE result');
  await page.setViewportSize({width:1440,height:1000});await page.evaluate(()=>{G.go(4);G.buildExportLayout()});await page.evaluate(()=>document.fonts.ready);
- const resultNode=page.locator('#exportResultsLayout>div');await resultNode.evaluate(e=>{e.style.position='fixed';e.style.left='0';e.style.top='0';e.style.zIndex='9999';e.style.visibility='visible'});await page.setViewportSize({width:1080,height:1350});await resultNode.screenshot({path:path.join(out,'result.png')});
+ const resultImage=await page.evaluate(async()=>{const canvas=await html2canvas(document.querySelector('#exportResultsLayout>div'),{backgroundColor:'#FBFAF7',scale:1,useCORS:true,width:1080,height:1350,windowWidth:1080,windowHeight:1350});return canvas.toDataURL('image/png').split(',')[1]});fs.writeFileSync(path.join(out,'result.png'),Buffer.from(resultImage,'base64'));
  console.log('QA_STAGE pdf');
  await page.evaluate(()=>{document.querySelector('#exportResultsLayout').innerHTML='';G.go(5)});await page.pdf({path:path.join(out,'draft.pdf'),format:'A4',printBackground:true,preferCSSPageSize:true});
  console.log('QA_STAGE word');
