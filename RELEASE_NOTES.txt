@@ -1,3 +1,6 @@
+1.2.4 · 2026-10-26
+تبسيط الهيدر إلى شعار الحاسبة بخلفية شفافة وشعار حتى مرتبط بصفحة الأدوات. تخصيص الفوتر لتوقيع نايف وصفته وأيقونات التواصل الأربع ومعرف واحد، مع فصل القفل ورقم الإصدار. حفظ محتوى الحاسبة ووظائفها وروابط التواصل.
+
 1.2.3 · 2026-10-26
 Hatta identity 2.0: original Hatta logo and Naif signature; Thmanyah heading/body roles and El Messiri; light navy/gold interface, print and export styling.
 Footer: four existing social links, one account handle; account lock and version in separate in-flow controls at all widths.
