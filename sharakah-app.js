@@ -1552,17 +1552,15 @@ const G = {
 
   const container = document.getElementById('exportResultsLayout');
   container.innerHTML = html;
-  // html2canvas does not support CSS masks; use the original SVG in exports.
+  // Use the original riyal artwork with explicit dimensions for html2canvas.
+  const riyalImage = "data:image/svg+xml;charset=utf-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20width%3D%221124%22%20height%3D%221256%22%20id%3D%22Layer_1%22%20data-name%3D%22Layer%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201124.14%201256.39%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20.cls-1%20%7B%0A%20%20%20%20%20%20%20%20fill%3A%20%23061F56%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3C%2Fstyle%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cpath%20class%3D%22cls-1%22%20d%3D%22M699.62%2C1113.02h0c-20.06%2C44.48-33.32%2C92.75-38.4%2C143.37l424.51-90.24c20.06-44.47%2C33.31-92.75%2C38.4-143.37l-424.51%2C90.24Z%22%2F%3E%0A%20%20%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1085.73%2C895.8c20.06-44.47%2C33.32-92.75%2C38.4-143.37l-330.68%2C70.33v-135.2l292.27-62.11c20.06-44.47%2C33.32-92.75%2C38.4-143.37l-330.68%2C70.27V66.13c-50.67%2C28.45-95.67%2C66.32-132.25%2C110.99v403.35l-132.25%2C28.11V0c-50.67%2C28.44-95.67%2C66.32-132.25%2C110.99v525.69l-295.91%2C62.88c-20.06%2C44.47-33.33%2C92.75-38.42%2C143.37l334.33-71.05v170.26l-358.3%2C76.14c-20.06%2C44.47-33.32%2C92.75-38.4%2C143.37l375.04-79.7c30.53-6.35%2C56.77-24.4%2C73.83-49.24l68.78-101.97v-.02c7.14-10.55%2C11.3-23.27%2C11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z%22%2F%3E%0A%3C%2Fsvg%3E";
   container.querySelectorAll('.riyal-symbol').forEach(symbol => {
-    symbol.style.mask = 'none';
-    symbol.style.webkitMask = 'none';
-    symbol.style.background = 'none';
+    const size = parseFloat(getComputedStyle(symbol).fontSize) || 16;
     const icon = document.createElement('img');
-    icon.src = 'riyal-symbol.svg';
-    icon.alt = '';
-    icon.setAttribute('aria-hidden', 'true');
-    icon.style.cssText = 'display:block;width:100%;height:100%;object-fit:contain';
-    symbol.appendChild(icon);
+    icon.src = riyalImage;
+    icon.alt = symbol.getAttribute('aria-label') || 'ريال سعودي';
+    icon.style.cssText = 'display:inline-block;flex:0 0 auto;width:' + (size * .78) + 'px;height:' + (size * .9) + 'px;vertical-align:-.08em';
+    symbol.replaceWith(icon);
   });
   container.style.visibility = 'visible';
   container.style.width = px(W);
