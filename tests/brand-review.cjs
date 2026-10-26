@@ -19,9 +19,11 @@ setTimeout(()=>{console.error('REVIEW_WATCHDOG');process.exit(1)},60000).unref()
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(origin,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
  assert.equal(await page.locator('.footer-social-row a').count(),4);assert.equal((await page.locator('footer').innerText()).match(/@almohammdin/g).length,1);
- for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:950});await page.locator('#accountLock').scrollIntoViewIfNeeded();const v=await page.locator('.version-chip').boundingBox(),l=await page.locator('#accountLock').boundingBox();assert(l&&v);assert(l.x+l.width<=v.x||v.x+v.width<=l.x||l.y+l.height<=v.y||v.y+v.height<=l.y,'lock overlaps version at '+width);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'overflow '+width)}
+ for(const width of [320,360,390,768,1440]){await page.setViewportSize({width,height:950});await page.locator('#accountLock').scrollIntoViewIfNeeded();const v=await page.locator('.version-chip').boundingBox(),l=await page.locator('#accountLock').boundingBox();assert(l&&v);assert(l.x+l.width<=v.x||v.x+v.width<=l.x||l.y+l.height<=v.y||v.y+v.height<=l.y,'lock overlaps version at '+width);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'overflow '+width)}
  await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
  emit('tests/.brand-output/desktop.png',fs.readFileSync(path.join(out,'desktop.png')));
+ await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(out,'mobile-home.png'),fullPage:true});
+ emit('tests/.brand-output/mobile-home.png',fs.readFileSync(path.join(out,'mobile-home.png')));
  console.log('QA_STAGE account');
  await page.locator('#accountLock').click();assert(await page.locator('#accountDialog').isVisible());await page.locator('#accountClose').click();
  console.log('QA_STAGE tool');
