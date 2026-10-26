@@ -36,21 +36,21 @@ input[type=checkbox],input[type=range]{min-height:0}
 .card,.party-card,.chart-box,.res-party,.kpi,.agr-box,.re-card{border-radius:16px;box-shadow:var(--shadow)}
 .kpi-val,.res-pct,.exist-kpi-val{font-family:"El Messiri","Thmanyah Sans",sans-serif;font-variant-numeric:tabular-nums}
 [lang=en],.footer-handle,.capture-meta,.value-with-unit bdi{font-family:"El Messiri","Thmanyah Sans",sans-serif;font-variant-numeric:tabular-nums}
-header{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 0}
-.hdr-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:66px}
-.hdr-brand-logo{width:220px;max-width:100%;padding:0;border:0;background:none;border-radius:0}
+header{background:var(--bg);border-bottom:1px solid var(--border);padding:8px 0}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:54px}
+.hdr-brand-logo{width:200px;max-width:100%;padding:0;border:0;background:none;border-radius:0}
 .hatta-logo{position:relative;display:block;width:174px;aspect-ratio:746/269;overflow:hidden;flex:none}
 .hatta-logo>img{display:block;width:100%;max-width:100%;height:auto;margin:0;object-fit:contain}
 .hdr-hatta-logo{width:138px;min-height:44px;display:flex;align-items:center;overflow:visible;text-decoration:none;border-radius:6px}
-.splash{background:var(--bg);padding:28px 16px;position:relative}
+.splash{background:var(--bg);padding:16px;position:relative}
 .splash-inner{max-width:760px}
 .splash-tahmeed,.splash-desc{border-color:var(--border);background:white;box-shadow:var(--shadow)}
-.splash-tahmeed{border-radius:26px;padding:20px 24px}
-.splash-tahmeed-text,.splash-tahmeed-hadith{color:var(--text);line-height:1.9}
-.splash-desc{font-size:16px;line-height:1.85;padding:16px 20px;border-radius:16px}
+.splash-tahmeed{border-radius:20px;padding:12px 18px}
+.splash-tahmeed-text,.splash-tahmeed-hadith{color:var(--text);line-height:1.7}
+.splash-desc{font-size:15px;line-height:1.7;padding:9px 14px;border-radius:14px}
 .splash-badge,.splash-tahmeed-label{background:var(--gold-soft)!important;border-color:var(--gold-bd)!important;color:var(--gold)!important;font-family:var(--font)}
-.splash-badge{font-feature-settings:"salt" 1;font-size:20px;font-weight:500;border:0;background:transparent!important;padding:0;margin-bottom:16px}
-.splash-cta{font-size:18px;padding:12px 32px;min-height:48px;box-shadow:none!important}
+.splash-badge{font-feature-settings:"salt" 1;font-size:20px;font-weight:500;border:0;background:transparent!important;padding:0;margin-bottom:8px}
+.splash-cta{font-size:17px;padding:9px 28px;min-height:44px;box-shadow:none!important}
 .law-card{background:var(--gold-soft)!important;border-color:var(--gold-bd)!important}
 .law-title{font-feature-settings:"salt" 1;font-size:18px;font-weight:500}
 .law-text{font-size:16px;line-height:1.8;background:#fff}
@@ -76,13 +76,18 @@ header{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 0
 .agr-title{font-size:24px}.agr-box{font-size:16px;line-height:1.9}
 .capture-area{background:var(--bg);border-color:var(--border)}
 svg text{font-family:var(--font)}
+/* Let the intro use the space between the header and compact footer. */
+@media screen{
+ body:has(>.splash:not(.gone)){min-height:100dvh}
+ body:has(>.splash:not(.gone))>.splash{flex:1 0 auto;min-height:0}
+}
 /* Each footer region participates in flow, including the account lock. */
-.brand-footer{padding:24px 16px 16px;background:var(--bg);color:var(--text);border-top:1px solid var(--border)}
+.brand-footer{padding:10px 16px;background:var(--bg);color:var(--text);border-top:1px solid var(--border)}
 .brand-footer::before{display:none}
-.brand-footer-inner{max-width:888px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"marks contact" "legal meta";gap:18px 28px;align-items:center;text-align:start}
+.brand-footer-inner{max-width:888px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-areas:"marks contact meta" "legal legal legal";gap:6px 24px;align-items:center;text-align:start}
 .footer-marks{grid-area:marks;display:flex;align-items:center;min-width:0}
-.footer-author{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
-.footer-naif-logo{grid-area:auto;width:90px;height:auto;max-height:none;margin:0;filter:none}
+.footer-author{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+.footer-naif-logo{grid-area:auto;width:76px;height:auto;max-height:none;margin:0;filter:none}
 .footer-role-main{grid-area:auto;color:var(--muted);font-size:12px;line-height:1.5;font-weight:400}
 .footer-contact{grid-area:contact;display:flex;flex-direction:column;align-items:center;gap:4px}
 .footer-social-row{grid-area:auto;display:flex;direction:ltr;gap:4px;margin:0;flex-wrap:nowrap}
@@ -96,25 +101,25 @@ svg text{font-family:var(--font)}
 .brand-footer .account-lock{position:static;inset:auto;transform:none;width:44px;height:44px;display:grid;place-items:center;padding:0;flex:none;border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:10px;margin:0}
 .brand-footer .account-lock:hover,.brand-footer .account-lock:focus-visible{background:var(--gold-soft);color:var(--navy)}
 .brand-footer .account-lock.signed-in{color:var(--green)}
-.footer-legal{grid-area:legal;color:var(--muted);font-size:12px;line-height:1.8;margin:0;padding:0;border:0;max-width:none}
+.footer-legal{grid-area:legal;color:var(--muted);font-size:12px;line-height:1.65;margin:0;padding:0;border:0;max-width:none;text-align:center}
 .print-brand{display:none}
 @media(max-width:700px){
- .hdr-inner{gap:16px;min-height:56px}
- .hdr-brand-logo{width:185px}.hdr-hatta-logo{width:112px}
- header{padding:10px 0}
- .splash{padding:18px 12px}.splash-tahmeed{padding:16px}.splash-desc{font-size:14px}
+ .hdr-inner{gap:16px;min-height:48px}
+ .hdr-brand-logo{width:170px}.hdr-hatta-logo{width:112px}
+ header{padding:7px 0}
+ .splash{padding:10px 12px}.splash-tahmeed{padding:10px 12px}.splash-desc{font-size:14px}
  .ph-title{font-size:32px}.assistant-title{font-size:26px}
  .assistant-desc{font-size:14px!important}.type-name,.profile-name{font-size:20px}
- .brand-footer-inner{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"marks contact" "legal legal" "meta meta";gap:14px 16px}
+ .brand-footer-inner{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"marks contact" "legal meta";gap:6px 12px}
  .footer-role-main{font-size:11px;text-align:start;max-width:145px}
  .footer-contact{flex-direction:column;gap:4px}
- .footer-meta{justify-content:center;border-top:1px solid var(--border);padding-top:10px}
- .footer-legal{text-align:center;font-size:11px}
+ .footer-meta{justify-content:flex-end;gap:8px}
+ .footer-legal{text-align:start;font-size:11px}
 }
 @media(max-width:359px){
  .hdr-brand-logo{width:150px}.hdr-hatta-logo{width:100px}.hdr-inner{gap:12px}
- .brand-footer-inner{grid-template-columns:1fr;grid-template-areas:"marks" "contact" "legal" "meta"}
- .footer-marks{justify-content:center}.footer-author{align-items:center}.footer-role-main{text-align:center;max-width:none}
+ .footer-social-row{gap:0}.footer-social-row a{width:40px}
+ .brand-footer-inner{column-gap:6px}.footer-role-main{font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{
