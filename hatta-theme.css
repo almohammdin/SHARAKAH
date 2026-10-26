@@ -121,6 +121,21 @@ svg text{font-family:var(--font)}
  .footer-social-row{gap:0}.footer-social-row a{width:40px}
  .brand-footer-inner{column-gap:6px}.footer-role-main{font-size:10px}
 }
+@media screen and (max-width:700px) and (max-height:780px){
+ .splash{padding-block:6px}
+ .splash-badge{font-size:18px;line-height:1.5;margin-bottom:6px}
+ .splash-tahmeed{padding:8px 12px;margin-bottom:8px}
+ .splash-tahmeed-label{font-size:10px;padding:1px 8px;margin-bottom:4px}
+ .splash-tahmeed-text,.splash-tahmeed-hadith{font-size:15.5px;line-height:1.6}
+ .splash-tahmeed-text>.splash-ref,.splash-tahmeed-hadith>.splash-ref{display:inline;line-height:inherit;margin-top:0}
+ .law-card{padding:8px 10px;margin-top:6px}
+ .law-title{font-size:15px}
+ .law-source-link{font-size:11px;line-height:1.5}
+ .law-text{font-size:14px;line-height:1.6}
+ .splash-desc{font-size:14px;line-height:1.6;padding:7px 10px;margin-bottom:8px}
+ .brand-footer-inner{grid-template-columns:minmax(0,1fr) 62px 112px;grid-template-areas:"marks contact contact" "legal legal meta";column-gap:8px}
+ .footer-legal{line-height:1.6}
+}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{
  @page{size:A4;margin:18mm}
