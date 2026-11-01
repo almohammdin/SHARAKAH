@@ -22,9 +22,9 @@ const explicitProfit=p=>number(p.profit);
 const sum=a=>a.reduce((s,n)=>s+n,0);
 const select=(p,key,label,choices)=>'<div class="fg"><label for="review-'+key+'-'+p.id+'">'+label+'</label><select id="review-'+key+'-'+p.id+'" data-review-party="'+p.id+'" data-review-key="'+key+'">'+Object.entries(choices).map(([v,t])=>'<option value="'+v+'" '+((p[key]||'pending')===v?'selected':'')+'>'+t+'</option>').join('')+'</select></div>';
 const input=(p,key,label,numeric=false)=>'<div class="fg"><label for="review-'+key+'-'+p.id+'">'+label+'</label><input id="review-'+key+'-'+p.id+'" '+(numeric?'class="num" data-unit="percent" inputmode="decimal"':'type="text"')+' data-review-party="'+p.id+'" data-review-key="'+key+'" value="'+h(p[key]??'')+'" placeholder="لم تُحدد"></div>';
-const oldAdd=g.addParty;
+const oldAdd=g.addParty.bind(g);
 g.addParty=function(d={}){const before=g.parties.length;oldAdd(d);if(g.parties.length===before)return;const p=g.parties.at(-1);for(const k of ['workKind','workTiming','workTerms','workStop','assetTransfer','assetDescription','ipTransfer','ipDescription','otherDescription','proposedPct'])p[k]=d[k]??(k==='proposedPct'?'':'');g.renderParties()};
-const oldParties=g.renderParties;
+const oldParties=g.renderParties.bind(g);
 g.renderParties=function(){oldParties();if(g.type==='reorg')return;for(const p of g.parties){const body=$('lbl_'+p.id)?.closest('.party-card')?.querySelector('.party-body');if(!body)continue;
  if(g.type==='mudaraba'){for(const el of body.querySelectorAll('input'))if(/'fmv'|'paid'|'dur'/.test(el.getAttribute('oninput')||''))el.closest('.fg')?.classList.add('hide');}
  if(normal()){const box=document.createElement('div');box.className='review-party card-sm';let content='';
@@ -41,13 +41,13 @@ function frameworkText(){if(g.type==='mudaraba')return 'المضاربة: يقد
  if(val('legalStruct')==='civil')return 'عقد الشركة المدني: تتحدد الحصص بالاتفاق؛ يمكن الاتفاق على نسب أرباح مختلفة، وتوزع الخسائر بحسب الحصص (المواد 529–536). ينظم نقل الأصول والحقوق ومقابل العمل صراحة.';
  return 'الإطار النظامي يحتاج تحديد. المقارنة المالية تساعد التفاوض؛ يتحدد أثرها في الملكية والأرباح والخسائر بعد اختيار العلاقة المناسبة.';}
 function syncFramework(){const el=$('reviewFramework');if(el)el.textContent=frameworkText();const legal=$('legalStruct');if(legal){legal.disabled=g.type==='mudaraba';if(g.type==='mudaraba')legal.value='mudaraba';}const n=$('nonStartupWeightNotice');if(n&&normal())n.textContent='تقارن الأداة القيم المدخلة للمال والأصول والعمل. الملكية المقترحة ونسب الأرباح قرارات مستقلة تدخل في بطاقات الأطراف.';}
-const panels=g.updPanels;g.updPanels=function(){panels();syncFramework();lesson()};
-const calc=g.calc;g.calc=function(){calc();if(normal()){for(const r of g.results){const p=g.parties.find(p=>p.id===r.id);r.profit=explicitProfit(p);r.proposedPct=number(p.proposedPct);r.capitalValue=capitalValue(p);}g.renderResults()}};
-const validate=g.validateOutputs;g.validateOutputs=function(){const errors=validate();if(g.type==='reorg')return errors;const legal=val('legalStruct');if(normal()&&legal==='mudaraba')errors.push('لعقد المضاربة اختر مسار «عقد مضاربة» لتطبيق حساب الربح المناسب.');
+const panels=g.updPanels.bind(g);g.updPanels=function(){panels();syncFramework();lesson()};
+const calc=g.calc.bind(g);g.calc=function(){calc();if(normal()){for(const r of g.results){const p=g.parties.find(p=>p.id===r.id);r.profit=explicitProfit(p);r.proposedPct=number(p.proposedPct);r.capitalValue=capitalValue(p);}g.renderResults()}};
+const validate=g.validateOutputs.bind(g);g.validateOutputs=function(){const errors=validate();if(g.type==='reorg')return errors;const legal=val('legalStruct');if(normal()&&legal==='mudaraba')errors.push('لعقد المضاربة اختر مسار «عقد مضاربة» لتطبيق حساب الربح المناسب.');
  if(g.type==='existing'&&['civil','mudaraba'].includes(legal))errors.push('دخول شريك في شركة قائمة يحتاج اختيار شكل الشركة؛ للعلاقات المدنية اختر المسار المناسب.');
  if(normal()){const proposed=g.parties.map(p=>number(p.proposedPct));if(proposed.some(n=>n!==null)&&(proposed.some(n=>n===null||n<0||n>100)||Math.abs(sum(proposed.map(n=>n||0))-100)>1e-6))errors.push('أكمل نسب الملكية المقترحة لكل الأطراف بمجموع 100% أو اتركها جميع لتحديدها لاحق.');}
  return [...new Set(errors)]};
-const alerts=g.renderAlerts;g.renderAlerts=function(){alerts();if(g.type==='reorg')return;
+const alerts=g.renderAlerts.bind(g);g.renderAlerts=function(){alerts();if(g.type==='reorg')return;
  for(const el of $('smartAlerts').children){if(el.classList.contains('release-review'))el.textContent='الأرقام للمراجعة الأولية. مقارنة المساهمات مستقلة عن قرار الملكية ونسب الأرباح.';}
  const add=t=>{const el=document.createElement('div');el.className='notice notice-info';el.textContent=t;$('smartAlerts').append(el)};
  add(frameworkText());
@@ -59,8 +59,8 @@ const alerts=g.renderAlerts;g.renderAlerts=function(){alerts();if(g.type==='reor
  }
  if(g.type==='existing')add('الحساب يفترض قيمة حقوق الملكية بعد مراعاة الديون والنقد، وسعر موحد للحصص في الصفقة المختلطة. راجع حقوق الأولوية والاسترداد والإجراءات بحسب شكل الشركة.');
 };
-const cards=g.renderPartyCards;g.renderPartyCards=function(){cards();if(!normal())return;const total=sum(g.parties.map(capitalValue));[...$('partyResults').children].forEach((card,i)=>{const p=g.parties[i];if(!p)return;const el=document.createElement('div');el.className='notice notice-info';el.innerHTML='<div>أساس رأس المال المقترح: '+h(money(capitalValue(p)))+(total?' ('+g.percentHtml(capitalValue(p)/total*100)+')':'')+'</div><div>الملكية المقترحة المدخلة: '+g.percentHtml(number(p.proposedPct))+'</div><div>نصيب الأرباح المدخل: '+g.percentHtml(explicitProfit(p))+'</div><small>أساس رأس المال يجمع النقد والأصول والحقوق المحددة للنقل، ويخضع للتحقق والتقييم والإجراءات.</small>';card.append(el)})};
-const oldDraft=g.buildAgr;
+const cards=g.renderPartyCards.bind(g);g.renderPartyCards=function(){cards();if(!normal())return;const total=sum(g.parties.map(capitalValue));[...$('partyResults').children].forEach((card,i)=>{const p=g.parties[i];if(!p)return;const el=document.createElement('div');el.className='notice notice-info';el.innerHTML='<div>أساس رأس المال المقترح: '+h(money(capitalValue(p)))+(total?' ('+g.percentHtml(capitalValue(p)/total*100)+')':'')+'</div><div>الملكية المقترحة المدخلة: '+g.percentHtml(number(p.proposedPct))+'</div><div>نصيب الأرباح المدخل: '+g.percentHtml(explicitProfit(p))+'</div><small>أساس رأس المال يجمع النقد والأصول والحقوق المحددة للنقل، ويخضع للتحقق والتقييم والإجراءات.</small>';card.append(el)})};
+const oldDraft=g.buildAgr.bind(g);
 g.buildAgr=function(){if(g.type==='reorg')return oldDraft();g.calc();const errors=g.validateOutputs();if(errors.length){$('agrBox').textContent='لم تُجهز الورقة: '+errors.join(' ');g.notice(errors.join(' '));return false;}
  const text=id=>{const el=$(id);return !el||!val(id)||val(id)==='later'?'لم تُحدد':el.tagName==='SELECT'?el.selectedOptions[0].textContent:val(id)};
  const rows=['نقاط اتفاق الشركاء — ورقة مراجعة','المشروع: '+(val('projName')||'لم يُحدد'),'تاريخ إعداد الورقة: '+g.formatDate(new Date()).label,'','1) الإطار النظامي',text('legalStruct'),frameworkText(),'','2) الأطراف والمساهمات والحقوق'];
@@ -87,19 +87,19 @@ g.buildAgr=function(){if(g.type==='reorg')return oldDraft();g.calc();const error
  $('agrBox').textContent=g.displayText(rows.join('\n'));$('agrTitle').textContent='المساهمات والحقوق ونقاط الاتفاق';$('contractGuidance').textContent='راجعوا القيم والقرارات والمسائل المتبقية مع المختص قبل التنفيذ.';return true;};
 function readFields(){for(const id of fields)if($(id))g.reviewFields[id]=$(id).value;}
 function syncFields(){for(const id of fields)if($(id))$(id).value=g.reviewFields[id]||'';syncFramework();}
-const snap=g.snapshot;g.snapshot=()=>({...snap(),reviewFields:{...g.reviewFields}});
-const restore=g.restoreSnapshot;g.restoreSnapshot=function(s){g.reviewFields={...defaults(),...s.reviewFields};restore(s);syncFields()};
-const save=g.saveProgress;g.saveProgress=function(){readFields();save();try{const data=JSON.parse(localStorage.getItem('sharakah_save')||'null');if(data){data.reviewFields=g.reviewFields;data.schema=5;localStorage.setItem('sharakah_save',JSON.stringify(data))}}catch{}};
-const load=g.loadProgress;g.loadProgress=function(){let data;try{data=JSON.parse(localStorage.getItem('sharakah_save')||'null')}catch{}load();g.reviewFields={...defaults(),...data?.reviewFields};syncFields()};
-const reset=g.doReset;g.doReset=async function(...args){g.reviewFields=defaults();await reset(...args);syncFields()};
+const snap=g.snapshot.bind(g);g.snapshot=()=>({...snap(),reviewFields:{...g.reviewFields}});
+const restore=g.restoreSnapshot.bind(g);g.restoreSnapshot=function(s){g.reviewFields={...defaults(),...s.reviewFields};restore(s);syncFields()};
+const save=g.saveProgress.bind(g);g.saveProgress=function(){readFields();save();try{const data=JSON.parse(localStorage.getItem('sharakah_save')||'null');if(data){data.reviewFields=g.reviewFields;data.schema=5;localStorage.setItem('sharakah_save',JSON.stringify(data))}}catch{}};
+const load=g.loadProgress.bind(g);g.loadProgress=function(){let data;try{data=JSON.parse(localStorage.getItem('sharakah_save')||'null')}catch{}load();g.reviewFields={...defaults(),...data?.reviewFields};syncFields()};
+const reset=g.doReset.bind(g);g.doReset=async function(...args){g.reviewFields=defaults();await reset(...args);syncFields()};
 function lesson(){const box=$('reviewLesson');if(!box)return;const lessons={existing:'ابدأ هنا: قيمة حقوق الملكية 2,000,000. مبلغ 500,000 يدخل الشركة يعطي 20%؛ وشراء حصة من المالك بالمبلغ نفسه يعطي 25%. افترض تسعير موحد وراجع أثر الديون والنقد.',mudaraba:'الممول يقدم 1,000,000 والمضارب يدير النشاط. الربح بالاتفاق 40% و60%. ربح قابل للتوزيع قدره 200,000 يعطي 80,000 و120,000. النسب اتفاق تعليمي؛ قيمة العمل لا تحددها حسابي.',fnb:'محمد يقدم نقد وتجهيزات بقيمة 450,000، ونورة 50,000؛ أساس رأس المال 90% و10%. فرق أجر نورة 96,000 ينتج مقارنة مساهمات 75.50% و24.50%. الملكية المقترحة تبدأ من 90% و10%، والأرباح التعليمية 60% و40% مقابل المال والعمل. ناقش تغيير الاتفاق وآلية استحقاقه.',deal:'صفقة معدات: ناصر يقدم 500,000 ونوف 200,000 وتنفذ الصفقة. أساس المال 71.43% و28.57%؛ قيمة عمل تقديرية 90,000 تجعل مقارنة المساهمات 63.29% و36.71%. الأرباح المقترحة في المثال 60% و40%. حدد الحصص وآثار الخسارة كتابة وفق الإطار المختار.'};box.textContent=lessons[g.type]||'';box.hidden=!box.textContent;}
-const example=g.loadExample;g.loadExample=function(type){g.reviewFields=defaults();example(type);setTimeout(()=>{if(g.type!==type)return;if(type==='fnb'){const [a,b]=g.parties;a.assetTransfer='ownership';a.assetDescription='تجهيزات مقهى مستعملة، قيمة تعليمية 150,000 تخضع للتحقق والتقييم';a.proposedPct=90;a.profit=60;b.proposedPct=10;b.profit=40;b.workKind='profit';b.workTiming='future';b.workTerms='إدارة يومية لمدة 12 شهر. 4,000 شهري مقابل عمل محدد، ونصيب الربح 40% يشمل المال والعمل وفق الصياغة المتفق عليها؛ فرق الأجر قيمة تفاوضية.';b.workStop='تراجع استحقاقات العمل حتى تاريخ التوقف؛ وتبقى حقوق الحصة النقدية خاضعة لاتفاق الشركاء.';}
+const example=g.loadExample.bind(g);g.loadExample=function(type){g.reviewFields=defaults();example(type);setTimeout(()=>{if(g.type!==type)return;if(type==='fnb'){const [a,b]=g.parties;a.assetTransfer='ownership';a.assetDescription='تجهيزات مقهى مستعملة، قيمة تعليمية 150,000 تخضع للتحقق والتقييم';a.proposedPct=90;a.profit=60;b.proposedPct=10;b.profit=40;b.workKind='profit';b.workTiming='future';b.workTerms='إدارة يومية لمدة 12 شهر. 4,000 شهري مقابل عمل محدد، ونصيب الربح 40% يشمل المال والعمل وفق الصياغة المتفق عليها؛ فرق الأجر قيمة تفاوضية.';b.workStop='تراجع استحقاقات العمل حتى تاريخ التوقف؛ وتبقى حقوق الحصة النقدية خاضعة لاتفاق الشركاء.';}
  if(type==='deal'){$('projName').value='صفقة معدات النخيل';$('legalStruct').value='civil';const[a,b]=g.parties;a.profit=60;b.profit=40;b.workKind='profit';b.workTiming='future';b.workTerms='التفاوض وشراء المعدات وإعادة بيعها خلال 6 أشهر؛ نسبة الربح المقترحة تشمل المال والعمل.';b.workStop='تسوية الأعمال المنجزة والمصاريف والحقوق وفق الاتفاق قبل إنهاء المهمة.';}
  if(type==='mudaraba'){$('legalStruct').value='mudaraba';g.parties.forEach(p=>{p.fmv=0;p.paid=0;p.dur='';});}
  g.reviewFields.profitBasis='الربح بعد المصاريف المتفق عليها والتسويات والاحتياطيات اللازمة؛ تستكمل التفاصيل قبل التوزيع.';
  g.reviewFields.reportsSchedule='تقرير مالي وتشغيلي شهري مع إتاحة المستندات للأطراف.';
  g.renderParties();syncFields();lesson();g.scheduleSave();},240)};
-const init=g.init;g.init=function(){init();
+const init=g.init.bind(g);g.init=function(){init();
  const framework=document.createElement('div');framework.id='reviewFramework';framework.className='notice notice-info';$('partyList').before(framework);
  const teaching=document.createElement('div');teaching.id='reviewLesson';teaching.className='notice notice-gold';teaching.hidden=true;framework.before(teaching);
  const guide=document.createElement('div');guide.className='notice notice-info';guide.innerHTML='<strong>اختر العلاقة أول</strong><p>ملكية ومقابل عمل: مشروع تشغيلي أو صفقة. مال من طرف وإدارة من طرف مع اقتسام الربح: مضاربة. تغيير ملكية شركة موجودة: دخول شريك. ترتيب علاقة قديمة وتسوياتها: إعادة تنظيم.</p>';$('typeGrid').before(guide);
