@@ -1492,6 +1492,7 @@ const G = {
             </div>
           </div>
           ${headlineShare}
+          ${['fnb','deal'].includes(this.type) ? `<div style="font-size:14px;line-height:1.7;margin-bottom:10px">الملكية المقترحة: ${this.percentHtml(this.numberOrNull(r.proposedPct))} | الربح: ${this.percentHtml(this.numberOrNull(r.profit))}</div>` : ''}
           <div style="font-size:15px;color:${mid};font-family:${font};margin-bottom:14px">${capLine}</div>
           <div style="font-size:15px;font-family:${font};max-height:140px;overflow:hidden">
             ${contribsHtml}
@@ -1513,7 +1514,7 @@ const G = {
         <div style="font-size:18px;color:${muted};text-align:left;direction:ltr;font-family:${font};line-height:1.4">
           <img src="assets/brand/hatta-logo.png" alt="حتى لحلول الأعمال" style="width:190px;height:auto;display:block;margin:0 0 18px auto">
           <div>${dates.label}</div>
-          <div style="font-size:15px;opacity:0.8">الإصدار 1.2.4</div>
+          <div style="font-size:15px;opacity:0.8">الإصدار 1.2.6</div>
         </div>
       </div>
 
@@ -1544,7 +1545,7 @@ const G = {
           <div style="display:flex;align-items:center;gap:9px;direction:ltr">${xIcon}${linkedInIcon}${snapchatIcon}${linktreeIcon}</div>
           <div style="font-size:16px;font-weight:700;direction:ltr">@almohammdin</div>
         </div>
-        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.2.4</span></div>
+        <div style="max-width:330px;text-align:right;font-size:14px;color:${muted};font-family:${font};line-height:1.55">نتائج تقديرية تمهد لمناقشة الشركاء ومراجعة المختص.<br><span style="font-size:12px">الإصدار 1.2.6</span></div>
       </div>
     </div>`;
 
