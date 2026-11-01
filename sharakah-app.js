@@ -61,7 +61,7 @@ const G = {
       splash.classList.add('gone');
       tool.style.display = 'block';
       tool.style.animation = 'fadeUp .4s ease';
-      // ضبط top للـ toolbar (fixed) وstep-bar بناءً على الارتفاعات الفعلية
+      // ضبط top للـ toolbar (fixed) وstep-bar بناء على الارتفاعات الفعلية
       requestAnimationFrame(() => {
         const hdr = document.querySelector('header');
         const hdrH = hdr ? hdr.getBoundingClientRect().height : 58;

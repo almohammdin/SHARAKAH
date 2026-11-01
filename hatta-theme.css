@@ -146,3 +146,25 @@ svg text{font-family:var(--font)}
  .agr-box{font-size:11pt;line-height:1.9;border:0!important;box-shadow:none!important}
  .brand-footer,.account-dialog,.voice-dock{display:none!important}
 }
+
+/* Results: full-width summary and balanced chart contents. */
+#kpiGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:16px;width:100%}
+#kpiGrid .kpi{display:flex;flex-direction:column;min-width:0;padding:20px}
+#kpiGrid .kpi-label{min-height:1.5em}
+#kpiGrid .kpi-val{margin-block:8px;line-height:1.3}
+#kpiGrid .kpi-sub{margin-top:auto}
+#ph4 .chart-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+#ph4 .chart-box{display:flex;flex-direction:column;min-width:0;padding:20px}
+#ph4 .chart-title{margin-bottom:18px}
+#donutSvg{width:180px;height:180px;flex:none}
+#donutLegend{margin-top:8px}
+#barChart{display:flex;flex-direction:column;justify-content:center;gap:22px;flex:1;padding-block:20px}
+#barChart .bar-item{margin-bottom:0}
+#ph4 .bar-pct,#ph4 .leg-pct,#ph4 .res-pct{font-variant-numeric:tabular-nums;white-space:nowrap}
+#ph4 .res-top{gap:16px}
+@media(max-width:700px){
+ #kpiGrid,#ph4 .chart-row{grid-template-columns:1fr!important}
+ #kpiGrid .kpi{padding:16px}
+ #ph4 .chart-box{padding:16px}
+ #barChart{padding-block:10px}
+}
