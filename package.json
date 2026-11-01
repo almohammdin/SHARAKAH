@@ -1,9 +1,10 @@
 {
   "name": "sharakah",
-  "version": "1.2.4",
+  "version": "1.2.6",
   "private": true,
   "scripts": {
-    "test": "node tests/regression.cjs"
+    "test": "node tests/regression.cjs",
+    "test:review": "node tests/review-cases.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

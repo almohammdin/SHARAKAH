@@ -812,7 +812,7 @@ const G = {
   },
 
   profitShareEnabled() {
-    return ['mudaraba', 'fnb'].includes(this.type);
+    return ['mudaraba', 'fnb', 'deal'].includes(this.type);
   },
 
   normalizePercentField(value) {
@@ -970,7 +970,7 @@ const G = {
       const netSc    = (p.net    || 0) * (isStartup ? W.Net   : 1);
       const mult     = 1; // The entered monthly value already represents the agreed actual workload.
       const dur      = p.dur || 0;
-      const effortSc = p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * dur * (isStartup ? W.Effort : 1) * mult : 0;
+      const effortSc = p.work && p.work !== 'no' ? Math.max(0, (p.fmv||0) - (p.paid||0)) * dur * (isStartup ? W.Effort : 1) * mult : 0;
       const roleSc   = 0;
       const total    = cashSc + assetSc + ipSc + netSc + effortSc;
       return { ...p, cashSc, assetSc, ipSc, netSc, effortSc, roleSc, total, color: this.COLORS[i % this.COLORS.length] };
@@ -1076,8 +1076,8 @@ const G = {
       return;
     }
     svg.style.display = 'block';
-    if (title) title.textContent = 'توزيع الملكية';
-    svg.innerHTML = this.makeDonutSvg(this.results, 'pct', 'ملكية');
+    if (title) title.textContent = this.type === 'existing' ? 'الملكية المقترحة بعد الدخول' : 'مقارنة قيم المساهمات';
+    svg.innerHTML = this.makeDonutSvg(this.results, 'pct', this.type === 'existing' ? 'ملكية مقترحة' : 'مساهمات');
 
     leg.innerHTML = this.results.map(d => `
       <div class="leg-row">
@@ -1127,10 +1127,10 @@ const G = {
     document.getElementById('partyResults').innerHTML = this.results.map(r => {
       const contribs = [
         r.cash    ? `نقدي: ${this.moneyHtml(r.cash)}` : null,
-        r.assets  ? `أصول: ${this.moneyHtml(r.assets)}` : null,
-        r.ip      ? `ملكية فكرية: ${this.moneyHtml(r.ip)}` : null,
+        r.assets && this.type !== 'existing' ? `أصول: ${this.moneyHtml(r.assets)}` : null,
+        r.ip && this.type !== 'existing' ? `ملكية فكرية: ${this.moneyHtml(r.ip)}` : null,
         r.net     ? `التزام قابل للقياس: ${this.moneyHtml(r.net)}` : null,
-        r.effortSc? `جهد مقدم (${r.dur || 0} أشهر): ${this.moneyHtml(r.effortSc)}` : null,
+        r.effortSc? `قيمة عمل تقديرية (${r.dur || 0} أشهر): ${this.moneyHtml(r.effortSc)}` : null,
       ].filter(Boolean);
 
       return `
@@ -1156,7 +1156,7 @@ const G = {
             <span style="font-size:13px;font-weight:700;color:var(--gold)">${this.percentHtml(r.capitalPct || 0)}</span>
           </div>` : ''}
           ${this.type === 'mudaraba' ? '' : `<div style="display:flex;align-items:center;justify-content:space-between">
-            <span style="font-size:11px;color:var(--muted);font-weight:600">حصة الملكية</span>
+            <span style="font-size:11px;color:var(--muted);font-weight:600">${this.type === 'existing' ? 'الملكية المقترحة' : 'نسبة قيمة المساهمة'}</span>
             <span style="font-size:13px;font-weight:700;color:var(--gold)">${this.percentHtml(r.pct)}</span>
           </div>`}
           ${this.profitDiffers() ? `
@@ -1195,8 +1195,6 @@ const G = {
       alerts.push({ t:'warn', m:this.escapeHtml(this.calculationError) });
     const max = Math.max(...this.results.map(r => r.pct));
     const dom = this.results.find(r => r.pct === max);
-    if (dom && max > 65)
-      alerts.push({ t:'warn', m:`${this.escapeHtml(dom.name)} يملك ${this.percentHtml(max)} من الحصص. راجع أثر هذه النسبة على القرارات واكتب الصلاحيات المتفق عليها.` });
     if (this.parties.filter(p => p.work === 'no').length === this.parties.length)
       alerts.push({ t:'warn', m:'تحتاج إدارة المشروع إلى مسؤول يومي. حدد اسمه أو صفته في الاتفاق.' });
     const workingWithoutVesting = this.parties.filter(p => p.work !== 'no' && p.vesting !== 'yes');
@@ -1213,7 +1211,7 @@ const G = {
     const has50 = this.results.some(r => Math.abs(r.pct - 50) < 0.5);
     const existPct = this.type === 'existing' ? (this.numVal('entryPct') || 0) : 0;
     if (has50 || Math.abs(existPct - 50) < 0.5)
-      alerts.push({ t:'warn', m:'نسبة % 50 تجعل القرار المشترك مرتبطا باتفاق الطرفين. حددوا آلية ترجيح القرار واكتبوا صلاحيات الإدارة.' });
+      alerts.push({ t:'warn', m:'تساوي النسب يستدعي تنظيم الصلاحيات وآلية معالجة تعثر القرار وفق نوعه والشكل القانوني.' });
     const existingBox = document.getElementById('existingCalcBox');
     if (this.type === 'existing' && existingBox && !existingBox.classList.contains('hide') && existingBox.classList.contains('notice-warn'))
       alerts.push({ t:'warn', m: existingBox.textContent });
@@ -1411,10 +1409,10 @@ const G = {
   const chartBlock = isMudExport
     ? (mudProfitComplete ? makeDonutSVG('profit', 'نسب الربح', 460) : `<div style="width:460px;height:300px;border:2px dashed ${border};border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;color:${mid};font-size:24px;font-family:${font}">أدخل نسب الربح المتفق عليها<br><span style="font-size:18px;color:${muted}">مثال إرشادي: % 40 | % 60</span></div>`)
     : hasProfitSplit ? `<div style="display:flex;align-items:center;justify-content:center;gap:28px;width:100%">
-         ${makeDonutSVG('pct', 'توزيع الملكية', 350)}
+         ${makeDonutSVG('pct', this.type === 'existing' ? 'ملكية مقترحة' : 'مقارنة المساهمات', 350)}
          ${makeDonutSVG('profit', 'توزيع الأرباح', 350)}
        </div>`
-    : makeDonutSVG('pct', 'توزيع الملكية', 460);
+    : makeDonutSVG('pct', this.type === 'existing' ? 'ملكية مقترحة' : 'مقارنة المساهمات', 460);
 
   const legend = res.map(d => `
     <div style="display:flex;align-items:center;gap:10px;background:${surf};border:1px solid ${border};border-radius:10px;padding:10px 16px">
@@ -1471,7 +1469,7 @@ const G = {
       : hasProfitSplit
       ? `<div style="display:flex;gap:14px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px">
            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid ${border}">
-             <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">الملكية</span>
+             <span style="font-size:14px;color:${muted};font-family:${font};margin-bottom:2px">${this.type === 'existing' ? 'الملكية المقترحة' : 'المساهمات'}</span>
              <span style="font-size:28px;font-weight:700;color:${txt};font-family:${font};line-height:1">${this.percentHtml(r.pct)}</span>
            </div>
            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;">
@@ -1480,7 +1478,7 @@ const G = {
            </div>
          </div>`
       : `<div style="display:flex;align-items:baseline;justify-content:flex-start;gap:12px;margin-bottom:12px;background:${card};border-radius:10px;padding:12px 16px;direction:rtl">
-           <span style="font-size:16px;color:${muted};font-family:${font};white-space:nowrap">الملكية:</span>
+           <span style="font-size:16px;color:${muted};font-family:${font};white-space:nowrap">${this.type === 'existing' ? 'الملكية المقترحة:' : 'قيمة المساهمة:'}</span>
            <span style="font-size:32px;font-weight:700;color:${navy};font-family:${font};line-height:1">${this.percentHtml(r.pct)}</span>
          </div>`;
 
