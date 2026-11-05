@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>استكشف شراكة مقهى الفجر | حاسبة الشراكات</title>
+<style>
+@font-face{font-family:Plex;src:url('assets/fonts/ibm-plex-sans-arabic-400.woff2')}@font-face{font-family:Plex;font-weight:700;src:url('assets/fonts/ibm-plex-sans-arabic-700.woff2')}
+*{box-sizing:border-box}body{margin:0;background:#f7f6f2;color:#192d3c;font:16px/1.65 Plex,Tahoma,sans-serif}main{max-width:740px;margin:auto;padding:22px 16px 40px}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d4d8d7;padding-bottom:12px}header img{width:80px}a{color:#28495b}h1{font-size:clamp(26px,5vw,38px);margin:20px 0 0}h2{font-size:19px;margin:0 0 8px}p{margin:5px 0 12px}section{background:white;border:1px solid #d4d8d7;border-radius:14px;padding:16px;margin-top:16px}summary{cursor:pointer;font-weight:bold;padding:10px 0}details+details{border-top:1px solid #ddd}button{font:inherit;border:1px solid #abb9c0;color:inherit;background:white;padding:8px 12px;border-radius:8px;cursor:pointer}button[aria-pressed=true]{background:#203747;color:white}.controls{display:flex;flex-wrap:wrap;gap:8px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.node{padding:12px;background:#edf3f4;border-radius:8px}.node b,.node span{display:block}.node span{font-size:14px}.flow{border-inline-start:3px solid #ad9150;padding-inline-start:12px;margin:13px 0}.out{margin-top:12px;padding:12px;background:#f7f4e9;border-radius:8px}.out p:last-child{margin-bottom:0}:focus-visible{outline:3px solid #996d20;outline-offset:2px}
+</style>
+<main><header><img src="assets/brand/hatta-logo.png" alt="حتى لحلول الأعمال"><a href="./">حاسبة الشراكات</a></header>
+<h1>استكشف شراكة مقهى الفجر</h1><p>تجربة مبنية على الأرقام الأصلية للمثال. اختر العلاقة التي تريد تتبعها.</p>
+<section><h2>كيف يرتبط الشريكان بالمقهى؟</h2>
+<div class="controls" id="relations"><button type="button" aria-pressed="true" data-view="money">التمويل والملكية</button><button type="button" aria-pressed="false" data-view="profit">توزيع الربح</button><button type="button" aria-pressed="false" data-view="work">مقابل التشغيل</button></div>
+<div id="map" aria-live="polite"></div></section>
+<section><h2>ماذا لو توقفت نورة عن التشغيل؟</h2><p>مدة الإدارة في المثال 12 شهرا. قارن بين إكمالها والتوقف في منتصفها.</p>
+<div class="controls" id="scenarios"><button type="button" aria-pressed="true" data-months="12">أكملت 12 شهرا</button><button type="button" aria-pressed="false" data-months="6">توقفت بعد 6 أشهر</button></div><div class="out" id="impact" aria-live="polite"></div></section></main>
+<script>
+const views = {
+ money: ['إجمالي المساهمات المقدرة 500,000 ريال','محمد العلي','300,000 نقدا + تجهيزات مقدرة بـ150,000 ريال','نورة','50,000 ريال نقدا','الملكية المقترحة: 90% لمحمد و10% لنورة. قيمة التجهيزات في المثال تقديرية وتحتاج تحققا.'],
+ profit: ['من الربح القابل للتوزيع إلى الشريكين','محمد العلي','60% من الربح','نورة','40% من الربح مقابل المال والعمل','لو توفر 100,000 ريال للتوزيع بعد المصاريف والتسويات والاحتياطيات، يحصل محمد على 60,000 ونورة على 40,000.'],
+ work: ['نورة تتولى إدارة المقهى لمدة 12 شهرا','المقابل المدفوع','4,000 ريال شهريا','أجر السوق المفترض','12,000 ريال شهريا','الفرق 8,000 ريال شهريا مرجع للتفاوض على مقابل العمل. تحويله إلى دين أو حصة إضافية يحتاج اتفاقا مستقلا.']
+};
+function renderMap(key) {
+ const [title, a, av, b, bv, note] = views[key];
+ document.querySelector('#map').innerHTML = '<h3 class="flow">'+title+'</h3><div class="row"><div class="node"><b>'+a+'</b><span>'+av+'</span></div><div class="node"><b>'+b+'</b><span>'+bv+'</span></div></div><p class="flow">'+note+'</p>';
+}
+function renderImpact(months) {
+ const amount = (months * 4000).toLocaleString('en-US');
+ document.querySelector('#impact').innerHTML = '<b>مقابل مدة العمل في هذا السيناريو: '+amount+' ريال</b><p>'+(months === 12 ? 'أتمت نورة مدة الإدارة المتفق عليها. حصتها المقترحة في الملكية 10%، ونصيبها المقترح من الربح 40%. عند التجديد يتفق الطرفان على مقابل الفترة التالية.' : 'تراجع مستحقات العمل حتى تاريخ التوقف. ساهمت نورة أيضا بـ50,000 ريال، فتراجع حقوق حصتها النقدية وفق الاتفاق. ما يحتاج اتفاق: كيف يحسب نصيبها من الربح قبل التوقف وبعده؟ ومن يتولى الإدارة للفترة المتبقية؟')+'</p>';
+}
+function bindChoices(id, update) {
+ const group = document.getElementById(id);
+ group.addEventListener('click', event => {
+  const selected = event.target.closest('button');
+  if (!selected) return;
+  for (const button of group.querySelectorAll('button')) button.setAttribute('aria-pressed',String(button === selected));
+  update(selected);
+ });
+}
+bindChoices('relations', button => renderMap(button.dataset.view));
+bindChoices('scenarios', button => renderImpact(Number(button.dataset.months)));
+renderMap('money');
+renderImpact(12);
+</script></html>
