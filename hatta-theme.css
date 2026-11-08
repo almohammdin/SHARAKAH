@@ -234,3 +234,32 @@ svg text{font-family:var(--font)}
     flex:0 0 auto!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important
   }
 }
+/* ─── PRIMARY CALCULATOR CARD EMPHASIS ─── */
+.splash-primary-path{
+  padding:16px 22px!important;
+  border:1px solid rgba(139,103,30,.34)!important;
+  border-top:4px solid #A9823F!important;
+  border-radius:16px!important;
+  background:linear-gradient(118deg,#0B1F33 0%,#173B56 100%)!important;
+  box-shadow:0 13px 32px rgba(11,31,51,.19)!important;
+}
+.splash-primary-path h2{
+  color:#FFFFFF!important;font-size:22px!important;line-height:1.4!important;
+  margin:0 0 4px!important
+}
+.splash-primary-path p{
+  color:#E5EDF1!important;font-size:14px!important;line-height:1.7!important;
+  margin:0 auto 11px!important
+}
+.splash-primary-path .splash-cta{
+  min-height:46px!important;padding:10px 27px!important;border-radius:11px!important;
+  background:#C8A65D!important;color:#102538!important;font-size:15px!important;
+  box-shadow:0 5px 15px rgba(0,0,0,.18)!important
+}
+.splash-primary-path .splash-cta:hover{background:#D7B970!important}
+@media(max-width:600px){
+  .splash-primary-path{padding:18px 16px!important}
+  .splash-primary-path h2{font-size:20px!important}
+  .splash-primary-path p{font-size:13px!important;margin-bottom:12px!important}
+  .splash-primary-path .splash-cta{width:100%;min-height:46px;padding:10px 18px!important}
+}
