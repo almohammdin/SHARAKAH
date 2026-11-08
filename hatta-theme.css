@@ -213,3 +213,15 @@ svg text{font-family:var(--font)}
   .splash{min-height:0;padding:18px 16px 24px}
   .splash-inner{max-width:720px}
 }
+/* ─── FULL STEP LABELS ─── */
+@media(min-width:601px){
+  .step-list{overflow:visible!important;justify-content:space-between}
+  .step-item{min-width:max-content}
+  .step-name{max-width:none!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;margin-inline:5px!important}
+  .step-line{width:auto!important;min-width:10px;flex:1 1 16px;margin-inline:2px!important}
+  .step-bar-inner{gap:7px}
+}
+@media(min-width:601px) and (max-width:1000px){
+  .step-name{font-size:10px!important;margin-inline:3px!important}
+  .step-line{min-width:6px}
+}
