@@ -789,6 +789,49 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .splash-service-path h2{font-size:18px!important}
 }
 
+
+/* ─── HOMEPAGE DESKTOP FIT AND WIDTH ─── */
+@media(min-width:801px){
+  .splash{min-height:0;padding:12px 24px 14px}
+  .splash-inner{max-width:1080px}
+  .splash-badge{margin-bottom:8px;padding:3px 12px;font-size:11px}
+  .splash-tahmeed{
+    display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+    align-items:center;gap:8px 18px;padding:10px 14px;margin-bottom:10px
+  }
+  .splash-tahmeed-label{grid-column:1/-1;margin-bottom:0;padding:2px 9px}
+  .splash-tahmeed-text{grid-column:1;grid-row:2;margin-bottom:0;padding:5px 4px;font-size:16px;line-height:1.7}
+  .law-card{grid-column:2;grid-row:2;margin-top:0;padding:8px 11px}
+  .law-title{font-size:13px;margin-bottom:3px}
+  .law-source-link{font-size:11.5px;line-height:1.5;margin-bottom:5px}
+  .law-text{font-size:14px;line-height:1.6;padding:7px 9px}
+  .splash-paths{margin-top:8px}
+  .splash-primary-path{padding:13px 18px 12px}
+  .splash-primary-path h2{font-size:19px;margin-bottom:2px}
+  .splash-primary-path p{font-size:13px;margin-bottom:9px}
+  .splash-primary-path .splash-cta{padding:9px 22px;font-size:14px}
+  .splash-service-path{margin-top:8px!important;padding:10px 14px!important}
+  .splash-service-path h2{font-size:17px!important;margin-top:3px!important}
+  .splash-service-path p{font-size:12.5px;line-height:1.7}
+  .splash-service-actions{margin-top:7px}
+  .splash-service-cta{min-height:38px;padding:7px 12px;font-size:12px}
+  .hatta-tools-link{min-height:34px;padding:6px 2px;font-size:12px}
+  .brand-footer{padding:9px 16px}
+  .brand-footer-inner{gap:2px}
+  .footer-naif-logo{height:32px;margin-bottom:1px}
+  .footer-social-row{gap:8px;margin:3px 0 1px}
+  .footer-social-row a{width:28px;height:28px}
+  .footer-legal{padding-top:5px;margin-top:4px}
+}
+@media(max-width:800px){
+  .splash{min-height:0;padding:18px 16px 24px}
+  .splash-inner{max-width:720px}
+  .splash-tahmeed{display:block}
+  .splash-tahmeed-label{margin-bottom:7px}
+  .splash-tahmeed-text{margin-bottom:7px}
+  .law-card{margin-top:9px}
+}
+
 </style>
 <link rel="stylesheet" href="sharakah-ui.css?v=1.2.7">
 <link rel="stylesheet" href="sharakah-v2.css?v=1.2.7">
