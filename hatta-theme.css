@@ -168,3 +168,48 @@ svg text{font-family:var(--font)}
  #ph4 .chart-box{padding:16px}
  #barChart{padding-block:10px}
 }
+
+/* ─── HOMEPAGE SINGLE-SCREEN LAYOUT ─── */
+@media (min-width:801px){
+  .splash{min-height:0!important;padding:10px 24px 12px!important}
+  .splash-inner{max-width:1080px!important}
+  .splash-badge{margin-bottom:7px!important;padding:3px 11px!important;font-size:11px!important}
+  .splash-tahmeed{
+    display:grid!important;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+    align-items:center;gap:7px 16px;padding:9px 12px!important;margin:0 0 8px!important
+  }
+  .splash-tahmeed-label{grid-column:1/-1;margin:0!important;padding:2px 8px!important}
+  .splash-tahmeed-text{grid-column:1;grid-row:2;margin:0!important;padding:4px!important;font-size:15px!important;line-height:1.55!important}
+  .law-card{grid-column:2;grid-row:2;margin:0!important;padding:7px 10px!important}
+  .law-title{font-size:12px!important;margin-bottom:3px!important}
+  .law-source-link{font-size:11px!important;line-height:1.4!important;margin-bottom:4px!important}
+  .law-text{font-size:13px!important;line-height:1.5!important;padding:6px 8px!important}
+  .splash-paths{margin-top:7px!important}
+  .splash-primary-path{padding:10px 16px!important}
+  .splash-primary-path h2{font-size:18px!important;margin:0 0 2px!important}
+  .splash-primary-path p{font-size:12px!important;margin:0 auto 7px!important}
+  .splash-primary-path .splash-cta{padding:8px 19px!important;font-size:13px!important}
+  .splash-service-path{
+    display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+    column-gap:16px;margin-top:7px!important;padding:9px 13px!important
+  }
+  .splash-service-path .splash-path-kicker{grid-column:1;grid-row:1;margin:0 0 2px!important}
+  .splash-service-path h2{grid-column:1;grid-row:2;font-size:16px!important;margin:0 0 2px!important}
+  .splash-service-path p{grid-column:1;grid-row:3;font-size:12px!important;line-height:1.55!important;margin:0!important}
+  .splash-service-actions{
+    grid-column:2;grid-row:1/4;align-self:center;display:flex!important;flex-direction:column;
+    align-items:stretch!important;gap:2px!important;margin:0!important;min-width:205px
+  }
+  .splash-service-cta{min-height:35px!important;padding:6px 10px!important;font-size:11.5px!important}
+  .hatta-tools-link{justify-content:center;min-height:30px;padding:4px!important;font-size:11px!important}
+  .brand-footer{padding:7px 14px!important}
+  .brand-footer-inner{gap:1px!important}
+  .footer-naif-logo{height:27px!important;margin:0 0 1px!important}
+  .footer-social-row{gap:6px!important;margin:2px 0 0!important}
+  .footer-social-row a{width:25px!important;height:25px!important}
+  .footer-legal{padding-top:4px!important;margin-top:3px!important;font-size:.6rem!important}
+}
+@media (max-width:800px){
+  .splash{min-height:0;padding:18px 16px 24px}
+  .splash-inner{max-width:720px}
+}
