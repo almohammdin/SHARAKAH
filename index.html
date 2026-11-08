@@ -703,6 +703,33 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .assistant-card-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 34px;border-top:1px solid var(--border);background:rgba(255,255,255,.72)}.assistant-ai-note{color:var(--muted);font-size:11px;line-height:1.65}.assistant-text-toggle{border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:10px;padding:9px 14px;font-family:var(--font);font-size:12px;font-weight:800;white-space:nowrap;cursor:pointer}.assistant-text-toggle:hover{background:var(--navy);color:#fff}
 .assistant-conversation{border-top:1px solid var(--border);background:#fff}.assistant-conversation.hide{display:none}.assistant-conversation-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--navy);color:#fff}.assistant-conversation-head strong{font-size:13px}.assistant-close{border:0;background:transparent;color:#fff;font-size:22px;cursor:pointer}.assistant-messages{height:270px;overflow:auto;padding:14px;background:#f8f7f4}.assistant-msg{max-width:91%;padding:10px 12px;border-radius:12px;margin-bottom:10px;line-height:1.75;font-size:13px;white-space:pre-wrap}.assistant-msg.bot{background:#fff;border:1px solid var(--border);margin-left:auto}.assistant-msg.user{background:#e8eef1;color:var(--navy);margin-right:auto}.assistant-source{display:block;margin-top:7px;color:var(--muted);font-size:10px}.assistant-quick{display:flex;gap:6px;overflow-x:auto;padding:9px 12px;border-top:1px solid var(--border);background:#fff}.assistant-quick button{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 9px;font-family:var(--font);font-size:11px;cursor:pointer}.assistant-compose{display:grid;grid-template-columns:1fr auto;gap:7px;padding:10px;background:#fff;border-top:1px solid var(--border)}.assistant-compose textarea{resize:none;min-height:42px;max-height:90px;border:1px solid var(--border);border-radius:10px;padding:9px;font-family:var(--font);font-size:13px}.assistant-icon{width:44px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer;font-size:17px}.assistant-listen{display:block;margin-top:7px;border:0;background:transparent;color:#8B671E;font-family:inherit;cursor:pointer;font-size:11px}.assistant-msg.is-streaming{border-color:#bda45f}
 @media(max-width:700px){.assistant-panel{margin:16px 0 2px;border-radius:18px}.assistant-card-main{grid-template-columns:1fr;gap:25px;padding:24px 20px}.assistant-title{font-size:20px}.assistant-desc{font-size:13px}.assistant-mic{width:104px;height:104px}.assistant-card-actions{align-items:flex-start;flex-direction:column;padding:13px 20px}.assistant-text-toggle{width:100%}.assistant-messages{height:250px}}
+
+/* ─── PARTNERSHIP ENGINEERING SERVICE PATHS ─── */
+.splash-paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px;text-align:right}
+.splash-path-card{display:flex;flex-direction:column;justify-content:space-between;gap:20px;padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);text-align:right}
+.splash-calc-path{border-top:3px solid var(--navy)}
+.splash-service-path{border-top:3px solid var(--gold)}
+.splash-path-kicker{display:inline-block;margin-bottom:7px;color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.2px}
+.splash-path-copy h2,.service-followup h2{margin:0 0 6px;color:var(--navy);font-size:18px;line-height:1.5}
+.splash-path-copy p,.service-followup p{margin:0;color:var(--text-mid);font-size:13px;line-height:1.8}
+.splash-path-card .splash-cta{align-self:flex-start;padding:11px 20px;font-size:14px}
+.splash-service-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;min-height:44px;padding:10px 16px;border:1px solid var(--navy);border-radius:10px;background:var(--navy);color:#fff;text-decoration:none;font-family:var(--font);font-size:13px;font-weight:700;transition:background .2s,transform .2s}
+.splash-service-cta:hover{background:var(--navy-2);transform:translateY(-1px)}
+.tb-btn-service{border:1px solid var(--gold-bd);background:var(--gold-soft);color:var(--navy);text-decoration:none}
+.tb-btn-service:hover{background:#E3EEF2;border-color:var(--navy)}
+.service-followup{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-top:24px;padding:20px;border:1px solid var(--border);border-right:4px solid var(--gold);border-radius:14px;background:linear-gradient(135deg,var(--surface),#EDF5F8);box-shadow:var(--shadow)}
+.service-followup>div{max-width:620px}
+.service-followup .splash-service-cta{flex-shrink:0}
+@media(max-width:700px){
+  .splash-paths{grid-template-columns:1fr}
+  .splash-path-card{gap:14px;padding:17px}
+  .splash-path-card .splash-cta,.splash-service-path .splash-service-cta{width:100%;align-self:stretch}
+  .service-followup{align-items:stretch;flex-direction:column;padding:17px;gap:14px}
+  .service-followup .splash-service-cta{align-self:stretch}
+  .tb-btn-service{font-size:10px;padding:6px 8px}
+}
+@media(max-width:430px){.tool-toolbar-inner{gap:4px}.tb-btn-service{white-space:normal;text-align:center;line-height:1.25}}
+
 </style>
 <link rel="stylesheet" href="sharakah-ui.css?v=1.2.7">
 <link rel="stylesheet" href="sharakah-v2.css?v=1.2.7">
@@ -734,10 +761,27 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
     <div class="splash-desc">رتّب مساهمات الشركاء، وناقش الملكية والأرباح ومقابل العمل، ثم اجمع قراراتكم في ورقة مراجعة للمختص.</div>
 
-    <button class="splash-cta" onclick="G.startTool()">
-      <span>ابدأ الآن</span>
-      <span style="font-size:18px">←</span>
-    </button>
+    <div class="splash-paths" aria-label="اختر طريقة العمل على شراكتك">
+      <section class="splash-path-card splash-calc-path">
+        <div class="splash-path-copy">
+          <span class="splash-path-kicker">الخيار الأول</span>
+          <h2>رتّب الشراكة بنفسك</h2>
+          <p>ابدأ بالحاسبة لتقدير المساهمات وتجهيز نقاط النقاش الأولية.</p>
+        </div>
+        <button class="splash-cta" onclick="G.startTool()">
+          <span>ابدأ بالحاسبة</span>
+          <span style="font-size:18px">←</span>
+        </button>
+      </section>
+      <section class="splash-path-card splash-service-path">
+        <div class="splash-path-copy">
+          <span class="splash-path-kicker">خدمة حتى لحلول الأعمال</span>
+          <h2>هندسة الشراكات</h2>
+          <p>دراسة نموذج العلاقة ومساهمات الأطراف وأدوارهم وآلية توزيع العائد، وإعداد هيكل مقترح للشراكة.</p>
+        </div>
+        <a class="splash-service-cta" href="https://linktr.ee/almohammdin" target="_blank" rel="noopener">تواصل مع حتى لحلول الأعمال <span aria-hidden="true">↗</span></a>
+      </section>
+    </div>
   </div>
 </div>
 
@@ -749,6 +793,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <div class="wrap">
     <div class="tool-toolbar-inner">
       <button class="tb-btn tb-btn-ghost" onclick="G.goHome()" title="العودة للرئيسية"><span class="tb-label">الرئيسية</span></button>
+      <a class="tb-btn tb-btn-service" href="https://linktr.ee/almohammdin" target="_blank" rel="noopener">خدمة هندسة الشراكات</a>
       <span id="savedBadge" class="save-badge" role="status"></span><div class="tb-spacer"></div><button class="tb-btn tb-btn-ghost" onclick="G.saveProgress()">حفظ التقدم</button><button class="tb-btn tb-btn-ghost" onclick="G.showPrivacy()">الخصوصية</button>
       <button class="tb-btn tb-btn-warn" onclick="G.confirmReset()" title="بدء مشروع جديد"><span class="tb-label">مشروع جديد</span></button>
     </div>
@@ -1245,6 +1290,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <button class="btn btn-ghost" onclick="G.go(4)">العودة →</button>
   </div>
   <div id="copyStatus" class="copy-status" aria-live="polite"></div>
+
+  <section class="service-followup" aria-labelledby="serviceFollowupTitle">
+    <div>
+      <span class="splash-path-kicker">حتى لحلول الأعمال</span>
+      <h2 id="serviceFollowupTitle">حوّل نقاط النقاش إلى هيكل شراكة متكامل</h2>
+      <p>تقدّم حتى لحلول الأعمال خدمة هندسة الشراكات لدراسة العلاقة ومساهمات الأطراف وأدوارهم، وإعداد هيكل مقترح يمهّد للاتفاق والصياغة مع المختص.</p>
+    </div>
+    <a class="splash-service-cta" href="https://linktr.ee/almohammdin" target="_blank" rel="noopener">تواصل بشأن شراكتك <span aria-hidden="true">↗</span></a>
+  </section>
 
   <div class="nav-row" style="border-top:none;padding-top:0;margin-top:14px">
     <button class="btn btn-ghost" style="font-size:12px" onclick="G.newProject()">↺ مشروع جديد</button>
