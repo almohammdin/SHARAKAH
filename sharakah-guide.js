@@ -90,7 +90,7 @@ function evaluate(a){
  const kind=activityMap[a.activity]||activityMap.other;
  let calcType=a.existing==='yes'?'existing':a.roles==='mudaraba'?'mudaraba':a.duration==='one'?'deal':'fnb';
  let framework='',legal='',label='',critical=false;
- const shield=a.liability==='essential',debt=a.debt==='yes',ongoing=a.duration==='ongoing',special=a.regulated==='yes'||a.regulated==='unclear'||a.investors!=='no';
+ const shield=a.liability==='essential',debt=a.debt==='yes',ongoing=a.duration==='ongoing',special=a.regulated==='yes'||a.regulated==='unclear'||a.investors!=='no'||a.debt==='unclear';
  if(a.existing==='yes'){
   calcType='existing';legal='';framework='فحص دخول شريك في شركة قائمة';label='البدء بمراجعة الشركة القائمة وإجراءات نقل أو إصدار الحصص';reasons.push('المسألة تتعلق بملكية كيان مسجل، فيلزم التحقق من شكله وعقد تأسيسه وحقوق الشركاء الحاليين.');
  }else if(a.roles==='loan'){
@@ -105,14 +105,14 @@ function evaluate(a){
  }else if(a.duration==='one'&&a.roles==='shared'){
   legal='civil';calcType='deal';framework='عقد شركة مدني محتمل';label='صفقة محددة قد يناسبها اتفاق مشاركة مكتوب';reasons.push('المشروع مؤقت ومساهمات الأطراف متعددة. يجب فحص التزامات الغير والتراخيص قبل اعتماد هذا المسار.');
  }else{
-  legal='';framework='المسار يحتاج استكمال عناصر العلاقة';label='ابدأ بتنظيم مساهمات الشركاء ودراسة الإطار';reasons.push('البيانات لا تكفي للترجيح بين المشاركة المدنية والشركة المسجلة بصورة معقولة.');
+  legal='';critical=true;framework='المسار يحتاج استكمال عناصر العلاقة';label='ابدأ بتنظيم مساهمات الشركاء ودراسة الإطار';reasons.push('البيانات لا تكفي للترجيح بين المشاركة المدنية والشركة المسجلة بصورة معقولة.');
  }
  if(special){critical=true;if(!risks.some(x=>x.includes('أموال المستثمرين')))risks.push('وجود ترخيص خاص أو تعامل مع أموال المستثمرين يتطلب مراجعة متطلبات الجهة المنظمة قبل اعتماد العقد أو بدء النشاط.');}
  if(a.roles==='loan'){critical=true;if(!risks.some(x=>x.includes('قرض')))risks.push('تكييف القرض واسترداده يحتاج مراجعة منفصلة قبل اعتباره استثمارا أو مشاركة.');}
  if(a.activity==='professional'){critical=true;risks.push('المهن المرخصة تحتاج فحص قواعد الممارسة المهنية والشركات المهنية، حتى لو اتفق الشركاء على عقد مدني.');}
  if(a.liability==='essential'){risks.push('عقد الشركة المدني لا يمنح بذاته الفصل في المسؤولية المقرر للشركة ذات المسؤولية المحدودة. المادة 543 مهمة قبل اتخاذ القرار.');}
  if(a.debt==='yes'){risks.push('تحتاج الديون والضمانات وحدود سلطة المدير إلى تنظيم ومراجعة أثرها تجاه الأطراف والغير.');}
- if(a.debt==='unclear')checks.push('تقدير التزامات الموردين والعقود والاقتراض قبل اعتماد الإطار.');
+ if(a.debt==='unclear'){risks.push('لم يتضح حجم الديون والالتزامات؛ يلزم تحديدها قبل اختيار إطار يحكم مسؤولية الشركاء.');checks.push('تقدير التزامات الموردين والعقود والاقتراض قبل اعتماد الإطار.');}
  if(a.roles==='mudaraba'){risks.push('في المضاربة يتحمل رب المال خسارة رأس المال المعتادة، ويضمن المضارب الضرر الناتج عن التعدي أو التقصير، مع مراعاة أحكام التعامل مع الغير.');}
  if(a.activity==='professional')checks.push('التحقق من ضوابط المهنة المرخصة والشركة المهنية بحسب طبيعة الأطراف والعمل.');
  if(a.activity==='other')checks.push('تحديد النشاط فعليا قبل تطبيق اختبار الطبيعة التجارية.');
