@@ -120,3 +120,40 @@
 @media (max-width:600px){
  .sg-feature .sg-kashida,.sg-workspace .sg-kashida{font-size:clamp(21px,6vw,30px);line-height:1.42}
 }
+
+/* Visible kashida rendering layer (SHARAKAH 1.3.2)
+   The drawn word contains controlled elongation; the actual searchable,
+   accessible source text remains stored unmodified in .sg-original-title. */
+.sg-visual-kashida{
+ position:relative;
+ font-variant-ligatures:common-ligatures;
+ font-synthesis:none;
+ letter-spacing:normal;
+}
+.sg-visual-kashida::before{
+ content:attr(data-sg-visual);
+ display:block;
+ width:100%;
+ color:inherit;
+ font-family:inherit;
+ font-size:inherit;
+ font-weight:inherit;
+ font-feature-settings:"salt" 1,"liga" 1;
+ line-height:inherit;
+ white-space:normal;
+ overflow-wrap:normal;
+ word-break:normal;
+ user-select:none;
+ pointer-events:none;
+}
+.sg-visual-kashida > .sg-original-title{
+ position:absolute!important;
+ width:1px!important;
+ height:1px!important;
+ padding:0!important;
+ margin:-1px!important;
+ overflow:hidden!important;
+ clip-path:inset(50%)!important;
+ white-space:nowrap!important;
+ border:0!important;
+}
