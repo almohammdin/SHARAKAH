@@ -33,8 +33,9 @@ function makeShell(){
  document.addEventListener('click',function(ev){const btn=ev.target.closest('[data-sg]');if(!btn)return;const key=btn.dataset.sg;
  if(key==='open'){ev.preventDefault();state.step=0;state.answers={};open('intro')}
  else if(key==='learn'){ev.preventDefault();open('intro')}
+ else if(key==='direct'){ev.preventDefault();close();window.SHARAKAH_APP?.startTool?.()}
  else if(key==='exit'){ev.preventDefault();close()}
- else if(key==='begin'){ev.preventDefault();state.step=0;open('wizard')}
+ else if(key==='begin'){ev.preventDefault();state.step=0;state.current=null;state.answers={};updateReady();open('wizard')}
  else if(key==='choose'){ev.preventDefault();state.answers[QUESTIONS[state.step].id]=btn.dataset.value;render();}
  else if(key==='next'){ev.preventDefault();next()}
  else if(key==='prev'){ev.preventDefault();if(state.step){state.step--;render()}else open('intro')}
@@ -61,7 +62,7 @@ function intro(){
  +'<article class="sg-info"><span class="sg-ico" aria-hidden="true">▣</span><h3>شركة مسجلة</h3><p>كيان يؤسس وفق نظام الشركات. تتحدد مسؤولية الشريك بحسب الشكل، وتكون محدودة في الأصل في الشركة ذات المسؤولية المحدودة.</p><small>نظام الشركات، المادة 156</small></article></div>';
  const comparison='<details class="sg-compare"><summary style="cursor:pointer;font-weight:750;color:#17405b;padding:7px 0">افتح المقارنة التفصيلية</summary><table><thead><tr><th>المسألة</th><th>عقد شركة مدني</th><th>شركة ذات مسؤولية محدودة</th></tr></thead><tbody><tr><td>الشخصية الاعتبارية</td><td>علاقة عقدية دون شخصية الشركة المسجلة بمجرد العقد</td><td>ذمة مستقلة وفق النظام</td></tr><tr><td>ديون النشاط</td><td>قد تمتد إلى الأموال الخاصة وفق المادة 543</td><td>على الشركة في الأصل، وتراعى الضمانات والاستثناءات</td></tr><tr><td>الإدارة</td><td>الصلاحيات بالاتفاق وأحكام النظام</td><td>وفقا لعقد التأسيس وأحكام الشركة</td></tr><tr><td>الإنهاء</td><td>قد ينتهي العقد بانتهاء الغرض أو المدة</td><td>إجراءات نظامية بحسب الشكل</td></tr></tbody></table></details>';
  const note='<div class="sg-alert">تنبيه مهم: تقييد المدير في عقد الشركاء أو الاتفاق على عدم الاقتراض لا يؤدي تلقائيا إلى إعفاء الجميع من حقوق الدائنين. أما نظام المعاملات التجارية المنشور في 13 نوفمبر 2026، فيبدأ نفاذه بعد مضي 180 يوما من النشر.</div>';
- return title+sections+comparison+note+'<div class="sg-nav"><button class="sg-btn sg-btn-primary" data-sg="begin">اكتشف المسار المناسب ←</button><button class="sg-btn sg-btn-light" data-sg="exit">أعرف الإطار المناسب، أريد الحاسبة</button></div><div class="sg-footnotes">المصادر: '+ref(CIVIL,'نظام المعاملات المدنية')+' | '+ref(COMPANIES,'نظام الشركات')+' | '+ref(TRADE,'نظام المعاملات التجارية المنشور في أم القرى')+'. هذه أداة استرشادية، وتحتاج الحالات المؤثرة إلى مراجعة مختص.</div>'
+ return title+sections+comparison+note+'<div class="sg-nav"><button class="sg-btn sg-btn-primary" data-sg="begin">اكتشف المسار المناسب ←</button><button class="sg-btn sg-btn-light" data-sg="direct">أعرف الإطار المناسب، أريد الحاسبة</button></div><div class="sg-footnotes">المصادر: '+ref(CIVIL,'نظام المعاملات المدنية')+' | '+ref(COMPANIES,'نظام الشركات')+' | '+ref(TRADE,'نظام المعاملات التجارية المنشور في أم القرى')+'. هذه أداة استرشادية، وتحتاج الحالات المؤثرة إلى مراجعة مختص.</div>'
 }
 function wizard(){
  const q=QUESTIONS[state.step],chosen=state.answers[q.id],len=QUESTIONS.length,progress=Math.round((state.step+1)/len*100);
@@ -93,11 +94,12 @@ function evaluate(a){
  if(a.existing==='yes'){
   calcType='existing';legal='';framework='فحص دخول شريك في شركة قائمة';label='البدء بمراجعة الشركة القائمة وإجراءات نقل أو إصدار الحصص';reasons.push('المسألة تتعلق بملكية كيان مسجل، فيلزم التحقق من شكله وعقد تأسيسه وحقوق الشركاء الحاليين.');
  }else if(a.roles==='loan'){
-  calcType=a.duration==='one'?'deal':'fnb';legal='';framework='تحقق من طبيعة التمويل قبل وصفه بالشراكة';label='تحليل التمويل أولا قبل تحديد عقد المشاركة';critical=true;risks.push('المبلغ الموصوف بأنه قرض يسترد يحتاج فحصا مستقلا. لا يصح اعتباره تلقائيا حصة رأسمالية أو ربح مضاربة.');
+  calcType=a.duration==='one'?'deal':'fnb';legal='';framework='تحقق من طبيعة التمويل قبل وصفه بالشراكة';label='تحليل التمويل أولا قبل تحديد عقد المشاركة';critical=true;reasons.push('التمويل المسترد بصفة قرض يختلف عن المساهمة في رأس المال وعن المضاربة، لذا يتوقف تكييف العلاقة على شروطه الفعلية.');risks.push('المبلغ الموصوف بأنه قرض يسترد يحتاج فحصا مستقلا. لا يصح اعتباره تلقائيا حصة رأسمالية أو ربح مضاربة.');
  }else if(special){
-  legal='';framework='اختيار متوقف على مراجعة تنظيمية متخصصة';label='ابدأ بفحص متطلبات النشاط والتراخيص والمستثمرين';critical=true;reasons.push('وجود نشاط منظم أو مستثمرين من خارج الأطراف أو عدم اليقين بشأن الترخيص يجعل الاختيار المباشر غير مناسب.');
+  legal='';framework='اختيار متوقف على مراجعة تنظيمية متخصصة';label='ابدأ بفحص متطلبات النشاط والتراخيص والمستثمرين';critical=true;reasons.push('وجود نشاط منظم أو مستثمرين من خارج الأطراف أو عدم اليقين بشأن الترخيص يجعل الاختيار المباشر غير مناسب.');risks.push('توقف عن تلقي أموال المستثمرين أو مباشرة نشاط منظم إلى حين التحقق من متطلبات الجهة المختصة.');
  }else if(shield||debt||(ongoing&&a.roles!=='mudaraba')){
-  legal='llc';framework='دراسة تأسيس شركة ذات مسؤولية محدودة';label='شركة مسجلة تستحق الدراسة للمسؤولية والتنظيم';reasons.push('الرغبة في الفصل بين الذمم أو وجود ديون تشغيلية أو استمرار النشاط يرجح فحص كيان مستقل قبل توقيع العقد.');
+  calcType=a.duration==='one'?'deal':'fnb';legal='llc';framework='دراسة تأسيس شركة ذات مسؤولية محدودة';label='شركة مسجلة تستحق الدراسة للمسؤولية والتنظيم';reasons.push('الرغبة في الفصل بين الذمم أو وجود ديون تشغيلية أو استمرار النشاط يرجح فحص كيان مستقل قبل توقيع العقد.');
+  if(a.roles==='mudaraba')reasons.push('توزيع المال والعمل يشبه المضاربة؛ تأسيس كيان مستقل مسألة أخرى تحتاج ضبط العلاقة بين الشركاء وشكل الشركة وعقدها.');
  }else if(a.roles==='mudaraba'){
   legal='mudaraba';calcType='mudaraba';framework='عقد مضاربة محتمل';label='علاقة مال من طرف وعمل من طرف آخر';reasons.push('وصف المساهمات يميل إلى المضاربة. يجب تحديد رأس المال ونسب الربح وصلاحيات المضارب وأحكام التعدي والتقصير.');
  }else if(a.duration==='one'&&a.roles==='shared'){
@@ -186,7 +188,9 @@ function bindCalculator(){
  const oldReset=g.doReset.bind(g);
  g.doReset=function(){state.current=null;state.answers={};try{localStorage.removeItem(STORAGE)}catch{}const res=oldReset.apply(g,arguments);updateReady();return res};
  const oldSel=g.selType.bind(g);
- g.selType=function(id){const ret=oldSel.apply(g,arguments);if(state.current&&id!==state.current.calcType)updateReady();return ret;};
+ g.selType=function(id){const ret=oldSel.apply(g,arguments);if(state.current&&id!==state.current.calcType){state.current=null;try{localStorage.removeItem(STORAGE)}catch{}updateReady()}return ret;};
+ const oldExample=g.loadExample?.bind(g);
+ if(oldExample)g.loadExample=function(){state.current=null;state.answers={};try{localStorage.removeItem(STORAGE)}catch{}updateReady();return oldExample.apply(g,arguments)};
  if($('legalStruct'))$('legalStruct').addEventListener('change',updateReady);
  updateReady();
 }
