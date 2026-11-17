@@ -22,6 +22,50 @@ const state={step:0,answers:{},page:'intro',current:null};
 const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const ref=(url,label)=>'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+label+'</a>';
 function display(node,html){node.innerHTML=html}
+/* Visible design-only kashida.
+   The source string remains unchanged in a hidden but searchable DOM span;
+   CSS renders an explicitly stretched decorative copy. */
+const SG_TATWEEL='\u0640\u0640\u0640';
+const SG_KASHIDA_WORDS=[
+ ['شراكتك','ش'+SG_TATWEEL+'راكتك'],
+ ['الشراكة','الش'+SG_TATWEEL+'راكة'],
+ ['الشركاء','الش'+SG_TATWEEL+'ركاء'],
+ ['المشاركة','المش'+SG_TATWEEL+'اركة'],
+ ['العلاقة','العلاق'+SG_TATWEEL+'ة'],
+ ['المساهمات','المس'+SG_TATWEEL+'اهمات'],
+ ['مسؤولية','مس'+SG_TATWEEL+'ؤولية'],
+ ['المسؤولية','المس'+SG_TATWEEL+'ؤولية'],
+ ['شركة','ش'+SG_TATWEEL+'ركة'],
+ ['الشركة','الش'+SG_TATWEEL+'ركة'],
+ ['اتفاق','ات'+SG_TATWEEL+'فاق'],
+ ['التقييم','التقي'+SG_TATWEEL+'يم'],
+ ['تساعدك','تس'+SG_TATWEEL+'اعدك'],
+ ['المضاربة','المض'+SG_TATWEEL+'اربة']
+];
+function sgDecorateText(value){
+ for(const [from,to] of SG_KASHIDA_WORDS){
+  if(value.includes(from))return value.replace(from,to);
+ }
+ return '';
+}
+function sgApplyVisibleKashida(root){
+ if(!root||!root.querySelectorAll)return;
+ const selectors='.sg-kashida, .sg-kashida-inline, .splash-primary-path h2, .law-title, #ph1 > .ph-title, #ph2 > .ph-title, #ph5 > .ph-title';
+ root.querySelectorAll(selectors).forEach(el=>{
+  if(el.dataset.sgVisualApplied==='1')return;
+  const original=(el.textContent||'').trim();
+  const decorated=sgDecorateText(original);
+  if(!decorated||decorated===original)return;
+  const span=document.createElement('span');
+  span.className='sg-original-title';
+  span.textContent=original;
+  el.replaceChildren(span);
+  el.dataset.sgVisual=decorated;
+  el.dataset.sgVisualApplied='1';
+  el.classList.add('sg-visual-kashida');
+  el.setAttribute('aria-label',original);
+ });
+}
 function makeShell(){
  const splash=$('splashScreen'); if(!splash||$('sgWorkspace'))return;
  const feature=document.createElement('section');feature.className='sg-feature';feature.setAttribute('aria-labelledby','sgFeatureTitle');
@@ -29,6 +73,8 @@ function makeShell(){
  const paths=splash.querySelector('.splash-paths');if(paths)paths.before(feature);else splash.querySelector('.splash-inner')?.append(feature);
  const workspace=document.createElement('div');workspace.id='sgWorkspace';workspace.className='sg-workspace';workspace.setAttribute('aria-live','polite');workspace.innerHTML='<div class="sg-shell" id="sgContent"></div>';
  splash.after(workspace);
+ sgApplyVisibleKashida(splash);
+ sgApplyVisibleKashida($('toolWrapper'));
  const initial=$('sgReady');if(!initial){const note=document.createElement('div');note.className='sg-ready sg-hidden';note.id='sgReady';const legal=$('legalStruct');if(legal)legal.closest('.card')?.after(note);}
  document.addEventListener('click',function(ev){const btn=ev.target.closest('[data-sg]');if(!btn)return;const key=btn.dataset.sg;
  if(key==='open'){ev.preventDefault();state.step=0;state.answers={};open('intro')}
@@ -143,7 +189,7 @@ function result(){
  +'<div class="sg-result-actions"><button class="sg-btn sg-btn-primary" data-sg="calc">انتقل إلى الحاسبة المناسبة ←</button><button class="sg-btn sg-btn-light" data-sg="copy">نسخ التقرير</button><button class="sg-btn sg-btn-light" data-sg="reset">أعد التقييم</button></div>'
  +'<div class="sg-footnotes">المواد ذات الصلة: '+ref(CIVIL,'المعاملات المدنية: 528، 534، 535، 543، 557')+' | '+ref(COMPANIES,'نظام الشركات: 13، 23، 156')+' | '+ref(TRADE,'المعاملات التجارية: 5، 6، 9، 10، 271')+'. راجع تاريخ السريان والتعديلات عند التطبيق.</div>';
 }
-function render(){const node=$('sgContent');if(!node)return;display(node,state.page==='wizard'?wizard():state.page==='result'?result():intro());}
+function render(){const node=$('sgContent');if(!node)return;display(node,state.page==='wizard'?wizard():state.page==='result'?result():intro());sgApplyVisibleKashida(node);}
 function enterCalculator(){
  const r=state.current;if(!r)return;
  $('sgWorkspace').classList.remove('sg-active');
