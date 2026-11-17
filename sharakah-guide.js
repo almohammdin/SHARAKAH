@@ -33,7 +33,7 @@ function makeShell(){
  document.addEventListener('click',function(ev){const btn=ev.target.closest('[data-sg]');if(!btn)return;const key=btn.dataset.sg;
  if(key==='open'){ev.preventDefault();state.step=0;state.answers={};open('intro')}
  else if(key==='learn'){ev.preventDefault();open('intro')}
- else if(key==='direct'){ev.preventDefault();close();window.SHARAKAH_APP?.startTool?.()}
+ else if(key==='direct'){ev.preventDefault();state.current=null;state.answers={};try{localStorage.removeItem(STORAGE)}catch{}updateReady();close();window.SHARAKAH_APP?.startTool?.()}
  else if(key==='exit'){ev.preventDefault();close()}
  else if(key==='begin'){ev.preventDefault();state.step=0;state.current=null;state.answers={};updateReady();open('wizard')}
  else if(key==='choose'){ev.preventDefault();state.answers[QUESTIONS[state.step].id]=btn.dataset.value;render();}
@@ -194,6 +194,6 @@ function bindCalculator(){
  if($('legalStruct'))$('legalStruct').addEventListener('change',updateReady);
  updateReady();
 }
-window.SHARAKAH_GUIDE={open:function(){open('intro')},getResult:function(){return state.current},evaluate:evaluate,questions:QUESTIONS};
+window.SHARAKAH_GUIDE={open:function(){open('intro')},fromCalculator:function(){const g=window.SHARAKAH_APP;if(g&&$('toolWrapper')?.style.display==='block'){g.goHome();setTimeout(function(){open('intro')},380)}else open('intro')},getResult:function(){return state.current},evaluate:evaluate,questions:QUESTIONS};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){makeShell();bindCalculator()});else{makeShell();bindCalculator()}
 })();
