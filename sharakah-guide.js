@@ -143,13 +143,13 @@ function enterCalculator(){
  const r=state.current;if(!r)return;
  $('sgWorkspace').classList.remove('sg-active');
  const splash=$('splashScreen');splash.classList.remove('gone');splash.style.opacity='1';splash.style.display='';
- if(window.G&&typeof window.G.startTool==='function'){
-  window.G.startTool();
+ if(window.SHARAKAH_APP&&typeof window.SHARAKAH_APP.startTool==='function'){
+  window.SHARAKAH_APP.startTool();
   setTimeout(function(){
-   if(typeof window.G.selType==='function'&&window.G.TYPES.some(t=>t.id===r.calcType))window.G.selType(r.calcType);
+   if(typeof window.SHARAKAH_APP.selType==='function'&&window.SHARAKAH_APP.TYPES.some(t=>t.id===r.calcType))window.SHARAKAH_APP.selType(r.calcType);
    if(r.legal&&$('legalStruct')&&r.calcType!=='existing')$('legalStruct').value=r.legal;
-   if(typeof window.G.updPanels==='function')window.G.updPanels();
-   updateReady(); if(typeof window.G.scheduleSave==='function')window.G.scheduleSave();
+   if(typeof window.SHARAKAH_APP.updPanels==='function')window.SHARAKAH_APP.updPanels();
+   updateReady(); if(typeof window.SHARAKAH_APP.scheduleSave==='function')window.SHARAKAH_APP.scheduleSave();
   },420);
  }
 }
@@ -163,7 +163,7 @@ function updateReady(){
  note.append(h,p,b);
 }
 function returnToGuide(){
- if(!state.current)return;const g=window.G;if(g&&$('toolWrapper')?.style.display==='block'){g.goHome();setTimeout(function(){open('result')},380);}else open('result');
+ if(!state.current)return;const g=window.SHARAKAH_APP;if(g&&$('toolWrapper')?.style.display==='block'){g.goHome();setTimeout(function(){open('result')},380);}else open('result');
 }
 function copySummary(button){const r=state.current;if(!r)return;const val=summary(r);
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(val).then(()=>{button.textContent='تم نسخ التقرير'}).catch(()=>fallbackCopy(val,button))}
@@ -171,8 +171,8 @@ function copySummary(button){const r=state.current;if(!r)return;const val=summar
 }
 function fallbackCopy(str,button){const e=document.createElement('textarea');e.value=str;e.style.position='fixed';e.style.opacity='0';document.body.append(e);e.select();try{if(document.execCommand('copy'))button.textContent='تم نسخ التقرير';else button.textContent='تعذر النسخ'}catch{button.textContent='تعذر النسخ'}e.remove()}
 function bindCalculator(){
- if(!window.G||window.G.__sgBound)return;
- const g=window.G;g.__sgBound=true;
+ if(!window.SHARAKAH_APP||window.SHARAKAH_APP.__sgBound)return;
+ const g=window.SHARAKAH_APP;g.__sgBound=true;
  const oldBuild=g.buildAgr.bind(g);
  g.buildAgr=function(){
   const success=oldBuild.apply(g,arguments);if(success===false)return false;
