@@ -74,3 +74,49 @@
 .sg-hidden{display:none!important}
 @media(max-width:700px){.sg-grid{grid-template-columns:1fr}.sg-result-grid{grid-template-columns:1fr}.sg-options{grid-template-columns:1fr}.sg-feature{padding:18px}.sg-feature h2{font-size:22px}.sg-shell{padding:17px}.sg-nav .sg-btn{flex:1}.sg-head{align-items:flex-start}.sg-back{align-self:flex-start}.sg-info{padding:13px}}
 @media print{.sg-workspace{display:none!important}.sg-feature{display:none!important}.sg-ready{display:none!important}}
+
+/* Hatta 2.3 kashida & Arabic lettering • selected titles only.
+   Keep the underlying Unicode text untouched: no manual tatweel.
+   liga enables supported angled ligatures; salt enables alternates. */
+.sg-feature .sg-kashida,
+.sg-workspace .sg-kashida{
+  font-family:"Thmanyah Serif Display",serif;
+  font-feature-settings:"salt" 1,"liga" 1;
+  font-variant-ligatures:common-ligatures;
+  font-synthesis:none;
+  letter-spacing:normal;
+  text-wrap:balance;
+}
+.sg-workspace .sg-kashida-inline{
+  font-family:"Thmanyah Sans",Tahoma,sans-serif;
+  font-feature-settings:"salt" 1,"liga" 1;
+  font-variant-ligatures:common-ligatures;
+  font-synthesis:none;
+  letter-spacing:normal;
+}
+.sg-workspace .sg-head h1{
+  font-family:"Thmanyah Serif Display",serif;
+  font-weight:700;
+  font-synthesis:none;
+  line-height:1.35;
+  letter-spacing:normal;
+}
+.sg-workspace :is(.sg-info h3,.sg-result-card h3){
+  font-family:"Thmanyah Sans",Tahoma,sans-serif;
+  font-feature-settings:"salt" 1,"liga" 1;
+  font-variant-ligatures:common-ligatures;
+  font-synthesis:none;
+  font-weight:600;
+}
+/* Regular UI copy stays in default glyph form, as required by the guide. */
+.sg-workspace :is(p,li,td,th,small,button,.sg-question,.sg-question-note,.sg-tag,.sg-footnotes),
+.sg-feature :is(p,button,.sg-feature-kicker){
+  font-family:"Thmanyah Sans",Tahoma,sans-serif;
+  font-feature-settings:"salt" 0;
+}
+.sg-workspace :is(input,select,textarea,.sg-option),.sg-feature button{
+  font-feature-settings:"salt" 0;
+}
+@media (max-width:600px){
+ .sg-feature .sg-kashida,.sg-workspace .sg-kashida{font-size:clamp(21px,6vw,30px);line-height:1.42}
+}
