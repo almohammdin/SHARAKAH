@@ -969,6 +969,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="assistant-quick">
         <button type="button" onclick="PartnershipAssistant.askQuick('كيف توزع الأرباح والخسائر بين الشركاء؟')">الأرباح والخسائر</button>
         <button type="button" onclick="PartnershipAssistant.askQuick('ما الفرق بين المشاركة والمضاربة؟')">المشاركة والمضاربة</button>
+         <button type="button" onclick="PartnershipAssistant.askQuick('اشرح لغير المتخصص الفرق بين عقد شركة وفق نظام المعاملات المدنية وشركة مؤسسة وفق نظام الشركات، ومتى تمتد المسؤولية لديون الشركة وفقا للمادة 543، ومتى تكون المسؤولية محدودة في المادة 156، مع بيان أن نظام المعاملات التجارية الجديد لم يبدأ نفاذه بعد.')">المدنية والتجارية</button>
         <button type="button" onclick="PartnershipAssistant.askQuick('متى نحتاج مقيما معتمدا للحصص العينية؟')">الحصص العينية</button>
       </div>
       <div class="assistant-compose">
@@ -987,6 +988,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <div class="phase active" id="ph1">
   <h1 class="ph-title">ما طبيعة شراكتك؟</h1>
   <div class="ph-sub">اختر الحالة الأقرب لواقعك، فتظهر الحقول والنقاط المناسبة لها.</div>
+  <div style="margin:-14px 0 20px"><button type="button" class="sg-back" onclick="window.SHARAKAH_GUIDE?.fromCalculator()">محتار في اختيار الإطار؟ تعرف على الفرق</button></div>
   <div class="type-grid" id="typeGrid"></div>
   <div id="typeHint" class="notice notice-gold hide"></div>
 
