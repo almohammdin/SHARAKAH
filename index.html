@@ -836,6 +836,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <link rel="stylesheet" href="sharakah-ui.css?v=1.2.7">
 <link rel="stylesheet" href="sharakah-v2.css?v=1.2.7">
 <link rel="stylesheet" href="hatta-theme.css?v=1.2.12">
+<link rel="stylesheet" href="sharakah-guide.css?v=1.3.0">
 </head>
 <body>
 
@@ -1436,7 +1437,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       </a>
     </div><div class="footer-handle">@almohammdin</div></div>
     <div class="footer-legal">أداة استرشادية لتقدير الحصص وتجهيز أهم نقاط الاتفاق، وتمهد لمراجعتها وصياغتها مع المختص.</div>
-    <div class="footer-meta"><span class="version-chip">الإصدار 1.2.7</span><span class="footer-account-slot" id="footerAccountSlot"></span></div>
+    <div class="footer-meta"><span class="version-chip">الإصدار 1.3.0</span><span class="footer-account-slot" id="footerAccountSlot"></span></div>
   </div>
 </footer>
 
@@ -1451,6 +1452,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <script src="hatta-export-assets.js?v=1.2.7" defer></script>
 <script src="sharakah-export.js?v=1.2.7" defer></script>
 <script src="sharakah-account.js?v=1.2.8" defer></script>
+<script src="sharakah-guide.js?v=1.3.0" defer></script>
 
 <aside id="voiceDock" class="voice-dock hide" aria-label="التحكم بالمحادثة الصوتية"><div class="voice-dock-head"><button type="button" class="voice-dock-open" onclick="PartnershipAssistant.openVoicePanel()" aria-label="فتح محادثة المساعد"><span class="voice-orb" id="voiceOrb" aria-hidden="true"><span class="voice-wave"></span><span class="voice-wave"></span><span class="voice-wave"></span><span class="voice-wave"></span><span class="voice-wave"></span></span><span><strong>المساعد الصوتي</strong><span id="voiceDockStatus" role="status">يتصل…</span></span></button></div><div class="voice-dock-actions"><button id="voiceMute" type="button" onclick="PartnershipAssistant.muteVoice()" aria-pressed="false">كتم الميكروفون</button><button id="voiceFinish" type="button" onclick="PartnershipAssistant.finishVoiceTurn()">أنهيت سؤالي</button><button type="button" class="voice-end" onclick="PartnershipAssistant.stopVoice()">■ إنهاء</button></div></aside><script>window.PartnershipAssistant=window.PartnershipAssistant||{toggle(){document.getElementById('assistantStatus').textContent='تعذر تحميل المساعد. أعد تحميل الصفحة.'},toggleCard(open){document.getElementById('assistantPanel').classList.toggle('is-collapsed',!open)},listen(){this.toggle()},send(){this.toggle()},keydown(){},askQuick(){this.toggle()}};</script>
 </body>
