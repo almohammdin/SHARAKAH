@@ -35,7 +35,7 @@ function makeShell(){
  else if(key==='learn'){ev.preventDefault();open('intro')}
  else if(key==='direct'){ev.preventDefault();state.current=null;state.answers={};try{localStorage.removeItem(STORAGE)}catch{}updateReady();close();window.SHARAKAH_APP?.startTool?.()}
  else if(key==='exit'){ev.preventDefault();close()}
- else if(key==='begin'){ev.preventDefault();state.step=0;state.current=null;state.answers={};updateReady();open('wizard')}
+ else if(key==='begin'){ev.preventDefault();state.step=0;state.current=null;state.answers={};try{localStorage.removeItem(STORAGE)}catch{}updateReady();open('wizard')}
  else if(key==='choose'){ev.preventDefault();state.answers[QUESTIONS[state.step].id]=btn.dataset.value;render();}
  else if(key==='next'){ev.preventDefault();next()}
  else if(key==='prev'){ev.preventDefault();if(state.step){state.step--;render()}else open('intro')}
@@ -107,6 +107,9 @@ function evaluate(a){
  }else{
   legal='';framework='المسار يحتاج استكمال عناصر العلاقة';label='ابدأ بتنظيم مساهمات الشركاء ودراسة الإطار';reasons.push('البيانات لا تكفي للترجيح بين المشاركة المدنية والشركة المسجلة بصورة معقولة.');
  }
+ if(special){critical=true;if(!risks.some(x=>x.includes('أموال المستثمرين')))risks.push('وجود ترخيص خاص أو تعامل مع أموال المستثمرين يتطلب مراجعة متطلبات الجهة المنظمة قبل اعتماد العقد أو بدء النشاط.');}
+ if(a.roles==='loan'){critical=true;if(!risks.some(x=>x.includes('قرض')))risks.push('تكييف القرض واسترداده يحتاج مراجعة منفصلة قبل اعتباره استثمارا أو مشاركة.');}
+ if(a.activity==='professional'){critical=true;risks.push('المهن المرخصة تحتاج فحص قواعد الممارسة المهنية والشركات المهنية، حتى لو اتفق الشركاء على عقد مدني.');}
  if(a.liability==='essential'){risks.push('عقد الشركة المدني لا يمنح بذاته الفصل في المسؤولية المقرر للشركة ذات المسؤولية المحدودة. المادة 543 مهمة قبل اتخاذ القرار.');}
  if(a.debt==='yes'){risks.push('تحتاج الديون والضمانات وحدود سلطة المدير إلى تنظيم ومراجعة أثرها تجاه الأطراف والغير.');}
  if(a.debt==='unclear')checks.push('تقدير التزامات الموردين والعقود والاقتراض قبل اعتماد الإطار.');
