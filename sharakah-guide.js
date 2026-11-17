@@ -8,14 +8,14 @@ const COMPANIES='https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/a8376aea-1bc3-4
 const TRADE='https://www.uqn.gov.sa/decisions-and-regulations/4002380';
 const STORAGE='sharakah_guide_v1';
 const QUESTIONS=[
- {id:'existing',title:'هل الشراكة في شركة مسجلة حاليا؟',hint:'مثال: الدخول كمستثمر جديد في شركة لها سجل تجاري وحصص مسجلة، أو تأسيس مشروع من البداية.',items:[['yes','نعم، شركة قائمة'],['no','نبدأ علاقة أو مشروعا جديدا']]},
+ {id:'existing',title:'هل تريد الدخول في شركة قائمة؟',hint:'مثال: ترغب في شراء حصة من شركة قائمة، أو البدء بمشروع جديد.',items:[['yes','نعم، شركة قائمة'],['no','نبدأ علاقة أو مشروعا جديد']]},
  {id:'activity',title:'ما نوع العمل الأقرب لمشروعكم؟',hint:'اختر النشاط الأساسي. طبيعة النشاط مسألة منفصلة عن شكل الشركة أو عقد الشراكة.',items:[['resale','شراء منتجات أو معدات وإعادة بيعها'],['restaurant','مطعم أو متجر أو فندق أو تشغيل يومي'],['professional','مهنة حرة تعتمد على الخبرة والتأهيل'],['technology','تقنية أو تطبيقات أو خدمات رقمية'],['services','خدمات أو مقاولات أو توريد'],['other','نشاط آخر أو لم نحسمه']]},
  {id:'duration',title:'هل تنتهي الشراكة بإنجاز عمل محدد؟',hint:'مثال: شراء معدات وبيعها خلال أشهر، مقارنة بتشغيل متجر يستمر سنوات.',items:[['one','صفقة واحدة أو مدة محددة'],['ongoing','عمل مستمر أو قابل للتوسع'],['unclear','المدة لم تتحدد']]},
- {id:'roles',title:'كيف يشارك الأطراف في المال والعمل؟',hint:'المضاربة لها أحكام مختلفة عن عقد المشاركة؛ لا يحدد الاسم وحده طبيعة العلاقة.',items:[['mudaraba','طرف يقدم المال، وآخر يقدم العمل'],['shared','أكثر من طرف يساهم بالمال أو الأصول أو العمل'],['loan','المبلغ قرض يُسترد، وليس مساهمة تحتمل الربح والخسارة'],['unclear','لم نتفق بعد']]},
- {id:'liability',title:'ما مستوى حاجتكم إلى فصل ديون المشروع عن الأموال الشخصية؟',hint:'في عقد الشركة المدني قد تمتد ديون المشروع إلى أموال الشركاء وفق المادة 543. الشركة ذات المسؤولية المحدودة لها قاعدة مختلفة.',items:[['essential','هذه أولوية أساسية'],['review','أحتاج معرفة المسؤولية قبل الاختيار']]},
- {id:'debt',title:'هل يتوقع اقتراض أو شراء آجل أو عقود والتزامات مالية على المشروع؟',hint:'المهم هو حقيقة الالتزامات ومن يمثل الشركاء أمام الغير، وليس مجرد منع المدير من الاقتراض في العقد.',items:[['yes','نعم، توجد أو نتوقع التزامات'],['no','لا نتوقع ذلك حاليا'],['unclear','غير معروف بعد']]},
+ {id:'roles',title:'كيف يشارك الأطراف في المال والعمل؟',hint:'تختلف أحكام المضاربة عن المشاركة. نحدد طبيعة العلاقة حسب مساهمة كل طرف.',items:[['mudaraba','طرف يقدم المال، وآخر يقدم العمل'],['shared','أكثر من طرف يساهم بالمال أو الأصول أو العمل'],['loan','المبلغ قرض يُسترد، وليس مساهمة تحتمل الربح والخسارة'],['unclear','لم نتفق بعد']]},
+ {id:'liability',title:'ما مستوى حاجتكم إلى فصل ديون المشروع عن الأموال الشخصية؟',hint:'قد تمتد ديون الشراكة المدنية إلى أموال الشركاء وفق المادة 543. في الشركة ذات المسؤولية المحدودة تختلف القاعدة.',items:[['essential','هذه أولوية أساسية'],['review','أحتاج معرفة المسؤولية قبل الاختيار']]},
+ {id:'debt',title:'هل تتوقع ديون أو التزامات مالية على المشروع؟',hint:'فكر في الموردين والعقود والتمويل، ومن يملك حق التوقيع باسم الشركاء.',items:[['yes','نعم، توجد أو نتوقع التزامات'],['no','لا نتوقع ذلك حاليا'],['unclear','غير معروف بعد']]},
  {id:'regulated',title:'هل يرتبط المشروع بترخيص مهني أو نشاط منظم؟',hint:'مثل الأعمال المهنية المرخصة أو الخدمات المالية أو الأنشطة التي تحتاج موافقات خاصة.',items:[['yes','نعم'],['no','بحسب علمي لا'],['unclear','أحتاج إلى التحقق']]},
- {id:'investors',title:'هل ستجمعون أموال مستثمرين من خارج أطراف المشروع أو تديرون أموالهم؟',hint:'هذه الحالات قد تخضع لتنظيم خاص، ولا يكفي عقد الشراكة وحده لتحديد مشروعية النشاط.',items:[['yes','نعم'],['no','لا، الشراكة بين الأطراف المعروفة'],['unclear','ممكن مستقبلا']]}
+ {id:'investors',title:'هل ستجمعون أموال مستثمرين من خارج أطراف المشروع أو تديرون أموالهم؟',hint:'قد تخضع هذه الأعمال لتنظيم خاص، لذلك نراجع متطلبات النشاط قبل اختيار الشراكة.',items:[['yes','نعم'],['no','لا، الشراكة بين الأطراف المعروفة'],['unclear','ممكن مستقبلا']]}
 ];
 const $=id=>document.getElementById(id);
 const state={step:0,answers:{},page:'intro',current:null};
@@ -25,7 +25,7 @@ function display(node,html){node.innerHTML=html}
 function makeShell(){
  const splash=$('splashScreen'); if(!splash||$('sgWorkspace'))return;
  const feature=document.createElement('section');feature.className='sg-feature';feature.setAttribute('aria-labelledby','sgFeatureTitle');
- feature.innerHTML='<div class="sg-feature-kicker">جديد في حاسبة الشراكات</div><h2 id="sgFeatureTitle">قبل حساب النسب، اختر إطار شراكتك</h2><p>هل الأنسب عقد مشاركة أو مضاربة أو شركة مسجلة؟ تعرف على الفروق والمخاطر، وأجب عن أسئلة قصيرة ثم أكمل في الحاسبة المناسبة.</p><div class="sg-feature-actions"><button type="button" class="sg-btn sg-btn-primary" data-sg="open">ساعدني أختار شراكتي ←</button><button type="button" class="sg-btn sg-btn-outline" data-sg="learn">افهم الفرق أولا</button></div>';
+ feature.innerHTML='<div class="sg-feature-kicker">جديد في حاسبة الشراكات</div><h2 id="sgFeatureTitle" class="sg-kashida">قبل حساب النسب، اختر إطار شراكتك</h2><p>تعرف على الفرق بين عقد المشاركة والمضاربة والشركة المسجلة. أجب عن أسئلة بسيطة، ثم انتقل للمسار الأقرب لمشروعك.</p><div class="sg-feature-actions"><button type="button" class="sg-btn sg-btn-primary" data-sg="open">ساعدني أختار شراكتي ←</button><button type="button" class="sg-btn sg-btn-outline" data-sg="learn">افهم الفرق أولا</button></div>';
  const paths=splash.querySelector('.splash-paths');if(paths)paths.before(feature);else splash.querySelector('.splash-inner')?.append(feature);
  const workspace=document.createElement('div');workspace.id='sgWorkspace';workspace.className='sg-workspace';workspace.setAttribute('aria-live','polite');workspace.innerHTML='<div class="sg-shell" id="sgContent"></div>';
  splash.after(workspace);
@@ -55,18 +55,18 @@ function close(){
  $('sgWorkspace').classList.remove('sg-active');const sp=$('splashScreen');sp.classList.remove('gone');sp.style.display='';sp.style.opacity='1';window.scrollTo({top:0,behavior:'instant'})
 }
 function intro(){
- const title='<div class="sg-head"><div><div class="sg-eyebrow">دليل اختيار الشراكة</div><h1>افهم العلاقة قبل الاتفاق على نسبها</h1><p>لأن مسؤولية الشركاء وحقوق الغير قد تختلف باختلاف العقد والشكل النظامي وطبيعة العمل.</p></div><button class="sg-back" data-sg="exit">العودة للرئيسية</button></div>';
- const sections='<div class="sg-hero"><strong>3 أمور مختلفة، نفصل بينها من البداية</strong><p>طبيعة العمل: هل النشاط تجاري أو مهني؟ إطار العلاقة: هل هو عقد مشاركة أو مضاربة أو شركة مسجلة؟ المسؤولية: من يلتزم بالديون أمام الغير؟</p></div>'
+ const title='<div class="sg-head"><div><div class="sg-eyebrow">دليل اختيار الشراكة</div><h1 class="sg-kashida">افهم العلاقة قبل الاتفاق على نسبها</h1><p>لأن مسؤولية الشركاء وحقوق الغير قد تختلف باختلاف العقد والشكل النظامي وطبيعة العمل.</p></div><button class="sg-back" data-sg="exit">العودة للرئيسية</button></div>';
+ const sections='<div class="sg-hero"><strong class="sg-kashida-inline">3 أمور تساعدك تختار</strong><p>طبيعة العمل: هل النشاط تجاري أو مهني؟ إطار العلاقة: هل هو عقد مشاركة أو مضاربة أو شركة مسجلة؟ المسؤولية: من يلتزم بالديون أمام الغير؟</p></div>'
  +'<div class="sg-grid"><article class="sg-info"><span class="sg-ico" aria-hidden="true">🤝</span><h3>عقد شركة مدني</h3><p>اتفاق مكتوب بين أطراف يقدمون مساهمات ويتشاركون النتائج. قد تمتد ديون أعمال الشركة إلى أموال الشركاء الخاصة وفق المادة 543.</p><small>نظام المعاملات المدنية، المواد 528 و543</small></article>'
  +'<article class="sg-info"><span class="sg-ico" aria-hidden="true">◈</span><h3>عقد مضاربة</h3><p>رب مال يقدم رأس المال، ومضارب يقدم العمل والإدارة. يتوزع الربح حسب الاتفاق، وللخسارة والضمان أحكام خاصة.</p><small>نظام المعاملات المدنية، المواد 550 إلى 559</small></article>'
  +'<article class="sg-info"><span class="sg-ico" aria-hidden="true">▣</span><h3>شركة مسجلة</h3><p>كيان يؤسس وفق نظام الشركات. تتحدد مسؤولية الشريك بحسب الشكل، وتكون محدودة في الأصل في الشركة ذات المسؤولية المحدودة.</p><small>نظام الشركات، المادة 156</small></article></div>';
  const comparison='<details class="sg-compare"><summary style="cursor:pointer;font-weight:750;color:#17405b;padding:7px 0">افتح المقارنة التفصيلية</summary><table><thead><tr><th>المسألة</th><th>عقد شركة مدني</th><th>شركة ذات مسؤولية محدودة</th></tr></thead><tbody><tr><td>الشخصية الاعتبارية</td><td>علاقة عقدية دون شخصية الشركة المسجلة بمجرد العقد</td><td>ذمة مستقلة وفق النظام</td></tr><tr><td>ديون النشاط</td><td>قد تمتد إلى الأموال الخاصة وفق المادة 543</td><td>على الشركة في الأصل، وتراعى الضمانات والاستثناءات</td></tr><tr><td>الإدارة</td><td>الصلاحيات بالاتفاق وأحكام النظام</td><td>وفقا لعقد التأسيس وأحكام الشركة</td></tr><tr><td>الإنهاء</td><td>قد ينتهي العقد بانتهاء الغرض أو المدة</td><td>إجراءات نظامية بحسب الشكل</td></tr></tbody></table></details>';
- const note='<div class="sg-alert">تنبيه مهم: تقييد المدير في عقد الشركاء أو الاتفاق على عدم الاقتراض لا يؤدي تلقائيا إلى إعفاء الجميع من حقوق الدائنين. أما نظام المعاملات التجارية المنشور في 13 نوفمبر 2026، فيبدأ نفاذه بعد مضي 180 يوما من النشر.</div>';
- return title+sections+comparison+note+'<div class="sg-nav"><button class="sg-btn sg-btn-primary" data-sg="begin">اكتشف المسار المناسب ←</button><button class="sg-btn sg-btn-light" data-sg="direct">أعرف الإطار المناسب، أريد الحاسبة</button></div><div class="sg-footnotes">المصادر: '+ref(CIVIL,'نظام المعاملات المدنية')+' | '+ref(COMPANIES,'نظام الشركات')+' | '+ref(TRADE,'نظام المعاملات التجارية المنشور في أم القرى')+'. هذه أداة استرشادية، وتحتاج الحالات المؤثرة إلى مراجعة مختص.</div>'
+ const note='<div class="sg-alert">تنبيه مهم: تحديد صلاحية المدير أو منع الاقتراض في العقد قد لا يمنع مطالبة الدائنين بحقوقهم تجاه الشركاء. أما نظام المعاملات التجارية المنشور في 13 نوفمبر 2026، فيبدأ نفاذه بعد مضي 180 يوما من النشر.</div>';
+ return title+sections+comparison+note+'<div class="sg-nav"><button class="sg-btn sg-btn-primary" data-sg="begin">اكتشف المسار المناسب ←</button><button class="sg-btn sg-btn-light" data-sg="direct">أعرف نوع شراكتي، ابدأ الحاسبة</button></div><div class="sg-footnotes">المصادر: '+ref(CIVIL,'نظام المعاملات المدنية')+' | '+ref(COMPANIES,'نظام الشركات')+' | '+ref(TRADE,'نظام المعاملات التجارية المنشور في أم القرى')+'. الدليل يساعدك على ترتيب الخيارات، والحالات المؤثرة تحتاج مراجعة مختص.</div>'
 }
 function wizard(){
  const q=QUESTIONS[state.step],chosen=state.answers[q.id],len=QUESTIONS.length,progress=Math.round((state.step+1)/len*100);
- let html='<div class="sg-head"><div><div class="sg-eyebrow">المسار المناسب لشراكتك</div><h1>حدثنا عن مشروعك</h1><p>أسئلة بلغة بسيطة، والنتيجة تشرح الأسباب والمخاطر مع المراجع.</p></div><button class="sg-back" data-sg="exit">العودة للرئيسية</button></div>';
+ let html='<div class="sg-head"><div><div class="sg-eyebrow">المسار المناسب لشراكتك</div><h1>حدثنا عن مشروعك</h1><p>أسئلة بسيطة، ثم نتيجة تشرح أسباب الاختيار والمخاطر والمراجع.</p></div><button class="sg-back" data-sg="exit">العودة للرئيسية</button></div>';
  html+='<div class="sg-stage"><span>السؤال '+(state.step+1)+' من '+len+'</span><span>'+progress+'%</span></div><div class="sg-progress"><div style="width:'+progress+'%"></div></div>';
  html+='<h2 class="sg-question">'+esc(q.title)+'</h2><p class="sg-question-note">'+esc(q.hint)+'</p><div class="sg-options">';
  q.items.forEach(item=>{html+='<button type="button" class="sg-option" aria-pressed="'+(chosen===item[0]?'true':'false')+'" data-sg="choose" data-value="'+item[0]+'">'+esc(item[1])+'</button>'});
@@ -130,10 +130,10 @@ function summary(r){
 function result(){
  const r=state.current;if(!r)return intro();
  const bullet=arr=>'<ul>'+arr.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul>';
- const alert=r.critical?'هذه الحالة تحتاج مراجعة متخصصة قبل اعتماد إطار نهائي. يمكنك استعمال الحاسبة لتقدير المساهمات وتجهيز نقاط النقاش فقط.':'النتيجة ترجيح مبدئي من وصفك، وقد يتغير بعد مراجعة طبيعة العقود والديون والتراخيص.';
- return '<div class="sg-head"><div><div class="sg-eyebrow">نتيجة دليل اختيار الشراكة</div><h1>هذه أبرز الخيارات أمامك</h1><p>نبدأ بالنشاط، ثم العلاقة بين الأطراف، ثم المسؤولية.</p></div><button class="sg-back" data-sg="exit">العودة للرئيسية</button></div>'
- +'<div class="sg-tag">ترجيح استرشادي</div><div class="sg-tag '+(r.critical?'sg-tag-warn':'')+'">'+(r.critical?'تحتاج مراجعة متخصصة':'جاهزة للنقاش الأولي')+'</div>'
- +'<h2 class="sg-result-heading">'+esc(r.framework)+'</h2><p class="sg-result-intro">'+esc(r.label)+'</p>'
+ const alert=r.critical?'هذه الحالة تحتاج مراجعة مختص قبل اختيار الإطار. يمكنك استخدام الحاسبة لتقدير المساهمات وترتيب نقاط النقاش.':'النتيجة مبنية على إجاباتك، وقد تتغير بعد مراجعة العقود والديون والتراخيص.';
+ return '<div class="sg-head"><div><div class="sg-eyebrow">نتيجة دليل اختيار الشراكة</div><h1>نتيجة تقييم الشراكة</h1><p>نبدأ بالنشاط، ثم العلاقة بين الأطراف، ثم المسؤولية.</p></div><button class="sg-back" data-sg="exit">العودة للرئيسية</button></div>'
+ +'<div class="sg-tag">اتجاه مبدئي</div><div class="sg-tag '+(r.critical?'sg-tag-warn':'')+'">'+(r.critical?'تحتاج مراجعة متخصصة':'جاهزة للنقاش الأولي')+'</div>'
+ +'<h2 class="sg-result-heading sg-kashida">'+esc(r.framework)+'</h2><p class="sg-result-intro">'+esc(r.label)+'</p>'
  +'<div class="sg-alert '+(r.critical?'sg-alert-danger':'')+'">'+esc(alert)+'</div>'
  +'<div class="sg-result-grid"><section class="sg-result-card"><h3>طبيعة العمل</h3><p><strong>'+esc(r.activity)+'</strong></p><p>'+esc(r.activityLaw)+'</p><p>توصيف نظام المعاملات التجارية للاسترشاد بالمستقبل: نشِر 13 نوفمبر 2026 ويبدأ نفاذه بعد مضي 180 يوما.</p></section>'
  +'<section class="sg-result-card"><h3>لماذا هذا الاتجاه؟</h3>'+bullet(r.reasons)+'</section>'
